@@ -1869,6 +1869,10 @@ const IMG_PLACEHOLDERS = {
 function isValidImageRef(v) {
   return typeof v === 'string' && v.trim().length > 0;
 }
+function isVideoUrl(url) {
+  if (!isTruthyStr(url)) return false;
+  return /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(url) || url.includes('/video/upload/');
+}
 
 const ImageResolver = {
   getCardImage(shop) {
@@ -3281,16 +3285,29 @@ function renderLogoBadge(shop,cat) {
 function renderGalleryMarkup(shop) {
   const images=ImageResolver.getGalleryImages(shop);
   if(!images.length) return `<div class="gallery-main" style="cursor:default;aspect-ratio:4/3"><div class="gallery-empty"><i class="fas fa-images"></i><span>No gallery photos yet</span></div></div>`;
+  const first = images[0];
+  const firstIsVideo = isVideoUrl(first);
   const ph0=IMG_PLACEHOLDERS.gallery(shop.id+'-0');
+  const mainMediaHtml = firstIsVideo
+    ? `<video id="gmain" src="${esc(first)}" controls playsinline preload="metadata" style="width:100%;height:100%;object-fit:contain;background:#000"></video>`
+    : `<img id="gmain" src="${esc(first)}" alt="Photo" width="800" height="600" loading="eager" fetchpriority="high" ${imgFallbackAttr(ph0)}/>`;
   return `
-    <div class="gallery-main" onclick="openLightbox()">
-      <img id="gmain" src="${esc(images[0])}" alt="Photo" width="800" height="600" loading="eager" fetchpriority="high" ${imgFallbackAttr(ph0)}/>
+    <div class="gallery-main" ${firstIsVideo ? '' : 'onclick="openLightbox()"'}>
+      ${mainMediaHtml}
       <button class="gallery-ctrl gallery-prev" onclick="event.stopPropagation();gallNav(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
       <button class="gallery-ctrl gallery-next" onclick="event.stopPropagation();gallNav(1)" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
       <span class="gallery-counter" id="gctr">1/${images.length}</span>
-      <button class="gallery-expand-btn" onclick="event.stopPropagation();openLightbox()"><i class="fas fa-expand"></i> Full</button>
+      ${firstIsVideo ? '' : `<button class="gallery-expand-btn" onclick="event.stopPropagation();openLightbox()"><i class="fas fa-expand"></i> Full</button>`}
     </div>
-    <div class="gallery-thumbs" id="gthumbs">${images.map((im,i)=>`<div class="gallery-thumb ${i===0?'active':''}" onclick="setGall(${i})" id="gt-${i}"><img src="${esc(im)}" alt="" width="60" height="60" loading="lazy" ${imgFallbackAttr(IMG_PLACEHOLDERS.gallery(shop.id+'-'+i))}/></div>`).join('')}</div>`;
+    <div class="gallery-thumbs" id="gthumbs">${images.map((im,i)=>{
+      const vid = isVideoUrl(im);
+      return `<div class="gallery-thumb ${i===0?'active':''}" onclick="setGall(${i})" id="gt-${i}" style="position:relative">
+        ${vid
+          ? `<video src="${esc(im)}#t=0.1" muted preload="metadata" style="width:100%;height:100%;object-fit:cover"></video><i class="fas fa-play" style="position:absolute;color:#fff;font-size:0.7rem;top:50%;left:50%;transform:translate(-50%,-50%);text-shadow:0 1px 4px rgba(0,0,0,0.6)"></i>`
+          : `<img src="${esc(im)}" alt="" width="60" height="60" loading="lazy" ${imgFallbackAttr(IMG_PLACEHOLDERS.gallery(shop.id+'-'+i))}/>`
+        }
+      </div>`;
+    }).join('')}</div>`;
 }
 
 function buildModal(shop) {
@@ -3380,8 +3397,29 @@ function setGall(i){ gallIdx=i; updateGall(); }
 function updateGall(){
   if(!curShop)return;
   const imgs=ImageResolver.getGalleryImages(curShop);if(!imgs.length)return;
-  const img=document.getElementById('gmain'),ctr=document.getElementById('gctr');
-  if(img)img.src=imgs[gallIdx];
+  const ctr=document.getElementById('gctr');
+  const mainWrap = document.querySelector('.gallery-main');
+  const current = imgs[gallIdx];
+  const vid = isVideoUrl(current);
+  if(mainWrap){
+    mainWrap.onclick = vid ? null : function(){ openLightbox(); };
+    const expandBtn = mainWrap.querySelector('.gallery-expand-btn');
+    if(expandBtn) expandBtn.style.display = vid ? 'none' : '';
+    const existing = document.getElementById('gmain');
+    if(existing) existing.remove();
+    const ph = IMG_PLACEHOLDERS.gallery(curShop.id+'-'+gallIdx);
+    const mediaEl = document.createElement(vid ? 'video' : 'img');
+    mediaEl.id = 'gmain';
+    mediaEl.src = current;
+    if(vid){
+      mediaEl.controls = true; mediaEl.playsInline = true; mediaEl.preload = 'metadata';
+      mediaEl.style.cssText = 'width:100%;height:100%;object-fit:contain;background:#000';
+    } else {
+      mediaEl.alt = 'Photo'; mediaEl.loading = 'eager';
+      mediaEl.onerror = function(){ this.onerror=null; this.src = ph; };
+    }
+    mainWrap.insertBefore(mediaEl, mainWrap.firstChild);
+  }
   if(ctr)ctr.textContent=`${gallIdx+1}/${imgs.length}`;
   document.querySelectorAll('.gallery-thumb').forEach((t,i)=>t.classList.toggle('active',i===gallIdx));
 }

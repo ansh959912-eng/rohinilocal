@@ -78,6 +78,7 @@ const SHOPS_BASE = [
   "name": "ICCS Computer Academy",
   "category": "Computer Training",
   detailPage: "/shop/3-iccs-computer-academy.html",
+  "verified": "true",
   "owner": "",
   "phone": "+919625878007",
   "whatsapp": "919625878007",
@@ -105,7 +106,7 @@ const SHOPS_BASE = [
     category: "Cyber Cafe",
     owner: "",
     phone: "+918796070307",
-
+"verified": "true",
     whatsapp: "918796070307",
     address: "A3, J.j Colony, Rohini Sector 25, Delhi",
     description: "",
