@@ -1,0 +1,21 @@
+{
+  "id": 2,
+  "name": "Sharma Electricals",
+  "detailPage": "shop/2-sharma-electricals.html",
+  "category": "Electrical Shop",
+  "owner": "Mr. Vinod Sharma",
+  "phone": "+919876500002",
+  "verified": "true",
+  "whatsapp": "919876500002",
+  "address": "Shop 4, Pocket B, Rohini Sector 11, Delhi",
+  "description": "Wiring, switches, fans, and all electrical fittings at fair prices.",
+  "openTime": "10:00 AM",
+  "closeTime": "8:00 PM",
+  "lat": 28.730492,
+  "lng": 77.1111727,
+  "mapLink": "https://www.google.com/maps/place/Ropar+Punjabi+Dhaba/@28.730492,77.1111727,16.73z/data=!4m15!1m8!3m7!1s0x390d01373b9ff459:0xcb80daeabaec4af8!2sSector+11,+Rohini,+Delhi!3b1!8m2!3d28.7288259!4d77.1068059!16s%2Fg%2F1vfzck8_!3m5!1s0x390d0136f29341c5:0x71ff641f0263a8e!8m2!3d28.731135!4d77.1097575!16s%2Fg%2F12hplq4qz?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D",
+  "addedAt": "2026-02-02",
+  "cardImage": "https://picsum.photos/seed/sharma-card/400/280",
+  "coverImage": "https://res.cloudinary.com/db2tt1cy6/image/upload/v1782296146/342df288-bd9b-461d-8f49-f50bc9df0462.png",
+  "logoImage": "https://res.cloudinary.com/db2tt1cy6/image/upload/v1782295956/af5b1822-a3ad-4ff5-8810-22ff7baf06ea.png"
+}

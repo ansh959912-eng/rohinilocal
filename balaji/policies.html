@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balaji Store — Policies & Support</title>
+<link rel="manifest" href="/manifest.json"/>
+<link rel="apple-touch-icon" href="/icon/icon-192.png"/>
+<link rel="icon" type="image/png" href="/icon/icon-192.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --saffron: #FF6B00;
+  --saffron-2: #FF8C00;
+  --green: #16a34a;
+  --green-2: #22c55e;
+  --dark: #0a0a0a;
+  --darker: #050505;
+  --card: #111111;
+  --card-2: #161616;
+  --text: #f0ece6;
+  --muted: #8a8070;
+  --border: rgba(255,107,0,0.12);
+  --border-2: rgba(255,255,255,0.06);
+  --glow: rgba(255,107,0,0.15);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--darker);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 24px 80px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,107,0,0.18) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 80% 80%, rgba(22,163,74,0.10) 0%, transparent 60%),
+    linear-gradient(180deg, #0a0505 0%, #050505 100%);
+  z-index: 0;
+}
+
+/* Animated orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: orbFloat 8s ease-in-out infinite alternate;
+}
+.orb-1 { width: 500px; height: 500px; background: rgba(255,107,0,0.10); top: -200px; left: -150px; animation-delay: 0s; }
+.orb-2 { width: 350px; height: 350px; background: rgba(22,163,74,0.08); bottom: -100px; right: -100px; animation-delay: -3s; }
+.orb-3 { width: 200px; height: 200px; background: rgba(255,140,0,0.12); top: 40%; left: 60%; animation-delay: -5s; }
+
+@keyframes orbFloat {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(30px, 20px) scale(1.08); }
+}
+
+/* Grid lines */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,107,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,107,0,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 750px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,107,0,0.10);
+  border: 1px solid rgba(255,107,0,0.25);
+  border-radius: 50px;
+  padding: 7px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--saffron);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.hero-badge .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--saffron);
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  animation: fadeUp 0.7s ease 0.1s both;
+}
+
+.hero h1 .line-1 { display: block; color: var(--text); }
+.hero h1 .line-2 {
+  display: block;
+  background: linear-gradient(90deg, var(--saffron), var(--saffron-2), var(--green-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  margin-top: 20px;
+  font-size: 16px;
+  color: var(--muted);
+  font-weight: 400;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+  animation: fadeUp 0.7s ease 0.2s both;
+}
+
+.hero-divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--saffron), transparent);
+  margin: 28px auto 0;
+  animation: fadeUp 0.7s ease 0.3s both;
+}
+
+/* Quick nav pills */
+.quick-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 36px;
+  animation: fadeUp 0.7s ease 0.4s both;
+}
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-2);
+  border-radius: 50px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.nav-pill:hover {
+  background: rgba(255,107,0,0.10);
+  border-color: rgba(255,107,0,0.3);
+  color: var(--saffron);
+  transform: translateY(-2px);
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  animation: fadeUp 1s ease 0.8s both;
+  z-index: 2;
+}
+.scroll-mouse {
+  width: 22px; height: 36px;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 11px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 6px;
+}
+.scroll-mouse::after {
+  content: '';
+  width: 4px; height: 8px;
+  background: var(--saffron);
+  border-radius: 2px;
+  animation: scrollDown 1.6s ease-in-out infinite;
+}
+@keyframes scrollDown {
+  0%,100% { transform: translateY(0); opacity:1; }
+  80% { transform: translateY(10px); opacity:0; }
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(24px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── MAIN CONTENT ── */
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: fadeUp 0.5s ease both;
+}
+.section-label::before, .section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── POLICY CARDS ── */
+.policy-card {
+  background: var(--card);
+  border: 1px solid var(--border-2);
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  animation: fadeUp 0.5s ease both;
+}
+
+.policy-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,107,0,0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.policy-card:hover::before { opacity: 1; }
+.policy-card:hover {
+  border-color: rgba(255,107,0,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,107,0,0.08);
+}
+
+.policy-card::after {
+  content: attr(data-number);
+  position: absolute;
+  top: 24px; right: 32px;
+  font-family: 'Playfair Display', serif;
+  font-size: 80px;
+  font-weight: 900;
+  color: rgba(255,107,0,0.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.card-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  position: relative;
+}
+.card-icon.orange { background: rgba(255,107,0,0.12); }
+.card-icon.green  { background: rgba(22,163,74,0.12); }
+.card-icon.blue   { background: rgba(59,130,246,0.12); }
+.card-icon.amber  { background: rgba(245,158,11,0.12); }
+.card-icon.purple { background: rgba(139,92,246,0.12); }
+.card-icon.teal   { background: rgba(20,184,166,0.12); }
+.card-icon.red    { background: rgba(239,68,68,0.12); }
+.card-icon.indigo { background: rgba(99,102,241,0.12); }
+
+.card-title-group { flex: 1; }
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+.card-subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 3px;
+  font-weight: 400;
+}
+
+/* Divider */
+.card-divider {
+  height: 1px;
+  background: var(--border-2);
+  margin-bottom: 22px;
+}
+
+.card-body {
+  font-size: 14.5px;
+  color: rgba(240,236,230,0.65);
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+/* List items */
+.policy-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.policy-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14.5px;
+  color: rgba(240,236,230,0.65);
+  line-height: 1.6;
+}
+
+.policy-list li::before {
+  content: '';
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: rgba(255,107,0,0.12);
+  border: 1px solid rgba(255,107,0,0.25);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 5l2.5 2.5L8 3' stroke='%23FF6B00' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px;
+}
+
+/* Payment badges */
+.pay-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.pay-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-2);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  transition: all 0.2s;
+}
+.pay-badge:hover {
+  background: rgba(255,107,0,0.08);
+  border-color: rgba(255,107,0,0.2);
+  transform: translateY(-2px);
+}
+.pay-badge .pb-icon {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex; align-items:center; justify-content:center;
+  font-size: 16px;
+}
+
+/* FAQ */
+.faq-item {
+  border: 1px solid var(--border-2);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  transition: border-color 0.2s;
+}
+.faq-item:hover { border-color: rgba(255,107,0,0.2); }
+
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
+  gap: 12px;
+}
+
+.faq-question .faq-arrow {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(255,107,0,0.08);
+  border: 1px solid rgba(255,107,0,0.15);
+  display: flex; align-items:center; justify-content:center;
+  flex-shrink: 0;
+  transition: transform 0.3s, background 0.2s;
+  font-size: 11px;
+  color: var(--saffron);
+}
+.faq-item.open .faq-arrow { transform: rotate(180deg); background: rgba(255,107,0,0.15); }
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.2s;
+  font-size: 13.5px;
+  color: rgba(240,236,230,0.55);
+  line-height: 1.7;
+}
+.faq-item.open .faq-answer { max-height: 200px; padding: 0 22px 18px; }
+
+/* Contact items */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media(max-width:600px) { .contact-grid { grid-template-columns: 1fr; } }
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-2);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.contact-item:hover {
+  background: rgba(255,107,0,0.07);
+  border-color: rgba(255,107,0,0.2);
+  transform: translateY(-2px);
+}
+.contact-icon {
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  background: rgba(255,107,0,0.1);
+  display: flex; align-items:center; justify-content:center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.contact-label { font-size: 10px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+.contact-value { font-size: 14px; font-weight: 600; color: var(--text); margin-top: 2px; }
+
+/* Hours badge */
+.hours-row {
+  display: flex; align-items:center; gap:10px;
+  margin-top: 16px;
+  padding: 14px 18px;
+  background: rgba(22,163,74,0.07);
+  border: 1px solid rgba(22,163,74,0.18);
+  border-radius: 12px;
+}
+.hours-dot { width:8px; height:8px; border-radius:50%; background:var(--green-2); animation:blink 1.5s infinite; }
+.hours-text { font-size: 13px; color: rgba(34,197,94,0.9); font-weight: 600; }
+
+/* About highlights */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 24px;
+}
+@media(max-width:500px) { .about-stats { grid-template-columns: 1fr 1fr; } }
+
+.stat-item {
+  background: rgba(255,107,0,0.06);
+  border: 1px solid rgba(255,107,0,0.12);
+  border-radius: 14px;
+  padding: 18px 14px;
+  text-align: center;
+}
+.stat-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--saffron);
+  line-height: 1;
+}
+.stat-lbl { font-size: 11px; color: var(--muted); margin-top: 5px; font-weight: 500; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark);
+  border-top: 1px solid var(--border-2);
+  padding: 50px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,107,0,0.3), transparent);
+}
+
+.footer-inner {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.footer-brand {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.footer-logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--saffron), var(--saffron-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.footer-tagline { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.footer-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-2);
+  border-radius: 50px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.footer-link:hover {
+  background: rgba(255,107,0,0.08);
+  border-color: rgba(255,107,0,0.25);
+  color: var(--saffron);
+  transform: translateY(-2px);
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 12px;
+  color: rgba(138,128,112,0.5);
+  border-top: 1px solid var(--border-2);
+  padding-top: 24px;
+}
+
+/* ── FLOATING HOME BTN ── */
+.floating-home-btn {
+  position: fixed;
+  bottom: 28px; right: 28px;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-2));
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+  border-radius: 50px;
+  box-shadow: 0 12px 40px rgba(255,107,0,0.4), 0 0 0 1px rgba(255,107,0,0.2);
+  transition: all 0.3s;
+  font-family: 'DM Sans', sans-serif;
+}
+.floating-home-btn:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 20px 50px rgba(255,107,0,0.5);
+}
+.floating-home-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 52px;
+  background: linear-gradient(135deg, var(--saffron), var(--green-2));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.floating-home-btn:hover::before { opacity: 0.4; }
+
+@media(max-width:768px) {
+  .floating-home-btn { bottom:20px; right:20px; padding:12px 18px; font-size:12px; }
+  .policy-card { padding: 28px 22px; }
+  .policy-card::after { font-size:56px; top:14px; right:18px; }
+  .hero h1 { font-size: 2.8rem; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* Stagger animations */
+.policy-card:nth-child(1) { animation-delay: 0.05s; }
+.policy-card:nth-child(2) { animation-delay: 0.10s; }
+.policy-card:nth-child(3) { animation-delay: 0.15s; }
+.policy-card:nth-child(4) { animation-delay: 0.20s; }
+.policy-card:nth-child(5) { animation-delay: 0.25s; }
+.policy-card:nth-child(6) { animation-delay: 0.30s; }
+.policy-card:nth-child(7) { animation-delay: 0.35s; }
+.policy-card:nth-child(8) { animation-delay: 0.40s; }
+.policy-card:nth-child(9) { animation-delay: 0.45s; }
+</style>
+</head>
+<body>
+
+<!-- FLOATING HOME -->
+<a href="/balaji/index.html" class="floating-home-btn">🏠 Home</a>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="dot"></span> Rohini, Delhi – Since 2023</div>
+    <h1>
+      <span class="line-1">Balaji</span>
+      <span class="line-2">Store</span>
+    </h1>
+    <p class="hero-sub">Everything you need to know about our policies, support, delivery, payments, and more.</p>
+    <div class="hero-divider"></div>
+
+    <nav class="quick-nav">
+      <a class="nav-pill" href="#delivery">📦 Delivery</a>
+      <a class="nav-pill" href="#refund">🔄 Refunds</a>
+      <a class="nav-pill" href="#payment">💳 Payments</a>
+      <a class="nav-pill" href="#faqs">❓ FAQs</a>
+      <a class="nav-pill" href="#support">📞 Support</a>
+      <a class="nav-pill" href="#about">🤝 About</a>
+    </nav>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-mouse"></div>
+    <span>Scroll</span>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="container">
+
+  <div class="section-label">Our Commitments</div>
+
+  <!-- POLICIES -->
+  <section id="policies" class="policy-card" data-number="01">
+    <div class="card-header">
+      <div class="card-icon orange">📋</div>
+      <div class="card-title-group">
+        <div class="card-title">Store Policies</div>
+        <div class="card-subtitle">General terms & conditions</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-body">
+      We strive to provide fresh, high-quality grocery products at fair prices. Product availability may vary based on stock. Prices and offers may change without prior notice. By placing an order, customers agree to our store policies and terms of service.
+    </div>
+  </section>
+
+  <!-- DELIVERY -->
+  <section id="delivery" class="policy-card" data-number="02">
+    <div class="card-header">
+      <div class="card-icon green">📦</div>
+      <div class="card-title-group">
+        <div class="card-title">Delivery Policy</div>
+        <div class="card-subtitle">Fast & reliable delivery to your doorstep</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <ul class="policy-list">
+      <li>Free delivery on all orders above ₹500 within Rohini Sector–25.</li>
+      <li>Orders are processed within 10 Minutes of placement.</li>
+      <li>Standard delivery takes 10–20 Minutes.</li>
+      <li>Same-day delivery available in Rohini Sector 25 area.</li>
+      <li>Delivery charges may vary for locations outside our zone.</li>
+    </ul>
+  </section>
+
+  <!-- REFUND -->
+  <section id="refund" class="policy-card" data-number="03">
+    <div class="card-header">
+      <div class="card-icon amber">🔄</div>
+      <div class="card-title-group">
+        <div class="card-title">Return & Refund Policy</div>
+        <div class="card-subtitle">Hassle-free returns within 24 hours</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <ul class="policy-list">
+      <li>Damaged, expired, or incorrect items can be reported within 24 hours of delivery.</li>
+      <li>Contact us via WhatsApp with a photo of the issue.</li>
+      <li>Approved refunds are processed within 5–7 business days via original payment method.</li>
+      <li>Opened or consumed products are generally not eligible for return.</li>
+      <li>Perishable items (dairy, fresh produce) must be reported on the same day.</li>
+    </ul>
+  </section>
+
+  <!-- PRIVACY -->
+  <section id="privacy" class="policy-card" data-number="04">
+    <div class="card-header">
+      <div class="card-icon blue">🔒</div>
+      <div class="card-title-group">
+        <div class="card-title">Privacy Policy</div>
+        <div class="card-subtitle">Your data, secured and protected</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <ul class="policy-list">
+      <li>Customer information is collected only for order processing, delivery, and support.</li>
+      <li>Personal data is securely stored and never sold to third parties.</li>
+      <li>WhatsApp messages are used solely for order-related communication.</li>
+      <li>You may request data deletion by contacting our support team.</li>
+    </ul>
+  </section>
+
+  <!-- TERMS -->
+  <section id="terms" class="policy-card" data-number="05">
+    <div class="card-header">
+      <div class="card-icon purple">📜</div>
+      <div class="card-title-group">
+        <div class="card-title">Terms of Service</div>
+        <div class="card-subtitle">By using our store, you agree to these terms</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <ul class="policy-list">
+      <li>By using our website or placing an order, you agree to all current policies.</li>
+      <li>We reserve the right to modify products, pricing, and services without prior notice.</li>
+      <li>Orders once confirmed via WhatsApp are binding.</li>
+      <li>We are not liable for delays caused by force majeure, weather, or other external factors.</li>
+    </ul>
+  </section>
+
+  <!-- PAYMENT -->
+  <section id="payment" class="policy-card" data-number="06">
+    <div class="card-header">
+      <div class="card-icon teal">💳</div>
+      <div class="card-title-group">
+        <div class="card-title">Payment Methods</div>
+        <div class="card-subtitle">Multiple secure payment options</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <div class="pay-badges">
+      <div class="pay-badge"><div class="pb-icon" style="background:rgba(52,168,83,0.15);">💚</div> GPay</div>
+      <div class="pay-badge"><div class="pb-icon" style="background:rgba(95,37,159,0.15);">💜</div> PhonePe</div>
+      <div class="pay-badge"><div class="pb-icon" style="background:rgba(0,186,242,0.15);">🔵</div> Paytm</div>
+      <div class="pay-badge"><div class="pb-icon" style="background:rgba(255,107,0,0.15);">📲</div> UPI</div>
+      <div class="pay-badge"><div class="pb-icon" style="background:rgba(22,163,74,0.15);">💵</div> Cash</div>
+      <div class="pay-badge"><div class="pb-icon" style="background:rgba(59,130,246,0.15);">🏦</div> Net Banking</div>
+    </div>
+    <div class="hours-row" style="margin-top:18px;">
+      <div class="hours-dot" style="background:#3b82f6; animation:none; opacity:0.7;"></div>
+      <span class="hours-text" style="color:rgba(147,197,253,0.8);">UPI ID: 9205002319-1@naviaxis · Bhaskar Singh</span>
+    </div>
+  </section>
+
+  <!-- FAQS -->
+  <section id="faqs" class="policy-card" data-number="07">
+    <div class="card-header">
+      <div class="card-icon red">❓</div>
+      <div class="card-title-group">
+        <div class="card-title">Frequently Asked Questions</div>
+        <div class="card-subtitle">Quick answers to common queries</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <button class="faq-question">How long does delivery take? <span class="faq-arrow">▾</span></button>
+      <div class="faq-answer">Most orders in Rohini Sector 25 arrive the same day within 30 minuutes. For other areas within Rohini, delivery takes 30-60 minutes.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <button class="faq-question">Can I return grocery products? <span class="faq-arrow">▾</span></button>
+      <div class="faq-answer">Yes! If products are damaged, expired, or incorrectly delivered, contact us within 24 hours via WhatsApp with a photo. We'll arrange a replacement or refund promptly.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <button class="faq-question">Which payment methods are accepted? <span class="faq-arrow">▾</span></button>
+      <div class="faq-answer">We accept UPI (GPay, PhonePe, Paytm), Net Banking, Debit/Credit Cards, and Cash on Delivery. You can also scan our QR code directly at delivery.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <button class="faq-question">How do I place an order? <span class="faq-arrow">▾</span></button>
+      <div class="faq-answer">Browse our website and add items to cart, then click "Order on WhatsApp." Your order details are automatically sent to us. Alternatively, you can directly WhatsApp us at +91 92050 02319.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <button class="faq-question">Is there a minimum order value? <span class="faq-arrow">▾</span></button>
+      <div class="faq-answer">There is no minimum order value. However, free delivery applies on orders above ₹500. For smaller orders, a small delivery fee may be charged based on location.</div>
+    </div>
+  </section>
+
+  <!-- SUPPORT -->
+  <section id="support" class="policy-card" data-number="08">
+    <div class="card-header">
+      <div class="card-icon indigo">📞</div>
+      <div class="card-title-group">
+        <div class="card-title">Customer Support</div>
+        <div class="card-subtitle">We're here to help, always</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+
+    <div class="contact-grid">
+      <a href="tel:+919205002319" class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div><div class="contact-label">Phone</div><div class="contact-value">+91 92050 02319</div></div>
+      </a>
+      <a href="https://wa.me/919205002319" target="_blank" class="contact-item">
+        <div class="contact-icon">💬</div>
+        <div><div class="contact-label">WhatsApp</div><div class="contact-value">Chat & Order</div></div>
+      </a>
+      <a href="https://www.google.com/maps/search/154+Pocket+1+Sector+25+Rohini+Delhi" target="_blank" class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div><div class="contact-label">Address</div><div class="contact-value">H.No. 154, Pkt-1, Sector 25, Rohini</div></div>
+      </a>
+      <div class="contact-item">
+        <div class="contact-icon">📬</div>
+        <div><div class="contact-label">Email</div><div class="contact-value">support@balaji-store.in</div></div>
+      </div>
+    </div>
+
+    <div class="hours-row">
+      <div class="hours-dot"></div>
+      <span class="hours-text">Open every day 6:00 AM – 10:00 PM · No holidays</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="policy-card" data-number="09">
+    <div class="card-header">
+      <div class="card-icon orange">🤝</div>
+      <div class="card-title-group">
+        <div class="card-title">About Balaji Store</div>
+        <div class="card-subtitle">Rohini's most trusted kirana store</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-body">
+      Balaji Store is committed to delivering fresh fruits, vegetables, dairy products, beverages, snacks, and household essentials directly to your doorstep in Rohini, Delhi. Our mission is to make grocery shopping simple, affordable, and convenient for every family in our community. We believe in honest prices, fresh products, and genuine service.
+    </div>
+    <div class="about-stats">
+      <div class="stat-item"><div class="stat-val">5000+</div><div class="stat-lbl">Products</div></div>
+      <div class="stat-item"><div class="stat-val">6AM</div><div class="stat-lbl">Opens Daily</div></div>
+      <div class="stat-item"><div class="stat-val">₹500</div><div class="stat-lbl">Free Delivery</div></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-text">BALAJI STORE</div>
+      <div class="footer-tagline">Fresh & Daily Essentials · Rohini, Delhi</div>
+    </div>
+    <nav class="footer-links">
+      <a href="#policies" class="footer-link">📋 Policies</a>
+      <a href="#delivery" class="footer-link">📦 Delivery</a>
+      <a href="#refund" class="footer-link">🔄 Refund</a>
+      <a href="#privacy" class="footer-link">🔒 Privacy</a>
+      <a href="#terms" class="footer-link">📜 Terms</a>
+      <a href="#payment" class="footer-link">💳 Payments</a>
+      <a href="#faqs" class="footer-link">❓ FAQs</a>
+      <a href="#support" class="footer-link">📞 Support</a>
+      <a href="#about" class="footer-link">🤝 About</a>
+    </nav>
+    <div class="footer-bottom">© 2026 Balaji Store · Made with ❤️ in India · All rights reserved</div>
+  </div>
+</footer>
+
+<script>
+function toggleFaq(item) {
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Intersection observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.policy-card').forEach(card => {
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(30px)';
+  card.style.transition = 'opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, box-shadow 0.3s';
+  observer.observe(card);
+});
+</script>
+</body>
+</html>

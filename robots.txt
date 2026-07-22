@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /balaji/indexadmin.html
+Disallow: /balaji/indexledger.html
+Disallow: /balaji/pwa-analytics.html
+Disallow: /balaji/shopadmin.html
+
+Sitemap: https://balaji-store.in/sitemap.xml

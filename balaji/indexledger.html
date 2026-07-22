@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta name="theme-color" content="#FF6B00"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+  <meta name="apple-mobile-web-app-title" content="Balaji Store"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="description" content="Balaji Store – Customer Khata & Monthly Payment Management"/>
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json"/>
+ 
+  <!-- iOS Home Screen Icons (Apple doesn't use manifest icons) -->
+  <link rel="apple-touch-icon" href="/icon/icon-192.png"/>
+  <link rel="icon" type="image/png" href="/icon/icon-192.png"/>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balaji Store — Customer Khata</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Hind:wght@300;400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+/* ═══ CSS VARIABLES ═══ */
+:root{
+  --sf:#FF6B00;--sf-l:#FFF3E8;--sf-d:#CC5500;
+  --green:#2E7D32;--green-l:#E8F5E9;
+  --blue:#1565C0;--blue-l:#E3F2FD;
+  --red:#e53935;--red-l:#FFEBEE;
+  --amber:#F57F17;--amber-l:#FFF8E1;
+  --purple:#6A1B9A;--purple-l:#F3E5F5;
+  --teal:#00838F;--teal-l:#E0F7FA;
+  --indigo:#283593;--indigo-l:#E8EAF6;
+  --text:#1A1A1A;--muted:#757575;--border:#E8E0D5;
+  --card-bg:#FFFFFF;--page-bg:#F5F0EA;
+  --input-bg:#FFFFFF;--table-hover:#FDF8F2;
+  --cream:#FDF8F2;--brown:#4E342E;
+  --shadow:0 2px 12px rgba(0,0,0,.07);
+  --sidebar-w:240px;--topbar-h:56px;--content-pad:22px;
+}
+[data-theme="dark"]{
+  --text:#F0EBE3;--muted:#9A8E82;--border:#2E2A25;
+  --card-bg:#242018;--page-bg:#141210;
+  --input-bg:#2A2520;--table-hover:#2A2520;
+  --cream:#1A1814;--brown:#F0D9C5;
+  --sf-l:#3D2200;--green-l:#0D2E10;--blue-l:#0D1F3D;
+  --red-l:#2D0808;--amber-l:#2D1D00;--purple-l:#1F0A30;--teal-l:#0D2020;--indigo-l:#0D1020;
+  --shadow:0 2px 12px rgba(0,0,0,.3);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;-webkit-text-size-adjust:100%;}
+body{font-family:'Hind',sans-serif;background:var(--page-bg);color:var(--text);min-height:100vh;}
+img,video,canvas,svg{max-width:100%;height:auto;}
+.app{display:flex;min-height:100vh;}
+
+/* ═══ SIDEBAR ═══ */
+.sidebar{width:var(--sidebar-w);background:var(--card-bg);border-right:1.5px solid var(--border);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:200;display:flex;flex-direction:column;transition:transform .28s cubic-bezier(.4,0,.2,1);will-change:transform;}
+.sb-brand{padding:18px 16px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.sb-icon-box{width:38px;height:38px;background:var(--sf);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.sb-t1{font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;color:var(--sf);}
+.sb-t2{font-size:10px;color:var(--muted);}
+.sb-nav{flex:1;padding:8px;}
+.sb-sec{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;padding:10px 8px 3px;}
+.sb-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text);transition:all .15s;margin-bottom:1px;border:none;background:none;width:100%;text-align:left;min-height:36px;touch-action:manipulation;}
+.sb-item:hover,.sb-item.active{background:var(--sf-l);color:var(--sf);font-weight:700;}
+.sb-item-icon{font-size:17px;}
+.sb-item, a.sb-item{
+  text-decoration:none;
+}
+.sb-badge{margin-left:auto;background:var(--red);color:#fff;border-radius:50px;font-size:10px;font-weight:700;padding:1px 7px;}
+
+/* ═══ MAIN ═══ */
+.main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-width:0;width:calc(100% - var(--sidebar-w));}
+.sync-bar{display:flex;align-items:center;gap:8px;padding:6px 16px;font-size:11px;font-weight:600;border-bottom:1px solid var(--border);background:var(--card-bg);flex-wrap:nowrap;overflow:hidden;white-space:nowrap;}
+.sync-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.sync-dot.synced{background:var(--green);}
+.sync-dot.pending{background:var(--amber);animation:pulse 1.2s infinite;}
+.sync-dot.offline{background:var(--red);}
+.sync-dot.syncing{background:var(--blue);animation:pulse .7s infinite;}
+#syncStatus{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.topbar{background:var(--card-bg);border-bottom:1.5px solid var(--border);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px;}
+.topbar-title{font-family:'Baloo 2',cursive;font-size:18px;font-weight:700;color:var(--brown);}
+.topbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+
+/* ═══ BUTTONS ═══ */
+button,.sb-item,.filter-pill,.tab,.icon-btn,.btn-primary,.btn-ghost,.btn-sm,.btn-wa{min-height:36px;touch-action:manipulation;}
+.icon-btn{background:none;border:1.5px solid var(--border);border-radius:8px;width:36px;height:36px;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;color:var(--text);transition:all .2s;}
+.icon-btn:hover{border-color:var(--sf);color:var(--sf);}
+.btn-primary{background:var(--sf);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s;}
+.btn-primary:hover{background:var(--sf-d);}
+.btn-ghost{background:none;border:1.5px solid var(--border);border-radius:8px;padding:7px 13px;font-size:12px;color:var(--muted);cursor:pointer;transition:all .2s;}
+.btn-ghost:hover{border-color:var(--sf);color:var(--sf);}
+.btn-sm{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:'Hind',sans-serif;transition:all .15s;}
+.btn-green{background:var(--green-l);color:var(--green);}.btn-green:hover{background:var(--green);color:#fff;}
+.btn-red{background:var(--red-l);color:var(--red);}.btn-red:hover{background:var(--red);color:#fff;}
+.btn-blue{background:var(--blue-l);color:var(--blue);}.btn-blue:hover{background:var(--blue);color:#fff;}
+.btn-orange{background:var(--sf-l);color:var(--sf);}.btn-orange:hover{background:var(--sf);color:#fff;}
+.btn-indigo{background:var(--indigo-l);color:var(--indigo);}.btn-indigo:hover{background:var(--indigo);color:#fff;}
+.btn-wa{background:#25D366;color:#fff;border:none;border-radius:6px;padding:5px 11px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;}
+.btn-wa:hover{background:#1da851;}
+
+/* ═══ PAGE & SECTIONS ═══ */
+.page-content{flex:1;padding:22px;}
+.section{display:none;}.section.active{display:block;}
+.card{background:var(--card-bg);border-radius:14px;border:1px solid var(--border);padding:18px;}
+
+/* ═══ KPI CARDS ═══ */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:20px;}
+.kpi-card{background:var(--card-bg);border-radius:13px;border:1px solid var(--border);padding:16px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;}
+.kpi-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.1);}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.kpi-card.orange::before{background:var(--sf);}
+.kpi-card.green::before{background:var(--green);}
+.kpi-card.blue::before{background:var(--blue);}
+.kpi-card.red::before{background:var(--red);}
+.kpi-card.amber::before{background:var(--amber);}
+.kpi-card.purple::before{background:var(--purple);}
+.kpi-card.teal::before{background:var(--teal);}
+.kpi-card.indigo::before{background:var(--indigo);}
+.kpi-icon{font-size:22px;margin-bottom:6px;}
+.kpi-label{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
+.kpi-value{font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;color:var(--text);margin-top:2px;}
+.kpi-sub{font-size:11px;color:var(--muted);margin-top:1px;}
+.sec-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:700;color:var(--brown);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.sec-title::after{content:'';flex:1;height:1.5px;background:var(--border);}
+
+/* ═══ FILTER BAR ═══ */
+.filter-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:10px 16px;margin-bottom:18px;}
+.filter-pill{padding:5px 13px;border-radius:50px;border:1.5px solid var(--border);background:var(--card-bg);cursor:pointer;font-size:12px;font-weight:600;color:var(--muted);transition:all .2s;font-family:'Hind',sans-serif;}
+.filter-pill.active,.filter-pill:hover{background:var(--sf-l);border-color:var(--sf);color:var(--sf);}
+.search-input{border:1.5px solid var(--border);border-radius:9px;padding:8px 13px;font-family:'Hind',sans-serif;font-size:13px;outline:none;background:var(--input-bg);color:var(--text);transition:border-color .2s;flex:1 1 160px;min-width:0;}
+.search-input:focus{border-color:var(--sf);}
+select.filt{border:1.5px solid var(--border);border-radius:8px;padding:7px 11px;font-size:12px;outline:none;background:var(--input-bg);color:var(--text);}
+
+/* ═══ TABLES ═══ */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%;}
+.tbl-wrap::-webkit-scrollbar{height:3px;}
+.tbl-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+table.dt{width:100%;border-collapse:collapse;font-size:13px;min-width:600px;}
+table.dt th{text-align:left;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:8px 12px;border-bottom:1px solid var(--border);white-space:nowrap;}
+table.dt td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text);}
+table.dt tr:last-child td{border-bottom:none;}
+table.dt tr:hover td{background:var(--table-hover);}
+
+/* ═══ BADGES ═══ */
+.badge{display:inline-block;padding:3px 9px;border-radius:50px;font-size:10px;font-weight:700;text-transform:uppercase;}
+.badge.paid{background:var(--green-l);color:var(--green);}
+.badge.due{background:var(--red-l);color:var(--red);}
+.badge.partial{background:var(--amber-l);color:var(--amber);}
+.badge.overdue{background:#ff1744;color:#fff;}
+.badge.synced{background:var(--green-l);color:var(--green);}
+.badge.pending{background:var(--amber-l);color:var(--amber);}
+.badge.active{background:var(--green-l);color:var(--green);}
+.badge.inactive{background:var(--border);color:var(--muted);}
+
+/* ═══ MODALS ═══ */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(2px);overflow-y:auto;}
+.overlay.hidden{display:none;}
+.modal{background:var(--card-bg);border-radius:18px;width:calc(100% - 0px);max-width:600px;max-height:92vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.25);}
+.modal-lg{max-width:860px;}
+.modal-xl{max-width:1000px;}
+.modal-header{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-family:'Baloo 2',cursive;font-size:18px;font-weight:700;color:var(--brown);}
+.modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:6px;}
+.modal-close:hover{background:var(--border);}
+.modal-body{padding:18px 22px;}
+.modal-footer{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;}
+
+/* ═══ FORMS ═══ */
+.form-group{margin-bottom:13px;}
+.form-group label{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 11px;font-family:'Hind',sans-serif;font-size:14px;outline:none;color:var(--text);background:var(--input-bg);transition:border-color .2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--sf);}
+.form-group .field-error{color:var(--red);font-size:11px;margin-top:3px;display:none;}
+.form-group.error input,.form-group.error select{border-color:var(--red);}
+.form-group.error .field-error{display:block;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:11px;}
+
+/* ═══ TOAST ═══ */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--green);color:#fff;border-radius:12px;padding:12px 20px;font-weight:600;font-size:13px;z-index:9999;transform:translateY(100px);transition:transform .35s cubic-bezier(.175,.885,.32,1.275);box-shadow:0 4px 20px rgba(0,0,0,.2);}
+.toast.show{transform:translateY(0);}
+.toast.error{background:var(--red);}
+.toast.info{background:var(--sf);}
+.toast.warning{background:var(--amber);}
+
+/* ═══ CHARTS ═══ */
+.chart-card{background:var(--card-bg);border-radius:13px;border:1px solid var(--border);padding:16px;min-width:0;overflow:hidden;}
+.chart-card h3{font-family:'Baloo 2',cursive;font-size:14px;font-weight:700;color:var(--brown);margin-bottom:12px;}
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+
+/* ═══ PROFILE/LEDGER ═══ */
+.ledger-strip{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:9px;margin-bottom:6px;font-size:13px;}
+.ledger-strip.credit{background:var(--green-l);border-left:3px solid var(--green);}
+.ledger-strip.debit{background:var(--red-l);border-left:3px solid var(--red);}
+.running-bal{font-family:'Baloo 2',cursive;font-weight:800;font-size:15px;}
+.running-bal.positive{color:var(--red);}
+.running-bal.negative{color:var(--green);}
+.profile-header{display:flex;align-items:center;gap:16px;padding:18px;background:linear-gradient(135deg,var(--sf-l),rgba(255,107,0,.03));border-radius:13px;border:1px solid rgba(255,107,0,.2);margin-bottom:18px;}
+.avatar-circle{width:62px;height:62px;border-radius:50%;background:var(--sf);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-weight:800;font-size:22px;flex-shrink:0;}
+.profile-name{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;color:var(--brown);}
+.profile-sub{font-size:13px;color:var(--muted);}
+.due-banner{background:var(--red-l);border:1.5px solid #FFCDD2;border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;}
+.due-amt{font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;color:var(--red);}
+.stat-chip{background:var(--cream);border-radius:8px;padding:10px 14px;text-align:center;border:1px solid var(--border);}
+.stat-chip .sc-val{font-family:'Baloo 2',cursive;font-size:17px;font-weight:800;color:var(--sf);}
+.stat-chip .sc-lbl{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;}
+.tabs{display:flex;gap:4px;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:4px;flex-wrap:wrap;}
+.tab{padding:7px 16px;border-radius:8px 8px 0 0;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);border:none;background:none;}
+.tab.active{background:var(--sf);color:#fff;}
+.prog-bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:3px;transition:width .6s ease;}
+.overdue-alert{background:linear-gradient(135deg,var(--red-l),rgba(229,57,53,.03));border:1.5px solid #FFCDD2;border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.oa-count{font-family:'Baloo 2',cursive;font-size:28px;font-weight:800;color:var(--red);}
+.empty-state{text-align:center;padding:48px 24px;color:var(--muted);}
+.empty-state .es-icon{font-size:48px;margin-bottom:12px;opacity:.5;}
+.empty-state .es-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:700;color:var(--muted);margin-bottom:6px;}
+.empty-state .es-sub{font-size:12px;}
+
+/* ═══ KHATA / MONTHLY SPECIFIC ═══ */
+.month-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:16px;}
+.month-cell{border-radius:10px;padding:10px 8px;text-align:center;border:1.5px solid var(--border);cursor:pointer;transition:all .2s;position:relative;}
+.month-cell:hover{border-color:var(--sf);transform:translateY(-1px);}
+.month-cell.has-payment{background:var(--green-l);border-color:var(--green);}
+.month-cell.has-due{background:var(--red-l);border-color:var(--red);}
+.month-cell.has-partial{background:var(--amber-l);border-color:var(--amber);}
+.month-cell.empty{background:var(--cream);}
+.month-cell .mc-name{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;}
+.month-cell .mc-amt{font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;margin-top:3px;}
+.month-cell .mc-badge{font-size:9px;font-weight:700;margin-top:3px;border-radius:50px;padding:1px 6px;}
+.khata-row{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);gap:12px;transition:background .15s;}
+.khata-row:hover{background:var(--table-hover);}
+.khata-row:last-child{border-bottom:none;}
+.khata-summary-bar{background:linear-gradient(135deg,var(--sf),var(--sf-d));color:#fff;border-radius:13px;padding:16px 20px;margin-bottom:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.ksb-item{text-align:center;}
+.ksb-val{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;}
+.ksb-lbl{font-size:10px;opacity:.85;font-weight:600;text-transform:uppercase;}
+.bill-row{background:var(--cream);border-radius:9px;padding:10px 14px;margin-bottom:8px;border:1px solid var(--border);}
+.bill-number{font-family:'Baloo 2',cursive;font-size:12px;font-weight:700;color:var(--sf);}
+.live-store-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#25D366,#1da851);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;transition:all .2s;box-shadow:0 2px 8px rgba(37,211,102,.3);}
+.live-store-btn:hover{transform:translateY(-1px);color:#fff;}
+.live-store-btn .ls-dot{width:7px;height:7px;background:#fff;border-radius:50%;animation:blink 1.2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:199;}
+.sidebar-overlay.active{display:block;}
+
+/* ═══ MONTHLY KHATA CALENDAR ═══ */
+.khata-year-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.year-nav{display:flex;align-items:center;gap:10px;}
+.year-display{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;color:var(--brown);}
+.year-btn{background:var(--sf-l);border:none;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:16px;color:var(--sf);display:flex;align-items:center;justify-content:center;}
+.year-btn:hover{background:var(--sf);color:#fff;}
+
+/* ═══ STATEMENT PRINT ═══ */
+.print-statement{display:none;}
+@media print{
+  .print-statement{display:block!important;}
+  .no-print,.sidebar,.topbar,.sync-bar,.toast,#pwa-install-banner{display:none!important;}
+  .main{margin-left:0!important;width:100%!important;}
+  .page-content{padding:0!important;}
+  body{background:#fff!important;color:#000!important;}
+  .modal,.overlay{position:static!important;display:block!important;background:none!important;padding:0!important;}
+  .modal-header{background:#FF6B00!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1024px){
+  :root{--sidebar-w:200px;--content-pad:16px;}
+  .sb-t1{font-size:13px;}.sb-item{font-size:12px;padding:7px 9px;}.sb-item-icon{font-size:15px;}
+  .page-content{padding:var(--content-pad);}
+  .kpi-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;}
+  .kpi-value{font-size:19px;}
+  .charts-grid{grid-template-columns:1fr 1fr;gap:12px;}
+  .topbar{padding:10px 16px;}.topbar-title{font-size:15px;}
+  table.dt{font-size:12px;}table.dt th,table.dt td{padding:7px 10px;}
+  .month-grid{grid-template-columns:repeat(4,1fr);}
+}
+@media(max-width:767px){
+  :root{--content-pad:14px;}
+  .sidebar{transform:translateX(-100%);width:240px;box-shadow:4px 0 24px rgba(0,0,0,.15);}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;width:100%;}
+  .topbar{padding:9px 14px;gap:6px;}.topbar-title{font-size:14px;}
+  #menuBtn{display:flex!important;}
+  .page-content{padding:var(--content-pad);}
+  .kpi-grid{grid-template-columns:1fr 1fr;gap:9px;}
+  .kpi-value{font-size:18px;}.kpi-label{font-size:9px;}.kpi-icon{font-size:18px;}.kpi-card{padding:12px;}
+  .charts-grid{grid-template-columns:1fr;gap:12px;}
+  .grid2,.grid3,.grid4{grid-template-columns:1fr;}
+  .overlay{padding:10px;align-items:flex-start;}
+  .modal{width:100%;border-radius:14px;max-height:calc(100vh - 20px);}
+  .modal-header{padding:14px 16px 11px;}.modal-title{font-size:15px;}
+  .modal-body{padding:14px 16px;}.modal-footer{padding:11px 16px;gap:8px;flex-wrap:wrap;}
+  .modal-footer button{flex:1;min-width:100px;text-align:center;}
+  .form-group input,.form-group select,.form-group textarea{font-size:16px;padding:9px 11px;}
+  .profile-header{flex-direction:column;align-items:flex-start;gap:12px;}
+  .month-grid{grid-template-columns:repeat(3,1fr);}
+  .khata-summary-bar{grid-template-columns:1fr 1fr;}
+  .toast{left:12px;right:12px;bottom:16px;text-align:center;font-size:12px;padding:10px 16px;}
+}
+@media(max-width:479px){
+  :root{--content-pad:11px;}
+  .kpi-grid{grid-template-columns:1fr 1fr;gap:8px;}
+  .kpi-card{padding:10px 11px;}.kpi-value{font-size:16px;}
+  .topbar{padding:8px 11px;}.topbar-title{font-size:13px;max-width:55vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .icon-btn{width:32px;height:32px;font-size:15px;}.btn-primary{padding:7px 12px;font-size:12px;}
+  .overlay{padding:6px;}.modal{border-radius:12px;max-height:calc(100dvh - 12px);}
+  .month-grid{grid-template-columns:repeat(3,1fr);}
+  table.dt{font-size:10.5px;}table.dt th{font-size:8.5px;padding:5px 7px;}table.dt td{padding:6px 7px;}
+  .khata-summary-bar{grid-template-columns:1fr 1fr;}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.pwa-banner-inner{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:600px;margin:0 auto;}
+.pwa-banner-left{display:flex;align-items:center;gap:10px;}
+.pwa-banner-icon{width:42px;height:42px;background:rgba(255,255,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.pwa-banner-title{font-family:'Baloo 2',cursive;font-weight:800;font-size:15px;line-height:1.2;}
+.pwa-banner-sub{font-size:11px;opacity:.88;}
+.pwa-banner-btns{display:flex;gap:7px;flex-shrink:0;}
+.pwa-install-btn{background:#fff;color:#FF6B00;border:none;border-radius:50px;padding:9px 18px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;}
+.pwa-dismiss-btn{background:rgba(255,255,255,.2);color:#fff;border:1.5px solid rgba(255,255,255,.5);border-radius:50px;padding:8px 13px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Hind',sans-serif;}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sb-brand">
+    <div class="sb-icon-box">🏪</div>
+    <div><div class="sb-t1">BALAJI STORE</div><div class="sb-t2">Khata Module</div></div>
+  </div>
+  <div class="sb-nav">
+    <div class="sb-sec">MAIN</div>
+    <a href="/balaji/pwa-analytics.html" class="sb-item">
+  <span class="sb-item-icon">📲</span>
+  <span>PWA Analytics</span>
+</a>
+    <button class="sb-item active" data-page="dashboard" onclick="goto('dashboard',this)"><span class="sb-item-icon">📊</span><span>Dashboard</span></button>
+    <button class="sb-item" data-page="customers" onclick="goto('customers',this)"><span class="sb-item-icon">👥</span><span>Customers</span></button>
+    <button class="sb-item" data-page="dues" onclick="goto('dues',this)"><span class="sb-item-icon">⚠️</span><span>Due Management</span><span class="sb-badge" id="dueBadge">0</span></button>
+    <div class="sb-sec">KHATA</div>
+    <button class="sb-item" data-page="khata" onclick="goto('khata',this)"><span class="sb-item-icon">📒</span><span>Customer Khata</span></button>
+    <button class="sb-item" data-page="monthly" onclick="goto('monthly',this)"><span class="sb-item-icon">📅</span><span>Monthly History</span></button>
+    <div class="sb-sec">RECORDS</div>
+    <button class="sb-item" data-page="transactions" onclick="goto('transactions',this)"><span class="sb-item-icon">💳</span><span>Transactions</span></button>
+    <button class="sb-item" data-page="reminders" onclick="goto('reminders',this)"><span class="sb-item-icon">📱</span><span>WhatsApp Reminders</span></button>
+    <div class="sb-sec">REPORTS</div>
+    <button class="sb-item" data-page="analytics" onclick="goto('analytics',this)"><span class="sb-item-icon">📈</span><span>Analytics</span></button>
+    <button class="sb-item" data-page="collection" onclick="goto('collection',this)"><span class="sb-item-icon">💰</span><span>Collection Report</span></button>
+    <div class="sb-sec">ADMIN</div>
+    <button class="sb-item" data-page="settings" onclick="goto('settings',this)"><span class="sb-item-icon">⚙️</span><span>Settings</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- MAIN -->
+<div class="main" id="mainArea">
+  <div class="sync-bar" id="syncBar">
+    <div class="sync-dot synced" id="syncDot"></div>
+    <span id="syncStatus">Synced with Firebase</span>
+    <span style="margin-left:auto;color:var(--muted);" id="syncPendingCount"></span>
+    <button class="btn-sm btn-orange" onclick="forceSyncNow()" id="syncBtn" style="display:none;">Sync Now</button>
+  </div>
+
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button id="menuBtn" onclick="toggleSidebar()" style="display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text);">☰</button>
+      <div class="topbar-title" id="pageTitle">📊 Customer Khata Dashboard</div>
+    </div>
+    <div class="topbar-right">
+      <a href="/balaji/indexadmin.html" target="_blank" class="live-store-btn" title="Open User Store"><div class="ls-dot"></div><span>Live Store</span>🏪</a>
+      <button class="icon-btn" onclick="toggleDark()" id="darkBtn">🌙</button>
+      <button class="btn-primary" onclick="openAddCustomerModal()">+ Add Customer</button>
+      <button class="btn-ghost no-print" onclick="exportAllExcel()">⬇ Excel</button>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <!-- ══════════════════════════════════════════════
+         DASHBOARD
+    ══════════════════════════════════════════════ -->
+    <div class="section active" id="sec-dashboard">
+      <div class="kpi-grid">
+        <div class="kpi-card orange"><div class="kpi-icon">👥</div><div class="kpi-label">Total Customers</div><div class="kpi-value" id="dkpiCust">—</div></div>
+        <div class="kpi-card blue"><div class="kpi-icon">💰</div><div class="kpi-label">Total Purchases</div><div class="kpi-value" id="dkpiSales">—</div></div>
+        <div class="kpi-card green"><div class="kpi-icon">💵</div><div class="kpi-label">Cash Collection</div><div class="kpi-value" id="dkpiCash">—</div></div>
+        <div class="kpi-card teal"><div class="kpi-icon">📱</div><div class="kpi-label">Online Collection</div><div class="kpi-value" id="dkpiOnline">—</div></div>
+        <div class="kpi-card red"><div class="kpi-icon">⚠️</div><div class="kpi-label">Total Outstanding</div><div class="kpi-value" id="dkpiDue">—</div></div>
+        <div class="kpi-card amber"><div class="kpi-icon">🔴</div><div class="kpi-label">Customers w/ Due</div><div class="kpi-value" id="dkpiOutstanding">—</div></div>
+        <div class="kpi-card indigo"><div class="kpi-icon">📒</div><div class="kpi-label">Active Khata</div><div class="kpi-value" id="dkpiActive">—</div></div>
+        <div class="kpi-card purple"><div class="kpi-icon">📅</div><div class="kpi-label">This Month Sales</div><div class="kpi-value" id="dkpiMonthSales">—</div></div>
+      </div>
+      <div class="overdue-alert" id="overdueAlert" style="display:none;">
+        <div><div class="oa-count" id="overdueCount">0</div><div style="font-size:13px;color:var(--red);font-weight:600;">Overdue Customers</div></div>
+        <button class="btn-primary" onclick="goto('dues',null)">View All →</button>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card"><h3>Monthly Sales & Collections</h3><div style="position:relative;height:240px;"><canvas id="salesChart"></canvas></div></div>
+        <div class="chart-card"><h3>Payment Mode Split</h3><div style="position:relative;height:240px;"><canvas id="payChart"></canvas></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;">
+        <div class="card"><div class="sec-title">Top Customers by Purchase</div><div id="topCustWrap"></div></div>
+        <div class="card"><div class="sec-title">Highest Due Customers</div><div id="highDueWrap"></div></div>
+      </div>
+      <div class="sec-title">Recent Transactions</div>
+      <div class="card"><div class="tbl-wrap"><table class="dt"><thead><tr><th>Date</th><th>Customer</th><th>Bill No.</th><th>Type</th><th>Amount</th><th>Payment</th><th>Balance</th></tr></thead><tbody id="recentTbody"></tbody></table></div></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         CUSTOMERS
+    ══════════════════════════════════════════════ -->
+    <div class="section" id="sec-customers">
+      <div class="filter-bar">
+        <input type="text" class="search-input" id="custSearch" placeholder="🔍 Search name, phone, ID..." oninput="renderCustomersList()"/>
+        <select class="filt" id="custStatusFilter" onchange="renderCustomersList()"><option value="">All Status</option><option value="due">Has Due</option><option value="paid">Fully Paid</option><option value="overdue">Overdue</option><option value="active">Active</option><option value="inactive">Inactive</option></select>
+        <select class="filt" id="custSortFilter" onchange="renderCustomersList()"><option value="name">Sort: Name</option><option value="due_desc">Due (High)</option><option value="purchase_desc">Purchase (High)</option><option value="recent">Recent</option></select>
+        <button class="btn-primary" onclick="openAddCustomerModal()">+ Add Customer</button>
+      </div>
+      <div class="card"><div class="tbl-wrap"><table class="dt"><thead><tr><th>ID</th><th>Name</th><th>Mobile</th><th>Address</th><th>Status</th><th>Total Purchase</th><th>Cash Paid</th><th>Online Paid</th><th>Due</th><th>Last Payment</th><th>Sync</th><th>Actions</th></tr></thead><tbody id="custTbody"></tbody></table></div></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         DUES
+    ══════════════════════════════════════════════ -->
+    <div class="section" id="sec-dues">
+      <div class="kpi-grid">
+        <div class="kpi-card red"><div class="kpi-icon">💸</div><div class="kpi-label">Total Outstanding</div><div class="kpi-value" id="dueTotalOut">—</div></div>
+        <div class="kpi-card amber"><div class="kpi-icon">⏰</div><div class="kpi-label">Overdue 30+ Days</div><div class="kpi-value" id="dueOverdue30">—</div></div>
+        <div class="kpi-card orange"><div class="kpi-icon">👤</div><div class="kpi-label">Customers with Due</div><div class="kpi-value" id="dueCustCount">—</div></div>
+        <div class="kpi-card blue"><div class="kpi-icon">💰</div><div class="kpi-label">Avg Due / Customer</div><div class="kpi-value" id="dueAvg">—</div></div>
+        <div class="kpi-card green"><div class="kpi-icon">📅</div><div class="kpi-label">This Month Collected</div><div class="kpi-value" id="dueThisMonth">—</div></div>
+      </div>
+      <div class="filter-bar">
+        <input type="text" class="search-input" id="dueSearch" placeholder="🔍 Search..." oninput="renderDues()" style="max-width:220px;"/>
+        <select class="filt" id="dueSortFilter" onchange="renderDues()"><option value="due_desc">Due: High→Low</option><option value="due_asc">Due: Low→High</option><option value="days_desc">Most Overdue</option></select>
+        <button class="btn-primary" onclick="sendBulkReminders()">📱 Send All Reminders</button>
+      </div>
+      <div class="card"><div class="tbl-wrap"><table class="dt"><thead><tr><th>Customer</th><th>Mobile</th><th>Total Purchase</th><th>Paid</th><th>Due</th><th>Days Overdue</th><th>Last Payment</th><th>Actions</th></tr></thead><tbody id="dueTbody"></tbody></table></div></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         CUSTOMER KHATA  (NEW)
+    ══════════════════════════════════════════════ -->
+    <div class="section" id="sec-khata">
+      <div class="filter-bar">
+        <input type="text" class="search-input" id="khataSearch" placeholder="🔍 Search customer..." oninput="renderKhataList()"/>
+        <select class="filt" id="khataCustFilter" onchange="renderKhataList()"><option value="">All Customers</option></select>
+        <select class="filt" id="khataStatusFilter" onchange="renderKhataList()"><option value="">All</option><option value="due">Has Due</option><option value="paid">Paid Up</option><option value="active">Active</option><option value="inactive">Inactive</option></select>
+        <button class="btn-primary" onclick="openAddTransactionModal(null)">+ Add Khata Entry</button>
+      </div>
+      <div id="khataListWrap"></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         MONTHLY HISTORY  (NEW)
+    ══════════════════════════════════════════════ -->
+    <div class="section" id="sec-monthly">
+      <div class="filter-bar">
+        <label style="font-size:12px;font-weight:600;color:var(--muted);">Customer:</label>
+        <select class="filt" id="monthCustSel" onchange="renderMonthlyHistory()" style="min-width:180px;"><option value="">-- Select Customer --</option></select>
+        <label style="font-size:12px;font-weight:600;color:var(--muted);">Year:</label>
+        <select class="filt" id="monthYearSel" onchange="renderMonthlyHistory()"></select>
+        <button class="btn-ghost" onclick="exportMonthlyExcel()">⬇ Excel</button>
+        <button class="btn-ghost" onclick="printMonthlyStatement()">🖨️ Print</button>
+      </div>
+      <div id="monthlyHistoryWrap">
+        <div class="empty-state"><div class="es-icon">📅</div><div class="es-title">Select a Customer</div><div class="es-sub">Choose a customer above to see their 12-month payment history</div></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         TRANSACTIONS
+    ══════════════════════════════════════════════ -->
+    <div class="section" id="sec-transactions">
+      <div class="filter-bar">
+        <input type="text" class="search-input" id="txnSearch" placeholder="🔍 Search..." oninput="renderTransactions()" style="max-width:220px;"/>
+        <select class="filt" id="txnCustFilter" onchange="renderTransactions()"><option value="">All Customers</option></select>
+        <select class="filt" id="txnTypeFilter" onchange="renderTransactions()"><option value="">All Types</option><option value="purchase">Purchase</option><option value="payment">Payment</option></select>
+        <input type="date" id="txnFrom" onchange="renderTransactions()" class="filt"/>
+        <input type="date" id="txnTo" onchange="renderTransactions()" class="filt"/>
+        <button class="btn-primary" onclick="openAddTransactionModal(null)">+ Add Transaction</button>
+      </div>
+      <div class="kpi-grid" style="margin-bottom:16px;">
+        <div class="kpi-card blue"><div class="kpi-label">Total Purchase</div><div class="kpi-value" id="txnKpiPur">—</div></div>
+        <div class="kpi-card green"><div class="kpi-label">Total Payments</div><div class="kpi-value" id="txnKpiPay">—</div></div>
+        <div class="kpi-card orange"><div class="kpi-label">Transactions</div><div class="kpi-value" id="txnKpiCount">—</div></div>
+      </div>
+      <div class="card"><div class="tbl-wrap"><table class="dt"><thead><tr><th>Date</th><th>Customer</th><th>Bill No.</th><th>Type</th><th>Product Details</th><th>Amount</th><th>Payment Mode</th><th>Ref No.</th><th>Running Bal.</th><th>Sync</th><th>Actions</th></tr></thead><tbody id="txnTbody"></tbody></table></div></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         REMINDERS
+    ══════════════════════════════════════════════ -->
+    <div class="section" id="sec-reminders">
+      <div class="kpi-grid" style="margin-bottom:16px;">
+        <div class="kpi-card orange"><div class="kpi-icon">📱</div><div class="kpi-label">Reminders Sent</div><div class="kpi-value" id="remKpiSent">0</div></div>
+        <div class="kpi-card green"><div class="kpi-icon">✅</div><div class="kpi-label">Today's Reminders</div><div class="kpi-value" id="remKpiToday">0</div></div>
+        <div class="kpi-card amber"><div class="kpi-icon">⏳</div><div class="kpi-label">Pending Customers</div><div class="kpi-value" id="remKpiPending">0</div></div>
+      </div>
+      <div class="card"><div class="sec-title">Customers Due for Reminder</div>
+        <div class="tbl-wrap"><table class="dt"><thead><tr><th>Customer</th><th>Mobile</th><th>Due Amount</th><th>Days Overdue</th><th>Last Reminder</th><th>Actions</th></tr></thead><tbody id="remTbody"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         ANALYTICS
+    ══════════════════════════════════════════════ -->
+    <div class="section" id="sec-analytics">
+      <div class="filter-bar">
+        <label style="font-size:12px;font-weight:600;color:var(--muted);">Period:</label>
+        <button class="filter-pill active" onclick="setAnalyticsPeriod('month',this)">This Month</button>
+        <button class="filter-pill" onclick="setAnalyticsPeriod('quarter',this)">Quarter</button>
+        <button class="filter-pill" onclick="setAnalyticsPeriod('year',this)">Year</button>
+        <button class="filter-pill" onclick="setAnalyticsPeriod('all',this)">All Time</button>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card"><h3>Customer-wise Sales</h3><div style="position:relative;height:240px;"><canvas id="custPurChart"></canvas></div></div>
+        <div class="chart-card"><h3>Monthly Collections</h3><div style="position:relative;height:240px;"><canvas id="monthlyColChart"></canvas></div></div>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card"><h3>Outstanding Dues Trend</h3><div style="position:relative;height:240px;"><canvas id="duesTrendChart"></canvas></div></div>
+        <div class="chart-card"><h3>Collection Efficiency %</h3><div style="position:relative;height:240px;"><canvas id="effChart"></canvas></div></div>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card"><h3>Online vs Cash Trend</h3><div style="position:relative;height:220px;"><canvas id="onlineVsCashChart"></canvas></div></div>
+        <div class="chart-card"><h3>Payment Mode Split</h3><div style="position:relative;height:220px;"><canvas id="payModeSplitChart"></canvas></div></div>
+      </div>
+      <div class="card"><div class="sec-title">Customer Analytics Table</div>
+        <div class="tbl-wrap"><table class="dt"><thead><tr><th>Customer</th><th>Total Purchase</th><th>Cash Paid</th><th>Online Paid</th><th>Total Due</th><th>Avg Monthly</th><th>Collection %</th><th>Behavior</th></tr></thead><tbody id="analyticsTbody"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         COLLECTION REPORT
+    ══════════════════════════════════════════════ -->
+    <div class="section" id="sec-collection">
+      <div class="filter-bar">
+        <label style="font-size:12px;font-weight:600;color:var(--muted);">Month:</label>
+        <input type="month" id="colMonth" onchange="renderCollectionReport()" class="filt"/>
+        <button class="btn-ghost no-print" onclick="window.print()">🖨️ Print</button>
+        <button class="btn-ghost no-print" onclick="exportCollectionExcel()">⬇ Excel</button>
+      </div>
+      <div class="kpi-grid" style="margin-bottom:16px;">
+        <div class="kpi-card blue"><div class="kpi-label">Month Total Sales</div><div class="kpi-value" id="colKpiSales">—</div></div>
+        <div class="kpi-card green"><div class="kpi-label">Cash Collected</div><div class="kpi-value" id="colKpiCash">—</div></div>
+        <div class="kpi-card teal"><div class="kpi-label">Online Collected</div><div class="kpi-value" id="colKpiOnline">—</div></div>
+        <div class="kpi-card red"><div class="kpi-label">Month Pending</div><div class="kpi-value" id="colKpiPending">—</div></div>
+        <div class="kpi-card amber"><div class="kpi-label">Collection Rate</div><div class="kpi-value" id="colKpiRate">—</div></div>
+      </div>
+      <div id="colReportBody"></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SETTINGS
+    ══════════════════════════════════════════════ -->
+    <div class="section" id="sec-settings">
+      <div class="grid2" style="max-width:700px;">
+        <div class="card">
+          <div class="sec-title">Store Settings</div>
+          <div class="form-group"><label>Store Name</label><input type="text" id="stStoreName" value="Balaji Store"/></div>
+          <div class="form-group"><label>Address</label><input type="text" id="stAddress" value="Main Market, Delhi"/></div>
+          <div class="form-group"><label>Phone</label><input type="text" id="stPhone" value="9205002319"/></div>
+          <div class="form-group"><label>Overdue After (Days)</label><input type="number" id="stOverdueDays" value="30" min="1"/></div>
+          <div class="form-group"><label>GST Number</label><input type="text" id="stGST" value=""/></div>
+          <button class="btn-primary" onclick="saveSettings()">💾 Save Settings</button>
+        </div>
+        <div class="card">
+          <div class="sec-title">Reminder & UPI Settings</div>
+          <div class="form-group"><label>WhatsApp Prefix</label><input type="text" id="stWAPrefix" value="+91"/></div>
+          <div class="form-group"><label>Admin Name</label><input type="text" id="stAdminName" value="Admin"/></div>
+          <div class="form-group"><label>Store UPI ID</label><input type="text" id="stUpiId" placeholder="yourname@paytm" value="9205002319-1@naviaxis"/></div>
+          <button class="btn-primary" onclick="saveSettings()">💾 Save</button>
+          <div style="margin-top:14px;">
+            <div class="sec-title" style="font-size:13px;">Data Management</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="btn-ghost" onclick="exportAllExcel()">Export Excel</button>
+              <button class="btn-ghost" onclick="restoreFromFirebase()">🔄 Restore Firebase</button>
+              <button class="btn-ghost" onclick="forceSyncNow()">☁️ Force Sync</button>
+              <button class="btn-ghost" onclick="clearAllLocalData()" style="border-color:var(--red);color:var(--red);">Clear Cache</button>
+            </div>
+          </div>
+          <div style="margin-top:14px;"><div class="sec-title" style="font-size:13px;">Firebase Status</div><div id="firebaseStatusInfo" style="font-size:12px;color:var(--muted);"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page-content -->
+</div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ══════════════════════════════════════════════════
+     MODALS
+══════════════════════════════════════════════════ -->
+
+<!-- CUSTOMER MODAL (Enhanced with Status) -->
+<div class="overlay hidden" id="custModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" id="custModalTitle">Add New Customer</div><button class="modal-close" onclick="closeModal('custModal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="editCustId"/>
+      <div class="grid2">
+        <div class="form-group" style="grid-column:1/-1;"><label>Customer Name *</label><input type="text" id="cName" placeholder="Full Name"/><div class="field-error">Customer name is required</div></div>
+        <div class="form-group"><label>Mobile Number *</label><input type="tel" id="cPhone" placeholder="9205002319" maxlength="10"/><div class="field-error">Enter valid 10-digit mobile</div></div>
+        <div class="form-group"><label>Customer ID</label><input type="text" id="cId" readonly style="background:var(--cream);"/></div>
+        <div class="form-group" style="grid-column:1/-1;"><label>Address</label><input type="text" id="cAddress" placeholder="Village/Town, District"/></div>
+        <div class="form-group"><label>Opening Balance (₹)</label><input type="number" id="cOpenBal" value="0" min="0"/><div class="field-error">Cannot be negative</div></div>
+        <div class="form-group"><label>Status</label><select id="cStatus"><option value="active">Active</option><option value="inactive">Inactive</option></select></div>
+        <div class="form-group" style="grid-column:1/-1;"><label>Notes</label><input type="text" id="cNotes" placeholder="Optional notes..."/></div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn-ghost" onclick="closeModal('custModal')">Cancel</button><button class="btn-primary" onclick="saveCustomer()">💾 Save Customer</button></div>
+  </div>
+</div>
+
+<!-- TRANSACTION MODAL (Enhanced with Bill No, Product, Ref No) -->
+<div class="overlay hidden" id="txnModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title" id="txnModalTitle">Add Transaction</div><button class="modal-close" onclick="closeModal('txnModal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="editTxnId"/>
+      <div class="grid2">
+        <div class="form-group" style="grid-column:1/-1;"><label>Customer *</label><select id="txnCust" onchange="showCustDueInModal()"><option value="">-- Select Customer --</option></select><div class="field-error">Please select a customer</div></div>
+        <div id="custDueInfo" style="display:none;grid-column:1/-1;background:var(--red-l);border:1px solid #FFCDD2;border-radius:8px;padding:10px 14px;font-size:13px;color:var(--red);font-weight:600;"></div>
+        <div class="form-group"><label>Type *</label><select id="txnType" onchange="txnTypeChange()"><option value="purchase">Purchase / Khata</option><option value="payment">Payment / Collection</option></select></div>
+        <div class="form-group"><label>Amount (₹) *</label><input type="number" id="txnAmount" placeholder="500" min="1" step="0.01"/><div class="field-error">Enter a valid positive amount</div></div>
+        <div class="form-group"><label>Bill Number</label><input type="text" id="txnBillNo" placeholder="BILL-001"/></div>
+        <div class="form-group" id="txnPayModeGroup" style="display:none;"><label>Payment Mode</label>
+          <select id="txnPayMode"><option value="cash">Cash</option><option value="upi">UPI</option><option value="gpay">GPay</option><option value="phonepe">PhonePe</option><option value="paytm">Paytm</option><option value="card">Card</option><option value="bank">Bank Transfer</option></select>
+        </div>
+        <div class="form-group" id="txnRefGroup" style="display:none;"><label>Transaction Ref. No.</label><input type="text" id="txnRefNo" placeholder="UPI Ref / Cheque No."/></div>
+        <div class="form-group" style="grid-column:1/-1;"><label>Product Details / Description</label><input type="text" id="txnDesc" placeholder="e.g. Rice 10kg, Atta 5kg..."/></div>
+        <div class="form-group"><label>Date *</label><input type="date" id="txnDate"/></div>
+        <div class="form-group"><label>Notes</label><input type="text" id="txnNotes" placeholder="Optional notes..."/></div>
+      </div>
+      <div id="dupWarning" style="display:none;background:var(--amber-l);border:1px solid var(--amber);border-radius:8px;padding:10px;font-size:12px;color:var(--amber);margin-top:8px;">⚠️ A similar transaction exists for this customer on this date. Please verify before saving.</div>
+    </div>
+    <div class="modal-footer"><button class="btn-ghost" onclick="closeModal('txnModal')">Cancel</button><button class="btn-primary" onclick="saveTransaction()">💾 Save Transaction</button></div>
+  </div>
+</div>
+
+<!-- CUSTOMER PROFILE / LEDGER MODAL -->
+<div class="overlay hidden" id="profileModal">
+  <div class="modal modal-xl">
+    <div class="modal-header" style="background:var(--sf);border-radius:18px 18px 0 0;">
+      <div class="modal-title" style="color:#fff;">📒 Customer Ledger</div>
+      <div style="display:flex;gap:8px;">
+        <button onclick="printCurrentProfile()" style="background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:6px;padding:5px 12px;cursor:pointer;font-size:12px;font-weight:600;">🖨️ Print</button>
+        <button class="modal-close" onclick="closeModal('profileModal')" style="color:#fff;background:rgba(255,255,255,.2);">✕</button>
+      </div>
+    </div>
+    <div class="modal-body" id="profileBody"></div>
+  </div>
+</div>
+
+<!-- MONTH DETAIL MODAL -->
+<div class="overlay hidden" id="monthDetailModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title" id="monthDetailTitle">Month Details</div><button class="modal-close" onclick="closeModal('monthDetailModal')">✕</button></div>
+    <div class="modal-body" id="monthDetailBody"></div>
+  </div>
+</div>
+
+<!-- REMINDER MODAL -->
+<div class="overlay hidden" id="reminderModal">
+  <div class="modal"><div class="modal-header"><div class="modal-title">📱 Send WhatsApp Reminder</div><button class="modal-close" onclick="closeModal('reminderModal')">✕</button></div><div class="modal-body" id="reminderBody"></div></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════ -->
+<script>
+/* ═══ FIREBASE INIT ═══ */
+const firebaseConfig={
+  apiKey:"AIzaSyCa5GGpEi8PZnuM8ZSAGroMn9UyFgbRjm0",
+  authDomain:"balaji-store-6bb68.firebaseapp.com",
+  projectId:"balaji-store-6bb68",
+  storageBucket:"balaji-store-6bb68.appspot.com",
+  messagingSenderId:"386706822761",
+  appId:"1:386706822761:web:bce45da04bae2f9ddb74f8"
+};
+let db=null,fbConnected=false;
+try{
+  firebase.initializeApp(firebaseConfig);
+  db=firebase.firestore();
+  db.enablePersistence({synchronizeTabs:true}).catch(()=>{});
+  fbConnected=true;
+}catch(e){console.error('Firebase init:',e);}
+
+/* ═══ INDEXEDDB ═══ */
+const IDB_NAME='balaji_ledger',IDB_VER=4;
+let idb=null;
+function openIDB(){
+  return new Promise((res,rej)=>{
+    const r=indexedDB.open(IDB_NAME,IDB_VER);
+    r.onupgradeneeded=e=>{
+      const d=e.target.result;
+      ['customers','transactions','reminders','pending_sync'].forEach(s=>{if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:'id'});});
+      if(!d.objectStoreNames.contains('settings'))d.createObjectStore('settings',{keyPath:'key'});
+    };
+    r.onsuccess=e=>{idb=e.target.result;res(idb);};
+    r.onerror=e=>rej(e);
+  });
+}
+function idbGetAll(s){return new Promise((res)=>{if(!idb)return res([]);const r=idb.transaction(s,'readonly').objectStore(s).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>res([]);});}
+function idbPut(s,o){return new Promise((res)=>{if(!idb)return res(null);const r=idb.transaction(s,'readwrite').objectStore(s).put(o);r.onsuccess=()=>res(r.result);r.onerror=()=>res(null);});}
+function idbDelete(s,k){return new Promise((res)=>{if(!idb)return res();const r=idb.transaction(s,'readwrite').objectStore(s).delete(k);r.onsuccess=()=>res();r.onerror=()=>res();});}
+function idbGet(s,k){return new Promise((res)=>{if(!idb)return res(null);const r=idb.transaction(s,'readonly').objectStore(s).get(k);r.onsuccess=()=>res(r.result||null);r.onerror=()=>res(null);});}
+
+/* ═══ STATE ═══ */
+let customers=[],transactions=[],reminderHistory=[],pendingSync=[];
+let settings={storeName:'Balaji Store',address:'Main Market, Delhi',phone:'9205002319',overdueDays:30,waPrefix:'+91',gst:'',adminName:'Admin',upiId:'9205002319-1@naviaxis'};
+let analyticsPeriod='month',activeProfile=null,_charts={};
+let theme=localStorage.getItem('bsl_theme')||'light';
+let isOnline=navigator.onLine;
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const MONTHS_SHORT=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+/* ═══ SYNC UI ═══ */
+function setSyncUI(state,msg,n){
+  const dot=document.getElementById('syncDot'),statusEl=document.getElementById('syncStatus');
+  const pc=document.getElementById('syncPendingCount'),btn=document.getElementById('syncBtn');
+  if(dot)dot.className='sync-dot '+state;
+  if(statusEl)statusEl.textContent=msg;
+  if(pc)pc.textContent=n>0?n+' pending':'';
+  if(btn)btn.style.display=n>0?'inline-block':'none';
+}
+function updateSyncUI(){
+  if(!isOnline){setSyncUI('offline','Offline — changes saved locally',pendingSync.length);return;}
+  if(pendingSync.length){setSyncUI('pending',pendingSync.length+' records pending sync',pendingSync.length);return;}
+  setSyncUI('synced','Synced with Firebase',0);
+}
+
+/* ═══ FIREBASE HELPERS ═══ */
+async function fbSet(col,id,data){if(!db)return false;try{await db.collection(col).doc(id).set(data,{merge:true});return true;}catch(e){console.error('fbSet:',e.message);return false;}}
+async function fbDelete(col,id){if(!db)return false;try{await db.collection(col).doc(id).delete();return true;}catch(e){console.error('fbDelete:',e.message);return false;}}
+async function fbGetAll(col){if(!db)return[];try{const snap=await db.collection(col).get();return snap.docs.map(d=>({...d.data(),id:d.id}));}catch(e){console.error('fbGetAll:',e.message);return[];}}
+
+/* ═══ DUAL WRITE ═══ */
+async function dualWrite(col,id,data){
+  await idbPut(col,data);
+  if(isOnline&&db){const ok=await fbSet(col,id,data);if(!ok)await queuePendingSync('write',col,id,data);}
+  else{await queuePendingSync('write',col,id,data);updateSyncUI();}
+}
+async function dualDelete(col,id){
+  await idbDelete(col,id);
+  if(isOnline&&db){const ok=await fbDelete(col,id);if(!ok)await queuePendingSync('delete',col,id,null);}
+  else{await queuePendingSync('delete',col,id,null);updateSyncUI();}
+}
+async function queuePendingSync(op,col,id,data){
+  const item={id:'PSYNC-'+Date.now()+'-'+Math.random().toString(36).slice(2),op,collectionName:col,docId:id,data,queuedAt:new Date().toISOString()};
+  await idbPut('pending_sync',item);
+  pendingSync=await idbGetAll('pending_sync');
+  updateSyncUI();
+}
+async function processPendingSync(){
+  if(!isOnline||!db)return;
+  pendingSync=await idbGetAll('pending_sync');
+  if(!pendingSync.length){setSyncUI('synced','Synced with Firebase',0);return;}
+  setSyncUI('syncing','Syncing...',pendingSync.length);
+  let ok=0;
+  for(const item of pendingSync){
+    let r=false;
+    if(item.op==='write')r=await fbSet(item.collectionName,item.docId,item.data);
+    if(item.op==='delete')r=await fbDelete(item.collectionName,item.docId);
+    if(r){await idbDelete('pending_sync',item.id);ok++;}
+  }
+  pendingSync=await idbGetAll('pending_sync');
+  if(!pendingSync.length){setSyncUI('synced','Synced with Firebase',0);if(ok>0)toast('✅ '+ok+' records synced');}
+  else setSyncUI('pending',pendingSync.length+' pending',pendingSync.length);
+  updateDashboard();
+}
+async function forceSyncNow(){await processPendingSync();}
+
+/* ═══ LOAD DATA ═══ */
+async function loadData(){
+  setSyncUI('syncing','Loading data...',0);
+  if(isOnline&&db){
+    try{
+      const[fC,fT,fR]=await Promise.all([fbGetAll('customers'),fbGetAll('transactions'),fbGetAll('reminders')]);
+      for(const x of fC)await idbPut('customers',x);
+      for(const x of fT)await idbPut('transactions',x);
+      for(const x of fR)await idbPut('reminders',x);
+      customers=fC;transactions=fT;reminderHistory=fR;
+      setSyncUI('synced','Synced with Firebase',0);
+    }catch(e){console.warn('Firebase load failed:',e);await loadFromIDB();setSyncUI('offline','Loaded from local backup',0);}
+  }else{await loadFromIDB();setSyncUI('offline','Offline — using local backup',pendingSync.length);}
+  const s=await idbGet('settings','main');
+  if(s){const sd=s.data||s;Object.assign(settings,sd);}
+  pendingSync=await idbGetAll('pending_sync');
+  updateSyncUI();
+}
+async function loadFromIDB(){
+  customers=await idbGetAll('customers');
+  transactions=await idbGetAll('transactions');
+  reminderHistory=await idbGetAll('reminders');
+}
+
+/* ═══ HELPERS ═══ */
+function fmt(n){return'₹'+Math.round(n||0).toLocaleString('en-IN');}
+function fmtD(d){if(!d)return'—';const dt=new Date(d+'T00:00:00');return dt.getDate()+' '+MONTHS_SHORT[dt.getMonth()]+' '+(dt.getFullYear()+'').slice(2);}
+function today(){return new Date().toISOString().split('T')[0];}
+function monthOf(d){return(d||'').slice(0,7);}
+function daysDiff(d){if(!d)return 0;return Math.floor((Date.now()-new Date(d+'T00:00:00').getTime())/86400000);}
+function initials(n){return(n||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function genId(p){return p+'-'+Date.now()+'-'+Math.random().toString(36).slice(2,6).toUpperCase();}
+function genBillNo(){return'BILL-'+(1000+transactions.length+1);}
+function avatar(n,sz=36){return`<div style="width:${sz}px;height:${sz}px;border-radius:50%;background:var(--sf);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-weight:700;font-size:${Math.round(sz*.35)}px;flex-shrink:0;vertical-align:middle;">${initials(n)}</div>`;}
+function syncBadge(obj){if(!isOnline)return'<span class="badge pending">Local</span>';return pendingSync.some(p=>p.docId===obj.id)?'<span class="badge pending">Pending</span>':'<span class="badge synced">Synced</span>';}
+function validatePhone(p){return/^[6-9]\d{9}$/.test((p||'').trim());}
+function validateAmount(a){return!isNaN(a)&&parseFloat(a)>0;}
+function setFieldError(fid,has){const fg=document.getElementById(fid)?.closest('.form-group');if(fg)fg.classList.toggle('error',has);}
+
+/* ═══ CUSTOMER STATS ═══ */
+function getCustomerStats(cid){
+  const cust=customers.find(c=>c.id===cid)||{};
+  const txns=transactions.filter(t=>t.custId===cid);
+  const pur=txns.filter(t=>t.type==='purchase');
+  const pay=txns.filter(t=>t.type==='payment');
+  const totalPurchase=pur.reduce((s,t)=>s+(t.amount||0),0);
+  const totalPaid=pay.reduce((s,t)=>s+(t.amount||0),0);
+  const cashPaid=pay.filter(p=>p.payMode==='cash').reduce((s,t)=>s+(t.amount||0),0);
+  const onlinePaid=pay.filter(p=>p.payMode!=='cash').reduce((s,t)=>s+(t.amount||0),0);
+  const openingBal=cust.openingBalance||0;
+  const due=Math.max(0,openingBal+totalPurchase-totalPaid);
+  const lastPayment=[...pay].sort((a,b)=>(b.date||'').localeCompare(a.date||''))[0];
+  const months=[...new Set(txns.map(t=>monthOf(t.date)).filter(Boolean))].length||1;
+  const avgMonthly=Math.round(totalPurchase/months);
+  const efficiencyPct=totalPurchase>0?Math.min(100,Math.round(totalPaid/totalPurchase*100)):(due===0?100:0);
+  const daysSinceLastPay=lastPayment?daysDiff(lastPayment.date):(due>0?999:0);
+  const behavior=efficiencyPct>=90&&daysSinceLastPay<30?'good':efficiencyPct>=60?'avg':'slow';
+  return{totalPurchase,totalPaid,cashPaid,onlinePaid,due,openingBal,avgMonthly,efficiencyPct,lastPayment,daysSinceLastPay,behavior};
+}
+
+function getRunningBalance(cid){
+  const cust=customers.find(c=>c.id===cid);
+  const txns=transactions.filter(t=>t.custId===cid).sort((a,b)=>{const dc=(a.date||'').localeCompare(b.date||'');if(dc!==0)return dc;return((a.ts||0)-(b.ts||0));});
+  let bal=cust?.openingBalance||0;
+  return txns.map(t=>{if(t.type==='purchase')bal+=t.amount;else bal-=t.amount;return{...t,runningBalance:bal};});
+}
+
+/* NEW: Get monthly data for a customer */
+function getCustomerMonthlyData(cid,year){
+  const y=parseInt(year)||new Date().getFullYear();
+  return MONTHS.map((name,i)=>{
+    const m=y+'-'+(i+1<10?'0':'')+(i+1);
+    const txns=transactions.filter(t=>t.custId===cid&&monthOf(t.date)===m);
+    const purchased=txns.filter(t=>t.type==='purchase').reduce((s,t)=>s+t.amount,0);
+    const paid=txns.filter(t=>t.type==='payment').reduce((s,t)=>s+t.amount,0);
+    const cashP=txns.filter(t=>t.type==='payment'&&t.payMode==='cash').reduce((s,t)=>s+t.amount,0);
+    const onlineP=txns.filter(t=>t.type==='payment'&&t.payMode!=='cash').reduce((s,t)=>s+t.amount,0);
+    const balance=purchased-paid;
+    let status='empty';
+    if(purchased>0||paid>0){
+      if(balance<=0)status='paid';
+      else if(paid>0)status='partial';
+      else status='due';
+    }
+    return{month:name,short:MONTHS_SHORT[i],key:m,purchased,paid,cashP,onlineP,balance,status,txns};
+  });
+}
+
+/* ═══ MODAL HELPERS ═══ */
+function openModal(id){document.getElementById(id).classList.remove('hidden');}
+function closeModal(id){document.getElementById(id).classList.add('hidden');}
+
+/* ═══ CUSTOMER CRUD ═══ */
+function openAddCustomerModal(editId){
+  ['cName','cPhone','cAddress','cNotes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('cOpenBal').value=0;
+  document.getElementById('cStatus').value='active';
+  document.getElementById('editCustId').value=editId||'';
+  ['cName','cPhone','cOpenBal'].forEach(id=>setFieldError(id,false));
+  if(editId){
+    const c=customers.find(x=>x.id===editId);
+    if(c){
+      document.getElementById('cName').value=c.name||'';
+      document.getElementById('cPhone').value=c.phone||'';
+      document.getElementById('cId').value=c.id||'';
+      document.getElementById('cAddress').value=c.address||'';
+      document.getElementById('cOpenBal').value=c.openingBalance||0;
+      document.getElementById('cNotes').value=c.notes||'';
+      document.getElementById('cStatus').value=c.status||'active';
+      document.getElementById('custModalTitle').textContent='✏️ Edit Customer';
+    }
+  }else{
+    document.getElementById('cId').value='CUST-'+(1000+customers.length+1);
+    document.getElementById('custModalTitle').textContent='Add New Customer';
+  }
+  openModal('custModal');
+}
+
+async function saveCustomer(){
+  const name=document.getElementById('cName').value.trim();
+  const phone=document.getElementById('cPhone').value.trim();
+  const openBal=parseFloat(document.getElementById('cOpenBal').value)||0;
+  const editId=document.getElementById('editCustId').value;
+  let err=false;
+  if(!name){setFieldError('cName',true);err=true;}else setFieldError('cName',false);
+  if(!validatePhone(phone)){setFieldError('cPhone',true);err=true;}else setFieldError('cPhone',false);
+  if(openBal<0){setFieldError('cOpenBal',true);err=true;}else setFieldError('cOpenBal',false);
+  if(err)return;
+  if(!editId){const dup=customers.find(c=>c.phone===phone);if(dup){toast('⚠️ Customer with this mobile already exists: '+dup.name,'error');return;}}
+  const existing=editId?customers.find(c=>c.id===editId):null;
+  const data={id:editId||genId('CUST'),name,phone,address:document.getElementById('cAddress').value.trim(),openingBalance:openBal,notes:document.getElementById('cNotes').value.trim(),status:document.getElementById('cStatus').value||'active',createdAt:existing?.createdAt||today(),updatedAt:today()};
+  if(editId){const i=customers.findIndex(c=>c.id===editId);if(i!==-1)customers[i]=data;toast('✅ Customer updated!');}
+  else{customers.push(data);toast('✅ Customer added!');}
+  await dualWrite('customers',data.id,data);
+  closeModal('custModal');
+  refreshAll();
+}
+
+async function deleteCustomer(id){
+  if(!confirm('Delete this customer and all their transactions?'))return;
+  customers=customers.filter(c=>c.id!==id);
+  const dt=transactions.filter(t=>t.custId===id);
+  transactions=transactions.filter(t=>t.custId!==id);
+  await dualDelete('customers',id);
+  for(const t of dt)await dualDelete('transactions',t.id);
+  toast('🗑️ Customer deleted','info');
+  refreshAll();
+}
+
+async function toggleCustStatus(id){
+  const c=customers.find(x=>x.id===id);
+  if(!c)return;
+  c.status=c.status==='active'?'inactive':'active';
+  c.updatedAt=today();
+  const i=customers.findIndex(x=>x.id===id);
+  if(i!==-1)customers[i]=c;
+  await dualWrite('customers',c.id,c);
+  toast((c.status==='active'?'✅ Activated':'⏸️ Deactivated')+': '+c.name);
+  refreshAll();
+}
+
+/* ═══ TRANSACTION CRUD ═══ */
+function openAddTransactionModal(cid){
+  document.getElementById('editTxnId').value='';
+  document.getElementById('txnDate').value=today();
+  ['txnAmount','txnDesc','txnNotes','txnBillNo','txnRefNo'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('txnBillNo').value=genBillNo();
+  document.getElementById('txnType').value='purchase';
+  document.getElementById('txnPayMode').value='cash';
+  document.getElementById('dupWarning').style.display='none';
+  document.getElementById('custDueInfo').style.display='none';
+  setFieldError('txnCust',false);setFieldError('txnAmount',false);
+  const sel=document.getElementById('txnCust');
+  sel.innerHTML='<option value="">-- Select Customer --</option>'+
+    customers.map(c=>`<option value="${c.id}"${c.id===cid?' selected':''}>${esc(c.name)} (${c.phone})</option>`).join('');
+  txnTypeChange();
+  if(cid)showCustDueInModal();
+  openModal('txnModal');
+}
+
+function showCustDueInModal(){
+  const cid=document.getElementById('txnCust').value;
+  const info=document.getElementById('custDueInfo');
+  if(!cid){info.style.display='none';return;}
+  const s=getCustomerStats(cid);
+  if(s.due>0){
+    info.style.display='block';
+    info.innerHTML=`⚠️ Current Due: <strong>${fmt(s.due)}</strong> — Total Purchase: ${fmt(s.totalPurchase)} | Total Paid: ${fmt(s.totalPaid)}`;
+  }else{
+    info.style.display='block';
+    info.style.background='var(--green-l)';info.style.borderColor='#C8E6C9';info.style.color='var(--green)';
+    info.innerHTML=`✅ Account Clear — No outstanding balance`;
+  }
+}
+
+function txnTypeChange(){
+  const type=document.getElementById('txnType').value;
+  const isPay=type==='payment';
+  document.getElementById('txnPayModeGroup').style.display=isPay?'block':'none';
+  document.getElementById('txnRefGroup').style.display=isPay?'block':'none';
+}
+
+async function saveTransaction(){
+  const cid=document.getElementById('txnCust').value;
+  const amount=parseFloat(document.getElementById('txnAmount').value);
+  const type=document.getElementById('txnType').value;
+  const date=document.getElementById('txnDate').value;
+  let err=false;
+  if(!cid){setFieldError('txnCust',true);err=true;}else setFieldError('txnCust',false);
+  if(!validateAmount(amount)){setFieldError('txnAmount',true);err=true;}else setFieldError('txnAmount',false);
+  if(!date){toast('Please select a date','error');return;}
+  if(err)return;
+  const isDup=transactions.some(t=>t.custId===cid&&t.type===type&&t.amount===amount&&t.date===date);
+  if(isDup)document.getElementById('dupWarning').style.display='block';
+  const txn={
+    id:genId('TXN'),custId:cid,type,amount,
+    billNo:document.getElementById('txnBillNo').value.trim()||genBillNo(),
+    desc:document.getElementById('txnDesc').value.trim(),
+    payMode:type==='payment'?document.getElementById('txnPayMode').value:'',
+    refNo:type==='payment'?document.getElementById('txnRefNo').value.trim():'',
+    date,notes:document.getElementById('txnNotes').value.trim(),
+    source:'manual',ts:Date.now(),
+    createdAt:new Date().toISOString(),
+    createdBy:settings.adminName||'Admin'
+  };
+  transactions.push(txn);
+  await dualWrite('transactions',txn.id,txn);
+  closeModal('txnModal');
+  toast('✅ Transaction saved!');
+  refreshAll();
+}
+
+async function deleteTxn(id){
+  if(!confirm('Delete this transaction?'))return;
+  transactions=transactions.filter(t=>t.id!==id);
+  await dualDelete('transactions',id);
+  toast('🗑️ Deleted','info');
+  refreshAll();
+}
+
+/* ═══ PROFILE MODAL ═══ */
+function openProfile(cid){
+  activeProfile=cid;
+  const c=customers.find(x=>x.id===cid);
+  if(!c)return;
+  const s=getCustomerStats(cid);
+  const ledger=getRunningBalance(cid);
+  const bc={good:'var(--green)',avg:'var(--amber)',slow:'var(--red)'};
+  const bl={good:'Good Payer',avg:'Average Payer',slow:'Slow Payer'};
+  document.getElementById('profileBody').innerHTML=`
+    <div class="profile-header">
+      <div class="avatar-circle">${initials(c.name)}</div>
+      <div style="flex:1;">
+        <div class="profile-name">${esc(c.name)}</div>
+        <div class="profile-sub">📞 ${c.phone} | 🆔 ${c.id} | 📅 Since ${fmtD(c.createdAt)}</div>
+        ${c.address?`<div class="profile-sub">📍 ${esc(c.address)}</div>`:''}
+        <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="background:${bc[s.behavior]};color:#fff;border-radius:50px;padding:3px 10px;font-size:11px;font-weight:700;">${bl[s.behavior]}</span>
+          <span class="badge ${c.status==='inactive'?'inactive':'active'}">${c.status||'active'}</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;" class="no-print">
+        <button class="btn-primary" onclick="openAddTransactionModal('${cid}')" style="font-size:12px;">🛒 Add Khata</button>
+        <button class="btn-green btn-sm" onclick="openPaymentModal('${cid}')" style="font-size:12px;padding:7px 10px;">💵 Add Payment</button>
+        <button class="btn-wa" onclick="sendReminder('${cid}')">📱 WhatsApp</button>
+      </div>
+    </div>
+    ${s.due>0?`<div class="due-banner"><div><div style="font-size:12px;font-weight:700;color:var(--red);">Current Outstanding Due</div><div class="due-amt">${fmt(s.due)}</div></div><button class="btn-wa" onclick="sendReminder('${cid}')" style="padding:9px 16px;font-size:13px;">📱 Remind</button></div>`:''}
+    <div class="khata-summary-bar">
+      <div class="ksb-item"><div class="ksb-val">${fmt(s.openingBal+s.totalPurchase)}</div><div class="ksb-lbl">Total Credit</div></div>
+      <div class="ksb-item"><div class="ksb-val">${fmt(s.totalPaid)}</div><div class="ksb-lbl">Total Paid</div></div>
+      <div class="ksb-item"><div class="ksb-val">${fmt(s.due)}</div><div class="ksb-lbl">Remaining Due</div></div>
+      <div class="ksb-item"><div class="ksb-val">${s.efficiencyPct}%</div><div class="ksb-lbl">Collection Rate</div></div>
+    </div>
+    <div class="grid3" style="margin-bottom:16px;">
+      <div class="stat-chip"><div class="sc-val">${fmt(s.totalPurchase)}</div><div class="sc-lbl">Lifetime Purchase</div></div>
+      <div class="stat-chip"><div class="sc-val">${fmt(s.cashPaid)}</div><div class="sc-lbl">Cash Paid</div></div>
+      <div class="stat-chip"><div class="sc-val">${fmt(s.onlinePaid)}</div><div class="sc-lbl">Online Paid</div></div>
+      <div class="stat-chip"><div class="sc-val">${fmt(s.avgMonthly)}</div><div class="sc-lbl">Avg Monthly</div></div>
+      <div class="stat-chip"><div class="sc-val">${s.lastPayment?fmtD(s.lastPayment.date):'—'}</div><div class="sc-lbl">Last Payment</div></div>
+      <div class="stat-chip"><div class="sc-val">${s.daysSinceLastPay===999?'Never':s.daysSinceLastPay+' d'}</div><div class="sc-lbl">Days Since Pay</div></div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="switchProfileTab('ledger',this)">📋 Ledger</button>
+      <button class="tab" onclick="switchProfileTab('monthly',this)">📅 Monthly</button>
+      <button class="tab" onclick="switchProfileTab('analytics',this)">📈 Analytics</button>
+    </div>
+    <div id="profileTabLedger">
+      ${s.openingBal>0?`<div class="ledger-strip debit"><div><div style="font-weight:700;">Opening Balance</div></div><div style="text-align:right;"><div style="font-family:'Baloo 2',cursive;font-weight:800;font-size:14px;color:var(--red);">+${fmt(s.openingBal)}</div></div></div>`:''}
+      <div style="max-height:380px;overflow-y:auto;">
+        ${ledger.length===0
+          ?`<div class="empty-state"><div class="es-icon">📋</div><div class="es-title">No Records</div></div>`
+          :[...ledger].reverse().map(tx=>`
+            <div class="ledger-strip ${tx.type==='purchase'?'debit':'credit'}">
+              <div>
+                <div style="font-weight:700;font-size:13px;">${tx.type==='purchase'?'🛒 Khata':'💵 Payment'} — ${esc(tx.desc||tx.billNo||'—')}</div>
+                <div style="font-size:11px;color:var(--muted);">${fmtD(tx.date)}${tx.billNo?' · '+tx.billNo:''}${tx.payMode&&tx.type==='payment'?' · '+tx.payMode.toUpperCase():''}${tx.refNo?' · Ref:'+tx.refNo:''}</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-family:'Baloo 2',cursive;font-weight:800;font-size:14px;color:${tx.type==='purchase'?'var(--red)':'var(--green)'};">${tx.type==='purchase'?'+':'-'}${fmt(tx.amount)}</div>
+                <div class="running-bal ${tx.runningBalance>0?'positive':'negative'}">Bal: ${fmt(Math.abs(tx.runningBalance))}</div>
+              </div>
+            </div>`).join('')}
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;" class="no-print">
+        <button class="btn-ghost" style="font-size:12px;" onclick="exportCustomerLedgerExcel('${cid}')">⬇ Excel</button>
+        <button class="btn-ghost" style="font-size:12px;" onclick="printCustomerStatement('${cid}')">🖨️ Print Statement</button>
+      </div>
+    </div>
+    <div id="profileTabMonthly" style="display:none;"></div>
+    <div id="profileTabAnalytics" style="display:none;"><div style="position:relative;height:220px;"><canvas id="profileChart"></canvas></div></div>
+  `;
+  openModal('profileModal');
+  setTimeout(()=>renderProfileChart(cid),100);
+}
+
+function switchProfileTab(tab,el){
+  ['ledger','monthly','analytics'].forEach(t=>{
+    const el2=document.getElementById('profileTab'+t.charAt(0).toUpperCase()+t.slice(1));
+    if(el2)el2.style.display=tab===t?'block':'none';
+  });
+  document.querySelectorAll('#profileBody .tab').forEach(t=>t.classList.remove('active'));
+  if(el)el.classList.add('active');
+  if(tab==='analytics')renderProfileChart(activeProfile);
+  if(tab==='monthly')renderProfileMonthly(activeProfile);
+}
+
+function renderProfileMonthly(cid){
+  const year=new Date().getFullYear();
+  const data=getCustomerMonthlyData(cid,year);
+  const totalPur=data.reduce((s,d)=>s+d.purchased,0);
+  const totalPaid=data.reduce((s,d)=>s+d.paid,0);
+  const el=document.getElementById('profileTabMonthly');
+  if(!el)return;
+  el.innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <div style="font-family:'Baloo 2',cursive;font-weight:700;font-size:15px;color:var(--brown);">${year} — Monthly Summary</div>
+      <div style="font-size:12px;color:var(--muted);">Purchase: <b style="color:var(--red);">${fmt(totalPur)}</b> | Paid: <b style="color:var(--green);">${fmt(totalPaid)}</b></div>
+    </div>
+    <div class="month-grid">
+      ${data.map(d=>{
+        const cc={paid:'var(--green)',partial:'var(--amber)',due:'var(--red)',empty:'var(--muted)'};
+        return`<div class="month-cell has-${d.status}" onclick="openMonthDetail('${cid}','${d.key}','${d.month}')">
+          <div class="mc-name">${d.short}</div>
+          ${d.purchased>0?`<div class="mc-amt" style="color:var(--red);">+${fmt(d.purchased).replace('₹','')}</div>`:''}
+          ${d.paid>0?`<div class="mc-amt" style="color:var(--green);">-${fmt(d.paid).replace('₹','')}</div>`:''}
+          ${d.status!=='empty'?`<div class="mc-badge" style="background:${cc[d.status]};color:#fff;">${d.status==='paid'?'✓ Paid':d.status==='partial'?'Partial':'Due'}</div>`:'<div style="font-size:10px;color:var(--muted);margin-top:4px;">No activity</div>'}
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="tbl-wrap" style="margin-top:12px;">
+      <table class="dt"><thead><tr><th>Month</th><th>Purchase</th><th>Cash Paid</th><th>Online Paid</th><th>Total Paid</th><th>Balance</th><th>Status</th></tr></thead>
+      <tbody>${data.map(d=>`<tr><td style="font-weight:600;">${d.month}</td><td style="color:var(--red);">${d.purchased?fmt(d.purchased):'—'}</td><td style="color:var(--green);">${d.cashP?fmt(d.cashP):'—'}</td><td style="color:var(--teal);">${d.onlineP?fmt(d.onlineP):'—'}</td><td style="color:var(--green);font-weight:600;">${d.paid?fmt(d.paid):'—'}</td><td style="font-family:'Baloo 2',cursive;font-weight:700;color:${d.balance>0?'var(--red)':'var(--green)'};">${d.balance?fmt(Math.abs(d.balance)):'—'}</td><td>${d.status==='empty'?'—':`<span class="badge ${d.status==='paid'?'paid':d.status==='partial'?'partial':'due'}">${d.status==='paid'?'Paid':d.status==='partial'?'Partial':'Due'}</span>`}</td></tr>`).join('')}</tbody>
+      </table>
+    </div>`;
+}
+
+function openMonthDetail(cid,monthKey,monthName){
+  const c=customers.find(x=>x.id===cid);
+  const txns=transactions.filter(t=>t.custId===cid&&monthOf(t.date)===monthKey).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+  const pur=txns.filter(t=>t.type==='purchase').reduce((s,t)=>s+t.amount,0);
+  const paid=txns.filter(t=>t.type==='payment').reduce((s,t)=>s+t.amount,0);
+  document.getElementById('monthDetailTitle').textContent=`${monthName} — ${c?.name||''}`;
+  document.getElementById('monthDetailBody').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;">
+      <div class="stat-chip"><div class="sc-val" style="color:var(--red);">${fmt(pur)}</div><div class="sc-lbl">Purchased</div></div>
+      <div class="stat-chip"><div class="sc-val" style="color:var(--green);">${fmt(paid)}</div><div class="sc-lbl">Paid</div></div>
+      <div class="stat-chip"><div class="sc-val" style="color:${pur-paid>0?'var(--red)':'var(--green)'};">${fmt(Math.abs(pur-paid))}</div><div class="sc-lbl">${pur-paid>0?'Remaining':'Extra Paid'}</div></div>
+    </div>
+    ${txns.length===0?`<div class="empty-state"><div class="es-icon">📭</div><div class="es-title">No transactions this month</div></div>`:`
+    <div class="tbl-wrap"><table class="dt"><thead><tr><th>Date</th><th>Type</th><th>Bill No.</th><th>Details</th><th>Amount</th><th>Mode</th><th>Ref No.</th></tr></thead>
+    <tbody>${txns.map(tx=>`<tr>
+      <td>${fmtD(tx.date)}</td>
+      <td><span class="badge ${tx.type==='purchase'?'due':'paid'}">${tx.type==='purchase'?'Khata':'Payment'}</span></td>
+      <td style="font-size:11px;color:var(--sf);">${esc(tx.billNo||'—')}</td>
+      <td style="font-size:12px;color:var(--muted);">${esc(tx.desc||'—')}</td>
+      <td style="font-family:'Baloo 2',cursive;font-weight:700;color:${tx.type==='purchase'?'var(--red)':'var(--green)'};">${tx.type==='purchase'?'+':'-'}${fmt(tx.amount)}</td>
+      <td style="font-size:11px;">${tx.type==='payment'?(tx.payMode||'cash').toUpperCase():'—'}</td>
+      <td style="font-size:11px;color:var(--muted);">${esc(tx.refNo||'—')}</td>
+    </tr>`).join('')}</tbody></table></div>`}`;
+  openModal('monthDetailModal');
+}
+
+function renderProfileChart(cid){
+  const txns=transactions.filter(t=>t.custId===cid);
+  const last6=[];
+  for(let i=5;i>=0;i--){const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-i);last6.push(d.toISOString().slice(0,7));}
+  const labels=last6.map(m=>MONTHS_SHORT[parseInt(m.split('-')[1])-1]);
+  const purD=last6.map(m=>txns.filter(t=>t.type==='purchase'&&monthOf(t.date)===m).reduce((s,t)=>s+t.amount,0));
+  const payD=last6.map(m=>txns.filter(t=>t.type==='payment'&&monthOf(t.date)===m).reduce((s,t)=>s+t.amount,0));
+  destroyChart('profileChart');
+  const canvas=document.getElementById('profileChart');
+  if(!canvas)return;
+  _charts['profileChart']=new Chart(canvas,{type:'bar',data:{labels,datasets:[{label:'Khata',data:purD,backgroundColor:'rgba(255,107,0,0.65)',borderRadius:3},{label:'Payment',data:payD,backgroundColor:'rgba(46,125,50,0.65)',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10}}}},scales:{x:{grid:{display:false}},y:{ticks:{callback:v=>'₹'+(v>=1000?(v/1000).toFixed(0)+'K':v),font:{size:9}}}}}});
+}
+
+function openPaymentModal(cid){
+  closeModal('profileModal');
+  setTimeout(()=>{openAddTransactionModal(cid);document.getElementById('txnType').value='payment';txnTypeChange();showCustDueInModal();},100);
+}
+function printCurrentProfile(){openProfile(activeProfile);setTimeout(()=>window.print(),300);}
+function printCustomerStatement(cid){activeProfile=cid;openProfile(cid);setTimeout(()=>window.print(),400);}
+
+/* ═══ KHATA LIST ═══ */
+function renderKhataList(){
+  const srch=(document.getElementById('khataSearch')?.value||'').toLowerCase();
+  const sf=document.getElementById('khataStatusFilter')?.value||'';
+  const cf=document.getElementById('khataCustFilter')?.value||'';
+  const sel=document.getElementById('khataCustFilter');
+  if(sel){const cur=sel.value;sel.innerHTML='<option value="">All Customers</option>'+customers.map(c=>`<option value="${c.id}"${c.id===cur?' selected':''}>${esc(c.name)}</option>`).join('');}
+  let list=[...customers].map(c=>({c,s:getCustomerStats(c.id)}));
+  if(srch)list=list.filter(({c})=>c.name.toLowerCase().includes(srch)||(c.phone||'').includes(srch));
+  if(cf)list=list.filter(({c})=>c.id===cf);
+  if(sf==='due')list=list.filter(({s})=>s.due>0);
+  if(sf==='paid')list=list.filter(({s})=>s.due<=0);
+  if(sf==='active')list=list.filter(({c})=>(c.status||'active')==='active');
+  if(sf==='inactive')list=list.filter(({c})=>c.status==='inactive');
+  list.sort((a,b)=>b.s.due-a.s.due);
+  const wrap=document.getElementById('khataListWrap');
+  if(!wrap)return;
+  if(list.length===0){wrap.innerHTML=`<div class="card"><div class="empty-state"><div class="es-icon">📒</div><div class="es-title">No Customers Found</div><div class="es-sub">Add customers to manage their khata</div></div></div>`;return;}
+  wrap.innerHTML=list.map(({c,s})=>{
+    const io=s.due>0&&s.daysSinceLastPay>=(settings.overdueDays||30);
+    const lastTxns=transactions.filter(t=>t.custId===c.id).sort((a,b)=>(b.ts||0)-(a.ts||0)).slice(0,3);
+    return`<div class="card" style="margin-bottom:12px;">
+      <div class="khata-row" style="border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:10px;">
+        <div style="cursor:pointer;" onclick="openProfile('${c.id}')">${avatar(c.name,42)}</div>
+        <div style="flex:1;margin-left:10px;cursor:pointer;" onclick="openProfile('${c.id}')">
+          <div style="font-family:'Baloo 2',cursive;font-weight:700;font-size:15px;">${esc(c.name)}</div>
+          <div style="font-size:12px;color:var(--muted);">${c.phone} · ${c.id} · <span class="badge ${c.status==='inactive'?'inactive':'active'}">${c.status||'active'}</span></div>
+          ${c.address?`<div style="font-size:11px;color:var(--muted);">📍 ${esc(c.address)}</div>`:''}
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;color:${s.due>0?'var(--red)':'var(--green)'};">${fmt(s.due)}</div>
+          <div style="font-size:10px;color:var(--muted);">${s.due>0?'OUTSTANDING':'ALL CLEAR'}</div>
+          ${io?'<span class="badge overdue">Overdue</span>':''}
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;">
+        <div class="stat-chip" style="padding:8px;"><div class="sc-val" style="font-size:13px;color:var(--blue);">${fmt(s.totalPurchase)}</div><div class="sc-lbl">Total Khata</div></div>
+        <div class="stat-chip" style="padding:8px;"><div class="sc-val" style="font-size:13px;color:var(--green);">${fmt(s.cashPaid)}</div><div class="sc-lbl">Cash Paid</div></div>
+        <div class="stat-chip" style="padding:8px;"><div class="sc-val" style="font-size:13px;color:var(--teal);">${fmt(s.onlinePaid)}</div><div class="sc-lbl">Online Paid</div></div>
+        <div class="stat-chip" style="padding:8px;"><div class="sc-val" style="font-size:13px;">${s.efficiencyPct}%</div><div class="sc-lbl">Collection</div></div>
+      </div>
+      ${lastTxns.length>0?`<div style="margin-bottom:10px;">${lastTxns.map(tx=>`<div class="bill-row"><span class="bill-number">${tx.billNo||tx.id.slice(-8)}</span> · <span style="font-size:12px;">${fmtD(tx.date)}</span> · <span class="badge ${tx.type==='purchase'?'due':'paid'}" style="font-size:9px;">${tx.type==='purchase'?'Khata':'Payment'}</span> · <span style="font-family:'Baloo 2',cursive;font-weight:700;color:${tx.type==='purchase'?'var(--red)':'var(--green)'};">${tx.type==='purchase'?'+':'-'}${fmt(tx.amount)}</span>${tx.desc?` <span style="font-size:11px;color:var(--muted);">· ${esc(tx.desc)}</span>`:''}</div>`).join('')}</div>`:''}
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="btn-sm btn-blue" onclick="openProfile('${c.id}')">📋 Full Ledger</button>
+        <button class="btn-sm btn-orange" onclick="openAddTransactionModal('${c.id}')">🛒 Add Khata</button>
+        <button class="btn-sm btn-green" onclick="openPaymentModal('${c.id}')">💵 Add Payment</button>
+        <button class="btn-wa" onclick="sendReminder('${c.id}')">📱</button>
+        <button class="btn-sm btn-indigo" onclick="goto('monthly',null);setTimeout(()=>{document.getElementById('monthCustSel').value='${c.id}';renderMonthlyHistory();},100)">📅 Monthly</button>
+        <button class="btn-sm" style="background:var(--sf-l);color:var(--sf);" onclick="openAddCustomerModal('${c.id}')">✏️</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══ MONTHLY HISTORY PAGE ═══ */
+function renderMonthlyHistory(){
+  const cid=document.getElementById('monthCustSel')?.value;
+  const year=document.getElementById('monthYearSel')?.value||new Date().getFullYear();
+  const wrap=document.getElementById('monthlyHistoryWrap');
+  if(!wrap)return;
+  if(!cid){wrap.innerHTML=`<div class="empty-state"><div class="es-icon">📅</div><div class="es-title">Select a Customer</div><div class="es-sub">Choose a customer above to see their 12-month payment history</div></div>`;return;}
+  const c=customers.find(x=>x.id===cid);
+  if(!c)return;
+  const s=getCustomerStats(cid);
+  const data=getCustomerMonthlyData(cid,year);
+  const totalPur=data.reduce((a,d)=>a+d.purchased,0);
+  const totalPaid=data.reduce((a,d)=>a+d.paid,0);
+  const totalBal=totalPur-totalPaid;
+  const statusColors={paid:'var(--green)',partial:'var(--amber)',due:'var(--red)',empty:'var(--muted)'};
+  wrap.innerHTML=`
+    <div class="card" style="margin-bottom:16px;">
+      <div class="profile-header" style="margin-bottom:0;">
+        ${avatar(c.name,48)}
+        <div style="flex:1;margin-left:10px;">
+          <div style="font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;">${esc(c.name)}</div>
+          <div style="font-size:12px;color:var(--muted);">${c.phone} · ${c.id}</div>
+          <span class="badge ${c.status==='inactive'?'inactive':'active'}" style="margin-top:4px;display:inline-block;">${c.status||'active'}</span>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;color:${s.due>0?'var(--red)':'var(--green)'};">${fmt(s.due)}</div>
+          <div style="font-size:11px;color:var(--muted);">Total Outstanding</div>
+        </div>
+      </div>
+    </div>
+    <div class="khata-summary-bar" style="margin-bottom:16px;">
+      <div class="ksb-item"><div class="ksb-val">${fmt(totalPur)}</div><div class="ksb-lbl">Year Khata (${year})</div></div>
+      <div class="ksb-item"><div class="ksb-val">${fmt(totalPaid)}</div><div class="ksb-lbl">Year Collected</div></div>
+      <div class="ksb-item"><div class="ksb-val">${fmt(Math.abs(totalBal))}</div><div class="ksb-lbl">${totalBal>0?'Year Pending':'Extra Paid'}</div></div>
+      <div class="ksb-item"><div class="ksb-val">${totalPur>0?Math.round(totalPaid/totalPur*100)+'%':'—'}</div><div class="ksb-lbl">Year Collection %</div></div>
+    </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+        <div style="font-family:'Baloo 2',cursive;font-size:15px;font-weight:700;color:var(--brown);">📅 ${year} Monthly Khata View</div>
+        <div style="font-size:11px;color:var(--muted);">Click any month for details</div>
+      </div>
+      <div class="month-grid">
+        ${data.map(d=>`
+          <div class="month-cell has-${d.status}" onclick="openMonthDetail('${cid}','${d.key}','${d.month} ${year}')">
+            <div class="mc-name">${d.short}</div>
+            ${d.purchased>0?`<div style="font-size:10px;font-weight:700;color:var(--red);margin-top:2px;">↑${fmt(d.purchased).replace('₹','')}</div>`:''}
+            ${d.paid>0?`<div style="font-size:10px;font-weight:700;color:var(--green);">↓${fmt(d.paid).replace('₹','')}</div>`:''}
+            ${d.status!=='empty'
+              ?`<div class="mc-badge" style="background:${statusColors[d.status]};color:#fff;display:inline-block;border-radius:50px;padding:1px 5px;font-size:8px;font-weight:700;margin-top:3px;">${d.status==='paid'?'✓ PAID':d.status==='partial'?'PART.':'DUE'}</div>`
+              :`<div style="font-size:9px;color:var(--muted);margin-top:4px;">—</div>`}
+          </div>`).join('')}
+      </div>
+    </div>
+    <div class="card">
+      <div class="sec-title">Detailed Monthly Table</div>
+      <div class="tbl-wrap">
+        <table class="dt">
+          <thead><tr><th>#</th><th>Month</th><th>Khata / Purchase</th><th>Cash Paid</th><th>Online Paid</th><th>Total Paid</th><th>Balance</th><th>Transactions</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody>
+            ${data.map((d,i)=>`<tr style="${d.status==='due'?'background:rgba(229,57,53,.03);':''}">
+              <td style="color:var(--muted);font-size:11px;">${i+1}</td>
+              <td style="font-weight:700;">${d.month}</td>
+              <td style="color:var(--red);font-weight:600;">${d.purchased?fmt(d.purchased):'—'}</td>
+              <td style="color:var(--green);">${d.cashP?fmt(d.cashP):'—'}</td>
+              <td style="color:var(--teal);">${d.onlineP?fmt(d.onlineP):'—'}</td>
+              <td style="color:var(--green);font-weight:700;">${d.paid?fmt(d.paid):'—'}</td>
+              <td style="font-family:'Baloo 2',cursive;font-weight:700;color:${d.balance>0?'var(--red)':'var(--green)'};">${d.balance?fmt(Math.abs(d.balance)):'—'}</td>
+              <td style="color:var(--sf);font-weight:700;">${d.txns.length||'—'}</td>
+              <td>${d.status==='empty'?'—':`<span class="badge ${d.status==='paid'?'paid':d.status==='partial'?'partial':'due'}">${d.status==='paid'?'Paid':d.status==='partial'?'Partial':'Due'}</span>`}</td>
+              <td>${d.txns.length>0?`<button class="btn-sm btn-blue" onclick="openMonthDetail('${cid}','${d.key}','${d.month}')">View</button>`:'—'}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+function initMonthlyYearSelect(){
+  const sel=document.getElementById('monthYearSel');
+  const custSel=document.getElementById('monthCustSel');
+  if(!sel||!custSel)return;
+  const cy=new Date().getFullYear();
+  sel.innerHTML='';
+  for(let y=cy+1;y>=cy-3;y--){sel.innerHTML+=`<option value="${y}"${y===cy?' selected':''}>${y}</option>`;}
+  custSel.innerHTML='<option value="">-- Select Customer --</option>'+customers.map(c=>`<option value="${c.id}">${esc(c.name)} (${c.phone})</option>`).join('');
+}
+
+/* ═══ REMINDERS ═══ */
+function sendReminder(cid){
+  const c=customers.find(x=>x.id===cid);if(!c)return;
+  const s=getCustomerStats(cid);
+  const amt=Math.round(s.due).toLocaleString('en-IN');
+  const uid=settings.upiId||'9205002319-1@naviaxis';
+  const sn=settings.storeName||'Balaji Store';
+  const tmpls=[
+    `Hello ${c.name}! You have an outstanding payment of ₹${amt} at ${sn}.\n\nPlease pay via UPI: ${uid}\n\nThank you! 🙏`,
+    `Dear ${c.name}, ₹${amt} is due at ${sn}.\n\nPay via UPI: ${uid}\n\nKindly settle soon. Thank you!`,
+    `${c.name} ji, Aapka ₹${amt} ka payment ${sn} mein pending hai.\n\nUPI: ${uid}\n\nDhanyawad! 🙏`
+  ];
+  document.getElementById('reminderBody').innerHTML=`
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">${avatar(c.name,40)}<div style="margin-left:6px;"><strong>${esc(c.name)}</strong><br><span style="font-size:12px;color:var(--muted);">${c.phone} · Due: ${fmt(s.due)}</span></div></div>
+    ${tmpls.map(t=>`<div style="background:var(--cream);border-radius:9px;padding:12px 14px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;line-height:1.6;cursor:pointer;white-space:pre-line;" onclick="document.getElementById('remMsgBox').value=this.querySelector('span').textContent"><span>${esc(t)}</span></div>`).join('')}
+    <div class="form-group" style="margin-top:10px;"><label>Custom Message</label><textarea id="remMsgBox" rows="4" style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px;font-size:13px;outline:none;background:var(--input-bg);color:var(--text);resize:vertical;">${tmpls[0]}</textarea></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px;">
+      <button class="btn-ghost" onclick="closeModal('reminderModal')">Cancel</button>
+      <button class="btn-wa" style="padding:9px 18px;font-size:13px;" onclick="sendWA('${c.id}','${c.phone}')">📱 Send WhatsApp</button>
+    </div>`;
+  openModal('reminderModal');
+}
+async function sendWA(cid,phone){
+  const msg=document.getElementById('remMsgBox').value;
+  const clean=(settings.waPrefix||'+91')+phone.replace(/\D/g,'');
+  window.open(`https://wa.me/${clean.replace('+','')}?text=${encodeURIComponent(msg)}`,'_blank');
+  const rem={id:'REM-'+Date.now(),custId:cid,phone,msg,date:today(),ts:Date.now()};
+  reminderHistory.unshift(rem);
+  await dualWrite('reminders',rem.id,rem);
+  toast('✅ Reminder link opened!');
+  closeModal('reminderModal');
+  renderReminders();
+}
+async function sendBulkReminders(){
+  const dc=customers.filter(c=>getCustomerStats(c.id).due>0);
+  if(!dc.length){toast('No outstanding dues','info');return;}
+  toast('Opening reminders for '+dc.length+' customers...','info');
+  dc.forEach((c,i)=>setTimeout(()=>sendReminder(c.id),i*400));
+}
+
+/* ═══ RENDER: DASHBOARD ═══ */
+function renderDashboard(){
+  if(!document.getElementById('dkpiCust'))return;
+  const all=customers.map(c=>({c,s:getCustomerStats(c.id)}));
+  const tp=transactions.filter(t=>t.type==='purchase').reduce((s,t)=>s+t.amount,0);
+  const cc=transactions.filter(t=>t.type==='payment'&&t.payMode==='cash').reduce((s,t)=>s+t.amount,0);
+  const oc=transactions.filter(t=>t.type==='payment'&&t.payMode!=='cash').reduce((s,t)=>s+t.amount,0);
+  const td=all.reduce((s,{s:st})=>s+(st.due||0),0);
+  const outC=all.filter(({s})=>s.due>0).length;
+  const ovC=all.filter(({s})=>s.due>0&&s.daysSinceLastPay>=(settings.overdueDays||30)).length;
+  const activeC=customers.filter(c=>(c.status||'active')==='active').length;
+  const thisMonthSales=transactions.filter(t=>t.type==='purchase'&&monthOf(t.date)===today().slice(0,7)).reduce((s,t)=>s+t.amount,0);
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('dkpiCust',customers.length||'0');
+  set('dkpiSales',fmt(tp));set('dkpiCash',fmt(cc));set('dkpiOnline',fmt(oc));
+  set('dkpiDue',fmt(td));set('dkpiOutstanding',outC);
+  set('dkpiActive',activeC);set('dkpiMonthSales',fmt(thisMonthSales));
+  document.getElementById('dueBadge').textContent=outC;
+  const oa=document.getElementById('overdueAlert');
+  if(ovC>0){oa.style.display='flex';document.getElementById('overdueCount').textContent=ovC;}else oa.style.display='none';
+  renderDashCharts(all);renderTopCustomers(all);renderHighestDues(all);renderRecentTransactions();
+}
+function updateDashboard(){renderDashboard();}
+
+function renderDashCharts(all){
+  const last6=[];
+  for(let i=5;i>=0;i--){const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-i);last6.push(d.toISOString().slice(0,7));}
+  const labels=last6.map(m=>MONTHS_SHORT[parseInt(m.split('-')[1])-1]);
+  const sd=last6.map(m=>transactions.filter(t=>t.type==='purchase'&&monthOf(t.date)===m).reduce((s,t)=>s+t.amount,0));
+  const cd=last6.map(m=>transactions.filter(t=>t.type==='payment'&&monthOf(t.date)===m).reduce((s,t)=>s+t.amount,0));
+  destroyChart('salesChart');
+  const c1=document.getElementById('salesChart');
+  if(c1)_charts['salesChart']=new Chart(c1,{type:'bar',data:{labels,datasets:[{label:'Khata',data:sd,backgroundColor:'rgba(255,107,0,.65)',borderRadius:3},{label:'Payment',data:cd,backgroundColor:'rgba(21,101,192,.65)',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10}}}},scales:{x:{grid:{display:false}},y:{ticks:{callback:v=>'₹'+(v>=1000?(v/1000).toFixed(0)+'K':v),font:{size:10}}}}}});
+  const cT=transactions.filter(t=>t.type==='payment'&&t.payMode==='cash').reduce((s,t)=>s+t.amount,0);
+  const uT=transactions.filter(t=>t.type==='payment'&&t.payMode==='upi').reduce((s,t)=>s+t.amount,0);
+  const gT=transactions.filter(t=>t.type==='payment'&&t.payMode==='gpay').reduce((s,t)=>s+t.amount,0);
+  const pT=transactions.filter(t=>t.type==='payment'&&t.payMode==='phonepe').reduce((s,t)=>s+t.amount,0);
+  const ptT=transactions.filter(t=>t.type==='payment'&&t.payMode==='paytm').reduce((s,t)=>s+t.amount,0);
+  const aP=cT+uT+gT+pT+ptT;
+  if(aP>0){destroyChart('payChart');const c2=document.getElementById('payChart');if(c2)_charts['payChart']=new Chart(c2,{type:'doughnut',data:{labels:['Cash','UPI','GPay','PhonePe','Paytm'],datasets:[{data:[cT,uT,gT,pT,ptT],backgroundColor:['#FF6B00','#1565C0','#34A853','#5F259F','#00BAF2'],borderWidth:2,borderColor:'rgba(0,0,0,0)'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:9,padding:5}}},cutout:'62%'}});}
+}
+function renderTopCustomers(all){
+  const sorted=(all||customers.map(c=>({c,s:getCustomerStats(c.id)}))).sort((a,b)=>b.s.totalPurchase-a.s.totalPurchase).slice(0,5);
+  const maxP=sorted[0]?.s.totalPurchase||1;
+  const wrap=document.getElementById('topCustWrap');if(!wrap)return;
+  const filtered=sorted.filter(x=>x.s.totalPurchase>0);
+  wrap.innerHTML=filtered.length===0?'<div class="empty-state"><div class="es-icon">👥</div><div class="es-title">No Records</div></div>':filtered.map(({c,s},i)=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer;" onclick="openProfile('${c.id}')"><div style="width:22px;height:22px;border-radius:50%;background:var(--sf-l);color:var(--sf);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">${i+1}</div>${avatar(c.name,30)}<div style="flex:1;font-size:12px;font-weight:600;margin-left:4px;">${esc(c.name)}</div><div class="prog-bar" style="max-width:60px;"><div class="prog-fill" style="width:${Math.round(s.totalPurchase/maxP*100)}%;background:var(--sf);"></div></div><div style="font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;color:var(--sf);">${fmt(s.totalPurchase)}</div></div>`).join('');
+}
+function renderHighestDues(all){
+  const sorted=(all||customers.map(c=>({c,s:getCustomerStats(c.id)}))).filter(x=>x.s.due>0).sort((a,b)=>b.s.due-a.s.due).slice(0,5);
+  const wrap=document.getElementById('highDueWrap');if(!wrap)return;
+  wrap.innerHTML=sorted.length===0?'<div class="empty-state"><div class="es-icon">✅</div><div class="es-title">No Outstanding Dues</div></div>':sorted.map(({c,s})=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer;" onclick="openProfile('${c.id}')">${avatar(c.name,30)}<div style="flex:1;margin-left:4px;"><div style="font-size:12px;font-weight:600;">${esc(c.name)}</div><div style="font-size:10px;color:var(--muted);">${c.phone}</div></div><div><div style="font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;color:var(--red);">${fmt(s.due)}</div>${s.daysSinceLastPay>=(settings.overdueDays||30)?'<span class="badge overdue" style="font-size:9px;">Overdue</span>':''}</div><button class="btn-wa" onclick="event.stopPropagation();sendReminder('${c.id}')">📱</button></div>`).join('');
+}
+function renderRecentTransactions(){
+  const recent=[...transactions].sort((a,b)=>(b.ts||0)-(a.ts||0)).slice(0,10);
+  const tbody=document.getElementById('recentTbody');if(!tbody)return;
+  tbody.innerHTML=recent.length===0?`<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--muted);">No records. Add transactions to see activity.</td></tr>`:recent.map(tx=>{
+    const c=customers.find(x=>x.id===tx.custId);
+    const st=c?getCustomerStats(c.id):{due:0};
+    return`<tr><td>${fmtD(tx.date)}</td><td style="cursor:pointer;color:var(--sf);" onclick="openProfile('${tx.custId}')">${c?esc(c.name):'Unknown'}</td><td style="font-size:11px;color:var(--sf);">${esc(tx.billNo||'—')}</td><td><span class="badge ${tx.type==='purchase'?'due':'paid'}">${tx.type==='purchase'?'Khata':'Payment'}</span></td><td style="font-family:'Baloo 2',cursive;font-weight:700;color:${tx.type==='purchase'?'var(--red)':'var(--green)'};">${tx.type==='purchase'?'+':'-'}${fmt(tx.amount)}</td><td style="font-size:11px;">${tx.type==='payment'?(tx.payMode||'cash').toUpperCase():'—'}</td><td style="font-family:'Baloo 2',cursive;font-weight:700;color:${st.due>0?'var(--red)':'var(--green)'};">${fmt(st.due)}</td></tr>`;
+  }).join('');
+}
+
+/* ═══ RENDER: CUSTOMERS ═══ */
+function renderCustomersList(){
+  const srch=(document.getElementById('custSearch')?.value||'').toLowerCase();
+  const st=document.getElementById('custStatusFilter')?.value||'';
+  const sb=document.getElementById('custSortFilter')?.value||'name';
+  let list=[...customers].map(c=>({c,s:getCustomerStats(c.id)}));
+  if(srch)list=list.filter(({c})=>c.name.toLowerCase().includes(srch)||(c.phone||'').includes(srch)||(c.id||'').toLowerCase().includes(srch));
+  if(st==='due')list=list.filter(({s})=>s.due>0);
+  if(st==='paid')list=list.filter(({s})=>s.due<=0);
+  if(st==='overdue')list=list.filter(({s})=>s.due>0&&s.daysSinceLastPay>=(settings.overdueDays||30));
+  if(st==='active')list=list.filter(({c})=>(c.status||'active')==='active');
+  if(st==='inactive')list=list.filter(({c})=>c.status==='inactive');
+  if(sb==='name')list.sort((a,b)=>a.c.name.localeCompare(b.c.name));
+  if(sb==='due_desc')list.sort((a,b)=>b.s.due-a.s.due);
+  if(sb==='purchase_desc')list.sort((a,b)=>b.s.totalPurchase-a.s.totalPurchase);
+  if(sb==='recent')list.sort((a,b)=>(b.c.createdAt||'').localeCompare(a.c.createdAt||''));
+  const tbody=document.getElementById('custTbody');if(!tbody)return;
+  tbody.innerHTML=list.length===0?`<tr><td colspan="12" style="text-align:center;padding:40px;color:var(--muted);">No records${customers.length===0?'. Click + Add Customer to get started.':'.'}</td></tr>`:list.map(({c,s})=>{
+    const io=s.due>0&&s.daysSinceLastPay>=(settings.overdueDays||30);
+    return`<tr><td style="font-size:11px;color:var(--sf);font-weight:600;">${c.id}</td><td style="cursor:pointer;" onclick="openProfile('${c.id}')">${avatar(c.name,30)}<span style="margin-left:7px;font-weight:600;">${esc(c.name)}</span></td><td><a href="tel:${c.phone}" style="color:var(--sf);">${c.phone}</a></td><td style="font-size:11px;color:var(--muted);">${esc(c.address||'—')}</td><td><span class="badge ${(c.status||'active')==='inactive'?'inactive':'active'}" onclick="toggleCustStatus('${c.id}')" style="cursor:pointer;" title="Click to toggle">${c.status||'active'}</span></td><td style="font-family:'Baloo 2',cursive;font-weight:700;color:var(--blue);">${fmt(s.totalPurchase)}</td><td style="color:var(--green);font-weight:600;">${fmt(s.cashPaid)}</td><td style="color:var(--teal);font-weight:600;">${fmt(s.onlinePaid)}</td><td style="font-family:'Baloo 2',cursive;font-weight:800;color:${s.due>0?'var(--red)':'var(--green)'};">${fmt(s.due)}</td><td style="font-size:11px;color:var(--muted);">${s.lastPayment?fmtD(s.lastPayment.date):'—'}</td><td>${syncBadge(c)}</td><td><div style="display:flex;gap:4px;flex-wrap:wrap;"><button class="btn-sm btn-blue" onclick="openProfile('${c.id}')">📋</button><button class="btn-sm btn-orange" onclick="openAddTransactionModal('${c.id}')">+Khata</button><button class="btn-sm btn-green" onclick="openPaymentModal('${c.id}')">💵</button><button class="btn-wa" onclick="sendReminder('${c.id}')">📱</button><button class="btn-sm" style="background:var(--sf-l);color:var(--sf);" onclick="openAddCustomerModal('${c.id}')">✏️</button><button class="btn-sm btn-red" onclick="deleteCustomer('${c.id}')">🗑️</button></div></td></tr>`;
+  }).join('');
+}
+
+/* ═══ RENDER: DUES ═══ */
+function renderDues(){
+  const srch=(document.getElementById('dueSearch')?.value||'').toLowerCase();
+  const sb=document.getElementById('dueSortFilter')?.value||'due_desc';
+  let list=customers.map(c=>({c,s:getCustomerStats(c.id)})).filter(({s})=>s.due>0);
+  if(srch)list=list.filter(({c})=>c.name.toLowerCase().includes(srch)||(c.phone||'').includes(srch));
+  if(sb==='due_desc')list.sort((a,b)=>b.s.due-a.s.due);
+  if(sb==='due_asc')list.sort((a,b)=>a.s.due-b.s.due);
+  if(sb==='days_desc')list.sort((a,b)=>b.s.daysSinceLastPay-a.s.daysSinceLastPay);
+  const td=list.reduce((s,{s:st})=>s+st.due,0);
+  const o30=list.filter(({s})=>s.daysSinceLastPay>=30).reduce((s2,{s})=>s2+s.due,0);
+  const mc=transactions.filter(t=>t.type==='payment'&&monthOf(t.date)===today().slice(0,7)).reduce((s,t)=>s+t.amount,0);
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('dueTotalOut',fmt(td));set('dueOverdue30',fmt(o30));set('dueCustCount',list.length);set('dueAvg',list.length?fmt(td/list.length):'₹0');set('dueThisMonth',fmt(mc));
+  const tbody=document.getElementById('dueTbody');if(!tbody)return;
+  tbody.innerHTML=list.length===0?`<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--green);">No outstanding dues — all customers are paid up! ✅</td></tr>`:list.map(({c,s})=>{
+    const io=s.daysSinceLastPay>=(settings.overdueDays||30);
+    return`<tr style="${io?'background:rgba(229,57,53,.04)':''}"><td style="cursor:pointer;" onclick="openProfile('${c.id}')">${avatar(c.name,30)}<span style="margin-left:7px;font-weight:600;">${esc(c.name)}</span></td><td><a href="tel:${c.phone}" style="color:var(--sf);">${c.phone}</a></td><td style="color:var(--blue);font-weight:600;">${fmt(s.totalPurchase)}</td><td style="color:var(--green);font-weight:600;">${fmt(s.totalPaid)}</td><td style="font-family:'Baloo 2',cursive;font-weight:800;color:var(--red);font-size:15px;">${fmt(s.due)}</td><td><span class="badge ${io?'overdue':'partial'}">${s.daysSinceLastPay===999?'Never paid':s.daysSinceLastPay+' days'}</span></td><td style="font-size:11px;color:var(--muted);">${s.lastPayment?fmtD(s.lastPayment.date):'—'}</td><td><div style="display:flex;gap:4px;"><button class="btn-sm btn-green" onclick="openPaymentModal('${c.id}')">💵 Pay</button><button class="btn-wa" onclick="sendReminder('${c.id}')">📱</button></div></td></tr>`;
+  }).join('');
+}
+
+/* ═══ RENDER: TRANSACTIONS ═══ */
+function renderTransactions(){
+  const srch=(document.getElementById('txnSearch')?.value||'').toLowerCase();
+  const cf=document.getElementById('txnCustFilter')?.value||'';
+  const tf=document.getElementById('txnTypeFilter')?.value||'';
+  const fr=document.getElementById('txnFrom')?.value;
+  const to=document.getElementById('txnTo')?.value;
+  const sel=document.getElementById('txnCustFilter');
+  if(sel){const cur=sel.value;sel.innerHTML=`<option value="">All Customers</option>`+customers.map(c=>`<option value="${c.id}"${c.id===cur?' selected':''}>${esc(c.name)}</option>`).join('');}
+  let list=[...transactions].sort((a,b)=>(b.ts||0)-(a.ts||0));
+  if(srch)list=list.filter(t=>{const c=customers.find(x=>x.id===t.custId);return(c?.name||'').toLowerCase().includes(srch)||(t.desc||'').toLowerCase().includes(srch)||(t.billNo||'').toLowerCase().includes(srch);});
+  if(cf)list=list.filter(t=>t.custId===cf);
+  if(tf)list=list.filter(t=>t.type===tf);
+  if(fr)list=list.filter(t=>(t.date||'')>=fr);
+  if(to)list=list.filter(t=>(t.date||'')<=to);
+  const pt=list.filter(t=>t.type==='purchase').reduce((s,t)=>s+t.amount,0);
+  const pyt=list.filter(t=>t.type==='payment').reduce((s,t)=>s+t.amount,0);
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('txnKpiPur',fmt(pt));set('txnKpiPay',fmt(pyt));set('txnKpiCount',list.length);
+  const tbody=document.getElementById('txnTbody');if(!tbody)return;
+  tbody.innerHTML=list.length===0?`<tr><td colspan="11" style="text-align:center;padding:30px;color:var(--muted);">No records.</td></tr>`:list.map(tx=>{
+    const c=customers.find(x=>x.id===tx.custId);
+    const led=getRunningBalance(tx.custId);
+    const ent=led.find(e=>e.id===tx.id);
+    const bal=ent?.runningBalance||0;
+    return`<tr><td>${fmtD(tx.date)}</td><td style="cursor:pointer;color:var(--sf);" onclick="openProfile('${tx.custId}')">${c?esc(c.name):'Unknown'}</td><td style="font-size:11px;color:var(--sf);font-weight:600;">${esc(tx.billNo||'—')}</td><td><span class="badge ${tx.type==='purchase'?'due':'paid'}">${tx.type==='purchase'?'Khata':'Payment'}</span></td><td style="font-size:12px;color:var(--muted);">${esc(tx.desc||'—')}</td><td style="font-family:'Baloo 2',cursive;font-weight:700;color:${tx.type==='purchase'?'var(--red)':'var(--green)'};">${tx.type==='purchase'?'+':'-'}${fmt(tx.amount)}</td><td style="font-size:11px;">${tx.type==='payment'?(tx.payMode||'cash').toUpperCase():'—'}</td><td style="font-size:11px;color:var(--muted);">${esc(tx.refNo||'—')}</td><td style="font-family:'Baloo 2',cursive;font-weight:700;color:${bal>0?'var(--red)':'var(--green)'};">${fmt(Math.abs(bal))}</td><td>${syncBadge(tx)}</td><td><button class="btn-sm btn-red" onclick="deleteTxn('${tx.id}')">🗑️</button></td></tr>`;
+  }).join('');
+}
+
+/* ═══ RENDER: REMINDERS ═══ */
+function renderReminders(){
+  const dl=customers.map(c=>({c,s:getCustomerStats(c.id)})).filter(({s})=>s.due>0);
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('remKpiSent',reminderHistory.length);set('remKpiToday',reminderHistory.filter(r=>r.date===today()).length);set('remKpiPending',dl.length);
+  const tbody=document.getElementById('remTbody');if(!tbody)return;
+  tbody.innerHTML=dl.length===0?`<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--green);">No outstanding dues! ✅</td></tr>`:dl.map(({c,s})=>{
+    const lr=[...reminderHistory].filter(r=>r.custId===c.id).sort((a,b)=>(b.ts||0)-(a.ts||0))[0];
+    return`<tr><td>${esc(c.name)}</td><td><a href="tel:${c.phone}" style="color:var(--sf);">${c.phone}</a></td><td style="color:var(--red);font-weight:700;">${fmt(s.due)}</td><td>${s.daysSinceLastPay===999?'Never paid':s.daysSinceLastPay+' days'}</td><td style="font-size:11px;color:var(--muted);">${lr?fmtD(lr.date):'—'}</td><td><button class="btn-wa" onclick="sendReminder('${c.id}')">📱 WhatsApp</button></td></tr>`;
+  }).join('');
+}
+
+/* ═══ RENDER: ANALYTICS ═══ */
+function renderAnalytics(){
+  let fs='';
+  if(analyticsPeriod==='month'){const d=new Date();d.setDate(1);fs=d.toISOString().split('T')[0];}
+  if(analyticsPeriod==='quarter'){const d=new Date();d.setMonth(d.getMonth()-3);fs=d.toISOString().split('T')[0];}
+  if(analyticsPeriod==='year'){const d=new Date();d.setFullYear(d.getFullYear()-1);fs=d.toISOString().split('T')[0];}
+  const tf=fs?transactions.filter(t=>t.date>=fs):transactions;
+  const cd=customers.map(c=>{const tx=tf.filter(t=>t.custId===c.id);const pur=tx.filter(t=>t.type==='purchase').reduce((s,t)=>s+t.amount,0);const pay=tx.filter(t=>t.type==='payment').reduce((s,t)=>s+t.amount,0);return{c,pur,pay};}).filter(x=>x.pur>0||x.pay>0).sort((a,b)=>b.pur-a.pur).slice(0,10);
+  const last6=[];for(let i=5;i>=0;i--){const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-i);last6.push(d.toISOString().slice(0,7));}
+  const ml=last6.map(m=>MONTHS_SHORT[parseInt(m.split('-')[1])-1]);
+  destroyChart('custPurChart');const cp=document.getElementById('custPurChart');if(cp&&cd.length)_charts['custPurChart']=new Chart(cp,{type:'bar',data:{labels:cd.map(x=>x.c.name.split(' ')[0]),datasets:[{label:'Khata',data:cd.map(x=>x.pur),backgroundColor:'rgba(255,107,0,.65)',borderRadius:3},{label:'Payment',data:cd.map(x=>x.pay),backgroundColor:'rgba(46,125,50,.65)',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10}}}},scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{ticks:{callback:v=>'₹'+(v>=1000?(v/1000).toFixed(0)+'K':v),font:{size:9}}}}}});
+  const cod=last6.map(m=>transactions.filter(t=>t.type==='payment'&&monthOf(t.date)===m).reduce((s,t)=>s+t.amount,0));
+  destroyChart('monthlyColChart');const mc=document.getElementById('monthlyColChart');if(mc)_charts['monthlyColChart']=new Chart(mc,{type:'line',data:{labels:ml,datasets:[{label:'Collections',data:cod,borderColor:'#2E7D32',backgroundColor:'rgba(46,125,50,.08)',borderWidth:2.5,fill:true,tension:.4,pointBackgroundColor:'#2E7D32',pointRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{ticks:{callback:v=>'₹'+(v>=1000?(v/1000).toFixed(0)+'K':v),font:{size:9}}}}}});
+  const dd=last6.map(m=>{const cutoff=m+'-28';return customers.reduce((s,c)=>{const txc=transactions.filter(t=>t.custId===c.id&&t.date<=cutoff);const pur=txc.filter(t=>t.type==='purchase').reduce((s,t)=>s+t.amount,0);const pay=txc.filter(t=>t.type==='payment').reduce((s,t)=>s+t.amount,0);return s+Math.max(0,(c.openingBalance||0)+pur-pay);},0);});
+  destroyChart('duesTrendChart');const dt=document.getElementById('duesTrendChart');if(dt)_charts['duesTrendChart']=new Chart(dt,{type:'line',data:{labels:ml,datasets:[{label:'Outstanding',data:dd,borderColor:'#e53935',backgroundColor:'rgba(229,57,53,.08)',borderWidth:2.5,fill:true,tension:.4,pointBackgroundColor:'#e53935',pointRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{ticks:{callback:v=>'₹'+(v>=1000?(v/1000).toFixed(0)+'K':v),font:{size:9}}}}}});
+  const ed=last6.map(m=>{const pur=transactions.filter(t=>t.type==='purchase'&&monthOf(t.date)===m).reduce((s,t)=>s+t.amount,0);const pay=transactions.filter(t=>t.type==='payment'&&monthOf(t.date)===m).reduce((s,t)=>s+t.amount,0);return pur>0?Math.min(100,Math.round(pay/pur*100)):0;});
+  destroyChart('effChart');const ec=document.getElementById('effChart');if(ec)_charts['effChart']=new Chart(ec,{type:'bar',data:{labels:ml,datasets:[{label:'Collection %',data:ed,backgroundColor:ed.map(v=>v>=80?'rgba(46,125,50,.65)':v>=50?'rgba(245,127,23,.65)':'rgba(229,57,53,.65)'),borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{max:100,ticks:{callback:v=>v+'%',font:{size:9}}}}}});
+  const ct=last6.map(m=>transactions.filter(t=>t.type==='payment'&&t.payMode==='cash'&&monthOf(t.date)===m).reduce((s,t)=>s+t.amount,0));
+  const ot=last6.map(m=>transactions.filter(t=>t.type==='payment'&&t.payMode!=='cash'&&monthOf(t.date)===m).reduce((s,t)=>s+t.amount,0));
+  destroyChart('onlineVsCashChart');const ovc=document.getElementById('onlineVsCashChart');if(ovc)_charts['onlineVsCashChart']=new Chart(ovc,{type:'line',data:{labels:ml,datasets:[{label:'Cash',data:ct,borderColor:'#FF6B00',backgroundColor:'rgba(255,107,0,.08)',borderWidth:2,fill:true,tension:.4},{label:'Online/UPI',data:ot,borderColor:'#1565C0',backgroundColor:'rgba(21,101,192,.08)',borderWidth:2,fill:true,tension:.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10}}}},scales:{x:{grid:{display:false}},y:{ticks:{callback:v=>'₹'+(v>=1000?(v/1000).toFixed(0)+'K':v),font:{size:9}}}}}});
+  const cT2=transactions.filter(t=>t.type==='payment'&&t.payMode==='cash').reduce((s,t)=>s+t.amount,0);
+  const uT2=transactions.filter(t=>t.type==='payment'&&t.payMode==='upi').reduce((s,t)=>s+t.amount,0);
+  const gT2=transactions.filter(t=>t.type==='payment'&&t.payMode==='gpay').reduce((s,t)=>s+t.amount,0);
+  const pT2=transactions.filter(t=>t.type==='payment'&&t.payMode==='phonepe').reduce((s,t)=>s+t.amount,0);
+  const ptT2=transactions.filter(t=>t.type==='payment'&&t.payMode==='paytm').reduce((s,t)=>s+t.amount,0);
+  const cT3=transactions.filter(t=>t.type==='payment'&&t.payMode==='card').reduce((s,t)=>s+t.amount,0);
+  const bT=transactions.filter(t=>t.type==='payment'&&t.payMode==='bank').reduce((s,t)=>s+t.amount,0);
+  const aP2=cT2+uT2+gT2+pT2+ptT2+cT3+bT;
+  destroyChart('payModeSplitChart');const pms=document.getElementById('payModeSplitChart');if(pms&&aP2>0)_charts['payModeSplitChart']=new Chart(pms,{type:'doughnut',data:{labels:['Cash','UPI','GPay','PhonePe','Paytm','Card','Bank'],datasets:[{data:[cT2,uT2,gT2,pT2,ptT2,cT3,bT],backgroundColor:['#FF6B00','#1565C0','#34A853','#5F259F','#00BAF2','#E53935','#4E342E'],borderWidth:2,borderColor:'rgba(0,0,0,0)'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:9,padding:5}}},cutout:'60%'}});
+  const bc={good:'var(--green)',avg:'var(--amber)',slow:'var(--red)'};
+  const bl={good:'Good Payer',avg:'Average Payer',slow:'Slow Payer'};
+  const acs=customers.map(c=>({c,s:getCustomerStats(c.id)})).sort((a,b)=>b.s.totalPurchase-a.s.totalPurchase);
+  const atb=document.getElementById('analyticsTbody');
+  if(atb)atb.innerHTML=acs.length===0?`<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--muted);">No records</td></tr>`:acs.map(({c,s})=>`<tr><td style="cursor:pointer;color:var(--sf);" onclick="openProfile('${c.id}')">${esc(c.name)}</td><td style="color:var(--blue);font-weight:600;">${fmt(s.totalPurchase)}</td><td style="color:var(--green);font-weight:600;">${fmt(s.cashPaid)}</td><td style="color:var(--teal);font-weight:600;">${fmt(s.onlinePaid)}</td><td style="color:${s.due>0?'var(--red)':'var(--green)'};font-weight:700;">${fmt(s.due)}</td><td>${fmt(s.avgMonthly)}</td><td><div style="display:flex;align-items:center;gap:6px;"><div class="prog-bar" style="max-width:60px;"><div class="prog-fill" style="width:${s.efficiencyPct}%;background:${s.efficiencyPct>=80?'var(--green)':s.efficiencyPct>=50?'var(--amber)':'var(--red)'};"></div></div><span style="font-size:11px;">${s.efficiencyPct}%</span></div></td><td><span style="background:${bc[s.behavior]};color:#fff;border-radius:50px;padding:2px 8px;font-size:10px;font-weight:700;">${bl[s.behavior]}</span></td></tr>`).join('');
+}
+function setAnalyticsPeriod(p,el){
+  analyticsPeriod=p;
+  document.querySelectorAll('#sec-analytics .filter-pill').forEach(x=>x.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderAnalytics();
+}
+
+/* ═══ RENDER: COLLECTION REPORT ═══ */
+function renderCollectionReport(){
+  const me=document.getElementById('colMonth');
+  const sm=me?.value||today().slice(0,7);
+  if(me&&!me.value)me.value=sm;
+  const mt=transactions.filter(t=>monthOf(t.date)===sm);
+  const ts=mt.filter(t=>t.type==='purchase').reduce((s,t)=>s+t.amount,0);
+  const cc=mt.filter(t=>t.type==='payment'&&t.payMode==='cash').reduce((s,t)=>s+t.amount,0);
+  const oc=mt.filter(t=>t.type==='payment'&&t.payMode!=='cash').reduce((s,t)=>s+t.amount,0);
+  const tc=cc+oc,pend=Math.max(0,ts-tc),rate=ts>0?Math.round(tc/ts*100):0;
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('colKpiSales',fmt(ts));set('colKpiCash',fmt(cc));set('colKpiOnline',fmt(oc));set('colKpiPending',fmt(pend));set('colKpiRate',rate+'%');
+  const cmd=customers.map(c=>{const tx=transactions.filter(t=>t.custId===c.id&&monthOf(t.date)===sm);const pur=tx.filter(t=>t.type==='purchase').reduce((s,t)=>s+t.amount,0);const cp=tx.filter(t=>t.type==='payment'&&t.payMode==='cash').reduce((s,t)=>s+t.amount,0);const op=tx.filter(t=>t.type==='payment'&&t.payMode!=='cash').reduce((s,t)=>s+t.amount,0);const pay=cp+op;return{c,pur,cp,op,pay,due:Math.max(0,pur-pay)};}).filter(x=>x.pur>0||x.pay>0).sort((a,b)=>b.pur-a.pur);
+  const mons=MONTHS_SHORT;const[y,m]=sm.split('-');const ml=MONTHS[parseInt(m)-1]+' '+y;
+  const crb=document.getElementById('colReportBody');
+  if(crb)crb.innerHTML=`
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+        <div><div class="sec-title" style="margin:0;">Monthly Collection Report — ${ml}</div><div style="font-size:12px;color:var(--muted);">${settings.storeName} · ${settings.phone}</div></div>
+        <div style="font-size:12px;color:var(--muted);">Total: <strong>${fmt(ts)}</strong> · Collected: <strong style="color:var(--green);">${fmt(tc)}</strong> · Pending: <strong style="color:var(--red);">${fmt(pend)}</strong></div>
+      </div>
+      ${cmd.length===0?`<div class="empty-state"><div class="es-icon">📊</div><div class="es-title">No Records for ${ml}</div></div>`:`<div class="tbl-wrap"><table class="dt"><thead><tr><th>#</th><th>Customer</th><th>Mobile</th><th>Khata</th><th>Cash Paid</th><th>Online Paid</th><th>Due</th><th>Collection %</th></tr></thead><tbody>${cmd.map((x,i)=>`<tr><td style="color:var(--muted);font-size:11px;">${i+1}</td><td>${esc(x.c.name)}</td><td>${x.c.phone}</td><td style="color:var(--blue);font-weight:600;">${fmt(x.pur)}</td><td style="color:var(--green);font-weight:600;">${fmt(x.cp)}</td><td style="color:var(--teal);font-weight:600;">${fmt(x.op)}</td><td style="color:${x.due>0?'var(--red)':'var(--green)'};font-weight:700;">${fmt(x.due)}</td><td>${x.pur>0?Math.round(x.pay/x.pur*100)+'%':'—'}</td></tr>`).join('')}</tbody></table></div>`}
+    </div>`;
+}
+
+/* ═══ SETTINGS ═══ */
+function loadSettings(){
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.value=v;};
+  set('stStoreName',settings.storeName||'Balaji Store');set('stAddress',settings.address||'');set('stPhone',settings.phone||'');set('stOverdueDays',settings.overdueDays||30);set('stGST',settings.gst||'');set('stWAPrefix',settings.waPrefix||'+91');set('stAdminName',settings.adminName||'Admin');set('stUpiId',settings.upiId||'9205002319-1@naviaxis');
+  const fi=document.getElementById('firebaseStatusInfo');
+  if(fi)fi.innerHTML=`<div>Project: <strong>${firebaseConfig.projectId}</strong></div><div>Status: <strong style="color:${fbConnected?'var(--green)':'var(--red)'}">${fbConnected?'Connected':'Not Connected'}</strong></div><div>Online: <strong style="color:${isOnline?'var(--green)':'var(--red)'}">${isOnline?'Yes':'No'}</strong></div><div>Pending: <strong>${pendingSync.length} records</strong></div>`;
+}
+async function saveSettings(){
+  const get=(id)=>document.getElementById(id)?.value||'';
+  settings.storeName=get('stStoreName')||'Balaji Store';settings.address=get('stAddress');settings.phone=get('stPhone');settings.overdueDays=parseInt(get('stOverdueDays'))||30;settings.gst=get('stGST');settings.waPrefix=get('stWAPrefix')||'+91';settings.adminName=get('stAdminName')||'Admin';settings.upiId=get('stUpiId')||'9205002319-1@naviaxis';
+  const sr={key:'main',...settings};
+  await idbPut('settings',sr);
+  if(db&&isOnline)fbSet('settings','main',sr).catch(()=>{});
+  toast('✅ Settings saved!');loadSettings();
+}
+async function restoreFromFirebase(){if(!fbConnected){toast('Firebase not connected','error');return;}toast('🔄 Restoring...','info');await loadData();refreshAll();toast('✅ Data restored!');}
+async function clearAllLocalData(){
+  if(!confirm('Clear all LOCAL cached data? Firebase data will not be affected.'))return;
+  for(const s of['customers','transactions','reminders','settings','pending_sync']){try{const all=await idbGetAll(s);for(const item of all)await idbDelete(s,item.id||item.key);}catch(e){}}
+  customers=[];transactions=[];reminderHistory=[];pendingSync=[];
+  toast('Local cache cleared. Reload to restore from Firebase.','info');refreshAll();
+}
+
+/* ═══ EXPORT ═══ */
+function exportAllExcel(){
+  const wb=XLSX.utils.book_new();
+  const cd=customers.map(c=>{const s=getCustomerStats(c.id);return{'Customer ID':c.id,'Name':c.name,'Phone':c.phone,'Address':c.address||'','Status':c.status||'active','Join Date':c.createdAt||'','Total Khata':s.totalPurchase,'Cash Paid':s.cashPaid,'Online Paid':s.onlinePaid,'Due':s.due,'Collection %':s.efficiencyPct+'%','Last Payment':s.lastPayment?s.lastPayment.date:'—'};});
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(cd.length?cd:[{'Message':'No customer records'}]),'Customers');
+  const td=transactions.map(t=>{const c=customers.find(x=>x.id===t.custId);return{'ID':t.id,'Date':t.date,'Customer':c?.name||'?','Type':t.type,'Bill No.':t.billNo||'','Amount':t.amount,'Payment Mode':t.payMode||'—','Ref No.':t.refNo||'','Product Details':t.desc||''};});
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(td.length?td:[{'Message':'No records'}]),'Transactions');
+  XLSX.writeFile(wb,'balaji-store-khata-'+today()+'.xlsx');
+  toast('✅ Exported!');
+}
+function exportCollectionExcel(){
+  const m=document.getElementById('colMonth')?.value||today().slice(0,7);
+  const wb=XLSX.utils.book_new();
+  const d=customers.map(c=>{const tx=transactions.filter(t=>t.custId===c.id&&monthOf(t.date)===m);const pur=tx.filter(t=>t.type==='purchase').reduce((s,t)=>s+t.amount,0);const cp=tx.filter(t=>t.type==='payment'&&t.payMode==='cash').reduce((s,t)=>s+t.amount,0);const op=tx.filter(t=>t.type==='payment'&&t.payMode!=='cash').reduce((s,t)=>s+t.amount,0);const pay=cp+op;if(!pur&&!pay)return null;return{'Customer':c.name,'Phone':c.phone,'Khata':pur,'Cash Paid':cp,'Online Paid':op,'Total Paid':pay,'Due':Math.max(0,pur-pay),'Collection %':pur>0?Math.round(pay/pur*100)+'%':'—'};}).filter(Boolean);
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(d.length?d:[{'Message':'No records'}]),'Collection Report');
+  XLSX.writeFile(wb,'collection-'+m+'.xlsx');toast('✅ Exported!');
+}
+function exportMonthlyExcel(){
+  const cid=document.getElementById('monthCustSel')?.value;
+  const year=document.getElementById('monthYearSel')?.value||new Date().getFullYear();
+  if(!cid){toast('Please select a customer first','error');return;}
+  const c=customers.find(x=>x.id===cid);
+  const data=getCustomerMonthlyData(cid,year);
+  const wb=XLSX.utils.book_new();
+  const rows=data.map(d=>({'Month':d.month,'Khata / Purchase':d.purchased||0,'Cash Paid':d.cashP||0,'Online Paid':d.onlineP||0,'Total Paid':d.paid||0,'Balance':d.balance||0,'Transactions':d.txns.length,'Status':d.status}));
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows),c.name.slice(0,30)+' '+year);
+  XLSX.writeFile(wb,c.name.replace(/\s+/g,'-')+'-monthly-'+year+'.xlsx');
+  toast('✅ Monthly report exported!');
+}
+function exportCustomerLedgerExcel(cid){
+  const c=customers.find(x=>x.id===cid);if(!c)return;
+  const led=getRunningBalance(cid);
+  const wb=XLSX.utils.book_new();
+  const d=[...led].reverse().map(tx=>({'Date':tx.date,'Bill No.':tx.billNo||'—','Type':tx.type,'Product Details':tx.desc||'—','Amount':tx.type==='purchase'?tx.amount:-tx.amount,'Payment Mode':tx.payMode||'—','Ref No.':tx.refNo||'—','Running Balance':tx.runningBalance}));
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(d.length?d:[{'Message':'No transactions'}]),'Ledger');
+  XLSX.writeFile(wb,c.name.replace(/\s+/g,'-')+'-ledger-'+today()+'.xlsx');
+  toast('✅ Exported!');
+}
+function printMonthlyStatement(){
+  const cid=document.getElementById('monthCustSel')?.value;
+  if(!cid){toast('Please select a customer first','error');return;}
+  printCustomerStatement(cid);
+}
+
+/* ═══ CHART HELPERS / TOAST ═══ */
+function destroyChart(k){if(_charts[k]){try{_charts[k].destroy();}catch(e){}delete _charts[k];}}
+function toast(msg,type='success'){
+  const el=document.getElementById('toast');if(!el)return;
+  el.textContent=msg;el.className='toast '+(type||'');el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),3200);
+}
+
+/* ═══ DARK / NAV ═══ */
+function toggleDark(){
+  theme=theme==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',theme);
+  localStorage.setItem('bsl_theme',theme);
+  const btn=document.getElementById('darkBtn');if(btn)btn.textContent=theme==='dark'?'☀️':'🌙';
+}
+function goto(page,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  const sec=document.getElementById('sec-'+page);if(sec)sec.classList.add('active');
+  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  const activeEl=el||document.querySelector(`.sb-item[data-page="${page}"]`);
+  if(activeEl)activeEl.classList.add('active');
+  const titles={dashboard:'📊 Customer Khata Dashboard',customers:'👥 Customers',dues:'⚠️ Due Management',khata:'📒 Customer Khata',monthly:'📅 Monthly Payment History',transactions:'💳 Transactions',reminders:'📱 WhatsApp Reminders',analytics:'📈 Analytics',collection:'💰 Collection Report',settings:'⚙️ Settings'};
+  const pt=document.getElementById('pageTitle');if(pt)pt.textContent=titles[page]||page;
+  if(window.innerWidth<=768){const sb=document.getElementById('sidebar');if(sb)sb.classList.remove('open');const ov=document.getElementById('sidebarOverlay');if(ov)ov.classList.remove('active');}
+  refreshPage(page);
+}
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');const ov=document.getElementById('sidebarOverlay');
+  if(sb)sb.classList.toggle('open');if(ov)ov.classList.toggle('active');
+}
+function refreshPage(page){
+  if(page==='dashboard')renderDashboard();
+  else if(page==='customers')renderCustomersList();
+  else if(page==='dues')renderDues();
+  else if(page==='khata')renderKhataList();
+  else if(page==='monthly'){initMonthlyYearSelect();renderMonthlyHistory();}
+  else if(page==='transactions')renderTransactions();
+  else if(page==='reminders')renderReminders();
+  else if(page==='analytics')renderAnalytics();
+  else if(page==='collection')renderCollectionReport();
+  else if(page==='settings')loadSettings();
+}
+function refreshAll(){
+  renderDashboard();renderCustomersList();renderDues();renderKhataList();renderTransactions();renderReminders();
+}
+
+/* ═══ NETWORK ═══ */
+window.addEventListener('online',()=>{isOnline=true;setSyncUI('syncing','Reconnected — syncing...',pendingSync.length);processPendingSync();});
+window.addEventListener('offline',()=>{isOnline=false;setSyncUI('offline','Offline — changes saved locally',pendingSync.length);});
+
+/* ═══ INIT ═══ */
+async function init(){
+  document.documentElement.setAttribute('data-theme',theme);
+  const darkBtn=document.getElementById('darkBtn');if(darkBtn)darkBtn.textContent=theme==='dark'?'☀️':'🌙';
+  const colMonth=document.getElementById('colMonth');if(colMonth)colMonth.value=today().slice(0,7);
+  const menuBtn=document.getElementById('menuBtn');
+  if(menuBtn&&window.innerWidth<=768)menuBtn.style.display='flex';
+  window.addEventListener('resize',()=>{
+    const b=document.getElementById('menuBtn');if(!b)return;
+    if(window.innerWidth<=768)b.style.display='flex';
+    else{b.style.display='none';const sb=document.getElementById('sidebar');if(sb)sb.classList.remove('open');const ov=document.getElementById('sidebarOverlay');if(ov)ov.classList.remove('active');}
+  });
+  try{
+    await openIDB();await loadData();
+    initMonthlyYearSelect();
+    refreshAll();await processPendingSync();
+  }catch(e){
+    console.error('Init error:',e);
+    toast('⚠️ Storage init error. Some features may be limited.','warning');
+    refreshAll();
+  }
+}
+init();
+</script>
+
+<!-- PWA INSTALL BANNER -->
+<div id="pwa-install-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:99999;background:linear-gradient(135deg,#FF6B00,#FF8C00);color:#fff;padding:14px 16px;box-shadow:0 -4px 24px rgba(255,107,0,.35);font-family:'Hind',sans-serif;animation:slideUp .4s ease;">
+  <div class="pwa-banner-inner">
+    <div class="pwa-banner-left"><div class="pwa-banner-icon">🛒</div><div><div class="pwa-banner-title">Balaji Store App Install karo!</div><div class="pwa-banner-sub">Free • Works offline • No Play Store needed</div></div></div>
+    <div class="pwa-banner-btns"><button class="pwa-install-btn" id="pwa-install-btn">📲 Install</button><button class="pwa-dismiss-btn" id="pwa-dismiss-btn">✕</button></div>
+  </div>
+</div>
+
+<div id="ios-install-popup" style="display:none;position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:99999;width:calc(100% - 28px);max-width:380px;">
+  <div style="background:#1c1c1e;color:#fff;border-radius:16px;padding:18px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Hind',sans-serif;text-align:center;">
+    <div style="font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;color:#FF6B00;margin-bottom:8px;">📱 iPhone/iPad Par Install Karo</div>
+    <div style="text-align:left;font-size:13px;line-height:1.9;color:#e0e0e0;"><div>1️⃣ &nbsp;Neeche Share button tap karo (□↑)</div><div>2️⃣ &nbsp;"Add to Home Screen" select karo</div><div>3️⃣ &nbsp;Top-right Add tap karo</div><div>✅ &nbsp;App home screen par aa jayegi!</div></div>
+    <button onclick="document.getElementById('ios-install-popup').style.display='none'" style="margin-top:14px;background:rgba(255,255,255,.12);border:none;color:#fff;border-radius:50px;padding:9px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Hind',sans-serif;">Got it ✓</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js',{scope:'./'}).then(function(reg){setInterval(function(){reg.update().catch(function(){});},10*60*1000);}).catch(function(err){console.warn('[PWA] SW failed:',err.message);});});}
+  var deferredPrompt=null,banner=document.getElementById('pwa-install-banner'),installBtn=document.getElementById('pwa-install-btn'),dismissBtn=document.getElementById('pwa-dismiss-btn'),DKEY='balaji_pwa_dismissed';
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;var ld=localStorage.getItem(DKEY);if(ld&&(Date.now()-parseInt(ld))<7*24*60*60*1000)return;setTimeout(function(){if(banner)banner.style.display='block';},2000);});
+  if(installBtn){installBtn.addEventListener('click',function(){if(!deferredPrompt)return;banner.style.display='none';deferredPrompt.prompt();deferredPrompt.userChoice.then(function(c){if(c.outcome==='accepted'&&typeof toast==='function')toast('🎉 App install ho rahi hai!');deferredPrompt=null;});});}
+  if(dismissBtn){dismissBtn.addEventListener('click',function(){banner.style.display='none';localStorage.setItem(DKEY,Date.now().toString());});}
+  var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent),isStandalone=window.navigator.standalone===true,iosPop=document.getElementById('ios-install-popup'),IKEY='balaji_ios_shown';
+  if(isIOS&&!isStandalone&&iosPop){var ls=localStorage.getItem(IKEY);if(!ls||(Date.now()-parseInt(ls))>14*24*60*60*1000){setTimeout(function(){iosPop.style.display='block';localStorage.setItem(IKEY,Date.now().toString());},3000);}}
+  window.addEventListener('appinstalled',function(){if(banner)banner.style.display='none';if(iosPop)iosPop.style.display='none';if(typeof toast==='function')toast('✅ Balaji Store app install ho gayi!');});
+})();
+</script>
+</body>
+</html>

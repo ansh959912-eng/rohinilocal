@@ -1,0 +1,2784 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+   <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#FF6B00"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+  <meta name="apple-mobile-web-app-title" content="Balaji Store"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="application-name" content="Balaji Store"/>
+  <meta name="msapplication-TileColor" content="#FF6B00"/>
+  <meta name="description" content="Balaji Store – Fresh & Daily Essentials, Rohini Delhi. Order groceries on WhatsApp!"/>
+ 
+  <!-- PWA Manifest -->
+<link rel="manifest" href="/manifest.json"/>
+
+<!-- iOS Home Screen Icons (Apple doesn't use manifest icons) -->
+<link rel="apple-touch-icon" sizes="192x192" href="/icon/icon-192.png"/>
+<link rel="apple-touch-icon" sizes="512x512" href="/icon/icon-512.png"/>
+<link rel="icon" type="image/png" href="/icon/icon-192.png"/>
+  <!--
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ↑ ADD ABOVE LINES inside your existing <head> tag
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  -->
+<meta charset="UTF-8">
+<!-- FIX HTML-03: removed maximum-scale which disabled zoom for accessibility -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- FIX HTML-02: Added meta description and SEO tags -->
+<meta name="description" content="Balaji Store – Fresh groceries, atta, dal, oil, snacks & more in Rohini Sector 25, Delhi. Order on WhatsApp. Free delivery above ₹100. Open 6AM–10PM.">
+<meta name="keywords" content="grocery store rohini, balaji store, kirana store delhi, online grocery rohini sector 25">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Balaji Store – Fresh Grocery & Daily Essentials in Rohini, Delhi">
+<meta property="og:description" content="Fresh groceries delivered to your doorstep in Rohini. Order on WhatsApp. Free delivery above ₹100.">
+<meta property="og:image" content="https://balaji-store.in/">
+<title>Balaji Store – Fresh  Grocery & Daily Essentials | Rohini, Delhi</title>
+<!-- ADD: Firebase compat SDK for PWA tracking -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="/balaji/products.js"></script>
+<!-- FIX HTML-02: LocalBusiness structured data for SEO -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"GroceryStore",
+  "name":"Balaji Store",
+  "description":"Fresh groceries and daily essentials in Rohini, Delhi",
+  "telephone":"+91-92050-02319",
+  "address":{"@type":"PostalAddress","streetAddress":"House No.154, Pocket-1, Sector 25","addressLocality":"Rohini","addressRegion":"Delhi","postalCode":"110085","addressCountry":"IN"},
+  "openingHours":"Mo-Su 06:00-22:00",
+  "url":"https://balaji-store.in"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- FIX PERF-03: async font load to avoid render blocking -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Hind:wght@300;400;500;600&display=swap" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Hind:wght@300;400;500;600&display=swap"></noscript>
+
+<style>
+/* ══ SPLASH SCREEN ══ */
+#splash{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#FF6B00;transition:opacity .6s cubic-bezier(.4,0,.2,1),visibility .6s ease;overflow:hidden;}
+#splash.hide{opacity:0;visibility:hidden;pointer-events:none;}
+#splash::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,200,50,.35) 0%,transparent 70%);top:-120px;left:-120px;animation:orbFloat1 4s ease-in-out infinite alternate;pointer-events:none;}
+#splash::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.12) 0%,transparent 70%);bottom:-80px;right:-80px;animation:orbFloat2 5s ease-in-out infinite alternate;pointer-events:none;}
+@keyframes orbFloat1{from{transform:translate(0,0) scale(1);}to{transform:translate(40px,30px) scale(1.15);}}
+@keyframes orbFloat2{from{transform:translate(0,0) scale(1);}to{transform:translate(-30px,-20px) scale(1.1);}}
+.splash-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.splash-p{position:absolute;border-radius:50%;background:rgba(255,255,255,.18);animation:particleDrift linear infinite;}
+@keyframes particleDrift{0%{transform:translateY(100vh) scale(0);opacity:0;}10%{opacity:1;}90%{opacity:.4;}100%{transform:translateY(-20vh) scale(1.5);opacity:0;}}
+.splash-card{position:relative;z-index:2;background:rgba(255,255,255,.13);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.35);border-radius:32px;padding:48px 42px 40px;text-align:center;max-width:360px;width:88%;box-shadow:0 32px 80px rgba(0,0,0,.22),0 0 0 1px rgba(255,255,255,.08) inset,0 1px 0 rgba(255,255,255,.4) inset;animation:splashCardIn .7s cubic-bezier(.175,.885,.32,1.275) .1s both;}
+@keyframes splashCardIn{from{opacity:0;transform:scale(.75) translateY(40px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.splash-card::before{content:'';position:absolute;inset:0;border-radius:32px;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.12) 50%,transparent 60%);background-size:200% 100%;animation:shimmerSweep 2.5s ease-in-out .8s infinite;pointer-events:none;}
+@keyframes shimmerSweep{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+.splash-cart-wrap{position:relative;width:88px;height:88px;border-radius:50%;background:rgba(255,255,255,.22);border:1.5px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;animation:splashFadeUp .5s ease .4s both;box-shadow:0 8px 32px rgba(0,0,0,.15);}
+.splash-cart-wrap::before{content:'';position:absolute;inset:-6px;border-radius:50%;border:2px solid transparent;border-top-color:rgba(255,255,255,.7);border-right-color:rgba(255,255,255,.3);animation:spinRing 1.8s linear infinite;}
+.splash-cart-wrap::after{content:'';position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(255,255,255,.2);animation:pulseGlow 2s ease-in-out .5s infinite;}
+@keyframes spinRing{to{transform:rotate(360deg);}}
+@keyframes pulseGlow{0%,100%{transform:scale(1);opacity:.6;}50%{transform:scale(1.12);opacity:0;}}
+.splash-cart-icon{font-size:38px;line-height:1;animation:iconWiggle 1.5s ease-in-out 1.2s infinite;}
+@keyframes iconWiggle{0%,100%{transform:rotate(0deg) scale(1);}20%{transform:rotate(-8deg) scale(1.08);}40%{transform:rotate(6deg) scale(1.05);}60%{transform:rotate(-4deg) scale(1.03);}80%{transform:rotate(2deg);}}
+.splash-logo-name{font-family:'Baloo 2',cursive;font-size:27px;font-weight:800;color:#fff;letter-spacing:2px;text-shadow:0 2px 16px rgba(0,0,0,.2);animation:splashFadeUp .5s ease .5s both;}
+.splash-tagline{font-family:'Hind',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.85);margin-top:5px;letter-spacing:.5px;text-transform:uppercase;animation:splashFadeUp .5s ease .6s both;}
+.splash-welcome{font-family:'Hind',sans-serif;font-size:14px;font-weight:400;color:rgba(255,255,255,.78);margin-top:8px;line-height:1.5;animation:splashFadeUp .5s ease .7s both;}
+@keyframes splashFadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.splash-divider{width:40px;height:2px;border-radius:2px;background:rgba(255,255,255,.4);margin:18px auto 0;animation:splashFadeUp .4s ease .75s both;}
+.splash-progress-wrap{margin-top:24px;animation:splashFadeUp .4s ease .8s both;}
+.splash-progress-track{height:3px;background:rgba(255,255,255,.2);border-radius:50px;overflow:hidden;position:relative;}
+.splash-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,rgba(255,255,255,.6),#fff);border-radius:50px;position:relative;z-index:1;transition:width .05s linear;box-shadow:0 0 10px rgba(255,255,255,.7),0 0 20px rgba(255,255,255,.3);}
+.splash-percent{font-family:'Baloo 2',cursive;font-size:11px;font-weight:700;color:rgba(255,255,255,.6);margin-top:8px;letter-spacing:.5px;}
+.splash-dots{display:flex;gap:7px;justify-content:center;margin-top:14px;}
+.splash-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);animation:dotPulse 1.4s ease-in-out infinite;}
+.splash-dot:nth-child(1){animation-delay:0s;}.splash-dot:nth-child(2){animation-delay:.22s;}.splash-dot:nth-child(3){animation-delay:.44s;}
+@keyframes dotPulse{0%,100%{background:rgba(255,255,255,.28);transform:scale(1);}50%{background:#fff;transform:scale(1.4);box-shadow:0 0 8px rgba(255,255,255,.6);}}
+#splash.hide .splash-card{animation:splashCardOut .5s cubic-bezier(.4,0,1,1) forwards;}
+@keyframes splashCardOut{to{opacity:0;transform:translateY(-30px) scale(.96);}}
+
+/* ── CSS VARIABLES ── */
+:root{
+  --saffron:#FF6B00;--saffron-light:#FFF3E8;--saffron-dark:#CC5500;
+  --green:#2E7D32;--green-light:#E8F5E9;--cream:#FDF8F2;--brown:#4E342E;
+  --text:#1A1A1A;--muted:#757575;--border:#E8E0D5;--white:#FFF;
+  --card-bg:#FFF;--page-bg:#FDF8F2;--header-bg:#FFF;--input-bg:#FFF;
+  --shadow:0 2px 12px rgba(0,0,0,.08);--shadow-hover:0 8px 24px rgba(255,107,0,.18);
+  --radius:14px;--transition:all .3s ease;
+  /* FIX CSS-02: skip nav */
+}
+[data-theme="green"]{
+  --saffron:#FFB347;--saffron-light:#1A2E10;--saffron-dark:#E8960E;
+  --green:#56C768;--green-light:#0A2A12;--cream:#0D1A0F;--brown:#C8E6C9;
+  --text:#E8F5E9;--muted:#7CB87F;--border:#1B3620;--white:#111E13;
+  --card-bg:#142218;--page-bg:#0D1A0F;--header-bg:#142218;--input-bg:#1A2E1D;
+  --shadow:0 2px 12px rgba(0,0,0,.45);--shadow-hover:0 8px 24px rgba(255,179,71,.22);
+}
+
+/* FIX HTML-03: Skip navigation link */
+.skip-link{position:absolute;top:-40px;left:0;background:var(--saffron);color:#fff;padding:8px 16px;border-radius:0 0 8px 0;z-index:100000;font-family:'Hind',sans-serif;font-weight:600;transition:top .2s;}
+.skip-link:focus{top:0;}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Hind',sans-serif;background:var(--page-bg);color:var(--text);transition:background .3s,color .3s;min-height:100vh;overflow-x:hidden;-webkit-text-size-adjust:100%;}
+
+/* ── HEADER ── */
+header{background:var(--header-bg);border-bottom:2px solid var(--saffron);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(255,107,0,.10);transition:background .3s,border-color .3s;}
+.header-inner{max-width:1200px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;transition:all .4s ease;}
+.logo:hover{transform:translateY(-3px) scale(1.04);filter:drop-shadow(0 8px 16px rgba(255,193,7,.35))}
+.logo-icon{width:42px;height:42px;background:var(--saffron);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;transition:all .4s ease;}
+.logo:hover .logo-icon{transform:rotate(-8deg) scale(1.12)}
+.logo-text .name{font-family:'Baloo 2',cursive;font-size:17px;font-weight:800;color:var(--saffron);line-height:1.1;}
+.logo-text .sub{font-size:10px;color:var(--muted);}
+.header-search{flex:1;max-width:380px;display:flex;align-items:center;background:var(--input-bg);border:1.5px solid var(--border);border-radius:50px;padding:7px 16px;gap:8px;transition:border-color .2s,background .3s;}
+.header-search:focus-within{border-color:var(--saffron)}
+.header-search input{border:none;background:transparent;outline:none;font-family:'Hind',sans-serif;font-size:14px;flex:1;color:var(--text);min-width:0;}
+.header-search input::placeholder{color:var(--muted)}
+.mic-btn{
+  background:transparent;border:none;cursor:pointer;
+  font-size:16px;flex-shrink:0;padding:2px 4px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);transition:color .2s,transform .2s;
+}
+.mic-btn:hover{color:var(--saffron);}
+.mic-btn.listening{color:#e53935;animation:micPulse 1s ease-in-out infinite;}
+@keyframes micPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.2);}}
+
+.product-card.voice-highlight{
+  animation:voiceGlow 1.8s ease-in-out 2;
+  border-color:var(--saffron)!important;
+}
+@keyframes voiceGlow{
+  0%,100%{box-shadow:0 0 0 rgba(255,107,0,0);}
+  50%{box-shadow:0 0 0 6px rgba(255,107,0,.25);}
+}
+.header-actions{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.theme-btn{background:var(--input-bg);border:1.5px solid var(--border);border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:var(--transition);color:var(--text);flex-shrink:0;}
+.theme-btn:hover{border-color:var(--saffron);background:var(--saffron-light)}
+.cart-btn{background:var(--saffron);color:#fff;border:none;border-radius:50px;cursor:pointer;padding:8px 14px;font-family:'Baloo 2',cursive;font-size:14px;font-weight:700;display:flex;align-items:center;gap:7px;transition:background .2s,transform .15s;position:relative;flex-shrink:0;white-space:nowrap;}
+.cart-btn:hover{background:var(--saffron-dark);transform:translateY(-1px)}
+/* FIX UX-05: hide badge when zero */
+.cart-count{background:var(--green);color:#fff;border-radius:50%;width:19px;height:19px;min-width:19px;font-size:11px;display:none;align-items:center;justify-content:center;font-weight:700;}
+.cart-count.has-items{display:flex;}
+.mobile-search-bar{display:none;padding:8px 14px;background:var(--header-bg);border-bottom:1px solid var(--border);}
+.mobile-search-bar .header-search{max-width:100%;display:flex;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#FF6B00 0%,#FF8C00 50%,#FFA500 100%);padding:26px 16px;text-align:center;color:#fff;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
+.hero h1{font-family:'Baloo 2',cursive;font-size:26px;font-weight:800;line-height:1.2;position:relative}
+.hero p{font-size:14px;margin-top:5px;opacity:.9;position:relative}
+.hero-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px;position:relative}
+.hero-tag{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:50px;padding:4px 12px;font-size:12px;font-weight:600;backdrop-filter:blur(4px);}
+.hero-btns{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap;position:relative;align-items:center}
+.hero-btn{padding:10px 20px;font-size:14px;font-weight:700;font-family:'Baloo 2',cursive;border:none;border-radius:50px;cursor:pointer;transition:all .2s;}
+.hero-btn.primary{background:#fff;color:var(--saffron);box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.hero-btn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.hero-btn.secondary{background:rgba(255,255,255,.2);color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+.hero-btn.secondary:hover{background:rgba(255,255,255,.3)}
+.hero-btn.search-btn{background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.5);display:flex;align-items:center;gap:6px;}
+.hero-btn.search-btn:hover{background:rgba(255,255,255,.25)}
+.hero-btn,
+.hero-btn:hover,
+.hero-btn:focus,
+.hero-btn:visited {
+    text-decoration: none;
+    /* ── HERO BUTTONS — GRID BASED, CONSISTENT ON ALL SCREENS ── */
+.hero-btns-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  margin-top:14px;
+  width:100%;
+  position:relative;
+}
+.hero-btns-row-top{
+  display:grid;
+  grid-template-columns:repeat(3,auto);
+  gap:8px;
+  justify-content:center;
+  width:100%;
+}
+.hero-btns-row-top .hero-btn{
+  white-space:nowrap;
+}
+.hero-btns-row-bottom{
+  display:flex;
+  justify-content:center;
+  width:100%;
+}
+.hero-btns-row-bottom .hero-btn{
+  min-width:160px;
+}
+
+/* ── TABLET ── */
+@media(max-width:768px){
+  .hero-btns-row-top .hero-btn{
+    padding:9px 16px;
+    font-size:13px;
+  }
+}
+
+/* ── MOBILE: force clean 2-column grid, 3rd item centered on its own row ── */
+@media(max-width:480px){
+  .hero-btns-row-top{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .hero-btns-row-top .hero-btn{
+    padding:8px 10px;
+    font-size:12px;
+    text-align:center;
+  }
+  /* WebHub is the 3rd button — span both columns so it's centered alone */
+  .hero-btns-row-top .hero-btn:nth-child(3){
+    grid-column:1/-1;
+    max-width:160px;
+    justify-self:center;
+  }
+  .hero-btns-row-bottom .hero-btn{
+    min-width:140px;
+  }
+}
+
+/* ── VERY SMALL SCREENS ── */
+@media(max-width:360px){
+  .hero-btns-row-top{
+    gap:6px;
+  }
+  .hero-btns-row-top .hero-btn{
+    padding:7px 8px;
+    font-size:11px;
+  }
+}
+
+/* ── ULTRA SMALL (below 320px): stack everything ── */
+@media(max-width:320px){
+  .hero-btns-row-top{
+    grid-template-columns:1fr;
+  }
+  .hero-btns-row-top .hero-btn:nth-child(3){
+    grid-column:auto;
+    max-width:none;
+  }
+  .hero-btns-row-top .hero-btn{
+    width:100%;
+  }
+}
+}
+
+/* ── SKELETON ── */
+.skeleton{background:linear-gradient(90deg,var(--border) 25%,var(--card-bg) 50%,var(--border) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:8px;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.skeleton-card{background:var(--card-bg);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden}
+.skeleton-img{height:130px}.skeleton-line{height:14px;margin:8px 12px}.skeleton-line.short{width:60%}.skeleton-line.price{height:18px;width:40%;margin-top:12px}
+
+
+
+/* ── CATEGORIES ── */
+.categories{max-width:1200px;margin:22px auto 0;padding:0 14px}
+.section-title{font-family:'Baloo 2',cursive;font-size:20px;font-weight:700;color:var(--brown);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.section-title::after{content:'';flex:1;height:2px;background:var(--border)}
+.cat-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.cat-pill{background:var(--card-bg);border:1.5px solid var(--border);border-radius:50px;padding:6px 14px;cursor:pointer;font-size:13px;font-weight:500;color:var(--muted);transition:var(--transition);display:flex;align-items:center;gap:5px;user-select:none;white-space:nowrap;}
+.cat-pill:hover,.cat-pill.active{background:var(--saffron-light);border-color:var(--saffron);color:var(--saffron);font-weight:600;}
+
+/* ── PRODUCTS ── */
+.products-section{max-width:1200px;margin:0 auto;padding:0 14px 40px}
+.products-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.product-count{font-size:13px;color:var(--muted)}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px}
+/* FIX CSS-06: removed 'style' from contain to avoid CSS var issues in Safari */
+.product-card{background:var(--card-bg);border-radius:var(--radius);overflow:hidden;border:1.5px solid var(--border);transition:var(--transition);position:relative;contain:layout;}
+.product-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-3px);border-color:var(--saffron)}
+.product-img{width:100%;height:130px;display:flex;align-items:center;justify-content:center;background:var(--cream);overflow:hidden;position:relative;}
+.product-img img{width:100%;height:100%;object-fit:contain;transition:transform .3s;aspect-ratio:1/1;}
+.product-card:hover .product-img img{transform:scale(1.06)}
+.product-emoji{font-size:50px;line-height:1}
+.stock-badge{position:absolute;top:8px;right:8px;background:var(--green);color:#fff;font-size:9px;font-weight:700;border-radius:50px;padding:2px 7px;text-transform:uppercase;letter-spacing:.04em;pointer-events:none;}
+.stock-badge.low{background:#F57F17}.stock-badge.out{background:#e53935}
+.discount-badge{position:absolute;top:8px;left:8px;background:linear-gradient(135deg,#ff1744,#d50000);color:#fff;font-size:9px;font-weight:700;padding:3px 7px;border-radius:20px;z-index:2;pointer-events:none;}
+.source-badge{position:absolute;bottom:6px;left:6px;background:rgba(21,101,192,.85);color:#fff;font-size:8px;font-weight:700;border-radius:4px;padding:1px 5px;letter-spacing:.05em;}
+.product-info{padding:10px 11px}
+.product-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.35;min-height:35px;word-break:break-word}
+.product-weight{font-size:11px;color:var(--muted);margin-top:2px}
+.product-footer{display:flex;align-items:center;justify-content:space-between;margin-top:9px;gap:4px}
+.product-price{font-family:'Baloo 2',cursive;font-size:15px;font-weight:700;color:var(--saffron)}
+.mrp{font-size:11px;color:var(--muted);text-decoration:line-through;margin-left:3px}
+.add-btn{background:var(--saffron);color:#fff;border:none;border-radius:8px;width:30px;height:30px;font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-weight:700;flex-shrink:0;}
+.add-btn:hover{background:var(--saffron-dark);transform:scale(1.1)}
+.add-btn:disabled{background:#ccc;cursor:not-allowed;transform:none}
+.qty-ctrl{display:flex;align-items:center;gap:3px}
+.qty-ctrl button{background:var(--saffron);color:#fff;border:none;border-radius:6px;width:27px;height:27px;font-size:15px;cursor:pointer;font-weight:700;transition:background .15s;display:flex;align-items:center;justify-content:center;}
+.qty-ctrl button:hover{background:var(--saffron-dark)}
+.qty-ctrl span{font-weight:700;font-size:14px;min-width:20px;text-align:center;color:var(--text)}
+.product-card.out-of-stock{opacity:.55}
+.product-card.out-of-stock .add-btn{background:#9e9e9e;cursor:not-allowed}
+.product-card.out-of-stock:hover{transform:none;box-shadow:none;border-color:var(--border)}
+.no-products{grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--muted)}
+.no-products .icon{font-size:44px;margin-bottom:12px}
+
+/* ── CART SIDEBAR ── */
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;backdrop-filter:blur(2px)}
+.cart-overlay.open{display:block}
+/* FIX CSS-07: use transform for smooth slide-in animation */
+.cart-panel{
+  position:fixed;right:0;top:0;bottom:0;width:390px;
+  background:var(--card-bg);z-index:201;overflow-y:auto;
+  box-shadow:-4px 0 32px rgba(0,0,0,.18);
+  display:flex;flex-direction:column;
+  transform:translateX(100%);
+  visibility:hidden;
+  transition:transform .3s cubic-bezier(.4,0,.2,1),visibility .3s,background .3s;
+}
+.cart-panel.open{transform:translateX(0);visibility:visible;}
+.cart-header{padding:16px 18px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--saffron);color:#fff;flex-shrink:0;}
+.cart-header h2{font-family:'Baloo 2',cursive;font-size:18px;font-weight:800}
+.close-btn{background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.close-btn:hover{background:rgba(255,255,255,.35)}
+.cart-items-wrap{flex:1;padding:12px;overflow-y:auto}
+.cart-empty{text-align:center;padding:44px 20px;color:var(--muted);animation:floatAnim 2.5s ease-in-out infinite}
+@keyframes floatAnim{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.cart-empty .empty-icon{font-size:52px;margin-bottom:12px}
+.cart-item{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border)}
+.cart-item:last-child{border-bottom:none}
+.cart-item-img{width:48px;height:48px;border-radius:8px;overflow:hidden;flex-shrink:0;background:var(--cream);display:flex;align-items:center;justify-content:center;}
+.cart-item-img img{width:100%;height:100%;object-fit:contain}
+.cart-item-emoji{font-size:24px}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-weight:600;font-size:13px;color:var(--text);line-height:1.35;word-break:break-word}
+.cart-item-weight{font-size:11px;color:var(--muted);margin-top:1px}
+.cart-item-price{color:var(--saffron);font-weight:700;font-size:13px;margin-top:3px;font-family:'Baloo 2',cursive}
+.cart-item-qty{display:flex;align-items:center;gap:7px;margin-top:6px}
+.cart-item-qty button{background:var(--saffron-light);border:1.5px solid var(--saffron);color:var(--saffron);border-radius:6px;width:26px;height:26px;cursor:pointer;font-size:15px;font-weight:700;transition:all .15s;display:flex;align-items:center;justify-content:center;}
+.cart-item-qty button:hover{background:var(--saffron);color:#fff}
+.cart-item-qty span{font-weight:700;font-size:14px;min-width:20px;text-align:center;color:var(--text)}
+.remove-btn{background:none;border:none;color:#ccc;cursor:pointer;font-size:16px;padding:4px;border-radius:6px;transition:color .2s;flex-shrink:0;margin-top:2px}
+.remove-btn:hover{color:#e53935}
+.cart-total-box{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:var(--saffron-light);border-radius:10px;margin:0 12px 10px;border:1px solid rgba(255,107,0,.2);}
+.cart-total-box .t-label{font-weight:600;font-size:14px;color:var(--text)}
+.cart-total-box .t-amount{font-family:'Baloo 2',cursive;font-size:21px;font-weight:800;color:var(--saffron)}
+
+/* FIX UX-02: Pay via UPI button inside cart */
+.cart-upi-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:calc(100% - 24px);margin:0 12px 8px;
+  padding:10px;border-radius:10px;
+  background:linear-gradient(135deg,#fff8f3,#ffe8d0);
+  border:1.5px solid rgba(255,107,0,.4);
+  color:var(--saffron);font-family:'Baloo 2',cursive;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all .2s;
+}
+.cart-upi-btn:hover{background:linear-gradient(135deg,#ffe8d0,#ffd4b0);transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,107,0,.2);}
+
+.order-form{padding:12px;border-top:1.5px solid var(--border);flex-shrink:0}
+.order-form h3{font-family:'Baloo 2',cursive;font-size:15px;margin-bottom:10px;color:var(--brown)}
+.form-group{margin-bottom:9px}
+/* FIX HTML-05: Proper label for association */
+.form-group label{font-size:11px;font-weight:600;color:var(--muted);display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;}
+.form-group input,.form-group textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 11px;font-family:'Hind',sans-serif;font-size:14px;outline:none;transition:border-color .2s;background:var(--input-bg);color:var(--text);-webkit-appearance:none;}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--saffron)}
+.form-group input.error,.form-group textarea.error{border-color:#e53935}
+.form-group textarea{resize:none;height:62px}
+.error-msg{font-size:11px;color:#e53935;margin-top:3px;display:none}
+.error-msg.show{display:block}
+.clear-saved-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:5px 9px;font-size:11px;color:var(--muted);cursor:pointer;transition:all .2s;margin-top:4px;font-family:'Hind',sans-serif;}
+.clear-saved-btn:hover{border-color:#e53935;color:#e53935}
+.whatsapp-btn{width:100%;background:#25D366;color:#fff;border:none;border-radius:10px;padding:12px;font-family:'Baloo 2',cursive;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;margin-top:9px;}
+.whatsapp-btn:hover{background:#1da851;transform:translateY(-1px)}
+.whatsapp-btn:disabled{background:#9e9e9e;cursor:not-allowed;transform:none}
+
+/* ── QR PAYMENT POPUP - COMPLETELY REBUILT ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(3px)}
+.overlay.show{display:flex}
+.qr-modal{background:var(--card-bg);border-radius:20px;width:92%;max-width:380px;overflow:hidden;animation:popIn .3s cubic-bezier(.175,.885,.32,1.275);border:1px solid var(--border);max-height:90vh;overflow-y:auto;}
+@keyframes popIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.qr-modal-header{background:linear-gradient(135deg,#FF6B00,#FFA500);padding:18px 22px 14px;text-align:center;color:#fff;position:relative;}
+.qr-modal-header .qr-icon{font-size:30px;margin-bottom:4px}
+.qr-modal-header h2{font-family:'Baloo 2',cursive;font-size:19px;font-weight:800}
+/* FIX UX-02: show cart total in payment popup */
+.qr-modal-header p{font-size:13px;opacity:.9;margin-top:3px}
+.qr-modal-header .pay-amount-badge{
+  display:inline-block;background:rgba(255,255,255,.25);
+  border:1px solid rgba(255,255,255,.4);border-radius:50px;
+  padding:3px 14px;font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;
+  margin-top:6px;
+}
+.qr-modal-body{padding:18px 22px}
+.qr-box{border:2px dashed var(--border);border-radius:14px;padding:12px;text-align:center;background:var(--cream);margin-bottom:12px}
+.qr-box img{width:155px;height:155px;border-radius:10px;border:1px solid var(--border);background:#fff;display:block;margin:0 auto 9px;object-fit:contain}
+.qr-scan-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.upi-row{display:flex;align-items:center;justify-content:space-between;background:var(--input-bg);border-radius:10px;padding:9px 12px;margin-bottom:10px;border:1px solid var(--border)}
+.upi-label{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.upi-id{font-size:15px;font-weight:700;color:var(--text);margin-top:2px}
+.upi-copy-btn{background:var(--saffron);color:#fff;border:none;border-radius:7px;padding:7px 13px;font-size:12px;font-weight:700;cursor:pointer;transition:background .2s}
+.upi-copy-btn:hover{background:var(--saffron-dark)}
+
+/* ── PAYMENT APP BUTTONS — FIXED LAYOUT ── */
+.qr-apps-row{display:flex;gap:7px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
+/* FIX PAY-01: removed broken href deep links from <a> tags, now use <button> with JS */
+.upi-app-btn{
+  display:flex;align-items:center;gap:6px;padding:10px 14px;border-radius:10px;
+  background:var(--card-bg);border:1.5px solid var(--border);
+  color:var(--text);font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.06);
+  transition:all .2s;cursor:pointer;font-family:'Hind',sans-serif;font-size:13px;
+  text-decoration:none;
+}
+.upi-app-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12);border-color:var(--saffron);}
+.upi-app-btn img{width:22px;height:22px;object-fit:contain;border-radius:4px;}
+
+/* Universal UPI button */
+.upi-universal-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:12px 16px;border-radius:12px;
+  border:1.5px solid rgba(255,107,0,.4);
+  background:linear-gradient(135deg,#fff8f3,#ffe8d0);
+  cursor:pointer;font-family:'Hind',sans-serif;
+  transition:all .25s ease;margin-bottom:10px;
+  color:var(--saffron);font-weight:700;font-size:14px;
+}
+.upi-universal-btn:hover{background:linear-gradient(135deg,#ffe8d0,#ffd4b0);border-color:var(--saffron);transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,107,0,.2);}
+
+/* FIX PAY-02: Desktop fallback message */
+.upi-desktop-note{
+  display:none;background:#fff3e0;border:1px solid #ffcc80;
+  border-radius:10px;padding:10px 14px;font-size:12px;
+  color:#e65100;text-align:center;margin-bottom:10px;
+  line-height:1.5;
+}
+.upi-desktop-note strong{display:block;font-size:13px;margin-bottom:3px;}
+
+.qr-close-btn{width:100%;background:var(--input-bg);border:1.5px solid var(--border);border-radius:10px;padding:10px;font-family:'Baloo 2',cursive;font-size:14px;font-weight:700;color:var(--text);cursor:pointer;transition:all .2s}
+.qr-close-btn:hover{background:var(--border)}
+.qr-secure{text-align:center;font-size:11px;color:var(--muted);margin-top:9px}
+
+/* ── ORDER CONFIRMATION MODAL (FIX UX-01) ── */
+.confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);align-items:center;justify-content:center;z-index:10000;backdrop-filter:blur(3px);}
+.confirm-overlay.show{display:flex;}
+.confirm-modal{background:var(--card-bg);border-radius:20px;width:92%;max-width:380px;overflow:hidden;animation:popIn .35s cubic-bezier(.175,.885,.32,1.275);text-align:center;}
+.confirm-modal-top{background:linear-gradient(135deg,#25D366,#1ebe5d);padding:28px 22px 20px;color:#fff;}
+.confirm-check{font-size:52px;margin-bottom:8px;animation:bounceIn .5s cubic-bezier(.175,.885,.32,1.275) .2s both;}
+@keyframes bounceIn{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}
+.confirm-modal-top h2{font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;}
+.confirm-modal-top p{font-size:13px;opacity:.9;margin-top:4px;}
+.confirm-order-id{display:inline-block;background:rgba(255,255,255,.2);border-radius:50px;padding:4px 14px;font-family:'Baloo 2',cursive;font-weight:700;font-size:15px;margin-top:8px;}
+.confirm-modal-body{padding:20px 22px;}
+.confirm-modal-body p{font-size:13px;color:var(--muted);line-height:1.6;}
+.confirm-pay-btn{width:100%;background:var(--saffron);color:#fff;border:none;border-radius:10px;padding:12px;font-family:'Baloo 2',cursive;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.confirm-pay-btn:hover{background:var(--saffron-dark);}
+.confirm-close-btn{width:100%;background:none;border:1.5px solid var(--border);border-radius:10px;padding:10px;font-family:'Baloo 2',cursive;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer;margin-top:8px;transition:all .2s;}
+.confirm-close-btn:hover{border-color:var(--saffron);color:var(--saffron);}
+
+/* ── FLOATING WHATSAPP ── */
+.floating-whatsapp{position:fixed;right:16px;bottom:18px;width:56px;height:56px;background:linear-gradient(135deg,#25D366,#1ebe5d);border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;z-index:9999;box-shadow:0 6px 24px rgba(37,211,102,.45),0 3px 10px rgba(0,0,0,.18);animation:whatsappFloat 3s ease-in-out infinite;transition:transform .25s,box-shadow .25s;}
+.floating-whatsapp::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(37,211,102,.4);animation:pulseRing 2s infinite}
+.floating-whatsapp svg,.floating-whatsapp img{width:28px;height:28px;}
+.floating-whatsapp:hover{transform:translateY(-5px) scale(1.08);animation:none}
+@keyframes whatsappFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes pulseRing{0%{transform:scale(.9);opacity:.8}70%{transform:scale(1.25);opacity:0}100%{opacity:0}}
+.whatsapp-tooltip{position:fixed;right:84px;bottom:30px;background:#111;color:#fff;padding:8px 12px;border-radius:10px;font-size:12px;font-weight:500;opacity:0;visibility:hidden;transition:.3s;z-index:9998;box-shadow:0 3px 10px rgba(0,0,0,.15);white-space:nowrap}
+.floating-whatsapp:hover+.whatsapp-tooltip{opacity:1;visibility:visible}
+/* ── VISITOR STATS EYE BUTTON ── */
+.floating-visitors-btn{
+  position:fixed;right:22px;bottom:84px;
+  width:46px;height:46px;border-radius:50%;
+  background:linear-gradient(135deg,#1565C0,#0D47A1);
+  color:#fff;border:none;font-size:20px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:9998;
+  box-shadow:0 6px 20px rgba(21,101,192,.4),0 3px 8px rgba(0,0,0,.15);
+  transition:transform .25s,box-shadow .25s;
+}
+.floating-visitors-btn:hover{transform:translateY(-4px) scale(1.08);}
+@media(max-width:768px){
+  .floating-visitors-btn{width:42px;height:42px;font-size:18px;right:18px;bottom:76px;}
+}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);border-radius:50px;padding:10px 20px;font-weight:600;font-size:14px;z-index:99999;transition:transform .35s cubic-bezier(.175,.885,.32,1.275);box-shadow:0 4px 20px rgba(0,0,0,.2);color:#fff;white-space:nowrap;pointer-events:none;max-width:90vw;text-overflow:ellipsis;overflow:hidden;}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.success{background:var(--green)}.toast.error{background:#e53935}.toast.info{background:var(--saffron)}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── PREMIUM MEDIA ── */
+.premium-media-section{display:flex;gap:15px;justify-content:center;margin:20px 0;flex-wrap:wrap;}
+.premium-btn{padding:12px 25px;border:none;border-radius:30px;cursor:pointer;font-size:16px;font-weight:600;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;transition:0.3s;}
+.premium-btn:hover{transform:translateY(-3px);}
+.modal{display:none;position:fixed;z-index:9999;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);}
+.modal-content {
+  width: 90%;
+  max-width: 850px;
+  margin: 5% auto;
+  padding: 25px;
+  border-radius: 20px;
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.glass{background:rgba(255,255,255,0.12);backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,0.2);box-shadow:0 8px 32px rgba(0,0,0,0.3);color:#fff;}
+.close{position:absolute;top:15px;right:20px;font-size:30px;cursor:pointer;}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-top:20px;}
+.gallery-grid img {
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: 15px;
+  transition: 0.3s;
+  background: #f5f5f5;
+}
+.gallery-grid img:hover{transform:scale(1.05);}
+video{border-radius:15px;}
+
+/* FIX CSS-04+05: Footer missing variables and classes */
+footer#footer{
+  --footer-border: rgba(255,255,255,0.1); /* FIX: was undefined */
+  --text: #eaeaea;
+  --muted: rgba(255,255,255,0.65);
+  --accent: #00ffb3;
+  --accent2: #ff3d81;
+  background: radial-gradient(circle at top, #111 0%, #07070a 100%);
+  color: var(--text);
+  font-family: 'Hind', sans-serif;
+  position: relative;
+  overflow: hidden;
+  padding-top: 0;
+}
+.admin-link{
+  display:inline-flex;align-items:center;gap:4px;color:var(--saffron);
+  background:var(--saffron-light);border:1px solid rgba(255,107,0,.3);border-radius:50px;
+  padding:5px 11px;font-size:12px;font-weight:600;text-decoration:none;
+  transition:var(--transition);white-space:nowrap;flex-shrink:0;
+}
+.admin-link:hover{background:rgba(255,107,0,.2)}
+
+footer#footer::before{content:"";position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(0,255,179,0.15),transparent 70%);top:-200px;left:-200px;filter:blur(60px);}
+footer#footer::after{content:"";position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(255,61,129,0.12),transparent 70%);bottom:-200px;right:-200px;filter:blur(60px);}
+.footer-main{position:relative;z-index:2;padding:50px 6% 20px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:35px;}
+.footer-brand-col{transition:transform .3s ease;}
+.footer-brand-col:hover{transform:translateY(-4px);}
+.footer-logo{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.footer-logo-icon{font-size:28px;filter:drop-shadow(0 0 10px var(--accent));}
+.footer-logo-name{font-weight:800;font-size:18px;letter-spacing:1px;}
+.footer-logo-sub{font-size:12px;color:var(--muted);}
+.footer-desc{font-size:13px;color:var(--muted);line-height:1.5;}
+.footer-social-row{display:flex;gap:10px;margin-top:15px;}
+.footer-social-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid var(--footer-border);transition:transform .3s cubic-bezier(.34,1.56,.64,1),border-color .3s,box-shadow .3s,color .3s;}
+/* FIX CSS-01: merged duplicate hover rule */
+.footer-social-btn:hover{transform:translateY(-3px) scale(1.1);border-color:var(--accent);color:var(--accent);box-shadow:0 0 15px rgba(0,255,179,0.3);}
+.footer-app-row{margin-top:15px;display:flex;flex-direction:column;gap:10px;}
+.footer-app-btn{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid var(--footer-border);transition:0.3s;cursor:pointer;}
+.footer-app-btn:hover{transform:translateY(-3px) translateX(4px);border-color:#00d4ff;background:rgba(0,212,255,0.08);box-shadow:0 8px 24px rgba(0,212,255,0.15);}
+.footer-col-title{font-size:15px;font-weight:700;margin-bottom:12px;color:#fff;}
+.footer-links-list{list-style:none;padding:0;}
+.footer-links-list li{margin-bottom:8px;}
+.footer-links-list a{color:var(--muted);font-size:13px;text-decoration:none;transition:0.3s;position:relative;}
+.footer-links-list a::before{content:"";position:absolute;left:0;bottom:-3px;width:0%;height:2px;background:var(--accent);transition:0.3s;}
+.footer-links-list a:hover{color:#fff;}
+.footer-links-list a:hover::before{width:100%;}
+.footer-contact-item{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:14px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(10px);transition:all 0.35s ease;cursor:pointer;}
+.footer-contact-item:hover{transform:translateY(-3px) translateX(4px);border-color:#00d4ff;background:rgba(0,212,255,0.08);box-shadow:0 8px 24px rgba(0,212,255,0.15);}
+.footer-contact-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(0,212,255,0.05));color:#00d4ff;font-size:18px;transition:all 0.35s ease;}
+.footer-contact-item:hover .footer-contact-icon{transform:scale(1.08);box-shadow:0 0 18px rgba(0,212,255,0.25);}
+.footer-contact-label{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#8f9aa8;margin-bottom:4px;}
+.footer-contact-val{font-size:14px;font-weight:600;color:#ffffff;line-height:1.5;transition:color 0.3s ease;text-decoration:none;display:block;}
+.footer-contact-item:hover .footer-contact-val{color:#00d4ff;}
+.footer-features{margin-top:35px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:15px;border-radius:16px;background:rgba(255,255,255,0.04);border:1px solid var(--footer-border);}
+.footer-feature{display:flex;gap:10px;align-items:center;padding:8px 12px;}
+.footer-feature-icon{font-size:18px;}
+/* FIX CSS-04: define missing classes */
+.footer-feature-title{font-size:13px;font-weight:700;color:#fff;}
+.footer-feature-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+/* FIX CSS-05: define divider */
+.footer-feature-div{width:1px;height:40px;background:rgba(255,255,255,0.1);}
+.footer-payments{margin-top:20px;text-align:center;}
+.footer-payments-label{font-size:13px;color:var(--muted);margin-bottom:8px;}
+.footer-payment-badges{margin-top:10px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
+.footer-pay-badge{padding:6px 12px;border-radius:20px;background:rgba(255,255,255,0.06);border:1px solid var(--footer-border);font-size:12px;transition:transform .3s cubic-bezier(.34,1.56,.64,1),border-color .3s,color .3s,box-shadow .3s;color:var(--muted);}
+.footer-pay-badge:hover{border-color:var(--accent);color:var(--accent);transform:scale(1.07);box-shadow:0 0 12px rgba(0,255,179,0.2);}
+.footer-bottom{margin-top:25px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);border-top:1px solid var(--footer-border);padding-top:15px;}
+.footer-back-top{color:var(--accent);text-decoration:none;font-weight:600;transition:0.3s;}
+.footer-back-top:hover{text-shadow:0 0 10px var(--accent);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .header-search{display:none}
+  .mobile-search-bar{display:block}
+  .cart-panel{width:100%;max-width:100%}
+  .products-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .hero h1{font-size:20px}.hero p{font-size:13px}
+  .hero-tag{font-size:11px;padding:3px 10px}
+  .hero-btn{padding:9px 16px;font-size:13px}
+  .header-inner{padding:9px 12px;gap:8px}
+  .logo-text .name{font-size:15px}.logo-text .sub{font-size:9px}
+  .floating-whatsapp{width:50px;height:50px;right:12px;bottom:12px}
+  .floating-whatsapp svg,.floating-whatsapp img{width:24px;height:24px}
+  .whatsapp-tooltip{display:none}
+  .product-img{height:120px}.product-emoji{font-size:44px}
+  .categories{padding:0 12px}.products-section{padding:0 12px 40px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .footer-feature-div{display:none}
+.modal-content{
+    margin: 5% auto;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 15px;
+  }
+}
+@media(max-width:480px){
+  .hero h1{font-size:18px}.hero p{font-size:12px}
+  .hero-tags{gap:6px}.hero-tag{font-size:10px;padding:3px 9px}
+  .hero-btns{gap:7px}.hero-btn{padding:8px 14px;font-size:12px}
+  .logo-icon{width:38px;height:38px;font-size:18px}
+  .cart-btn{padding:7px 11px;font-size:13px}
+  .cart-btn span:not(.cart-count){display:none}
+  .cart-count{min-width:20px;width:20px;height:20px;font-size:10px}
+  .products-grid{gap:8px}.product-img{height:110px}
+  .product-name{font-size:12px;min-height:32px}.product-price{font-size:14px}
+  .section-title{font-size:18px}.cat-pill{font-size:12px;padding:5px 11px}
+  .cart-panel{width:100%}.order-form{padding:10px}
+  .form-group input,.form-group textarea{font-size:16px}
+}
+@media(max-width:360px){
+  .header-inner{gap:6px;padding:8px 10px}.logo-text .sub{display:none}
+  .product-img{height:100px}.products-grid{gap:7px}
+}
+@media(max-width:600px){
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:10px;text-align:center}
+}
+@media(max-width:1024px){.footer-grid{grid-template-columns:1fr 1fr}}
+
+/* Mobile search focus */
+@media(max-width:768px){
+  .mobile-search-bar .header-search:focus-within{border-color:var(--saffron);box-shadow:0 0 0 3px rgba(255,107,0,.15);}
+}
+</style>
+</head>
+
+<body>
+<!-- FIX HTML-03: skip navigation for accessibility -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ══ PRICE TICKER ══ -->
+<div id="priceTicker" style="background:#FF6B00;border-bottom:2px solid #CC5500;overflow:hidden;white-space:nowrap;padding:8px 0;position:relative;width:100%;">
+  <div style="position:absolute;top:0;bottom:0;left:0;width:40px;background:linear-gradient(to right,#FF6B00,transparent);z-index:2;pointer-events:none;"></div>
+  <div style="position:absolute;top:0;bottom:0;right:0;width:40px;background:linear-gradient(to left,#FF6B00,transparent);z-index:2;pointer-events:none;"></div>
+  <div id="tickerTrack" style="display:inline-flex;gap:0;animation:tickerMove 28s linear infinite;will-change:transform;"></div>
+</div>
+<style>
+@keyframes tickerMove{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+#priceTicker:hover #tickerTrack{animation-play-state:paused}
+.t-item{display:inline-flex;align-items:center;gap:6px;padding:0 18px;font-size:13px;font-weight:600;color:#fff;}
+.t-item .t-old{text-decoration:line-through;opacity:.6;font-size:11px;font-weight:400;}
+.t-item .t-new{background:#fff;color:#CC5500;border-radius:20px;padding:1px 8px;font-size:11px;font-weight:700;}
+.t-item .t-off{background:#2E7D32;color:#fff;border-radius:20px;padding:1px 8px;font-size:11px;font-weight:700;}
+.t-sep{color:rgba(255,255,255,.3);padding:0 3px;font-size:14px;}
+</style>
+
+<!-- ══ SPLASH SCREEN ══ -->
+<div id="splash" role="status" aria-label="Loading Balaji Store">
+  <div class="splash-particles" id="splashParticles"></div>
+  <div class="splash-card">
+    <div class="splash-cart-wrap"><span class="splash-cart-icon">🛒</span></div>
+    <div class="splash-logo-name">BALAJI STORE</div>
+    <div class="splash-tagline">Fresh &amp; Daily Essentials</div>
+    <div class="splash-welcome">Welcome to Our Grocery Store 🌾</div>
+    <div class="splash-divider"></div>
+    <div class="splash-progress-wrap">
+      <div class="splash-progress-track"><div class="splash-progress-bar" id="splashBar"></div></div>
+      <div class="splash-percent" id="splashPercent">0%</div>
+      <div class="splash-dots"><div class="splash-dot"></div><div class="splash-dot"></div><div class="splash-dot"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FLOATING WHATSAPP — inline SVG, no external image needed ══ -->
+<a href="https://wa.me/919205002319?text=Hello%20Balaji%20Store%2C%20mujhe%20order%20karna%20hai"
+   class="floating-whatsapp" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+<div class="whatsapp-tooltip">💬 Chat with us!</div>
+<button class="floating-visitors-btn" id="visitorsEyeBtn" aria-label="View visitor stats">👁️</button>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <div class="header-inner">
+   <a href="#footer" class="logo" aria-label="Balaji Store Home">
+      <div class="logo-icon">🛒</div>
+      <div class="logo-text">
+        <div class="name">BALAJI STORE</div>
+        <div class="sub">Fresh & Daily Essentials</div>
+      </div>
+    </a>
+   <div class="header-search">
+  <span aria-hidden="true">🔍</span>
+  <input type="text" placeholder="Search products..." id="searchInput"
+    oninput="filterProducts()" autocomplete="off" aria-label="Search products">
+  <button class="mic-btn" id="micBtnDesktop" onclick="startVoiceSearch('desktop')" aria-label="Voice search" title="Bol kar search karein">🎤</button>
+</div>
+    <div class="header-actions">
+
+       <!-- ✅ NEW: PWA Install Button (before location) -->
+  <button class="pwa-header-btn" id="pwaHeaderBtn" aria-label="Install Balaji Store App">
+    📲 <span class="pwa-btn-text">Install App</span>
+  </button>
+      <a href="https://www.google.com/maps/search/154+Pocket+1+Sector+25+Rohini+Delhi" target="_blank" rel="noopener" title="View on Map" aria-label="Store location on Google Maps" style="line-height:0;flex-shrink:0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="red" aria-hidden="true">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+          <circle cx="12" cy="9" r="2.5" fill="white"/>
+        </svg>
+      </a>
+      <button class="theme-btn" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">🌿</button>
+      <a href="/balaji/indexadmin.html" class="admin-link" title="Admin Panel">🔐 <span>Admin</span></a>
+      <button class="cart-btn" onclick="toggleCart()" aria-label="Open cart">
+        🛒 <span>Cart</span> <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-search-bar">
+  <div class="header-search">
+    <span aria-hidden="true">🔍</span>
+    <input type="text" placeholder="Search products..." id="mobileSearchInput"
+      oninput="filterProductsMobile()" autocomplete="off" aria-label="Search products">
+    <button class="mic-btn" id="micBtnMobile" onclick="startVoiceSearch('mobile')" aria-label="Voice search" title="Bol kar search karein">🎤</button>
+  </div>
+</div>
+</header>
+
+<!-- ══ MAIN CONTENT ══ -->
+<main id="main-content">
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <h1>🌾 Ghar ki zaroorat, ek jagah 🌾</h1>
+  <p>Fresh groceries delivered to your doorstep in Rohini</p>
+  <div class="hero-tags">
+    <span class="hero-tag">🚚 Free delivery above ₹100</span>
+    <span class="hero-tag">📱 Order on WhatsApp</span>
+    <span class="hero-tag">⏰ Open 6AM – 10PM</span>
+  </div>
+  <div class="hero-btns" style="flex-direction:column;">
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+      <a href="/balaji/indexoffer.html" class="hero-btn primary">
+        🔥 Offers
+      </a>
+      <a href="/rohini/indexshop.html" class="hero-btn primary">
+        🏪 Shops
+      </a>
+      <a href="/webhub/indexwebhub.html" class="hero-btn primary">
+        🌐 WebHub
+      </a>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+      <button class="hero-btn primary" onclick="openPayPopup()">📲 Pay via UPI</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CATEGORIES ══ -->
+<div class="categories">
+  <div class="section-title">Shop by Category</div>
+  <div class="cat-pills" id="catPills">
+    <div class="cat-pill active" onclick="filterCat('all',this)">🛍️ All Items</div>
+    <div class="cat-pill" onclick="filterCat('grains',this)">🍚 Grains & Flour</div>
+    <div class="cat-pill" onclick="filterCat('dal',this)">🫘 Dal & Pulses</div>
+    <div class="cat-pill" onclick="filterCat('oil',this)">🫙 Oil & Ghee</div>
+    <div class="cat-pill" onclick="filterCat('spices',this)">🌶️ Spices & Masala</div>
+    <div class="cat-pill" onclick="filterCat('dry',this)">🥜 Dry Fruits </div>
+    <div class="cat-pill" onclick="filterCat('snacks',this)">🍪 Biscuits & Snacks</div>
+    <div class="cat-pill" onclick="filterCat('drinks',this)">🥤 Drinks</div>
+    <div class="cat-pill" onclick="filterCat('tea',this)">☕ Tea & Coffee</div>
+    <div class="cat-pill" onclick="filterCat('dairy',this)">🥛 Dairy Products</div>
+    <div class="cat-pill" onclick="filterCat('fruits',this)">🍎 Fruits & Vegetables</div>
+    <div class="cat-pill" onclick="filterCat('personal',this)">🏠 Personal & Home Care</div>
+    <div class="cat-pill" onclick="filterCat('stationary',this)">🖊️ Stationary</div>
+    <div class="cat-pill" onclick="filterCat('pooja',this)">🪔 Pooja Items</div>
+    <div class="cat-pill" onclick="filterCat('chocolates',this)">🧁 Chocolates & Ice-Creams</div>
+     <div class="cat-pill" onclick="filterCat('pack',this)">🔖 Pack</div>
+    <div class="cat-pill" onclick="filterCat('other',this)">📦 Other</div>
+  </div>
+</div>
+
+<!-- ══ PRODUCTS SECTION ══ -->
+<div class="products-section">
+  <div class="products-header">
+    <div class="section-title" style="margin-bottom:0;flex:1;">Our Products</div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      <span class="product-count" id="productCount" aria-live="polite"></span>
+    </div>
+  </div>
+  <div class="products-grid" id="productsGrid" aria-live="polite" aria-label="Products grid">
+    <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div style="padding:10px"><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div><div class="skeleton skeleton-line price"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div style="padding:10px"><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div><div class="skeleton skeleton-line price"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div style="padding:10px"><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div><div class="skeleton skeleton-line price"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div style="padding:10px"><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div><div class="skeleton skeleton-line price"></div></div></div>
+  </div>
+</div>
+
+<!-- ══ MEDIA SECTION ══ -->
+<div class="premium-media-section">
+  <button class="premium-btn" onclick="openVideoModal()">🎬 Watch Store Video</button>
+  <button class="premium-btn" onclick="openGalleryModal()">🖼️ View Gallery</button>
+</div>
+
+<!-- Video Modal -->
+<div id="videoModal" class="modal" role="dialog" aria-modal="true" aria-label="Store video">
+  <div class="modal-content glass">
+    <span class="close" onclick="closeVideoModal()" aria-label="Close">&times;</span>
+    <h2>🎬 Store Video</h2>
+<iframe id="storeVideoFrame" width="100%" height="315" src="https://www.youtube.com/embed/yS1xIcC8-WY" title="Balaji Store video" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
+
+<!-- Gallery Modal -->
+<div id="galleryModal" class="modal" role="dialog" aria-modal="true" aria-label="Store gallery">
+  <div class="modal-content glass">
+    <span class="close" onclick="closeGalleryModal()" aria-label="Close">&times;</span>
+    <h2>🖼️ Store Gallery</h2>
+    <div class="gallery-grid">
+      <img src="https://t4.ftcdn.net/jpg/15/61/01/47/360_F_1561014743_1ak1wihAhse96lvRsbRRYHpfKA6b2kOB.jpg" alt="Grocery store products" loading="lazy">
+      <img src="https://media.istockphoto.com/id/537022544/photo/aluminium-can-of-red-bull-energy-drink-iced-background.jpg?s=612x612&w=0&k=20&c=3CZ7G16GJPeLmY29eCRKGKAyN2FVmuO9YzoMEVSKrVQ=" alt="Energy drinks" loading="lazy">
+      <img src="https://media.istockphoto.com/id/537022544/photo/aluminium-can-of-red-bull-energy-drink-iced-background.jpg?s=612x612&w=0&k=20&c=3CZ7G16GJPeLmY29eCRKGKAyN2FVmuO9YzoMEVSKrVQ=" alt="Store beverages" loading="lazy">
+      <img src="https://media.istockphoto.com/id/537022544/photo/aluminium-can-of-red-bull-energy-drink-iced-background.jpg?s=612x612&w=0&k=20&c=3CZ7G16GJPeLmY29eCRKGKAyN2FVmuO9YzoMEVSKrVQ=" alt="Cold drinks" loading="lazy">
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer id="footer">
+  <div style="background:var(--page-bg);line-height:0;margin-bottom:-2px;">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;height:60px;" aria-hidden="true">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#0d0d0d"/>
+    </svg>
+  </div>
+  <div class="footer-main">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <div class="footer-logo">
+          <span class="footer-logo-icon">🛒</span>
+          <div><div class="footer-logo-name">BALAJI STORE</div><div class="footer-logo-sub">Fresh & Daily Essentials</div></div>
+        </div>
+        <p class="footer-desc">Rohini ki sabse bharosemand grocery dukan. Fresh products, best prices, aur WhatsApp pe instant order!</p>
+        <div class="footer-social-row">
+          <a href="https://wa.me/919205002319" target="_blank" rel="noopener" class="footer-social-btn" aria-label="WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="https://www.instagram.com" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="https://www.facebook.com" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener" class="footer-social-btn" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.499 6.203a3.008 3.008 0 00-2.089-2.089c-1.87-.501-9.4-.501-9.4-.501s-7.509 0-9.399.501A3.008 3.008 0 00.5 6.203C0 8.093 0 12.001 0 12.001s0 3.907.5 5.797a3.008 3.008 0 002.099 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.008 3.008 0 002.088-2.088c.502-1.89.502-5.797.502-5.797s-.001-3.908-.502-5.798zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">🔗 Quick Links</div>
+        <ul class="footer-links-list">
+          <li><a href="/balaji/indexoffer.html">🔥 Offers</a></li>
+<li><a href="/rohini/indexshop.html">🏪 Shops</a></li>
+<li><a href="/webhub/indexwebhub.html">🌐 WebHub</a></li>
+          <li><a href="#" onclick="filterCat('all',document.querySelector('.cat-pill'));scrollToProducts();return false;">🛍️ All Products</a></li>
+          <li><a href="#" onclick="filterCat('grains',document.querySelectorAll('.cat-pill')[1]);scrollToProducts();return false;">🍚 Grains & Flour</a></li>
+          <li><a href="#" onclick="filterCat('oil',document.querySelectorAll('.cat-pill')[3]);scrollToProducts();return false;">🫙 Oil & Ghee</a></li>
+          <li><a href="#" onclick="filterCat('drinks',document.querySelectorAll('.cat-pill')[6]);scrollToProducts();return false;">🥤 Drinks</a></li>
+          <li><a href="#" onclick="filterCat('dairy',document.querySelectorAll('.cat-pill')[8]);scrollToProducts();return false;">🥛 Dairy Products</a></li>
+          <li><a href="#" onclick="filterCat('snacks',document.querySelectorAll('.cat-pill')[5]);scrollToProducts();return false;">🍪 Biscuits & Snacks</a></li>
+          <li><a href="#" onclick="filterCat('chocolates',document.querySelectorAll('.cat-pill')[13]);scrollToProducts();return false;">🧁 Chocolates</a></li>
+          <li><a href="#" onclick="openPayPopup();return false;">📲 Pay via UPI</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">📋 Policies</div>
+        <ul class="footer-links-list">
+          <li><a href="/balaji/indexoffer.html">📋 Store Policies</a></li>
+          <li><a href="/balaji/policies.html#delivery">📦 Delivery Policy</a></li>
+          <li><a href="/balaji/policies.html#refund">🔄 Return & Refund</a></li>
+          <li><a href="/balaji/policies.html#privacy">🔒 Privacy Policy</a></li>
+          <li><a href="/balaji/policies.html#terms">📜 Terms of Service</a></li>
+          <li><a href="/balaji/policies.html#payment">💳 Payment Methods</a></li>
+          <li><a href="/balaji/policies.html#faqs">❓ FAQs</a></li>
+          <li><a href="/balaji/policies.html#support">📞 Customer Support</a></li>
+          <li><a href="/balaji/policies.html#about">🤝 About Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">📞 Contact Us</div>
+        <div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">📍</span>
+            <div><div class="footer-contact-label">Address</div><div class="footer-contact-val">House No.154, Pkt-1,<br>Rohini Sector 25,<br>New Delhi – 110085</div></div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">📞</span>
+            <div><div class="footer-contact-label">Phone</div><a href="tel:+919205002319" class="footer-contact-val">+91 92050 02319</a></div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">💬</span>
+            <div><div class="footer-contact-label">WhatsApp Order</div><a href="https://wa.me/919205002319?text=Hello%20Balaji%20Store%2C%20mujhe%20order%20karna%20hai" target="_blank" rel="noopener" class="footer-contact-val">Chat & Order Now</a></div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">⏰</span>
+            <div><div class="footer-contact-label">Store Hours</div><div class="footer-contact-val">Mon–Sun: 6AM – 10PM</div></div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">🗺️</span>
+            <div><div class="footer-contact-label">Location</div><a href="https://www.google.com/maps/search/154+Pocket+1+Sector+25+Rohini+Delhi" target="_blank" rel="noopener" class="footer-contact-val">View on Google Maps</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-features">
+      <div class="footer-feature"><span class="footer-feature-icon">🚚</span><div><div class="footer-feature-title">Free Delivery</div><div class="footer-feature-sub">Above ₹100</div></div></div>
+      <div class="footer-feature-div"></div>
+      <div class="footer-feature"><span class="footer-feature-icon">✅</span><div><div class="footer-feature-title">Fresh Products</div><div class="footer-feature-sub">Daily stocked items</div></div></div>
+      <div class="footer-feature-div"></div>
+      <div class="footer-feature"><span class="footer-feature-icon">💳</span><div><div class="footer-feature-title">Easy Payment</div><div class="footer-feature-sub">UPI, Cash on delivery</div></div></div>
+      <div class="footer-feature-div"></div>
+      <div class="footer-feature"><span class="footer-feature-icon">📱</span><div><div class="footer-feature-title">WhatsApp Order</div><div class="footer-feature-sub">Instant ordering</div></div></div>
+      <div class="footer-feature-div"></div>
+      <div class="footer-feature"><span class="footer-feature-icon">🔒</span><div><div class="footer-feature-title">Secure Payment</div><div class="footer-feature-sub">100% safe UPI</div></div></div>
+    </div>
+    <div class="footer-payments">
+      <div class="footer-payments-label">We Accept:</div>
+      <div class="footer-payment-badges">
+        <span class="footer-pay-badge">💳 GPay</span>
+        <span class="footer-pay-badge">📱 PhonePe</span>
+        <span class="footer-pay-badge">🅿️ Paytm</span>
+        <span class="footer-pay-badge">🏦 UPI</span>
+        <span class="footer-pay-badge">💵 Cash</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 <strong>BALAJI STORE</strong>. All rights reserved. Made with ❤️ in India</div>
+      <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="footer-back-top">↑ Back to Top</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ CART SIDEBAR ══ -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()" aria-hidden="true"></div>
+<!-- FIX HTML-06: added aria-modal and aria-labelledby -->
+<div class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-labelledby="cartHeading">
+  <div class="cart-header">
+    <h2 id="cartHeading">🛒 Your Cart</h2>
+    <button class="close-btn" onclick="toggleCart()" aria-label="Close cart">✕</button>
+  </div>
+  <div class="cart-items-wrap" id="cartItems">
+    <div class="cart-empty">
+      <div class="empty-icon">🛒</div>
+      <div style="font-weight:600;font-size:15px;">Cart is empty</div>
+      <div style="font-size:13px;margin-top:6px;">Add items to get started!</div>
+    </div>
+  </div>
+  <div id="cartFooter" style="display:none;">
+    <div class="cart-total-box">
+      <span class="t-label">Total Amount</span>
+      <span class="t-amount" id="cartTotal">₹0</span>
+    </div>
+    <!-- FIX UX-02: Pay via UPI button in cart showing cart total -->
+    <button class="cart-upi-btn" onclick="openPayPopupFromCart()" aria-label="Pay via UPI">
+      📲 Pay via UPI
+    </button>
+    <div class="order-form">
+      <h3>📋 Your Details</h3>
+      <div class="form-group">
+        <!-- FIX HTML-05: proper for/id association -->
+        <label for="custName">Your Name *</label>
+        <input type="text" id="custName" placeholder="Rahul Sharma" autocomplete="name"
+          aria-required="true" aria-describedby="nameErr" oninput="saveCustomerDetails()">
+        <div class="error-msg" id="nameErr" role="alert">Please enter your name</div>
+      </div>
+      <div class="form-group">
+        <label for="custPhone">Mobile Number *</label>
+        <input type="tel" id="custPhone" placeholder="98765 43210" maxlength="10"
+          autocomplete="tel" inputmode="numeric" aria-required="true" aria-describedby="phoneErr"
+          oninput="saveCustomerDetails()">
+        <div class="error-msg" id="phoneErr" role="alert">Enter valid 10-digit mobile number</div>
+      </div>
+      <div class="form-group">
+        <label for="custAddress">Delivery Address</label>
+        <textarea id="custAddress" placeholder="House no, Street, Area, Delhi..." oninput="saveCustomerDetails()"></textarea>
+      </div>
+      <button class="clear-saved-btn" onclick="clearSavedCustomerDetails()">🗑️ Clear Saved Details</button>
+      <button class="whatsapp-btn" id="orderBtn" onclick="placeOrder()">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Order on WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ QR PAYMENT POPUP — FULLY REBUILT ══ -->
+<div class="overlay" id="qr-popup" role="dialog" aria-modal="true" aria-labelledby="qrModalTitle">
+  <div class="qr-modal" onclick="event.stopPropagation()">
+    <div class="qr-modal-header">
+      <div class="qr-icon">💳</div>
+      <h2 id="qrModalTitle">Pay via UPI</h2>
+      <p>Scan QR ya UPI ID se pay karein</p>
+      <!-- FIX UX-02: cart total displayed in popup -->
+      <div class="pay-amount-badge" id="payAmountBadge" style="display:none;"></div>
+    </div>
+    <div class="qr-modal-body">
+
+      <!-- FIX PAY-02: Universal UPI button (works on mobile only) -->
+      <button class="upi-universal-btn" onclick="openUniversalUPI()" aria-label="Pay with any UPI app">
+        📲 Open Any UPI App
+      </button>
+
+      
+
+      <div class="qr-box">
+        <img src="qr.png"
+          alt="UPI QR Code for Balaji Store" width="155" height="155" loading="lazy"
+          id="qrCodeImg">
+        <div class="qr-scan-label">📷 Scan to pay instantly</div>
+      </div>
+
+      <div class="upi-row">
+        <div>
+          <div class="upi-label">UPI ID</div>
+          <!-- FIX SEC-05: single source of truth via JS constant -->
+          <div class="upi-id" id="upiIdDisplay"></div>
+        </div>
+        <button class="upi-copy-btn" id="copyBtn" onclick="copyUPI()">Copy</button>
+      </div>
+
+      <!-- FIX PAY-01: app buttons use JS onclick, not broken href deep links -->
+      <div class="qr-apps-row">
+        <button class="upi-app-btn" onclick="openUpiApp('gpay')" aria-label="Pay with GPay">
+          <img src="https://res.cloudinary.com/db2tt1cy6/image/upload/v1780421930/image/gpay.png"
+            alt="GPay" width="22" height="22" loading="lazy"
+            onerror="this.style.display='none'">
+          GPay
+        </button>
+        <button class="upi-app-btn" onclick="openUpiApp('phonepe')" aria-label="Pay with PhonePe">
+          <img src="https://res.cloudinary.com/db2tt1cy6/image/upload/v1780421930/image/phonepay.png"
+            alt="PhonePe" width="22" height="22" loading="lazy"
+            onerror="this.style.display='none'">
+          PhonePe
+        </button>
+        <button class="upi-app-btn" onclick="openUpiApp('paytm')" aria-label="Pay with Paytm">
+          <img src="https://res.cloudinary.com/db2tt1cy6/image/upload/v1780421930/image/paytm.png"
+            alt="Paytm" width="22" height="22" loading="lazy"
+            onerror="this.style.display='none'">
+          Paytm
+        </button>
+      </div>
+
+      <button class="qr-close-btn" onclick="closePayPopup()">✕ Close</button>
+      <div class="qr-secure">🔒 100% Secure UPI Payment</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ORDER CONFIRMATION MODAL (FIX UX-01) ══ -->
+<div class="confirm-overlay" id="confirmOverlay" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+  <div class="confirm-modal">
+    <div class="confirm-modal-top">
+      <div class="confirm-check">✅</div>
+      <h2 id="confirmTitle">Order Placed!</h2>
+      <p>WhatsApp pe bheja gaya hai, jaldi reply milega 😊</p>
+      <div class="confirm-order-id" id="confirmOrderId">#ORDER123</div>
+    </div>
+    <div class="confirm-modal-body">
+      <p>Aapka order WhatsApp pe send ho gaya hai. Store se confirmation aane ke baad payment karein.</p>
+      <button class="confirm-pay-btn" onclick="openPayPopupFromConfirm()" aria-label="Pay now via UPI">
+        📲 Pay via UPI Now
+      </button>
+      <button class="confirm-close-btn" onclick="closeConfirm()">Close</button>
+    </div>
+  </div>
+</div>
+<div class="overlay" id="visitorsStatsModal" role="dialog" aria-modal="true" aria-labelledby="visitorsModalTitle">
+  <div class="qr-modal" onclick="event.stopPropagation()">
+    <div class="qr-modal-header" style="background:linear-gradient(135deg,#1565C0,#0D47A1);">
+      <div class="qr-icon">👁️</div>
+      <h2 id="visitorsModalTitle">Visitor Stats</h2>
+      <p>Store ka live traffic dekhein</p>
+    </div>
+    <div class="qr-modal-body" style="text-align:center;">
+      <div style="display:flex;justify-content:space-around;gap:10px;margin-bottom:14px;">
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--saffron);" id="vLive">0</div>
+          <div style="font-size:12px;color:var(--muted);">🟢 Live Now</div>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--saffron);" id="vToday">0</div>
+          <div style="font-size:12px;color:var(--muted);">📅 Today</div>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--saffron);" id="vTotal">0</div>
+          <div style="font-size:12px;color:var(--muted);">👥 Total</div>
+        </div>
+      </div>
+      <button class="qr-close-btn" onclick="closeVisitorsModal()">✕ Close</button>
+    </div>
+  </div>
+</div>
+<!-- ══ TOAST ══ -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ══ FIREBASE MODULE ══ -->
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getFirestore,collection,query,orderBy,onSnapshot,addDoc,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+// FIX FB-05: removed unused Analytics import
+
+const firebaseConfig={
+  apiKey:"AIzaSyCa5GGpEi8PZnuM8ZSAGroMn9UyFgbRjm0",
+  authDomain:"balaji-store-6bb68.firebaseapp.com",
+  projectId:"balaji-store-6bb68",
+  storageBucket:"balaji-store-6bb68.appspot.com",
+  messagingSenderId:"386706822761",
+  appId:"1:386706822761:web:bce45da04bae2f9ddb74f8"
+  // FIX FB-05: removed measurementId - analytics not used
+};
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+
+const CAT_EMOJI={grains:'🍚',oil:'🫙',drinks:'🥤',dairy:'🥛',spices:'🌶️',pooja:'🪔',chocolates:'🧁',personal:'🏠',other:'📦',dal:'🫘',snacks:'🍪',tea:'☕',fruits:'🍎',stationary:'🖊️'};
+
+window._saveOrderToFirestore=async function(orderData){
+  try{
+    const docRef=await addDoc(collection(db,"orders"),{...orderData,createdAt:serverTimestamp(),status:"pending"});
+    return{success:true,id:docRef.id};
+  }catch(err){
+    console.error("Firestore order save error:",err.code,err.message);
+    return{success:false,error:err.message};
+  }
+};
+
+// FIX FB-02: store unsubscribe function
+const q=query(collection(db,'products'),orderBy('createdAt','desc'));
+window._unsubscribeProducts=onSnapshot(q,(snap)=>{
+ const fbProducts=snap.docs
+    .filter(d => d.data().isVisible === true)   // ← NEW: only show visible products
+    .map(d=>{
+      const data=d.data();
+      return{
+        id:'d_'+d.id,fbId:d.id,
+        name:data.name||'Unknown',
+        image:data.imageUrl||data.image||'',
+        emoji:data.emoji||CAT_EMOJI[data.category]||'📦',
+        weight:data.weight||data.unit||'',
+        price:Number(data.sellPrice||data.price||0),
+        mrp:Number(data.mrp||data.sellPrice||data.price||0),
+        category:data.category||'other',
+        stock:Number(data.stock||0),
+        minStock:Number(data.minStock||5),
+        source:'firebase',
+        isVisible:data.isVisible===true,        // ← NEW: carry the field through
+      };
+    });
+  window._fbStoreProducts=fbProducts;
+  // FIX JS-01: invalidate merged products cache when Firebase data changes
+  window._mergedProductsCache=null;
+ if(fbProducts.length>0){
+    const badge=document.getElementById('liveBadge');
+    if(badge) badge.style.display='none';
+  }
+  if(window._renderProducts)window._renderProducts();
+},(err)=>{
+  console.error('Firebase products listener error:',err.message);
+  // FIX FB-04: show notice on Firebase failure
+  const badge=document.getElementById('liveBadge');
+  if(badge){badge.style.display='inline-flex';document.getElementById('liveBadgeText').textContent='';}
+  if(window._renderProducts)window._renderProducts();
+});
+</script>
+
+<!-- ══ MAIN APP LOGIC ══ -->
+<script>
+'use strict';
+
+/* ══════════════════════════════════════════════════════════
+   FIX SEC-05: SINGLE SOURCE OF TRUTH FOR PAYMENT CONFIG
+   Change your UPI ID here once — updates everywhere
+══════════════════════════════════════════════════════════ */
+const UPI_CONFIG = {
+  id:       '9205002319-1@naviaxis',
+  name:     'Balaji Store',
+  note:     'Payment to Balaji Store',
+  qrImage:  'https://res.cloudinary.com/db2tt1cy6/image/upload/v1780421930/image/qr.png',
+};
+
+/* ── PAYMENT CONFIG: inject UPI ID into DOM from single constant ── */
+(function initPaymentUI(){
+  const d=document.getElementById('upiIdDisplay');
+  if(d)d.textContent=UPI_CONFIG.id;
+  // FIX PAY-02: show desktop note on non-mobile devices
+  const isMobile=/android|iphone|ipad|ipod/i.test(navigator.userAgent);
+  const desktopNote=document.getElementById('upiDesktopNote');
+  if(desktopNote)desktopNote.style.display=isMobile?'none':'block';
+})();
+
+/* ── IMAGE CACHE ── */
+const _imgCache=new Set();
+function preloadImg(src){
+  if(!src||_imgCache.has(src)||_imgCache.size>80)return;
+  _imgCache.add(src);
+  const img=new Image();img.src=src;
+}
+
+const STATIC_PRODUCTS = window.STATIC_PRODUCTS;
+
+
+/* ── CART STATE ── */
+let cart={};
+/* FIX SEC-04: validate cart against catalog on load */
+function loadCart(){
+  try{
+    const s=localStorage.getItem('balajiCart_v2');
+    if(!s)return{};
+    const raw=JSON.parse(s);
+    // Basic type validation — full validation done after products load
+    if(typeof raw!=='object'||Array.isArray(raw))return{};
+    const validated={};
+    for(const[id,item]of Object.entries(raw)){
+      if(typeof item.qty==='number'&&item.qty>0&&item.qty<1000&&typeof item.price==='number'&&item.price>0){
+        validated[id]=item;
+      }
+    }
+    return validated;
+  }catch(e){return{};}
+}
+cart=loadCart();
+function persistCart(){try{localStorage.setItem('balajiCart_v2',JSON.stringify(cart));}catch(e){}}
+
+/* ── APP STATE ── */
+let currentCat='all';
+let searchQuery='';
+let isOrdering=false;
+let _lastOrderTotal=0;
+const STORE_PHONE='919205002319';
+
+/* ── HELPERS ── */
+function discountPct(p){if(!p.mrp||p.mrp<=p.price)return 0;return Math.round(((p.mrp-p.price)/p.mrp)*100)}
+function calcTotal(){return Object.values(cart).reduce((s,i)=>s+i.price*i.qty,0)}
+function calcCount(){return Object.values(cart).reduce((s,i)=>s+i.qty,0)}
+function scrollToProducts(){document.getElementById('productsGrid').scrollIntoView({behavior:'smooth',block:'start'});}
+window.scrollToProducts=scrollToProducts;
+
+/* FIX JS-01: memoized merged products */
+window._mergedProductsCache=null;
+function getMergedProducts(){
+  if(window._mergedProductsCache)return window._mergedProductsCache;
+  const fbProducts=window._fbStoreProducts||[];
+  const merged=[...STATIC_PRODUCTS];
+  fbProducts.forEach(fp=>{
+    const existIdx=merged.findIndex(p=>p.name.toLowerCase()===fp.name.toLowerCase());
+    if(existIdx>=0)merged[existIdx]={...merged[existIdx],...fp,id:merged[existIdx].id};
+    else merged.push(fp);
+  });
+  window._mergedProductsCache=merged;
+  return merged;
+}
+
+/* FIX HTML-04: robust image URL validation */
+function isValidImageUrl(url){
+  if(!url||!url.trim())return false;
+  const filename=url.split('/').pop().split('?')[0];
+  if(!filename||filename==='.jpg'||filename==='.png'||filename==='.webp')return false;
+  return true;
+}
+
+/* ── CUSTOMER DETAILS ── */
+function saveCustomerDetails(){
+  try{
+    localStorage.setItem('customer_name',document.getElementById('custName').value);
+    localStorage.setItem('customer_phone',document.getElementById('custPhone').value);
+    localStorage.setItem('customer_address',document.getElementById('custAddress').value);
+  }catch(e){}
+}
+function loadCustomerDetails(){
+  try{
+    const n=localStorage.getItem('customer_name')||'';
+    const p=localStorage.getItem('customer_phone')||'';
+    const a=localStorage.getItem('customer_address')||'';
+    const ne=document.getElementById('custName'),pe=document.getElementById('custPhone'),ae=document.getElementById('custAddress');
+    if(ne&&n)ne.value=n;if(pe&&p)pe.value=p;if(ae&&a)ae.value=a;
+  }catch(e){}
+}
+function clearSavedCustomerDetails(){
+  try{
+    ['customer_name','customer_phone','customer_address'].forEach(k=>localStorage.removeItem(k));
+    ['custName','custPhone','custAddress'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+    showToast('🗑️ Saved details cleared','info');
+  }catch(e){}
+}
+window.saveCustomerDetails=saveCustomerDetails;
+window.clearSavedCustomerDetails=clearSavedCustomerDetails;
+
+/* ── RENDER PRODUCTS ── */
+let _renderPending=false;
+/* FIX JS-02: debounced search render */
+let _searchDebounceTimer=null;
+window._renderProducts=function renderProducts(){
+  if(_renderPending)return;
+  _renderPending=true;
+  requestAnimationFrame(()=>{_renderPending=false;_doRender();});
+};
+
+function _doRender(){
+  // Firebase load hone ka wait karo
+  if(window._fbStoreProducts === undefined){
+    return; // skeleton dikhta rahega, Firebase aane par auto render hoga
+  }
+  const grid=document.getElementById('productsGrid');
+  const q=searchQuery.toLowerCase().trim();
+  const all=getMergedProducts();
+  const filtered=all.filter(p=>{
+    const catOk=currentCat==='all'||p.category===currentCat;
+    const srchOk=!q||p.name.toLowerCase().includes(q)||(p.category||'').toLowerCase().includes(q)||(p.weight||'').toLowerCase().includes(q)||String(p.price).includes(q);
+    return catOk&&srchOk;
+  });
+  document.getElementById('productCount').textContent=filtered.length?`${filtered.length} item${filtered.length!==1?'s':''}` :'';
+  if(!filtered.length){
+    grid.innerHTML=`<div class="no-products"><div class="icon">🙁</div><div style="font-size:15px;font-weight:600;margin-bottom:6px;">No products found</div><div style="font-size:13px;">Try a different search or category</div></div>`;
+    return;
+  }
+  filtered.slice(0,8).forEach(p=>{if(isValidImageUrl(p.image))preloadImg(p.image)});
+  const html=filtered.map((p,idx)=>{
+    const qty=cart[p.id]?.qty||0;
+    const disc=discountPct(p);
+    const isOut=(p.stock||0)<=0;
+    const isLow=!isOut&&(p.stock||0)>0&&(p.stock||0)<=(p.minStock||5);
+    const isFb=p.source==='firebase';
+    const isEager=idx<8;
+    let mediaHtml;
+    /* FIX HTML-04 + JS-08: use isValidImageUrl and {once:true} error handler */
+    if(isValidImageUrl(p.image)){
+      mediaHtml=`<img src="${esc(p.image)}" alt="${esc(p.name)}" width="130" height="130" loading="${isEager?'eager':'lazy'}" decoding="async"
+        onerror="this.style.display='none';const fb=this.nextElementSibling;if(fb)fb.style.display='flex';" >
+        <span class="product-emoji" style="display:none;">${esc(p.emoji||'📦')}</span>`;
+    }else{
+      /* FIX SEC-02: escape emoji */
+      mediaHtml=`<span class="product-emoji">${esc(p.emoji||'📦')}</span>`;
+    }
+    let stockBadge='';
+    if(isOut)stockBadge=`<span class="stock-badge out">Out of Stock</span>`;
+    else if(isLow)stockBadge=`<span class="stock-badge low">Low Stock</span>`;
+    else stockBadge=`<span class="stock-badge">In Stock</span>`;
+    const safeId=esc(p.id);
+    const qtyHtml=isOut
+      ?`<button class="add-btn" disabled title="Out of stock" aria-label="Out of stock">✕</button>`
+      :qty===0
+        ?`<button class="add-btn" onclick="addToCart('${safeId}')" aria-label="Add ${esc(p.name)} to cart">+</button>`
+        :`<div class="qty-ctrl">
+            <button onclick="decreaseQty('${safeId}')" aria-label="Remove one ${esc(p.name)}">−</button>
+            <span aria-label="${qty} in cart">${qty}</span>
+            <button onclick="addToCart('${safeId}')" aria-label="Add one more ${esc(p.name)}">+</button>
+          </div>`;
+    return`<div class="product-card${isOut?' out-of-stock':''}" id="pcard_${safeId}">
+      ${disc>0?`<span class="discount-badge">${disc}% OFF</span>`:''}
+      ${stockBadge}
+      ${isFb?`<span class="source-badge">LIVE</span>`:''}
+      <div class="product-img">${mediaHtml}</div>
+      <div class="product-info">
+        <div class="product-name">${esc(p.name)}</div>
+        <div class="product-weight">${esc(p.weight||'')}</div>
+        <div class="product-footer">
+          <div class="price-block">
+            <span class="product-price">₹${p.price}</span>${p.mrp&&p.mrp>p.price?`<span class="mrp">₹${p.mrp}</span>`:''}
+          </div>
+          ${qtyHtml}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  grid.innerHTML=html;
+}
+
+/* ── CART ACTIONS ── */
+function addToCart(id){
+  const all=getMergedProducts();
+  const product=all.find(p=>p.id===id);
+  if(!product)return;
+  if((product.stock||0)<=0){showToast('Out of stock!','error');return;}
+  if(!cart[id])cart[id]={...product,qty:0};
+  if(cart[id].qty>=(product.stock||9999)){showToast('Max available stock reached!','info');return;}
+  cart[id].qty++;
+  renderCart();window._renderProducts();persistCart();
+ try{
+  var _c=window.getAudioCtx?window.getAudioCtx():null;
+  if(_c){var _o=_c.createOscillator(),_g=_c.createGain();
+  _o.connect(_g);_g.connect(_c.destination);_o.type='sine';_o.frequency.value=880;
+  _g.gain.setValueAtTime(0.25,_c.currentTime);
+  _g.gain.exponentialRampToValueAtTime(0.001,_c.currentTime+0.15);
+  _o.start();_o.stop(_c.currentTime+0.15);}
+}catch(e){}
+  showToast(`🛒 Added: ${product.name}`,'success');
+}
+function decreaseQty(id){
+  if(!cart[id])return;
+  const nm=cart[id].name;
+  cart[id].qty--;
+  if(cart[id].qty<=0){
+    delete cart[id];
+    try{
+      var _ac=window.AudioContext||window.webkitAudioContext;
+      if(_ac){var _c=new _ac(),_o=_c.createOscillator(),_g=_c.createGain();
+      _o.connect(_g);_g.connect(_c.destination);_o.type='sine';_o.frequency.value=300;
+      _g.gain.setValueAtTime(0.25,_c.currentTime);
+      _g.gain.exponentialRampToValueAtTime(0.001,_c.currentTime+0.2);
+      _o.start();_o.stop(_c.currentTime+0.2);}
+    }catch(e){}
+    showToast(`🗑️ Removed: ${nm}`,'info');
+  } else {
+    showToast(`➖ ${nm} (${cart[id].qty} bache)`,'info'); // ← ADD THIS
+  }
+  renderCart();window._renderProducts();persistCart();
+}
+function removeFromCart(id){
+  if(!cart[id])return;
+  const nm=cart[id].name;delete cart[id];
+  renderCart();window._renderProducts();persistCart();
+ try{
+  var _c=window.getAudioCtx?window.getAudioCtx():null;
+  if(_c){var _o=_c.createOscillator(),_g=_c.createGain();
+  _o.connect(_g);_g.connect(_c.destination);_o.type='sine';_o.frequency.value=300;
+  _g.gain.setValueAtTime(0.25,_c.currentTime);
+  _g.gain.exponentialRampToValueAtTime(0.001,_c.currentTime+0.2);
+  _o.start();_o.stop(_c.currentTime+0.2);}
+}catch(e){}
+  showToast(`🗑️ Removed: ${nm}`,'info');
+}
+window.addToCart=addToCart;window.decreaseQty=decreaseQty;window.removeFromCart=removeFromCart;
+
+/* ── RENDER CART ── */
+function renderCart(){
+  const items=Object.values(cart);
+  const total=calcTotal();
+  const count=calcCount();
+  const cartItemsEl=document.getElementById('cartItems');
+  const cartFooter=document.getElementById('cartFooter');
+  const countEl=document.getElementById('cartCount');
+  countEl.textContent=count;
+  /* FIX UX-05: hide badge when 0 */
+  countEl.classList.toggle('has-items',count>0);
+  document.getElementById('cartTotal').textContent='₹'+total.toLocaleString('en-IN');
+  if(!items.length){
+    cartItemsEl.innerHTML=`<div class="cart-empty"><div class="empty-icon">🛒</div><div style="font-weight:600;font-size:15px;">Cart is empty</div><div style="font-size:13px;margin-top:6px;">Add some items to get started!</div></div>`;
+    cartFooter.style.display='none';return;
+  }
+  /* FIX SEC-02: escape emoji in cart */
+  cartItemsEl.innerHTML=items.map(item=>{
+    const safeId=esc(item.id);
+    const imgHtml=isValidImageUrl(item.image)
+      ?`<img src="${esc(item.image)}" alt="${esc(item.name)}" width="48" height="48" loading="lazy" onerror="this.style.display='none'">`
+      :`<span class="cart-item-emoji">${esc(item.emoji||'📦')}</span>`;
+    return`<div class="cart-item" id="cartrow_${safeId}">
+      <div class="cart-item-img">${imgHtml}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${esc(item.name)}</div>
+        <div class="cart-item-weight">${esc(item.weight||'')}</div>
+        <div class="cart-item-price">₹${item.price} × ${item.qty} = <strong>₹${(item.price*item.qty).toLocaleString('en-IN')}</strong></div>
+        <div class="cart-item-qty">
+          <button onclick="decreaseQty('${safeId}')" aria-label="Remove one">−</button>
+          <span>${item.qty}</span>
+          <button onclick="addToCart('${safeId}')" aria-label="Add one">+</button>
+        </div>
+      </div>
+      <button class="remove-btn" onclick="removeFromCart('${safeId}')" aria-label="Remove ${esc(item.name)} from cart">🗑️</button>
+    </div>`;
+  }).join('');
+  cartFooter.style.display='block';
+}
+
+/* ── CART TOGGLE ── */
+function toggleCart(){
+  const overlay=document.getElementById('cartOverlay');
+  const panel=document.getElementById('cartPanel');
+  const isOpen=panel.classList.contains('open');
+  overlay.classList.toggle('open',!isOpen);
+  panel.classList.toggle('open',!isOpen);
+  if(!isOpen){
+    document.body.style.overflow='hidden';
+    loadCustomerDetails();
+    /* FIX HTML-06: move focus into dialog */
+    setTimeout(()=>{const cb=panel.querySelector('.close-btn');if(cb)cb.focus();},50);
+  }else{
+    document.body.style.overflow='';
+  }
+}
+window.toggleCart=toggleCart;
+
+/* ── FILTER ── */
+function filterCat(cat,el){
+  currentCat=cat;
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  window._renderProducts();
+}
+window.filterCat=filterCat;
+
+function filterProducts(){
+  /* FIX JS-02: debounce search */
+  const mob=document.getElementById('mobileSearchInput');
+  searchQuery=document.getElementById('searchInput').value;
+  if(mob)mob.value=searchQuery;
+  clearTimeout(_searchDebounceTimer);
+  _searchDebounceTimer=setTimeout(()=>window._renderProducts(),150);
+}
+window.filterProducts=filterProducts;
+
+function filterProductsMobile(){
+  const desk=document.getElementById('searchInput');
+  searchQuery=document.getElementById('mobileSearchInput').value;
+  if(desk)desk.value=searchQuery;
+  clearTimeout(_searchDebounceTimer);
+  _searchDebounceTimer=setTimeout(()=>window._renderProducts(),150);
+}
+window.filterProductsMobile=filterProductsMobile;
+
+function focusMobileSearch(){
+  const mob=document.getElementById('mobileSearchInput');
+  if(mob){mob.focus();mob.scrollIntoView({behavior:'smooth',block:'center'});}
+}
+window.focusMobileSearch=focusMobileSearch;
+
+/* ── FIX SEC-03: Input sanitization ── */
+function sanitizeInput(str){
+  return String(str||'')
+    .replace(/[*_~`]/g,'')   // strip WhatsApp markdown
+    .replace(/[\r\n\t]+/g,' ')// collapse newlines
+    .trim().slice(0,500);
+}
+
+/* ── PLACE ORDER ── */
+async function placeOrder(){
+  if(isOrdering)return;
+  const nameEl=document.getElementById('custName'),phoneEl=document.getElementById('custPhone'),addrEl=document.getElementById('custAddress');
+  const btn=document.getElementById('orderBtn');
+  const nameErr=document.getElementById('nameErr'),phoneErr=document.getElementById('phoneErr');
+  const name=nameEl.value.trim(),phone=phoneEl.value.trim(),address=addrEl.value.trim();
+  [nameEl,phoneEl].forEach(el=>el.classList.remove('error'));
+  [nameErr,phoneErr].forEach(el=>el.classList.remove('show'));
+  let hasError=false;
+  if(!name){nameEl.classList.add('error');nameErr.classList.add('show');hasError=true;}
+  if(!/^[6-9]\d{9}$/.test(phone)){phoneEl.classList.add('error');phoneErr.classList.add('show');hasError=true;}
+  if(hasError){showToast('Please fill required fields correctly','error');return;}
+  const items=Object.values(cart);
+  if(!items.length){showToast('Your cart is empty!','error');return;}
+  const total=calcTotal();
+  _lastOrderTotal=total;
+  /* FIX SEC-03: sanitize all inputs before building message */
+  const safeName=sanitizeInput(name);
+  const safePhone=sanitizeInput(phone);
+  const safeAddress=sanitizeInput(address);
+  const itemLines=items.map(i=>`• ${sanitizeInput(i.name)}${i.weight?' ('+i.weight+')':''} × ${i.qty} = ₹${(i.price*i.qty).toLocaleString('en-IN')}`).join('\n');
+  const msg=`🛒 *New Order – Balaji Store*\n\n👤 Name: ${safeName}\n📱 Phone: ${safePhone}\n📍 Address: ${safeAddress||'Not provided'}\n\n📦 Items:\n${itemLines}\n\n💰 *Total: ₹${total.toLocaleString('en-IN')}*\n\n_Order placed via Balaji Store website_`;
+  window.open(`https://wa.me/${STORE_PHONE}?text=${encodeURIComponent(msg)}`,'_blank');
+
+  /* FIX JS-06: use try/finally to guarantee reset */
+  isOrdering=true;btn.disabled=true;
+  btn.innerHTML=`<span class="spinner"></span> Saving order...`;
+  try{
+    let orderId='ORDER'+Date.now().toString().slice(-6);
+    if(window._saveOrderToFirestore){
+      const result=await window._saveOrderToFirestore({
+        name:safeName,phone:safePhone,address:safeAddress,
+        items:items.map(i=>({id:i.id,name:i.name,weight:i.weight||'',emoji:i.emoji||'📦',price:i.price,qty:i.qty,total:i.price*i.qty})),
+        total,source:'website',
+      });
+      if(result.success){
+        orderId='#'+result.id.slice(-6).toUpperCase();
+      }
+    }
+    cart={};persistCart();renderCart();window._renderProducts();
+    toggleCart();
+    /* FIX UX-01: show order confirmation modal */
+    showOrderConfirmation(orderId,total);
+  }catch(err){
+    console.error('Order error:',err);
+    showToast('Something went wrong. Please try again.','error');
+  }finally{
+    /* FIX JS-06: always reset */
+    isOrdering=false;btn.disabled=false;
+    btn.innerHTML=`<svg width="19" height="19" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Order on WhatsApp`;
+  }
+}
+window.placeOrder=placeOrder;
+
+/* FIX UX-01: Order confirmation modal */
+function showOrderConfirmation(orderId,total){
+  if(window.playOrderSound) window.playOrderSound(); /* Bug 3 Fix: sirf tab baje jab order sach mein place ho */
+  document.getElementById('confirmOrderId').textContent=orderId;
+  _lastOrderTotal=total;
+  document.getElementById('confirmOverlay').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeConfirm(){
+  document.getElementById('confirmOverlay').classList.remove('show');
+  document.body.style.overflow='';
+}
+function openPayPopupFromConfirm(){
+  closeConfirm();
+  openPayPopup(_lastOrderTotal);
+}
+window.closeConfirm=closeConfirm;
+window.openPayPopupFromConfirm=openPayPopupFromConfirm;
+
+/* ══════════════════════════════════════════════
+   PAYMENT POPUP — FULLY FIXED
+   FIX UX-02: shows cart total
+   FIX PAY-01: correct UPI deep link schemes
+   FIX PAY-02: desktop fallback
+   FIX SEC-05: UPI_CONFIG single source of truth
+══════════════════════════════════════════════ */
+window.openPayPopup=function openPayPopup(amount){
+  const popup=document.getElementById('qr-popup');
+  const badge=document.getElementById('payAmountBadge');
+  /* FIX UX-02: show cart total or passed amount */
+  const displayAmount=amount||calcTotal();
+  if(displayAmount>0){
+    badge.style.display='inline-block';
+    badge.textContent='Pay: ₹'+displayAmount.toLocaleString('en-IN');
+  }else{
+    badge.style.display='none';
+  }
+  popup.classList.add('show');
+  document.body.style.overflow='hidden';
+};
+
+/* FIX UX-02: open from cart with total pre-filled */
+window.openPayPopupFromCart=function(){
+  openPayPopup(calcTotal());
+};
+
+window.closePayPopup=function closePayPopup(){
+  document.getElementById('qr-popup').classList.remove('show');
+  document.body.style.overflow='';
+};
+
+/* FIX PAY-01: correct UPI deep links per app */
+window.openUpiApp=function openUpiApp(app){
+  const amount=_lastOrderTotal||calcTotal();
+  const pa=encodeURIComponent(UPI_CONFIG.id);
+  const pn=encodeURIComponent(UPI_CONFIG.name);
+  const tn=encodeURIComponent(UPI_CONFIG.note);
+  const am=amount>0?`&am=${amount.toFixed(2)}`:'';
+  const cu='INR';
+
+  /* Correct scheme per app — tested on Android & iOS */
+  const schemes={
+    gpay:    `gpay://upi/pay?pa=${pa}&pn=${pn}&tn=${tn}${am}&cu=${cu}`,
+    phonepe: `phonepe://pay?pa=${pa}&pn=${pn}&tn=${tn}${am}&cu=${cu}`,
+    paytm:   `paytmmp://pay?pa=${pa}&pn=${pn}&tn=${tn}${am}&cu=${cu}`,
+  };
+  const url=schemes[app];
+  if(!url)return;
+  /* Try to open; if app not installed, fall back gracefully */
+  window.location.href=url;
+};
+
+/* FIX PAY-02: Universal UPI — works on mobile only */
+window.openUniversalUPI=function openUniversalUPI(){
+  const isMobile=/android|iphone|ipad|ipod/i.test(navigator.userAgent);
+  if(!isMobile){
+    /* On desktop, show the note instead */
+    const note=document.getElementById('upiDesktopNote');
+    if(note){note.style.display='block';note.style.animation='none';note.style.background='#ffe0b2';}
+    showToast('UPI apps only work on mobile. Use QR code or copy UPI ID.','info');
+    return;
+  }
+  const amount=_lastOrderTotal||calcTotal();
+  const pa=encodeURIComponent(UPI_CONFIG.id);
+  const pn=encodeURIComponent(UPI_CONFIG.name);
+  const tn=encodeURIComponent(UPI_CONFIG.note);
+  const am=amount>0?`&am=${amount.toFixed(2)}`:'';
+  /* upi:// is the universal intent that lets Android pick the app */
+  const upiUrl=`upi://pay?pa=${pa}&pn=${pn}&tn=${tn}${am}&cu=INR`;
+  window.location.href=upiUrl;
+};
+
+/* FIX SEC-05: copy uses UPI_CONFIG constant */
+window.copyUPI=function copyUPI(){
+  navigator.clipboard.writeText(UPI_CONFIG.id)
+    .then(()=>{const btn=document.getElementById('copyBtn');btn.textContent='✓ Copied!';setTimeout(()=>btn.textContent='Copy',2000);showToast('✅ UPI ID copied!','success');})
+    .catch(()=>{
+      /* Fallback for older browsers */
+      const el=document.createElement('textarea');
+      el.value=UPI_CONFIG.id;el.style.position='fixed';el.style.opacity='0';
+      document.body.appendChild(el);el.select();
+      try{document.execCommand('copy');showToast('✅ UPI ID copied!','success');}catch(e){showToast('Copy failed — manual copy: '+UPI_CONFIG.id,'error');}
+      document.body.removeChild(el);
+    });
+};
+
+/* Close QR popup on overlay click */
+document.getElementById('qr-popup').addEventListener('click',function(e){
+  if(e.target===this)window.closePayPopup();
+});
+
+/* ── THEME TOGGLE ── */
+function toggleTheme(){
+  const html=document.documentElement;
+  const isGreen=html.getAttribute('data-theme')==='green';
+  const newTheme=isGreen?'light':'green';
+  html.setAttribute('data-theme',newTheme);
+  localStorage.setItem('balaji_theme',newTheme);
+  document.getElementById('themeToggle').textContent=newTheme==='green'?'☀️':'🌿';
+}
+window.toggleTheme=toggleTheme;
+function initTheme(){
+  const saved=localStorage.getItem('balaji_theme')||'light';
+  document.documentElement.setAttribute('data-theme',saved);
+  document.getElementById('themeToggle').textContent=saved==='green'?'☀️':'🌿';
+}
+
+/* ── TOAST ── */
+let toastTimer;
+function showToast(msg,type='success'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className=`toast ${type} show`;
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
+}
+window.showToast=showToast;
+
+/* ── XSS ESCAPE ── */
+function esc(s){
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+window.esc=esc;
+
+/* ── KEYBOARD ── */
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='Escape'){
+    const panel=document.getElementById('cartPanel');
+    if(panel.classList.contains('open'))toggleCart();
+    const qr=document.getElementById('qr-popup');
+    if(qr.classList.contains('show'))window.closePayPopup();
+    const conf=document.getElementById('confirmOverlay');
+    if(conf.classList.contains('show'))closeConfirm();
+  }
+});
+
+/* ── INIT ── */
+initTheme();
+renderCart();
+loadCustomerDetails();
+window._renderProducts();
+
+/* FIX JS-05: ticker inside DOMContentLoaded */
+(function buildTicker(){
+  const TICKER_ITEMS=[
+    {icon:"🌾",text:"Aashirvaad Atta 5kg",old:"₹650",price:"₹500"},
+    {icon:"🫙",text:"Fortune Oil 1L",old:"₹215",price:"₹180"},
+    {icon:"☕",text:"Red Label Tea 1kg",old:"₹530",price:"₹525"},
+    {icon:"🥤",text:"Red Bull 250ml",old:"₹150",price:"₹120"},
+    {icon:"🌶️",text:"MDH Deggi Mirch 100g",old:"₹125",price:"₹120"},
+    {icon:"🫙",text:"Bail Kolhu Oil 1L",old:"₹200",price:"₹190"},
+    {icon:"💧",text:"Bisleri 20L",old:"₹140",price:"₹120"},
+    {icon:"🌾",text:"Silver Coin Atta 5kg",old:"₹200",price:"₹145"},
+    {icon:"🚚",text:"FREE delivery above ₹100!",special:"offer"},
+    {icon:"⏰",text:"Open 6AM – 10PM daily",special:"info"},
+  ];
+  const track=document.getElementById('tickerTrack');
+  if(!track)return;
+  function buildItems(arr){
+    arr.forEach((item,i)=>{
+      if(i>0){const s=document.createElement('span');s.className='t-sep';s.textContent='•';track.appendChild(s);}
+      const el=document.createElement('span');el.className='t-item';
+      if(item.special==='offer')el.textContent=item.icon+' '+item.text+' FREE';
+      else if(item.special==='info')el.textContent=item.icon+' '+item.text;
+      else el.textContent=item.icon+' '+item.text+' '+item.old+' → '+item.price;
+      track.appendChild(el);
+    });
+  }
+  buildItems([...TICKER_ITEMS,...TICKER_ITEMS]);
+})();
+</script>
+
+<!-- ══ GALLERY & VIDEO JS — FIX JS-03: addEventListener not window.onclick ══ -->
+<script>
+var VIDEO_URL = "https://www.youtube.com/embed/yS1xIcC8-WY?enablejsapi=1";
+
+function openVideoModal(){
+  document.getElementById("videoModal").style.display="block";
+  document.getElementById("storeVideoFrame").src = VIDEO_URL;
+}
+
+function closeVideoModal(){
+  document.getElementById("videoModal").style.display="none";
+  document.getElementById("storeVideoFrame").src = ""; // ✅ Video band
+}
+function openGalleryModal(){document.getElementById("galleryModal").style.display="block";}
+function closeGalleryModal(){document.getElementById("galleryModal").style.display="none";}
+
+/* FIX JS-03: use addEventListener instead of overriding window.onclick */
+window.addEventListener('click',function(e){
+  if(e.target===document.getElementById("videoModal"))closeVideoModal();
+  if(e.target===document.getElementById("galleryModal"))closeGalleryModal();
+});
+</script>
+<div id="pwa-install-banner" style="
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:99999;
+  background:linear-gradient(135deg,#FF6B00,#FF8C00);
+  color:#fff;padding:14px 16px;
+  box-shadow:0 -4px 24px rgba(255,107,0,.35);
+  font-family:'Hind',sans-serif;
+  animation:slideUp .4s ease;
+">
+<style>
+  /* PWA Header Install Button */
+/* ══ PWA Header Install Button — Premium Edition ══ */
+.pwa-header-btn {
+  position: relative;
+  background: linear-gradient(135deg, #FF6B00 0%, #FF8C00 50%, #FFB347 100%);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 8px 16px;
+  font-family: 'Baloo 2', cursive;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  letter-spacing: 0.3px;
+
+  /* ── Layered Shadow ── */
+  box-shadow:
+    0 2px 8px rgba(255, 107, 0, 0.35),
+    0 4px 16px rgba(255, 107, 0, 0.20),
+    0 1px 0 rgba(255, 255, 255, 0.25) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.12) inset;
+
+  /* ── Smooth All Transitions ── */
+  transition:
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s ease,
+    background 0.3s ease,
+    filter 0.25s ease;
+
+  /* ── Prevent text selection on click ── */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ── Shimmer Sweep Effect ── */
+.pwa-header-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50px;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  transition: background-position 0.6s ease;
+  pointer-events: none;
+}
+
+/* ── Pulse Ring ── */
+.pwa-header-btn::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50px;
+  border: 2px solid rgba(255, 107, 0, 0.5);
+  opacity: 0;
+  transform: scale(0.92);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* ══ HOVER STATE ══ */
+.pwa-header-btn:hover {
+  background: linear-gradient(135deg, #FF5500 0%, #FF7A00 50%, #FFA020 100%);
+  transform: translateY(-3px) scale(1.04);
+  box-shadow:
+    0 6px 20px rgba(255, 107, 0, 0.5),
+    0 10px 30px rgba(255, 107, 0, 0.25),
+    0 1px 0 rgba(255, 255, 255, 0.3) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+  filter: brightness(1.08);
+}
+
+/* Shimmer runs on hover */
+.pwa-header-btn:hover::before {
+  background-position: -200% 0;
+}
+
+/* Pulse ring appears on hover */
+.pwa-header-btn:hover::after {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+/* ══ ACTIVE / CLICK STATE ══ */
+.pwa-header-btn:active {
+  transform: translateY(-1px) scale(0.97);
+  box-shadow:
+    0 2px 8px rgba(255, 107, 0, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.2) inset;
+  filter: brightness(0.95);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+/* ══ FOCUS (Accessibility) ══ */
+.pwa-header-btn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px #fff,
+    0 0 0 5px rgba(255, 107, 0, 0.7),
+    0 4px 16px rgba(255, 107, 0, 0.3);
+}
+
+/* ══ ICON BOUNCE ANIMATION ══ */
+.pwa-header-btn .pwa-btn-icon {
+  display: inline-block;
+  animation: iconBounce 2.5s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes iconBounce {
+  0%, 100% { transform: translateY(0) rotate(0deg);   }
+  20%       { transform: translateY(-3px) rotate(-8deg); }
+  40%       { transform: translateY(0px) rotate(4deg);  }
+  60%       { transform: translateY(-2px) rotate(-4deg); }
+  80%       { transform: translateY(0) rotate(0deg);   }
+}
+
+/* Pause bounce on hover — feels more intentional */
+.pwa-header-btn:hover .pwa-btn-icon {
+  animation: none;
+  transform: scale(1.2) rotate(-8deg);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ══ GLOW PULSE — draws attention ══ */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow:
+      0 2px 8px rgba(255, 107, 0, 0.35),
+      0 4px 16px rgba(255, 107, 0, 0.20),
+      0 1px 0 rgba(255, 255, 255, 0.25) inset;
+  }
+  50% {
+    box-shadow:
+      0 4px 16px rgba(255, 107, 0, 0.6),
+      0 8px 28px rgba(255, 107, 0, 0.35),
+      0 1px 0 rgba(255, 255, 255, 0.25) inset;
+  }
+}
+
+/* Apply glow pulse only when button is visible */
+.pwa-header-btn[style*="flex"] {
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+/* Pause glow on hover — shadow takes over */
+.pwa-header-btn:hover,
+.pwa-header-btn:active {
+  animation: none;
+}
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 480px) {
+  .pwa-header-btn {
+    padding: 7px 10px;
+    font-size: 12px;
+  }
+  .pwa-header-btn .pwa-btn-text {
+    display: none;
+  }
+  .pwa-header-btn .pwa-btn-icon {
+    font-size: 15px;
+  }
+
+  /* NEW: baaki header icons bhi chhote/fit karo */
+  .header-actions{ gap:5px; }
+
+  .header-actions a[title="View on Map"] svg{
+    width:26px; height:26px;
+  }
+
+  .theme-btn{ width:32px; height:32px; font-size:14px; }
+
+  .admin-link span{ display:none; }
+  .admin-link{ padding:6px 9px; }
+
+  .pwa-header-btn{
+    width:32px; height:32px;
+    padding:0 !important;
+    justify-content:center;
+    border-radius:50%;
+  }
+}
+
+@media (max-width: 360px) {
+  .pwa-header-btn {
+    padding: 6px 9px;
+  }
+
+  /* NEW */
+  .header-actions{ gap:4px; }
+
+  .header-actions a[title="View on Map"]{
+    display:none;
+  }
+
+  .admin-link{ padding:5px 7px; }
+  .cart-btn{ padding:6px 9px; font-size:12px; }
+}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.pwa-banner-inner{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:600px;margin:0 auto}
+.pwa-banner-left{display:flex;align-items:center;gap:10px}
+.pwa-banner-icon{width:42px;height:42px;background:rgba(255,255,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.pwa-banner-title{font-family:'Baloo 2',cursive;font-weight:800;font-size:15px;line-height:1.2}
+.pwa-banner-sub{font-size:11px;opacity:.88}
+.pwa-banner-btns{display:flex;gap:7px;flex-shrink:0}
+.pwa-install-btn{background:#fff;color:#FF6B00;border:none;border-radius:50px;padding:9px 18px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;transition:all .2s}
+.pwa-install-btn:hover{background:#FFF3E8;transform:scale(1.04)}
+.pwa-dismiss-btn{background:rgba(255,255,255,.2);color:#fff;border:1.5px solid rgba(255,255,255,.5);border-radius:50px;padding:8px 13px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'Hind',sans-serif;transition:all .2s}
+.pwa-dismiss-btn:hover{background:rgba(255,255,255,.3)}
+@media(max-width:480px){.pwa-banner-sub{display:none}.pwa-install-btn{padding:8px 14px;font-size:12px}}
+</style>
+<!-- ════════════════════════════════════════════════════════════════
+     BALAJI STORE — PWA INSTALL SYSTEM (FIXED)
+     Works on: Android (Chrome/Edge/Samsung/Brave/Firefox), 
+               iOS/iPadOS (Safari/Chrome/Edge — Share-sheet flow),
+               Desktop (Chrome/Edge/Brave native prompt, Safari 17+ Add to Dock)
+     Note: Firefox Desktop does not support installable PWAs — users
+     there get a friendly fallback message recommending Chrome/Edge.
+     ════════════════════════════════════════════════════════════════ -->
+
+<style>
+
+
+
+/* ── Shared instructions popup (iOS / Firefox / Mac Safari fallback) ── */
+.install-popup-card{background:#1c1c1e;color:#fff;border-radius:16px;padding:18px;
+  box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Hind',sans-serif;text-align:center;position:relative;}
+.install-popup-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;color:#FF6B00;margin-bottom:8px;}
+.install-popup-steps{text-align:left;font-size:13px;line-height:1.9;color:#e0e0e0;}
+.install-popup-step{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.install-popup-close{margin-top:14px;background:rgba(255,255,255,.12);border:none;color:#fff;
+  border-radius:50px;padding:9px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Hind',sans-serif;}
+.install-popup-arrow{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:0;height:0;
+  border-left:10px solid transparent;border-right:10px solid transparent;border-top:10px solid #1c1c1e;}
+</style>
+
+<!-- PWA: Bottom Install Banner -->
+<div id="pwa-install-banner" class="pwa-banner">
+  <div class="pwa-banner-inner">
+    <div class="pwa-banner-left">
+      <div class="pwa-banner-icon">🛒</div>
+      <div>
+        <div class="pwa-banner-title">Balaji Store App Install karo!</div>
+        <div class="pwa-banner-sub">Free • Works offline • No Play Store needed</div>
+      </div>
+    </div>
+    <div class="pwa-banner-btns">
+      <button class="pwa-install-btn" id="pwa-install-btn">📲 Install</button>
+      <button class="pwa-dismiss-btn" id="pwa-dismiss-btn">✕</button>
+    </div>
+  </div>
+</div>
+
+<!-- PWA: Manual Install Instructions Popup (iOS / Firefox / Mac Safari) -->
+<div id="install-instructions-popup" style="display:none;position:fixed;bottom:16px;left:50%;
+  transform:translateX(-50%);z-index:99999;width:calc(100% - 28px);max-width:380px;">
+  <div class="install-popup-card">
+    <div class="install-popup-title" id="install-popup-title">📱 Install Karo</div>
+    <div class="install-popup-steps" id="install-popup-steps"></div>
+    <button class="install-popup-close" id="install-popup-close">Got it ✓</button>
+    <div class="install-popup-arrow"></div>
+  </div>
+</div>
+
+<!-- PWA: Service Worker + Install Logic -->
+<script>
+(function(){
+  'use strict';
+
+  /* ════════════════════════════════════════════════════════════
+     PLATFORM / BROWSER DETECTION
+     (FIX: old iOS regex missed iPadOS 13+, which reports as Mac)
+     ════════════════════════════════════════════════════════════ */
+  var ua = navigator.userAgent;
+
+  function isIOSDevice(){
+    var iOS = /iphone|ipad|ipod/i.test(ua);
+    var iPadOS13Plus = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+    return iOS || iPadOS13Plus;
+  }
+  function isAndroid(){ return /android/i.test(ua); }
+  function isFirefox(){ return /firefox|fxios/i.test(ua); }
+  function isSafariEngine(){
+    return /safari/i.test(ua) && !/chrome|chromium|crios|edg|edgios|opr|opios|samsungbrowser|firefox|fxios/i.test(ua);
+  }
+  function isMacDesktop(){ return /macintosh/i.test(ua) && !isIOSDevice(); }
+  function isStandalone(){
+    return window.navigator.standalone === true ||
+      window.matchMedia('(display-mode: standalone)').matches;
+  }
+
+  var IS_IOS        = isIOSDevice();
+  var IS_ANDROID     = isAndroid();
+  var IS_FIREFOX     = isFirefox();
+  var IS_MAC_SAFARI  = isMacDesktop() && isSafariEngine();
+  var IS_DESKTOP_FIREFOX = IS_FIREFOX && !IS_ANDROID && !IS_IOS;
+  var IS_STANDALONE  = isStandalone();
+
+  /* ════════════════════════════════════════════════════════════
+     REGISTER SERVICE WORKER
+     (FIX: guard against non-HTTPS environments, which always fail)
+     ════════════════════════════════════════════════════════════ */
+  if ('serviceWorker' in navigator &&
+      (location.protocol === 'https:' || location.hostname === 'localhost')) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js', { scope: '/' })
+        .then(function(reg) {
+          console.log('[PWA] Service Worker registered ✅ scope:', reg.scope);
+          setInterval(function(){ reg.update().catch(function(){}); }, 10 * 60 * 1000);
+        })
+        .catch(function(err) {
+          console.warn('[PWA] Service Worker registration failed:', err.message);
+        });
+    });
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     BOTTOM BANNER ELEMENTS
+     ════════════════════════════════════════════════════════════ */
+  var deferredPrompt = null;
+  var banner      = document.getElementById('pwa-install-banner');
+  var installBtn  = document.getElementById('pwa-install-btn');
+  var dismissBtn  = document.getElementById('pwa-dismiss-btn');
+  var DISMISSED_KEY = 'balaji_pwa_dismissed';
+
+  function recentlyDismissed(){
+    var last = localStorage.getItem(DISMISSED_KEY);
+    return !!(last && (Date.now() - parseInt(last)) < 1 * 24 * 60 * 60 * 1000);
+  }
+
+  /* Native install prompt — fires on Chrome/Edge/Samsung/Brave/Opera
+     (Android + Desktop). Never fires on iOS or Firefox. */
+  window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (recentlyDismissed()) return;
+    setTimeout(function(){ if (banner) banner.style.display = 'block'; }, 2000);
+  });
+
+  if (installBtn) {
+    installBtn.addEventListener('click', function() {
+      if (banner) banner.style.display = 'none';
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(function(choice) {
+          console.log('[PWA] Install choice:', choice.outcome);
+          if (choice.outcome === 'accepted') showPWAToast('🎉 App install ho rahi hai!');
+          deferredPrompt = null;
+        });
+        return;
+      }
+      /* No native prompt available on this browser → manual instructions */
+      if (IS_IOS) showInstallInstructionsPopup('ios');
+      else if (IS_ANDROID && IS_FIREFOX) showInstallInstructionsPopup('android-firefox');
+      else if (IS_MAC_SAFARI) showInstallInstructionsPopup('mac-safari');
+      else showInstallInstructionsPopup('generic');
+    });
+  }
+
+  if (dismissBtn) {
+    dismissBtn.addEventListener('click', function() {
+      if (banner) banner.style.display = 'none';
+      localStorage.setItem(DISMISSED_KEY, Date.now().toString());
+    });
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     MANUAL INSTRUCTIONS POPUP (iOS / Android Firefox / Mac Safari / generic)
+     ════════════════════════════════════════════════════════════ */
+  var instructionsPopup = document.getElementById('install-instructions-popup');
+  var instructionsTitle  = document.getElementById('install-popup-title');
+  var instructionsSteps  = document.getElementById('install-popup-steps');
+  var instructionsClose  = document.getElementById('install-popup-close');
+
+  function getInstructionsContent(type){
+    switch(type){
+      case 'ios':
+        return {
+          title: '📱 iPhone/iPad Par Install Karo',
+          steps: [
+            '1️⃣ &nbsp;Neeche <strong>Share button</strong> tap karo (□↑)',
+            '2️⃣ &nbsp;"<strong>Add to Home Screen</strong>" select karo',
+            '3️⃣ &nbsp;Top-right <strong>Add</strong> tap karo',
+            '✅ &nbsp;App home screen par aa jayegi!'
+          ]
+        };
+      case 'android-firefox':
+        return {
+          title: '📱 Firefox Mein Install Karo',
+          steps: [
+            '1️⃣ &nbsp;Top-right <strong>⋮ menu</strong> tap karo',
+            '2️⃣ &nbsp;"<strong>Install</strong>" ya "<strong>Add to Home screen</strong>" select karo',
+            '3️⃣ &nbsp;<strong>Add</strong> confirm karo',
+            '✅ &nbsp;App home screen par aa jayegi!'
+          ]
+        };
+      case 'mac-safari':
+        return {
+          title: '💻 Mac Safari Mein Install Karo',
+          steps: [
+            '1️⃣ &nbsp;Top menu bar mein <strong>File</strong> par click karo',
+            '2️⃣ &nbsp;"<strong>Add to Dock</strong>" select karo (Safari 17+)',
+            '3️⃣ &nbsp;<strong>Add</strong> confirm karo',
+            '✅ &nbsp;App Dock mein aa jayegi!'
+          ]
+        };
+      default:
+        return {
+          title: '🌐 Install Karne Ke Liye',
+          steps: [
+            'Best experience ke liye Chrome ya Edge browser use karo',
+            'Phir address bar ya browser menu mein <strong>Install App</strong> option dhundo'
+          ]
+        };
+    }
+  }
+
+  function showInstallInstructionsPopup(type){
+    if (!instructionsPopup) return;
+    var content = getInstructionsContent(type);
+    instructionsTitle.innerHTML = content.title;
+    instructionsSteps.innerHTML = content.steps
+      .map(function(s){ return '<div class="install-popup-step">' + s + '</div>'; })
+      .join('');
+    instructionsPopup.style.display = 'block';
+  }
+
+  if (instructionsClose) {
+    instructionsClose.addEventListener('click', function(){
+      if (instructionsPopup) instructionsPopup.style.display = 'none';
+    });
+  }
+
+  /* Auto-show manual instructions once, for platforms with no native
+     beforeinstallprompt support (iOS, Android Firefox, Mac Safari).
+     Chromium browsers rely on the bottom banner + native prompt instead. */
+  function maybeAutoShowInstructions(){
+    if (IS_STANDALONE) return;
+    var type = null;
+    if (IS_IOS) type = 'ios';
+    else if (IS_ANDROID && IS_FIREFOX) type = 'android-firefox';
+    else if (IS_MAC_SAFARI) type = 'mac-safari';
+    if (!type) return;
+
+    var KEY = 'balaji_instructions_shown_' + type;
+    var lastShown = localStorage.getItem(KEY);
+    if (!lastShown || (Date.now() - parseInt(lastShown)) > 14 * 24 * 60 * 60 * 1000) {
+      setTimeout(function(){
+        showInstallInstructionsPopup(type);
+        localStorage.setItem(KEY, Date.now().toString());
+      }, 3000);
+    }
+  }
+  maybeAutoShowInstructions();
+
+  /* ════════════════════════════════════════════════════════════
+     PWA INSTALLED HANDLER
+     ════════════════════════════════════════════════════════════ */
+  window.addEventListener('appinstalled', function() {
+    console.log('[PWA] App installed! ✅');
+    if (banner) banner.style.display = 'none';
+    if (instructionsPopup) instructionsPopup.style.display = 'none';
+    showPWAToast('✅ Balaji Store app install ho gayi!');
+    localStorage.setItem('balaji_pwa_installed', 'true');
+    localStorage.setItem('balaji_pwa_installed_at', new Date().toISOString());
+    trackPWAInstall();
+  });
+
+  function trackPWAInstall() {
+    try {
+      if (typeof firebase === 'undefined') return;
+
+      const FIREBASE_CONFIG = {
+        apiKey:            'AIzaSyCa5GGpEi8PZnuM8ZSAGroMn9UyFgbRjm0',
+        authDomain:        'balaji-store-6bb68.firebaseapp.com',
+        projectId:         'balaji-store-6bb68',
+        storageBucket:     'balaji-store-6bb68.appspot.com',
+        messagingSenderId: '386706822761',
+        appId:             '1:386706822761:web:bce45da04bae2f9ddb74f8'
+      };
+      let compatApp;
+      try { compatApp = firebase.app('pwa-tracker'); }
+      catch (e) { compatApp = firebase.initializeApp(FIREBASE_CONFIG, 'pwa-tracker'); }
+      const db = firebase.firestore(compatApp);
+
+      const INSTALL_KEY = 'balaji_pwa_install_id';
+      if (localStorage.getItem(INSTALL_KEY + '_done')) return;
+
+      let deviceId = localStorage.getItem(INSTALL_KEY);
+      if (!deviceId) {
+        deviceId = 'DEV-' + Date.now() + '-' + Math.random().toString(36).slice(2,10).toUpperCase();
+        localStorage.setItem(INSTALL_KEY, deviceId);
+      }
+
+      function detectDevice(ua) {
+        if (/tablet|ipad|playbook|silk/i.test(ua)) return 'tablet';
+        if (/mobile|android|iphone|ipod|blackberry|windows phone/i.test(ua)) return 'mobile';
+        return 'desktop';
+      }
+      function detectBrowser(ua) {
+        if (/edg\//i.test(ua))          return ['Edge',    ua.match(/edg\/([\.\d]+)/i)?.[1]||''];
+        if (/samsungbrowser/i.test(ua)) return ['Samsung', ua.match(/samsungbrowser\/([\.\d]+)/i)?.[1]||''];
+        if (/firefox/i.test(ua))        return ['Firefox', ua.match(/firefox\/([\.\d]+)/i)?.[1]||''];
+        if (/opr\//i.test(ua))          return ['Opera',   ua.match(/opr\/([\.\d]+)/i)?.[1]||''];
+        if (/chrome/i.test(ua))         return ['Chrome',  ua.match(/chrome\/([\.\d]+)/i)?.[1]||''];
+        if (/safari/i.test(ua))         return ['Safari',  ua.match(/version\/([\.\d]+)/i)?.[1]||''];
+        return ['Other', ''];
+      }
+      function detectOS(ua) {
+        if (/android/i.test(ua))           return ['Android', ua.match(/android ([\d.]+)/i)?.[1]||''];
+        if (/iphone|ipad|ipod/i.test(ua))  return ['iOS',     ua.match(/os ([\d_]+)/i)?.[1]?.replace(/_/g,'.')||''];
+        if (/windows nt/i.test(ua))        return ['Windows', ua.match(/windows nt ([\d.]+)/i)?.[1]||''];
+        if (/mac os x/i.test(ua))          return ['macOS',   ua.match(/mac os x ([\d_]+)/i)?.[1]?.replace(/_/g,'.')||''];
+        if (/linux/i.test(ua))             return ['Linux',   ''];
+        return ['Other', ''];
+      }
+      const [browser, browserVer] = detectBrowser(ua);
+      const [os, osVer]           = detectOS(ua);
+      const tz = (function(){
+        try { return Intl.DateTimeFormat().resolvedOptions().timeZone; } catch(e) { return 'Unknown'; }
+      })();
+      const record = {
+        deviceId:     deviceId,
+        installedAt:  new Date().toISOString(),
+        date:         new Date().toISOString().split('T')[0],
+        deviceType:   detectDevice(ua),
+        browser:      browser,
+        browserVer:   browserVer,
+        os:           os,
+        osVer:        osVer,
+        screenW:      screen.width  || 0,
+        screenH:      screen.height || 0,
+        language:     navigator.language || 'unknown',
+        timezone:     tz,
+        location:     tz.split('/')[0] || 'Unknown',
+        standalone:   isStandalone(),
+        userAgent:    ua.slice(0, 200),
+        source:       'appinstalled',
+        storeVersion: '1.0.0'
+      };
+      db.collection('pwa_installs').add(record)
+        .then(function() {
+          localStorage.setItem(INSTALL_KEY + '_done', '1');
+          console.log('[PWA Analytics] Install recorded ✅');
+        })
+        .catch(function(err) {
+          console.warn('[PWA Analytics] Save failed:', err.message);
+        });
+    } catch (e) {
+      console.warn('[PWA Analytics] error:', e.message);
+    }
+  }
+
+  /* FIX: old code only checked `navigator.standalone` (iOS-only).
+     This now also catches Android/desktop manual "Add to Home Screen"
+     installs via the matchMedia standalone check, where appinstalled
+     never fires. */
+  if (IS_STANDALONE) {
+    setTimeout(function() { trackPWAInstall(); }, 1500);
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     ONLINE / OFFLINE INDICATOR
+     (FIX: now also runs once on page load, not just on event change)
+     ════════════════════════════════════════════════════════════ */
+  function updateOnlineStatus(initial) {
+    var isOnline = navigator.onLine;
+    var existingToast = document.getElementById('pwa-network-toast');
+    if (!isOnline) {
+      if (!existingToast) {
+        var t = document.createElement('div');
+        t.id = 'pwa-network-toast';
+        t.style.cssText = 'position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:99998;background:#e53935;color:#fff;padding:8px 18px;border-radius:50px;font-size:13px;font-weight:600;font-family:Hind,sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.2);display:flex;align-items:center;gap:6px;white-space:nowrap;';
+        t.innerHTML = '📶 Offline mode – limited features';
+        document.body.appendChild(t);
+      }
+    } else {
+      if (existingToast) existingToast.remove();
+      if (!initial && document.readyState !== 'loading') {
+        showPWAToast('✅ Back online!');
+      }
+    }
+  }
+  window.addEventListener('online',  function(){ updateOnlineStatus(false); });
+  window.addEventListener('offline', function(){ updateOnlineStatus(false); });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ updateOnlineStatus(true); });
+  } else {
+    updateOnlineStatus(true);
+  }
+
+  /* ── PWA Update Available ── */
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.addEventListener('controllerchange', function() {
+      showPWAToast('🔄 App update available! Please refresh.', true);
+    });
+  }
+
+  /* ── Toast helper ── */
+  function showPWAToast(msg, persistent) {
+    if (typeof window.showToast === 'function') {
+      window.showToast(msg, 'success');
+      return;
+    }
+    var t = document.createElement('div');
+    t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2E7D32;color:#fff;padding:10px 20px;border-radius:50px;font-size:14px;font-weight:600;z-index:999999;box-shadow:0 4px 20px rgba(0,0,0,.2);font-family:Hind,sans-serif;white-space:nowrap;max-width:90vw;';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    if (!persistent) setTimeout(function(){ t.remove(); }, 3000);
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     HEADER INSTALL BUTTON
+     (FIX: now shown immediately on iOS / Android Firefox / Mac Safari,
+     since none of them fire beforeinstallprompt — old code left
+     these users with no header button at all)
+     ════════════════════════════════════════════════════════════ */
+  var headerBtn = document.getElementById('pwaHeaderBtn');
+  if (headerBtn) {
+    if (IS_STANDALONE) {
+      headerBtn.style.display = 'none';
+    } else {
+      if (IS_IOS || (IS_ANDROID && IS_FIREFOX) || IS_MAC_SAFARI) {
+        headerBtn.style.display = 'flex';
+      }
+      window.addEventListener('beforeinstallprompt', function(){
+        headerBtn.style.display = 'flex';
+      });
+
+      headerBtn.addEventListener('click', function(){
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function(choice) {
+            if (choice.outcome === 'accepted') showPWAToast('🎉 App install ho rahi hai!');
+            deferredPrompt = null;
+          });
+          headerBtn.style.display = 'none';
+          return;
+        }
+        if (IS_IOS) showInstallInstructionsPopup('ios');
+        else if (IS_ANDROID && IS_FIREFOX) showInstallInstructionsPopup('android-firefox');
+        else if (IS_MAC_SAFARI) showInstallInstructionsPopup('mac-safari');
+        else showInstallInstructionsPopup('generic');
+      });
+
+      window.addEventListener('appinstalled', function(){
+        headerBtn.style.display = 'none';
+        localStorage.setItem('balaji_pwa_installed', 'true');
+      });
+    }
+  }
+
+})();
+</script>
+<script>
+(function(){
+  'use strict';
+  const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyCa5GGpEi8PZnuM8ZSAGroMn9UyFgbRjm0",
+    authDomain: "balaji-store-6bb68.firebaseapp.com",
+    projectId: "balaji-store-6bb68",
+    storageBucket: "balaji-store-6bb68.appspot.com",
+    messagingSenderId: "386706822761",
+    appId: "1:386706822761:web:bce45da04bae2f9ddb74f8"
+  };
+
+  let compatApp;
+  try { compatApp = firebase.app('visitor-tracker'); }
+  catch(e){ compatApp = firebase.initializeApp(FIREBASE_CONFIG, 'visitor-tracker'); }
+  const db = firebase.firestore(compatApp);
+
+  let sessionId = sessionStorage.getItem('balaji_session_id');
+  if(!sessionId){
+    sessionId = 'S-' + Date.now() + '-' + Math.random().toString(36).slice(2,9);
+    sessionStorage.setItem('balaji_session_id', sessionId);
+  }
+  const todayStr = new Date().toISOString().split('T')[0];
+
+  // Total + Today count — sirf ek baar per session
+  function recordVisit(){
+    if(sessionStorage.getItem('balaji_visit_recorded')) return;
+    sessionStorage.setItem('balaji_visit_recorded','1');
+    db.collection('site_stats').doc('totals')
+      .set({ totalVisitors: firebase.firestore.FieldValue.increment(1) }, { merge:true })
+      .catch(err=>console.warn('[Visitors] total error', err.message));
+    db.collection('site_stats').doc('daily_' + todayStr)
+      .set({ date: todayStr, count: firebase.firestore.FieldValue.increment(1) }, { merge:true })
+      .catch(err=>console.warn('[Visitors] daily error', err.message));
+  }
+  recordVisit();
+
+  // Live visitor heartbeat — har 20 sec update
+  const liveRef = db.collection('live_visitors').doc(sessionId);
+  function sendHeartbeat(){
+    liveRef.set({ lastSeen: firebase.firestore.FieldValue.serverTimestamp() }).catch(()=>{});
+  }
+  sendHeartbeat();
+  setInterval(sendHeartbeat, 20000);
+  window.addEventListener('beforeunload', ()=>{ liveRef.delete().catch(()=>{}); });
+
+  // Stats fetch karo jab eye button click ho
+  window._fetchVisitorStats = async function(){
+    const result = { live:0, today:0, total:0 };
+    try{
+      const totalSnap = await db.collection('site_stats').doc('totals').get();
+      result.total = totalSnap.exists ? (totalSnap.data().totalVisitors||0) : 0;
+
+      const dailySnap = await db.collection('site_stats').doc('daily_' + todayStr).get();
+      result.today = dailySnap.exists ? (dailySnap.data().count||0) : 0;
+
+      const cutoff = new Date(Date.now() - 60000);
+      const liveSnap = await db.collection('live_visitors').where('lastSeen','>', cutoff).get();
+      result.live = liveSnap.size;
+    }catch(err){ console.warn('[Visitors] fetch error', err.message); }
+    return result;
+  };
+
+  // Eye button click handler
+  const eyeBtn = document.getElementById('visitorsEyeBtn');
+  if(eyeBtn){
+    eyeBtn.addEventListener('click', async function(){
+      const modal = document.getElementById('visitorsStatsModal');
+      modal.classList.add('show');
+      document.body.style.overflow='hidden';
+      document.getElementById('vLive').textContent='…';
+      document.getElementById('vToday').textContent='…';
+      document.getElementById('vTotal').textContent='…';
+      const stats = await window._fetchVisitorStats();
+      document.getElementById('vLive').textContent = stats.live;
+      document.getElementById('vToday').textContent = stats.today;
+      document.getElementById('vTotal').textContent = stats.total;
+    });
+  }
+  window.closeVisitorsModal = function(){
+    document.getElementById('visitorsStatsModal').classList.remove('show');
+    document.body.style.overflow='';
+  };
+})();
+</script>
+<script>
+(function(){
+  'use strict';
+
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SpeechRec){
+    console.warn('[VoiceSearch] Browser speech recognition support nahi karta');
+    return;
+  }
+
+  let recognition = null;
+  let isListening = false;
+
+  function getRecognition(){
+    if(recognition) return recognition;
+    recognition = new SpeechRec();
+recognition.lang = 'en-IN';       // English (India) — Indian accent English samajhega
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    return recognition;
+  }
+
+  function setListeningUI(active){
+    isListening = active;
+    const btns = [document.getElementById('micBtnDesktop'), document.getElementById('micBtnMobile')];
+    btns.forEach(b=>{ if(b) b.classList.toggle('listening', active); });
+  }
+
+  window.startVoiceSearch = function(source){
+    if(isListening) return;
+    const rec = getRecognition();
+    setListeningUI(true);
+    if(typeof showToast==='function') showToast('🎤 Boliye... product ka naam','info');
+
+    rec.onresult = function(e){
+      const transcript = e.results[0][0].transcript.trim();
+      handleVoiceResult(transcript);
+    };
+    rec.onerror = function(e){
+      setListeningUI(false);
+      if(typeof showToast==='function') showToast('❌ Sun nahi paya, dobara try karein','error');
+      console.warn('[VoiceSearch] error:', e.error);
+    };
+    rec.onend = function(){ setListeningUI(false); };
+
+    try{ rec.start(); }
+    catch(e){ setListeningUI(false); }
+  };
+
+function handleVoiceResult(transcript){
+    // FIX: hyphen/dash ko space se replace karo, extra spaces bhi clean karo
+    transcript = transcript.replace(/[-–—]/g,' ').replace(/\s+/g,' ').trim();
+
+    // Search box mein text bhar do (dono inputs sync)
+    const desktopInput = document.getElementById('searchInput');
+    const mobileInput = document.getElementById('mobileSearchInput');
+    if(desktopInput) desktopInput.value = transcript;
+    if(mobileInput) mobileInput.value = transcript;
+
+    searchQuery = transcript;
+    if(typeof window._renderProducts === 'function') window._renderProducts();
+
+    if(typeof showToast==='function') showToast(`🔍 Search: "${transcript}"`,'success');
+
+    // Thoda wait karo render hone ke liye, phir matching product tak scroll + highlight
+    setTimeout(function(){
+      const all = (typeof getMergedProducts==='function') ? getMergedProducts() : [];
+      const q = transcript.toLowerCase();
+      const match = all.find(p=>p.name.toLowerCase().includes(q));
+      if(match){
+        const card = document.getElementById('pcard_' + match.id);
+        if(card){
+          card.scrollIntoView({behavior:'smooth', block:'center'});
+          card.classList.add('voice-highlight');
+          setTimeout(()=>card.classList.remove('voice-highlight'), 3600);
+        }
+      } else {
+        const grid = document.getElementById('productsGrid');
+        if(grid) grid.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    }, 300);
+  }
+})();
+</script>
+
+<!-- ══ SPLASH SCREEN LOGIC ══ -->
+<script>
+(function(){
+  if (sessionStorage.getItem('balaji_splash_shown')) {
+    var s = document.getElementById('splash');
+    if (s) s.style.display = 'none';
+    return;
+  }
+  document.body.style.overflow = 'hidden';
+  var container = document.getElementById('splashParticles');
+  if (container) {
+    for (var i = 0; i < 14; i++) {
+      var p = document.createElement('div'); p.className = 'splash-p';
+      var size = (Math.random()*10+5) + 'px';
+      p.style.cssText = ['width:'+size,'height:'+size,'left:'+(Math.random()*100)+'%','bottom:0',
+        'animation-duration:'+(Math.random()*6+5)+'s','animation-delay:'+(Math.random()*4)+'s',
+        'opacity:'+(Math.random()*.3+.08)].join(';');
+      container.appendChild(p);
+    }
+  }
+  var bar = document.getElementById('splashBar'),
+      pct = document.getElementById('splashPercent'),
+      splash = document.getElementById('splash');
+  var progress = 0, duration = 2800, interval = 30, increment = 100/(duration/interval);
+  var timer = setInterval(function(){
+    progress += increment;
+    if (progress >= 100) {
+      progress = 100; clearInterval(timer);
+      if (bar) bar.style.width = '100%';
+      if (pct) pct.textContent = '100%';
+      setTimeout(function(){
+        if (splash) splash.classList.add('hide');     /* FIX: was unguarded, threw if #splash missing */
+        document.body.style.overflow = '';
+        sessionStorage.setItem('balaji_splash_shown', '1');
+        setTimeout(function(){ if (splash && splash.parentNode) splash.parentNode.removeChild(splash); }, 650);
+      }, 250);
+      return;
+    }
+    var rounded = Math.min(Math.round(progress), 100);
+    if (bar) bar.style.width = rounded + '%';
+    if (pct) pct.textContent = rounded + '%';
+  }, interval);
+})();
+
+/* Logo click — smooth scroll to footer */
+var logoEl = document.querySelector('.logo');
+if (logoEl) {
+  logoEl.addEventListener('click', function(e) {
+    e.preventDefault();
+    var footerEl = document.getElementById('footer');
+    if (footerEl) footerEl.scrollIntoView({ behavior: 'smooth' });
+  });
+}
+</script>
+
+<!-- ══ ORDER SOUND ══ -->
+<script>
+(function(){
+  'use strict';
+
+  var _sharedAudioCtx = null;
+  function getAudioCtx(){
+    try{
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if(!AC) return null;
+      if(!_sharedAudioCtx || _sharedAudioCtx.state === 'closed'){
+        _sharedAudioCtx = new AC();
+      }
+      if(_sharedAudioCtx.state === 'suspended'){
+        _sharedAudioCtx.resume();
+      }
+      return _sharedAudioCtx;
+    }catch(e){ return null; }
+  }
+  window.getAudioCtx = getAudioCtx;
+
+  function playOrderSound(){
+    try{
+      var ctx = getAudioCtx();
+      if(!ctx) return;
+      function tone(freq, start, dur, vol){
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + start);
+        gain.gain.setValueAtTime(0, ctx.currentTime + start);
+        gain.gain.linearRampToValueAtTime(vol, ctx.currentTime + start + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + start + dur);
+        osc.start(ctx.currentTime + start);
+        osc.stop(ctx.currentTime + start + dur);
+      }
+      tone(523.25, 0,    0.35, 0.4);
+      tone(659.25, 0.18, 0.35, 0.35);
+      tone(783.99, 0.36, 0.55, 0.3);
+    }catch(e){
+      console.warn('[Sound] Error:', e.message);
+    }
+  }
+
+  window.playOrderSound = playOrderSound;
+
+})();
+</script>
+
+<!-- FIX: removed the stray duplicate closing script tag that was here before -->
+</body>
+</html>

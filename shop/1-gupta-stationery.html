@@ -1,0 +1,3405 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<script>if(!location.hash){location.hash='shop-1';}</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Your one-stop shop for school and office stationery, art supplies, and printing services."/>
+<meta name="theme-color" content="#2563EB" id="meta-theme-color"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="RohiniLocal"/>
+<title>Gupta Stationery – Stationery in Rohini | RohiniLocal</title>
+
+<!-- SEO -->
+<link rel="canonical" href="https://rohinilocal.example.com/shop/1-gupta-stationery.html"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta property="og:type" content="business.business"/>
+<meta property="og:site_name" content="RohiniLocal"/>
+<meta property="og:title" content="Gupta Stationery – Stationery"/>
+<meta property="og:description" content="Your one-stop shop for school and office stationery, art supplies, and printing services."/>
+<meta property="og:url" content="https://rohinilocal.example.com/shop/1-gupta-stationery.html"/>
+<meta property="og:image" content="https://res.cloudinary.com/db2tt1cy6/image/upload/v1782295402/ChatGPT_Image_Jun_24_2026_03_32_34_PM.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Gupta Stationery"/>
+<meta name="twitter:description" content="Your one-stop shop for school and office stationery, art supplies, and printing services."/>
+<meta name="twitter:image" content="https://res.cloudinary.com/db2tt1cy6/image/upload/v1782295402/ChatGPT_Image_Jun_24_2026_03_32_34_PM.png"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "RohiniLocal",
+  "url": "https://rohinilocal.example.com/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://rohinilocal.example.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Gupta Stationery",
+  "image": "https://res.cloudinary.com/db2tt1cy6/image/upload/v1782295402/ChatGPT_Image_Jun_24_2026_03_32_34_PM.png",
+  "description": "Your one-stop shop for school and office stationery, art supplies, and printing services.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Shop 12, Sector 7 Market, Rohini, Delhi",
+    "addressLocality": "Rohini, Delhi",
+    "addressCountry": "IN"
+  },
+  "telephone": "+919876500001",
+  "url": "https://rohinilocal.example.com/shop/1-gupta-stationery.html",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 28.7079827,
+    "longitude": 77.1170383
+  },
+  "openingHours": "Mo-Su 9:00 AM-9:00 PM"
+}</script>
+
+<link rel="manifest" href="/manifest.json"/>
+<link rel="apple-touch-icon" sizes="192x192" href="/icon/icon-192.png"/>
+<link rel="apple-touch-icon" sizes="512x512" href="/icon/icon-512.png"/>
+<link rel="icon" type="image/png" href="/icon/icon-192.png"/>
+
+<!-- Preconnects for third-party origins used below -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin/>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<!-- FIX: shops.js was blocking HTML parsing with no defer/async, ahead of the
+     stylesheet loads above. defer keeps execution order but stops it from
+     holding up parsing, and moves it logically after the styles it depends on. -->
+<script src="/rohini/shops.js" defer></script>
+
+<!-- Firebase SDK -->
+<!-- PERF: this page (the public directory) never actually gates any UI
+     on window.__IS_ADMIN — the real admin panel lives on shopadmin.html.
+     So firebase-auth (a separate SDK chunk) is no longer imported eagerly
+     on every visitor's first load; it's dynamically imported later, after
+     the page is idle, purely to keep the __IS_ADMIN flag available for
+     any code (e.g. shops.js) that still reads it. Core Firestore reads
+     (shop stats, ratings, etc.) are unaffected and still load immediately. -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getFirestore, doc, getDoc, setDoc, deleteDoc, updateDoc, increment, onSnapshot,
+    collection, addDoc, query, orderBy, getDocs, serverTimestamp, documentId, where, limit
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDMOd2nYV1h6DLqpueRd1tQOfaILjZ3gTQ",
+    authDomain: "shopsrohini.firebaseapp.com",
+    projectId: "shopsrohini",
+    storageBucket: "shopsrohini.firebasestorage.app",
+    messagingSenderId: "978210348395",
+    appId: "1:978210348395:web:88a2f7b690efb2274d002e"
+  };
+
+  let app, db;
+  try {
+    app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+    window.__FB_DB = db;
+    window.__FB_READY = true;
+    window.dispatchEvent(new Event('fb-ready'));
+  } catch(e) {
+    console.warn('Firebase not configured — using local fallback.');
+    window.__FB_READY = false;
+    window.__FB_DB = null;
+    window.dispatchEvent(new Event('fb-ready'));
+  }
+
+  window.__FB = {
+    doc, getDoc, setDoc, deleteDoc, updateDoc, increment, onSnapshot,
+    collection, addDoc, query, orderBy, getDocs, serverTimestamp, documentId, where, limit
+  };
+
+  // PERF: auth is not needed for the first paint or for any core feature
+  // on this page, so it's loaded lazily once the browser is idle, instead
+  // of blocking/competing with the Firestore imports above.
+  window.__IS_ADMIN = false;
+  window.__FB_AUTH = null;
+  const _loadAuthLazily = () => {
+    import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js").then(({ getAuth, onAuthStateChanged }) => {
+      const auth = getAuth(app);
+      window.__FB_AUTH = auth;
+      onAuthStateChanged(auth, (user) => { window.__IS_ADMIN = !!user; });
+    }).catch(e => console.warn('Firebase auth deferred-load failed', e));
+  };
+  if (app) {
+    if ('requestIdleCallback' in window) requestIdleCallback(_loadAuthLazily, { timeout: 3000 });
+    else setTimeout(_loadAuthLazily, 1500);
+  }
+</script>
+<!-- PERF: graceful fallback if the browser doesn't support type="module"
+     (old browsers on very old/budget devices). Without this the page
+     would just silently fail to get Firestore data with no explanation.
+     `nomodule` scripts are only ever run by browsers that don't
+     understand ES modules, so module-supporting browsers ignore this. -->
+<script nomodule>
+  window.__FB_READY = false;
+  window.__FB_DB = null;
+  window.__FB_AUTH = null;
+  window.__IS_ADMIN = false;
+  document.addEventListener('DOMContentLoaded', function () {
+    var b = document.createElement('div');
+    b.setAttribute('role', 'alert');
+    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#F59E0B;color:#1a1200;font:600 13px/1.5 sans-serif;padding:10px 16px;text-align:center;';
+    b.textContent = 'Your browser is outdated — some live features (ratings, likes) may not work. The rest of the site will still work normally. Please consider updating your browser.';
+    document.body.prepend(b);
+  });
+  window.dispatchEvent(new Event('fb-ready'));
+</script>
+
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════ */
+:root {
+  --bg:             #F0F4FF;
+  --bg-secondary:   #E8EEFF;
+  --bg-mesh-1:      #dbeafe;
+  --bg-mesh-2:      #ede9fe;
+  --bg-mesh-3:      #fce7f3;
+  --surface:        rgba(255,255,255,0.82);
+  --surface-solid:  #FFFFFF;
+  --surface-elev:   rgba(255,255,255,0.92);
+  --surface-hover:  rgba(255,255,255,0.96);
+  --glass-border:   rgba(255,255,255,0.65);
+  --glass-inner:    rgba(255,255,255,0.35);
+
+  --brand:          #2563EB;
+  --brand-hover:    #1D4ED8;
+  --brand-soft:     rgba(37,99,235,0.09);
+  --brand-glow:     0 0 0 3px rgba(37,99,235,0.18);
+  --brand-rgb:      37,99,235;
+
+  --accent:         #F97316;
+  --accent-hover:   #EA580C;
+  --accent-soft:    rgba(249,115,22,0.09);
+  --accent-rgb:     249,115,22;
+
+  --success:        #10B981;
+  --warning:        #F59E0B;
+  --error:          #EF4444;
+
+  --text-primary:   #0A1628;
+  --text-secondary: #475569;
+  --text-muted:     #94A3B8;
+
+  --border:         rgba(148,163,184,0.25);
+  --border-soft:    rgba(148,163,184,0.12);
+
+  --shadow-xs:      0 1px 3px rgba(10,22,40,0.06), 0 1px 2px rgba(10,22,40,0.04);
+  --shadow-soft:    0 4px 24px rgba(37,99,235,0.07), 0 1px 4px rgba(10,22,40,0.04);
+  --shadow-med:     0 8px 32px rgba(37,99,235,0.10), 0 2px 8px rgba(10,22,40,0.06);
+  --shadow-prem:    0 12px 48px rgba(37,99,235,0.14), 0 3px 12px rgba(10,22,40,0.08);
+  --shadow-xl:      0 24px 64px rgba(37,99,235,0.18), 0 6px 20px rgba(10,22,40,0.10);
+
+  --card-hover-shadow:  0 20px 60px rgba(37,99,235,0.22), 0 4px 16px rgba(37,99,235,0.12);
+  --card-hover-border:  rgba(37,99,235,0.4);
+
+  --radius-xs:      8px;
+  --radius-sm:      12px;
+  --radius:         18px;
+  --radius-lg:      22px;
+  --radius-xl:      28px;
+  --radius-pill:    999px;
+
+  --nav-bg:         rgba(240,244,255,0.80);
+  --nav-border:     rgba(148,163,184,0.20);
+
+  --tr:             0.25s cubic-bezier(0.4,0,0.2,1);
+  --tr-fast:        0.15s ease;
+  --tr-bounce:      0.35s cubic-bezier(0.34,1.56,0.64,1);
+  --tr-spring:      0.5s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+
+[data-theme="dark"] {
+  --bg:             #050D1F;
+  --bg-secondary:   #0A1628;
+  --bg-mesh-1:      #0c1a38;
+  --bg-mesh-2:      #130c28;
+  --bg-mesh-3:      #1a0c18;
+  --surface:        rgba(14,26,52,0.80);
+  --surface-solid:  #0E1A34;
+  --surface-elev:   rgba(20,36,68,0.90);
+  --surface-hover:  rgba(26,44,80,0.95);
+  --glass-border:   rgba(99,130,210,0.18);
+  --glass-inner:    rgba(99,130,210,0.06);
+
+  --brand:          #3B82F6;
+  --brand-hover:    #2563EB;
+  --brand-soft:     rgba(59,130,246,0.12);
+  --brand-glow:     0 0 0 3px rgba(59,130,246,0.22);
+  --brand-rgb:      59,130,246;
+
+  --text-primary:   #EFF6FF;
+  --text-secondary: #94A3B8;
+  --text-muted:     #64748B;
+
+  --border:         rgba(59,130,246,0.15);
+  --border-soft:    rgba(59,130,246,0.08);
+
+  --shadow-soft:    0 4px 24px rgba(0,0,0,0.3);
+  --shadow-med:     0 8px 32px rgba(0,0,0,0.4);
+  --shadow-prem:    0 12px 48px rgba(0,0,0,0.5);
+  --shadow-xl:      0 24px 64px rgba(0,0,0,0.6);
+
+  --card-hover-shadow:  0 20px 60px rgba(59,130,246,0.28), 0 4px 16px rgba(59,130,246,0.15);
+  --card-hover-border:  rgba(59,130,246,0.5);
+
+  --nav-bg:         rgba(5,13,31,0.85);
+  --nav-border:     rgba(59,130,246,0.12);
+}
+
+/* ═══ RESET & BASE ═══ */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0 }
+html { scroll-behavior:smooth; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: color var(--tr);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 10%, var(--bg-mesh-1) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 20%, var(--bg-mesh-2) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 70% at 50% 80%, var(--bg-mesh-3) 0%, transparent 60%);
+  opacity: 0.55;
+  transition: opacity 0.5s;
+}
+[data-theme="dark"] body::before { opacity: 1; }
+
+a { text-decoration:none; color:inherit }
+img { max-width:100%; display:block }
+button { cursor:pointer; font-family:inherit; border:none; outline:none; background:none }
+input, textarea, select { font-family:inherit; outline:none }
+ul { list-style:none }
+.hidden { display:none !important }
+
+::-webkit-scrollbar { width:5px; height:5px }
+::-webkit-scrollbar-track { background:transparent }
+::-webkit-scrollbar-thumb { background:rgba(var(--brand-rgb),0.3); border-radius:3px }
+::-webkit-scrollbar-thumb:hover { background:var(--brand) }
+
+/* ═══ REDUCED MOTION ═══
+   Respect the OS-level "reduce motion" preference: kill decorative
+   animation/transition time without breaking layout (opacity/visibility
+   changes still happen instantly, just without the motion). */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp   { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+@keyframes scaleIn  { from{opacity:0;transform:scale(0.92)} to{opacity:1;transform:scale(1)} }
+@keyframes slideUp  { from{opacity:0;transform:translateY(36px)} to{opacity:1;transform:translateY(0)} }
+@keyframes slideDown{ from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes toastIn  { from{opacity:0;transform:translateX(28px) scale(0.95)} to{opacity:1;transform:translateX(0) scale(1)} }
+@keyframes pulse    { 0%,100%{box-shadow:0 0 0 0 rgba(var(--brand-rgb),0.3)} 50%{box-shadow:0 0 0 8px rgba(var(--brand-rgb),0)} }
+@keyframes ripple   { from{transform:scale(0);opacity:0.5} to{transform:scale(4);opacity:0} }
+@keyframes shimmer  { 0%{background-position:-200% center} 100%{background-position:200% center} }
+@keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+@keyframes spin     { to{transform:rotate(360deg)} }
+
+/* ═══ GLASS UTILITY ═══ */
+.glass {
+  background: var(--surface);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+}
+
+/* ═══════════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════════ */
+#header {
+  position: sticky; top: 0; z-index: 1000;
+  background: var(--nav-bg);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border-bottom: 1px solid var(--nav-border);
+  padding: 0 24px;
+  transition: box-shadow var(--tr);
+  /* PERF: header is the one blur layer that's visible for the entire
+     scroll session, so promoting it to its own compositor layer (instead
+     of every card being re-evaluated with it) is worth the small memory
+     cost. contain keeps its own paint from cascading to siblings. */
+  will-change: transform;
+  contain: layout style;
+}
+#header.scrolled { box-shadow: var(--shadow-soft); }
+
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 66px;
+  width: 100%;
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0; text-decoration: none;
+}
+.logo-mark {
+  width: 38px; height: 38px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--brand), var(--accent));
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 16px;
+  box-shadow: 0 4px 14px rgba(var(--brand-rgb),0.4);
+  flex-shrink: 0;
+  transition: transform var(--tr-bounce), box-shadow var(--tr);
+  position: relative; overflow: hidden;
+}
+.logo-mark::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 50%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.25), transparent);
+  border-radius: inherit;
+}
+.logo:hover .logo-mark {
+  transform: rotate(-6deg) scale(1.1);
+  box-shadow: 0 8px 24px rgba(var(--brand-rgb),0.55);
+}
+.logo-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.2rem; font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.04em;
+}
+.logo-name span { color: var(--brand); }
+
+.nav-search {
+  flex: 1;
+  max-width: 460px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+.nav-search input {
+  width: 100%;
+  padding: 10px 46px 10px 18px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid rgba(var(--brand-rgb), 0.25);
+  background: var(--surface-solid);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--tr);
+  box-shadow: 0 1px 4px rgba(var(--brand-rgb), 0.08);
+}
+.nav-search input::placeholder { color: var(--text-muted); font-weight: 400; }
+.nav-search input:hover { border-color: rgba(var(--brand-rgb), 0.4); }
+.nav-search input:focus { border-color: var(--brand); box-shadow: var(--brand-glow), 0 4px 16px rgba(var(--brand-rgb), 0.15); }
+.nav-search-btn {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  width: 32px; height: 32px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--brand), var(--brand-hover));
+  color: #fff; font-size: 0.8rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--tr-bounce);
+  box-shadow: 0 2px 8px rgba(var(--brand-rgb), 0.35);
+  border: none; cursor: pointer;
+}
+.nav-search-btn:hover { transform: translateY(-50%) scale(1.12); box-shadow: 0 4px 14px rgba(var(--brand-rgb), 0.5); }
+
+.nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.nav-btn {
+  position: relative; width: 38px; height: 38px; border-radius: 12px;
+  border: 1px solid var(--border); background: var(--surface);
+  backdrop-filter: blur(12px); color: var(--text-secondary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; transition: all var(--tr); flex-shrink: 0;
+}
+.nav-btn:hover { border-color: rgba(var(--brand-rgb),0.4); color: var(--brand); background: var(--brand-soft); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(var(--brand-rgb),0.2); }
+.nav-btn:active { transform: translateY(0) scale(0.94); }
+.nav-btn .badge {
+  position: absolute; top: -5px; right: -5px;
+  min-width: 18px; height: 18px;
+  background: linear-gradient(135deg, var(--accent), #f43f5e);
+  color: #fff; font-size: 0.62rem; font-weight: 700;
+  border-radius: 10px; border: 2px solid var(--bg);
+  display: flex; align-items: center; justify-content: center; padding: 0 4px;
+}
+
+/* ═══ MOBILE NAV ═══ */
+@media (max-width: 640px) {
+  .header-inner { padding: 0; gap: 10px; }
+  #header { padding: 0 14px; }
+  .nav-search { max-width: none; }
+  #header .logo-name { display: none; }   /* sirf header ka logo-name hide hoga, footer wala nahi */
+}
+
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+#hero { position: relative; z-index: 1; overflow: hidden; padding: 72px 24px 80px; }
+.hero-wrap { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; text-align: center; }
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 16px 6px 9px; border-radius: var(--radius-pill);
+  border: 1px solid var(--glass-border); background: var(--surface);
+  backdrop-filter: blur(12px); font-size: 0.78rem; font-weight: 600;
+  color: var(--text-secondary); margin-bottom: 28px;
+  animation: fadeUp 0.5s ease both; box-shadow: var(--shadow-soft);
+}
+.hero-pill-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--brand), var(--accent));
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 0.68rem; box-shadow: 0 2px 8px rgba(var(--brand-rgb),0.4);
+}
+.hero-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2rem, 5.5vw, 3.8rem); font-weight: 800;
+  color: var(--text-primary); line-height: 1.1;
+  letter-spacing: -0.045em; margin-bottom: 20px;
+  animation: fadeUp 0.5s ease 0.08s both;
+}
+.hero-title .brand-word { background: linear-gradient(135deg, var(--brand), #6366f1); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-title .accent-word { background: linear-gradient(135deg, var(--accent), #f43f5e); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-sub { font-size: 1rem; font-weight: 400; color: var(--text-secondary); max-width: 540px; margin: 0 auto 36px; line-height: 1.7; animation: fadeUp 0.5s ease 0.15s both; }
+
+.hero-search {
+  display: flex; background: var(--surface-solid);
+  border: 1.5px solid var(--glass-border); border-radius: var(--radius-xl);
+  overflow: hidden; box-shadow: var(--shadow-prem);
+  max-width: 640px; margin: 0 auto 40px;
+  animation: fadeUp 0.5s ease 0.22s both;
+  transition: box-shadow var(--tr), border-color var(--tr);
+}
+.hero-search:focus-within { border-color: rgba(var(--brand-rgb),0.4); box-shadow: var(--shadow-xl), var(--brand-glow); }
+.hero-search input { flex: 1; padding: 15px 18px; background: transparent; color: var(--text-primary); font-size: 0.92rem; font-weight: 500; border: none; min-width: 0; }
+.hero-search input::placeholder { color: var(--text-muted) }
+.hero-search-divider { width: 1px; background: var(--border); margin: 10px 0; flex-shrink: 0; }
+.hero-search select { padding: 15px 16px; background: transparent; color: var(--text-secondary); font-size: 0.85rem; font-weight: 500; border: none; cursor: pointer; flex-shrink: 0; max-width: 160px; }
+.hero-search select option { background: var(--surface-solid); color: var(--text-primary); }
+.hero-search-submit { padding: 8px 8px 8px 10px; display:flex; align-items:center; flex-shrink: 0; }
+.hero-search-btn {
+  padding: 11px 22px; border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--brand), var(--brand-hover));
+  color: #fff; font-size: 0.88rem; font-weight: 700;
+  display: flex; align-items: center; gap: 8px;
+  transition: all var(--tr); white-space: nowrap; position: relative; overflow: hidden;
+  box-shadow: 0 4px 14px rgba(var(--brand-rgb),0.4);
+  cursor: pointer; border: none;
+}
+.hero-search-btn:hover { box-shadow: 0 8px 24px rgba(var(--brand-rgb),0.55); transform: translateY(-1px); }
+
+/* ═══ MOBILE HERO SEARCH ═══ */
+@media (max-width: 600px) {
+  .hero-search { flex-wrap: wrap; border-radius: var(--radius-lg); }
+  .hero-search input { width: 100%; min-width: 100%; }
+  .hero-search-divider { display: none; }
+  .hero-search select { flex: 1; border-top: 1px solid var(--border); }
+  .hero-search-submit { flex: 1; border-top: 1px solid var(--border); }
+  .hero-search-btn { width: 100%; justify-content: center; }
+}
+
+.hero-stats { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0; animation: fadeUp 0.5s ease 0.3s both; }
+.hero-stat { padding: 0 20px; border-right: 1px solid var(--border); text-align: center; }
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.04em; }
+.hero-stat-num span { color: var(--brand); }
+.hero-stat-label { font-size: 0.72rem; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
+
+/* ═══════════════════════════════════════════
+   MAIN LAYOUT
+═══════════════════════════════════════════ */
+.main { max-width: 1400px; margin: 0 auto; padding: 48px 24px 0; position: relative; z-index: 1; }
+.sec-head { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:24px; }
+.sec-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.04em; }
+.sec-title span { color: var(--brand); }
+.sec-link { font-size: 0.85rem; font-weight: 600; color: var(--brand); display: flex; align-items: center; gap: 5px; transition: gap var(--tr), opacity var(--tr); opacity: 0.85; background: none; border: none; cursor: pointer; padding: 0; }
+.sec-link:hover { gap: 9px; opacity: 1; }
+
+/* ═══ SKELETON ═══ */
+.skeleton { background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg) 50%, var(--bg-secondary) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: var(--radius-sm); }
+.skel-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.skel-img { height: 200px; border-radius: 0; }
+.skel-body { padding: 18px; }
+.skel-line { height: 12px; margin-bottom: 10px; }
+.skel-line.w60 { width: 60%; }
+.skel-line.w40 { width: 40%; }
+.skel-line.w80 { width: 80%; }
+
+/* ═══════════════════════════════════════════
+   GROUP CATEGORY CARDS — FIXED
+   • Uses CSS grid auto-fill so all 8 cards show
+   • Removed overflow:hidden that was clipping rows
+═══════════════════════════════════════════ */
+.group-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+  /* BUG FIX: removed max-height / overflow:hidden that clipped rows */
+}
+
+@media (max-width: 600px) {
+  .group-cat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+@media (min-width: 601px) and (max-width: 900px) {
+  .group-cat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.group-cat-card {
+  background: var(--surface);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  contain: layout paint style;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 20px 12px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.175,0.885,0.32,1.275), box-shadow var(--tr), border-color var(--tr);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+}
+.group-cat-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: var(--card-hover-shadow);
+  border-color: var(--card-hover-border);
+}
+.group-cat-card:active { transform: scale(0.97); }
+.group-icon-wrap {
+  width: 50px; height: 50px; border-radius: 16px;
+  margin: 0 auto 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; color: #fff;
+  transition: transform var(--tr-spring);
+}
+.group-cat-card:hover .group-icon-wrap {
+  transform: translateY(-4px) scale(1.12) rotate(3deg);
+}
+.group-cat-name {
+  font-size: 0.8rem; font-weight: 700;
+  color: var(--text-primary); line-height: 1.3; margin-bottom: 3px;
+}
+.group-cat-count { font-size: 0.7rem; color: var(--text-muted); font-weight: 500; }
+.group-cat-arrow { font-size: 0.65rem; color: var(--text-muted); margin-top: 5px; opacity: 0.7; }
+
+/* ═══════════════════════════════════════════
+   SUBCAT DRAWER
+═══════════════════════════════════════════ */
+#subcat-overlay {
+  position: fixed; inset: 0; z-index: 8000;
+  background: rgba(5,13,31,0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex; align-items: flex-end; justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+#subcat-overlay.hidden { display: none !important; }
+#subcat-drawer {
+  background: var(--surface-elev);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  width: 100%; max-width: 860px;
+  max-height: 88vh;
+  overflow-y: auto;
+  animation: slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  border: 1px solid var(--glass-border);
+  border-bottom: none;
+  box-shadow: var(--shadow-xl);
+  padding: 0 0 32px;
+}
+.subcat-handle {
+  width: 40px; height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 12px auto 0;
+}
+.subcat-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0;
+  background: var(--surface-elev);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 10;
+}
+.subcat-header-icon {
+  width: 46px; height: 46px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; color: #fff; flex-shrink: 0;
+}
+.subcat-header-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.1rem; font-weight: 800;
+  color: var(--text-primary); letter-spacing: -0.03em;
+}
+.subcat-header-sub { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+.subcat-close {
+  margin-left: auto; width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; flex-shrink: 0;
+  transition: all var(--tr-bounce);
+  cursor: pointer;
+}
+.subcat-close:hover {
+  background: var(--error); color: #fff;
+  border-color: transparent;
+  transform: rotate(90deg) scale(1.1);
+}
+.subcat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+  padding: 20px 24px;
+}
+.subcat-card {
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 18px 10px 14px;
+  text-align: center; cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175,0.885,0.32,1.275), box-shadow var(--tr), border-color var(--tr);
+  box-shadow: var(--shadow-xs);
+  position: relative; overflow: hidden;
+}
+.subcat-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: var(--card-hover-shadow);
+  border-color: var(--card-hover-border);
+}
+.subcat-card:active { transform: scale(0.97); }
+.subcat-icon-wrap {
+  width: 46px; height: 46px; border-radius: 14px;
+  margin: 0 auto 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; color: #fff;
+  transition: transform var(--tr-spring);
+}
+.subcat-card:hover .subcat-icon-wrap { transform: scale(1.12) rotate(3deg); }
+.subcat-name { font-size: 0.76rem; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 2px; }
+.subcat-shop-count { font-size: 0.68rem; color: var(--text-muted); font-weight: 500; }
+
+@media (max-width: 520px) {
+  .subcat-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 9px; padding: 14px 16px; }
+  .subcat-header { padding: 16px 16px 12px; }
+}
+
+/* ═══════════════════════════════════════════
+   FILTER BAR
+═══════════════════════════════════════════ */
+.filters-row { display:flex; align-items:center; gap:10px; margin-bottom:24px; }
+.filter-chips { display:flex; gap:7px; overflow-x:auto; padding-bottom:2px; flex:1; scrollbar-width:none; min-width:0; }
+.filter-chips::-webkit-scrollbar { display:none }
+.chip {
+  flex-shrink: 0; padding: 8px 16px; border-radius: var(--radius-pill);
+  background: var(--surface); backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border); color: var(--text-secondary);
+  font-size: 0.82rem; font-weight: 600; cursor: pointer;
+  white-space: nowrap; transition: all var(--tr);
+  box-shadow: var(--shadow-xs);
+}
+.chip:hover { border-color: rgba(var(--brand-rgb),0.35); color: var(--brand); background: var(--brand-soft); transform: translateY(-1px); }
+.chip:active { transform: scale(0.96); }
+.chip.active { background: linear-gradient(135deg, var(--brand), var(--brand-hover)); border-color: transparent; color: #fff; box-shadow: 0 6px 18px rgba(var(--brand-rgb),0.35); }
+
+.view-toggle { display: flex; gap: 3px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 4px; flex-shrink: 0; box-shadow: var(--shadow-xs); }
+.view-btn { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.88rem; color: var(--text-muted); transition: all var(--tr); cursor: pointer; }
+.view-btn.active { background: var(--brand); color: #fff; box-shadow: 0 3px 8px rgba(var(--brand-rgb),0.3); }
+.view-btn:hover:not(.active) { color: var(--brand); background: var(--brand-soft); }
+.shops-meta { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; white-space: nowrap; padding-left: 4px; flex-shrink: 0; }
+
+/* ═══ LOCATION BANNER ═══ */
+.location-banner { display: flex; align-items: center; gap: 12px; padding: 12px 18px; margin-bottom: 18px; border-radius: var(--radius); background: var(--brand-soft); border: 1px solid rgba(var(--brand-rgb),0.2); font-size: 0.85rem; color: var(--text-secondary); flex-wrap: wrap; }
+.location-banner i.loc-ico { color: var(--brand); font-size: 1rem; flex-shrink: 0; }
+.location-banner .loc-text { flex: 1; min-width: 180px; }
+.location-banner .loc-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.loc-btn { padding: 7px 16px; border-radius: var(--radius-pill); font-size: 0.78rem; font-weight: 700; background: var(--brand); color: #fff; transition: all var(--tr); white-space: nowrap; cursor: pointer; border: none; }
+.loc-btn:hover { background: var(--brand-hover); transform: translateY(-1px); }
+.loc-btn.secondary { background: var(--surface-solid); color: var(--text-secondary); border: 1px solid var(--border); }
+.loc-btn.secondary:hover { border-color: rgba(var(--brand-rgb),0.4); color: var(--brand); }
+.shop-distance { font-size: 0.72rem; color: var(--brand); font-weight: 700; display: flex; align-items: center; gap: 4px; margin-top: 3px; }
+
+/* ═══════════════════════════════════════════
+   SHOP CARDS
+═══════════════════════════════════════════ */
+#shops-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+
+@media (max-width: 680px) {
+  #shops-grid { grid-template-columns: 1fr; }
+}
+
+.shop-card {
+  /* PERF: 20px -> 10px blur — visually near-identical but roughly halves
+     the GPU compositing cost per card, and there can be dozens of these
+     on screen at once. `contain` isolates each card's paint/layout so the
+     browser doesn't have to re-evaluate the whole grid on every scroll
+     frame (fewer repaints on scroll). */
+  background: var(--surface); backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-lg);
+  overflow: hidden; cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275), box-shadow 0.4s ease, border-color 0.3s ease;
+  animation: slideUp 0.45s ease both; position: relative;
+  box-shadow: var(--shadow-soft);
+  contain: layout paint style;}
+.shop-card::before { content: ''; position: absolute; z-index: 5; pointer-events: none; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent); opacity: 0.8; }
+.shop-card:hover { transform: translateY(-8px) scale(1.01); box-shadow: var(--card-hover-shadow); border-color: var(--card-hover-border); }
+.shop-card:active { transform: translateY(-2px) scale(0.99); }
+
+.shop-img-wrap { position: relative; overflow: hidden; height: 200px; }
+.shop-img { width: 100%; height: 100%; object-fit: cover; background: var(--bg-secondary); transition: transform 0.6s cubic-bezier(0.4,0,0.2,1); }
+.shop-card:hover .shop-img { transform: scale(1.07); }
+
+/* BUG FIX: list mode image sizing */
+#shops-grid.list-mode { grid-template-columns: 1fr; }
+#shops-grid.list-mode .shop-card { display: flex; flex-direction: row; align-items: stretch; }
+#shops-grid.list-mode .shop-img-wrap { width: 260px; height: auto; min-height: 180px; flex-shrink: 0; }
+#shops-grid.list-mode .shop-body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+@media (max-width: 640px) {
+  #shops-grid.list-mode .shop-card { flex-direction: column; }
+  #shops-grid.list-mode .shop-img-wrap { width: 100%; height: 200px; }
+}
+
+.shop-status { position: absolute; top: 12px; left: 12px; z-index: 3; padding: 5px 11px; border-radius: var(--radius-pill); font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; gap: 5px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.status-open { background: rgba(16,185,129,0.18); color: #10B981; border: 1px solid rgba(16,185,129,0.35); }
+.status-closed { background: rgba(239,68,68,0.15); color: #EF4444; border: 1px solid rgba(239,68,68,0.3); }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; }
+.status-open .status-dot { background: #10B981; animation: pulse 2s ease infinite; }
+.status-closed .status-dot { background: #EF4444; }
+
+.shop-fav { position: absolute; top: 12px; right: 12px; z-index: 3; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: var(--text-muted); border: 1px solid rgba(255,255,255,0.6); transition: all var(--tr-bounce); box-shadow: 0 2px 8px rgba(0,0,0,0.12); cursor: pointer; }
+[data-theme="dark"] .shop-fav { background: rgba(14,26,52,0.9); border-color: rgba(59,130,246,0.2); }
+.shop-fav:hover { color: var(--error); transform: scale(1.2) rotate(8deg); }
+.shop-fav.active { color: var(--error); transform: scale(1.1); }
+
+.shop-body { padding: 18px 20px 20px; }
+.shop-meta-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap: wrap; }
+.shop-cat-tag { padding: 4px 10px; border-radius: var(--radius-xs); font-size: 0.71rem; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+.shop-rating-badge { display: flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: var(--radius-xs); background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.2); font-size: 0.75rem; font-weight: 700; color: var(--warning); margin-left: auto; }
+.shop-rating-badge.no-rating { color: var(--text-muted); background: var(--bg-secondary); border-color: transparent; font-size: 0.7rem; font-weight: 500; }
+
+.shop-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.02rem; font-weight: 800; color: var(--text-primary); margin-bottom: 5px; letter-spacing: -0.025em; line-height: 1.25; transition: color var(--tr); }
+.shop-card:hover .shop-name { color: var(--brand); }
+.shop-address { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; display: flex; align-items: flex-start; gap: 5px; margin-bottom: 8px; }
+.shop-address i { margin-top: 2px; flex-shrink: 0; }
+
+.shop-footer { display: flex; align-items: center; gap: 8px; padding-top: 14px; border-top: 1px solid var(--border-soft); margin-top: 8px; }
+.btn-view { flex: 1; padding: 10px 14px; border-radius: var(--radius-sm); background: linear-gradient(135deg, var(--brand), var(--brand-hover)); color: #fff; font-size: 0.83rem; font-weight: 700; text-align: center; white-space: nowrap; transition: all var(--tr); position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(var(--brand-rgb),0.3); cursor: pointer; border: none; }
+.btn-view:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(var(--brand-rgb),0.45); }
+.btn-like { display: flex; align-items: center; gap: 5px; padding: 10px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); font-size: 0.8rem; font-weight: 700; color: var(--text-muted); transition: all var(--tr); cursor: pointer; min-width: 54px; justify-content: center; }
+.btn-like:hover, .btn-like.liked { border-color: rgba(239,68,68,0.4); color: var(--error); background: rgba(239,68,68,0.06); }
+.btn-like i { transition: transform var(--tr-bounce); }
+.btn-like:hover i { transform: scale(1.3); }
+.btn-like.liked i { transform: scale(1.15); }
+.btn-like:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn-wa { width: 38px; height: 38px; border-radius: var(--radius-sm); background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.25); color: #25D366; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; flex-shrink: 0; transition: all var(--tr); }
+.btn-wa:hover { background: linear-gradient(135deg, #25D366, #1ea952); color: #fff; box-shadow: 0 6px 18px rgba(37,211,102,0.4); transform: translateY(-2px); }
+
+.load-more-wrap { text-align:center; padding: 44px 0; }
+.btn-load-more { padding: 13px 40px; border-radius: var(--radius-pill); background: var(--surface); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1.5px solid var(--border); color: var(--text-secondary); font-size: 0.9rem; font-weight: 700; display: inline-flex; align-items: center; gap: 9px; transition: all var(--tr); box-shadow: var(--shadow-soft); cursor: pointer; }
+.btn-load-more:hover { border-color: rgba(var(--brand-rgb),0.4); color: var(--brand); background: var(--brand-soft); transform: translateY(-2px); }
+.btn-load-more:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* ═══ RECENTLY VIEWED ═══ */
+.rv-section { margin: 48px 0; }
+.rv-scroll { display: flex; gap: 16px; overflow-x: auto; padding: 6px 4px 16px; scrollbar-width: none; }
+.rv-scroll::-webkit-scrollbar { display: none; }
+.rv-mini { flex-shrink: 0; width: 185px; position: relative; background: var(--surface); backdrop-filter: blur(10px) saturate(160%); -webkit-backdrop-filter: blur(10px) saturate(160%); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; transition: transform 0.35s cubic-bezier(0.175,0.885,0.32,1.275), box-shadow 0.35s ease; box-shadow: var(--shadow-soft); contain: layout paint style; }
+.rv-mini:hover { transform: translateY(-8px) scale(1.02); box-shadow: var(--card-hover-shadow); border-color: var(--card-hover-border); }
+.rv-mini:active { transform: translateY(-2px) scale(0.98); }
+.rv-mini-img-wrap { position: relative; overflow: hidden; height: 115px; }
+.rv-mini-img { width: 100%; height: 100%; object-fit: cover; background: var(--bg-secondary); transition: transform 0.5s ease; }
+.rv-mini:hover .rv-mini-img { transform: scale(1.08); }
+.rv-mini-status { position: absolute; bottom: 8px; left: 8px; z-index: 3; padding: 3px 8px; border-radius: var(--radius-pill); font-size: 0.65rem; font-weight: 700; display: flex; align-items: center; gap: 4px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.rv-mini-status.open { background: rgba(16,185,129,0.18); color: #10B981; border: 1px solid rgba(16,185,129,0.3); }
+.rv-mini-status.closed { background: rgba(239,68,68,0.15); color: #EF4444; border: 1px solid rgba(239,68,68,0.25); }
+.rv-mini-status-dot { width: 5px; height: 5px; border-radius: 50%; }
+.rv-mini-status.open .rv-mini-status-dot { background: #10B981; animation: pulse 2s ease infinite; }
+.rv-mini-status.closed .rv-mini-status-dot { background: #EF4444; }
+.rv-mini-remove { position: absolute; top: 7px; right: 7px; z-index: 10; width: 24px; height: 24px; border-radius: 50%; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; font-size: 0.65rem; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all var(--tr-bounce); opacity: 0; }
+.rv-mini:hover .rv-mini-remove { opacity: 1; }
+.rv-mini-remove:hover { background: var(--error); transform: scale(1.18) rotate(8deg); }
+.rv-mini-info { padding: 11px 13px 13px; }
+.rv-mini-cat-row { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
+.rv-mini-cat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.rv-mini-cat { font-size: 0.68rem; color: var(--text-muted); font-weight: 600; }
+.rv-mini-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color var(--tr); }
+.rv-mini:hover .rv-mini-name { color: var(--brand); }
+.rv-mini-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 7px; border-top: 1px solid var(--border-soft); }
+.rv-mini-rating { display: flex; align-items: center; gap: 3px; font-size: 0.7rem; font-weight: 700; color: var(--warning); }
+.rv-mini-wa { width: 24px; height: 24px; border-radius: 7px; background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.2); color: #25D366; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; transition: all var(--tr); }
+.rv-mini-wa:hover { background: #25D366; color: #fff; transform: scale(1.12); }
+
+.empty-state { grid-column:1/-1; text-align:center; padding: 72px 20px; }
+.empty-state-icon { width: 72px; height: 72px; border-radius: 22px; background: var(--brand-soft); border: 1px solid rgba(var(--brand-rgb),0.15); display: flex; align-items: center; justify-content: center; font-size: 1.7rem; color: var(--brand); margin: 0 auto 18px; box-shadow: 0 8px 24px rgba(var(--brand-rgb),0.15); }
+.empty-state h3 { font-family:'Plus Jakarta Sans',sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--text-primary); margin-bottom: 7px; }
+.empty-state p { font-size: 0.9rem; color: var(--text-muted); }
+
+/* ═══════════════════════════════════════════
+   MODAL
+═══════════════════════════════════════════ */
+#modal-overlay { position: fixed; inset: 0; z-index: 9000; background: rgba(5,13,31,0.65); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); display: flex; align-items: flex-start; justify-content: center; padding: 20px; overflow-y: auto; animation: fadeIn 0.25s ease; }
+[data-theme="light"] #modal-overlay { background: rgba(15,23,42,0.5); }
+#modal-overlay.hidden { display:none!important }
+
+#modal-box {
+  background: var(--surface-elev);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-radius: var(--radius-xl);
+  width: 100%; max-width: 880px;
+  overflow: hidden;
+  animation: scaleIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  margin: auto;
+  position: relative;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-xl);
+}
+
+@media (max-width: 768px) {
+  #modal-overlay { padding: 0; align-items: flex-end; }
+  #modal-box { border-radius: var(--radius-xl) var(--radius-xl) 0 0; max-height: 96vh; overflow-y: auto; }
+}
+
+.modal-close { position: absolute; top: 14px; right: 14px; z-index: 20; width: 36px; height: 36px; border-radius: 50%; background: rgba(15,23,42,0.55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; transition: all var(--tr-bounce); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
+.modal-close:hover { background: var(--error); transform: rotate(90deg) scale(1.1); }
+.modal-cover { 
+  position: relative; 
+  width: 100%; 
+  /* BUG FIX: height ko viewport-relative banaya, fixed px nahi — 
+     wide laptop screens pe modal-box jab zyada wide hota hai, 
+     cover area bhi thoda taller ho jaata hai, jisse image kam crop hoti hai */
+  height: clamp(200px, 32vw, 320px);
+  overflow: hidden; 
+  background: var(--bg-secondary); 
+  flex-shrink: 0; 
+}
+
+@media (max-width: 768px) {
+  .modal-cover { 
+    height: 200px;      /* mobile pe thodi choti, fixed rakha kyunki yahan already sahi dikh rahi hai */
+  }
+}
+
+.modal-cover-img { 
+  position: absolute; inset: 0; 
+  width: 100%; height: 100%; 
+  object-fit: cover; 
+  /* BUG FIX: top text (BALAJI STORE heading) kat raha tha laptop pe.
+     object-position ko top se thoda neeche shift kiya taaki heading 
+     bhi frame mein aaye aur product images bhi dikhe */
+  object-position: center 25%;
+  display: block; 
+  transition: transform .5s ease; 
+}
+.modal-head { padding: 0 24px 20px; border-bottom: 1px solid var(--border); }
+.modal-icon-row { display:flex; align-items:flex-end; gap:14px; margin-top:-28px; margin-bottom:12px; }
+.modal-icon { width: 58px; height: 58px; border-radius: 18px; border: 3px solid var(--surface-elev); background: linear-gradient(135deg, var(--brand), var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #fff; flex-shrink: 0; box-shadow: 0 8px 24px rgba(var(--brand-rgb),0.4); position: relative; overflow: hidden; }
+.modal-icon img.logo-img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; }
+.modal-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.035em; }
+.modal-tags { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:9px; }
+.modal-tag-cat { padding: 4px 11px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; background: var(--brand-soft); color: var(--brand); }
+.modal-tag-status { font-size: 0.75rem; font-weight: 700; padding: 4px 11px; border-radius: 8px; display:flex; align-items:center; gap:4px; }
+.modal-tag-status.open { background: rgba(16,185,129,0.1); color: #10B981; }
+.modal-tag-status.closed { background: rgba(239,68,68,0.08); color: #EF4444; }
+.modal-rating-row { display: flex; align-items: center; gap: 8px; background: var(--bg-secondary); border: 1px solid var(--border-soft); padding: 6px 12px; border-radius: var(--radius-sm); }
+.modal-rating-stars { color: var(--warning); font-size: 0.85rem; letter-spacing: 1px; }
+.modal-rating-num { font-size: 0.9rem; font-weight: 800; color: var(--text-primary); }
+.modal-rating-count { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+
+.modal-gallery { padding: 20px 24px 0; }
+.gallery-main { position: relative; border-radius: var(--radius); overflow: hidden; cursor: pointer; background: var(--bg-secondary); box-shadow: var(--shadow-med); width: 100%; aspect-ratio: 4/3; }
+.gallery-main img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.4s ease; background: var(--bg-secondary); }
+.gallery-main:hover img { transform: scale(1.02); }
+.gallery-ctrl { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: rgba(5,13,31,0.55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all var(--tr); z-index: 5; border: 1px solid rgba(255,255,255,0.15); }
+.gallery-ctrl:hover { background: var(--brand); transform: translateY(-50%) scale(1.1); }
+.gallery-prev { left: 10px; } .gallery-next { right: 10px; }
+.gallery-counter { position: absolute; bottom: 12px; right: 12px; background: rgba(5,13,31,0.65); color: #fff; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); font-size: 0.72rem; font-weight: 700; padding: 4px 11px; border-radius: var(--radius-pill); z-index: 5; }
+.gallery-expand-btn { position: absolute; bottom: 12px; left: 12px; background: rgba(5,13,31,0.55); color: #fff; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 4px 11px; border-radius: var(--radius-pill); font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; gap: 5px; transition: all var(--tr); z-index: 5; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
+.gallery-expand-btn:hover { background: var(--brand); }
+.gallery-thumbs { display:flex; gap:9px; overflow-x:auto; padding: 11px 0; scrollbar-width:none; }
+.gallery-thumbs::-webkit-scrollbar { display:none }
+.gallery-thumb { width: 60px; height: 60px; border-radius: 10px; overflow: hidden; flex-shrink: 0; cursor: pointer; border: 2px solid transparent; transition: all var(--tr); opacity: 0.65; }
+.gallery-thumb.active { border-color: var(--brand); opacity: 1; }
+.gallery-thumb:hover { opacity: 1; transform: scale(1.06); }
+.gallery-thumb img { width:100%; height:100%; object-fit:cover; }
+.gallery-empty { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; height:100%; color: var(--text-muted); }
+.gallery-empty i { font-size: 1.8rem; opacity: 0.4; }
+.gallery-empty span { font-size: 0.85rem; font-weight: 600; }
+
+.modal-actions { display:flex; gap:10px; padding: 20px 24px; border-bottom: 1px solid var(--border); flex-wrap:wrap; }
+.btn-action { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 11px 18px; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 700; transition: all var(--tr); cursor: pointer; position: relative; overflow: hidden; text-decoration: none; border: none; }
+.btn-action:hover { transform: translateY(-2px); }
+.btn-action:active { transform: scale(0.97); }
+.btn-action-wa { flex:1; background: linear-gradient(135deg,#25D366,#1ea952); color:#fff; min-width:120px; box-shadow: 0 4px 14px rgba(37,211,102,0.3); }
+.btn-action-wa:hover { box-shadow: 0 8px 24px rgba(37,211,102,0.45); }
+.btn-action-call { flex:1; background: linear-gradient(135deg, var(--brand), var(--brand-hover)); color:#fff; min-width:100px; box-shadow: 0 4px 14px rgba(var(--brand-rgb),0.35); }
+.btn-action-call:hover { box-shadow: 0 8px 24px rgba(var(--brand-rgb),0.5); }
+.btn-action-maps { flex:1; background: linear-gradient(135deg,#EA4335,#c1392b); color:#fff; min-width:100px; box-shadow: 0 4px 14px rgba(234,67,53,0.3); }
+.btn-action-maps:hover { box-shadow: 0 8px 24px rgba(234,67,53,0.45); }
+.btn-action-website { flex:1; min-width:100px; background: linear-gradient(135deg,#0EA5E9,#0369A1); color:#fff; box-shadow: 0 4px 14px rgba(14,165,233,0.32); }
+.btn-action-book { flex:1; min-width:140px; background: linear-gradient(135deg,#7C3AED,#5B21B6); color:#fff; box-shadow: 0 4px 14px rgba(124,58,237,0.32); }
+.btn-action-outline { background: var(--surface); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); color: var(--text-secondary); box-shadow: var(--shadow-xs); }
+.btn-action-outline:hover { border-color: rgba(var(--brand-rgb),0.35); color: var(--brand); background: var(--brand-soft); }
+
+.modal-engage { display:flex; gap:9px; padding: 14px 24px; border-bottom: 1px solid var(--border); }
+.engage-btn { display: flex; align-items: center; gap: 7px; padding: 9px 18px; border-radius: var(--radius-pill); border: 1px solid var(--border); background: var(--surface); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--text-secondary); font-size: 0.86rem; font-weight: 700; cursor: pointer; transition: all var(--tr); }
+.engage-btn:hover { border-color: rgba(var(--brand-rgb),0.35); color: var(--brand); background: var(--brand-soft); transform: translateY(-1px); }
+.engage-btn.liked { border-color: rgba(239,68,68,0.35); color: var(--error); background: rgba(239,68,68,0.06); }
+.engage-btn.saved { border-color: rgba(var(--brand-rgb),0.35); color: var(--brand); background: var(--brand-soft); }
+.engage-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.modal-info-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; padding: 20px 24px; border-bottom: 1px solid var(--border); }
+@media (max-width: 520px) { .modal-info-grid { grid-template-columns: 1fr; } }
+.info-item { display:flex; align-items:flex-start; gap:13px; background: var(--bg); border-radius: var(--radius-sm); padding: 13px 15px; border: 1px solid var(--border-soft); min-width: 0; transition: all var(--tr); }
+.info-item:hover { background: var(--brand-soft); border-color: rgba(var(--brand-rgb),0.18); }
+.info-ico { width: 34px; height: 34px; border-radius: 10px; flex-shrink:0; background: var(--brand-soft); color: var(--brand); display:flex; align-items:center; justify-content:center; font-size: 0.88rem; }
+.info-label { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; margin-bottom: 3px; letter-spacing: 0.02em; text-transform: uppercase; }
+.info-val { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); word-break: break-word; }
+
+.modal-sec { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+.modal-sec:last-child { border-bottom: none; }
+.modal-sec-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; font-weight: 800; color: var(--text-primary); margin-bottom: 14px; display:flex; align-items:center; gap: 9px; }
+.modal-sec-title i { color: var(--brand); }
+.sched-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(60px,1fr)); gap:7px; }
+.sched-day { text-align: center; padding: 11px 5px; border-radius: 11px; background: var(--bg-secondary); font-size: 0.73rem; border: 1.5px solid transparent; transition: all var(--tr); }
+.sched-day.today { background: var(--brand-soft); border-color: rgba(var(--brand-rgb),0.3); color: var(--brand); }
+.sched-day .day-n { font-weight: 800; margin-bottom: 3px; }
+.sched-day .day-t { font-size: 0.62rem; color: var(--text-muted); }
+.sched-day.today .day-t { color: var(--brand); }
+.modal-desc { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.75; }
+
+.rating-summary { background: var(--bg); border-radius: var(--radius); padding: 18px; border: 1px solid var(--border-soft); margin-bottom: 18px; }
+.rating-summary-row { display: flex; gap: 18px; align-items: center; }
+.rating-big { text-align: center; flex-shrink: 0; }
+.rating-big-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.8rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.05em; line-height: 1; }
+.rating-big-stars { color: var(--warning); font-size: 1rem; margin: 4px 0; }
+.rating-big-count { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+.rating-bars { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.rating-bar-row { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; }
+.rating-bar-label { color: var(--text-muted); font-weight: 600; width: 40px; text-align: right; flex-shrink: 0; }
+.rating-bar-track { flex: 1; height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; }
+.rating-bar-fill { height: 100%; background: linear-gradient(90deg, var(--warning), #f59e0b); border-radius: 4px; transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
+.rating-bar-pct { width: 34px; color: var(--text-muted); font-weight: 600; }
+
+.rate-form { background: var(--bg); border-radius: var(--radius); padding: 16px; border: 1px solid var(--border-soft); margin-bottom: 16px; }
+.rate-form-title { font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 10px; }
+.star-picker { display:flex; gap:7px; margin-bottom: 10px; }
+.star-picker i { font-size: 1.5rem; color: var(--text-muted); cursor: pointer; transition: color var(--tr), transform var(--tr-bounce); }
+.star-picker i.active, .star-picker i:hover { color: var(--warning); transform: scale(1.25); }
+.review-form input, .review-form textarea { width: 100%; padding: 11px 15px; border-radius: var(--radius-sm); border: 1.5px solid var(--border); background: var(--surface-solid); color: var(--text-primary); font-size: 0.875rem; font-weight: 500; margin-bottom: 10px; transition: border-color var(--tr), box-shadow var(--tr); }
+.review-form input:focus, .review-form textarea:focus { border-color: var(--brand); box-shadow: var(--brand-glow); }
+.review-form textarea { resize:vertical; min-height: 80px; }
+.btn-submit { padding: 10px 24px; border-radius: var(--radius-sm); background: linear-gradient(135deg, var(--brand), var(--brand-hover)); color: #fff; font-size: 0.875rem; font-weight: 700; transition: all var(--tr); box-shadow: 0 4px 12px rgba(var(--brand-rgb),0.3); display: inline-flex; align-items: center; gap: 7px; cursor: pointer; border: none; }
+.btn-submit:hover { transform: translateY(-1px); box-shadow: 0 7px 20px rgba(var(--brand-rgb),0.45); }
+.btn-submit:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+.btn-submit .spin { animation: spin 0.8s linear infinite; }
+.reviews-list { margin-top: 14px; display:flex; flex-direction:column; gap:10px; }
+.review-item { background: var(--bg); border-radius: var(--radius-sm); padding: 14px 16px; border: 1px solid var(--border-soft); border-left: 3px solid var(--brand); }
+.review-top { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+.review-avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--brand), var(--accent)); display:flex; align-items:center; justify-content:center; color:#fff; font-weight: 800; font-size: 0.88rem; flex-shrink:0; }
+.review-name { font-weight: 800; font-size: 0.88rem; color: var(--text-primary); }
+.review-date { font-size: 0.72rem; color: var(--text-muted); margin-left: auto; }
+.review-stars { color: var(--warning); font-size: 0.82rem; }
+.review-text { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+.comment-form { display:flex; gap:8px; margin-top: 12px; flex-wrap: wrap; }
+.comment-form input { flex:1; min-width: 120px; padding: 10px 15px; border-radius: var(--radius-pill); border: 1.5px solid var(--border); background: var(--surface-solid); color: var(--text-primary); font-size: 0.85rem; font-weight: 500; transition: border-color var(--tr), box-shadow var(--tr); }
+.comment-form input:focus { border-color: var(--brand); box-shadow: var(--brand-glow); }
+.comment-form button { padding: 10px 20px; border-radius: var(--radius-pill); background: linear-gradient(135deg, var(--brand), var(--brand-hover)); color: #fff; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; transition: all var(--tr); box-shadow: 0 4px 12px rgba(var(--brand-rgb),0.3); cursor: pointer; border: none; }
+.comment-form button:hover { transform: translateY(-1px); }
+.comment-form button:disabled { opacity: 0.65; cursor: not-allowed; }
+.comments-list { margin-top: 12px; display:flex; flex-direction:column; gap:8px; }
+.comment-item { background: var(--bg); border-radius: var(--radius-sm); padding: 11px 14px; border: 1px solid var(--border-soft); }
+.comment-meta { display:flex; align-items:center; gap:8px; margin-bottom:4px; }
+.comment-user { font-weight: 800; font-size: 0.83rem; color: var(--text-primary); }
+.comment-date { font-size: 0.7rem; color: var(--text-muted); }
+.comment-text { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.55; }
+.modal-pad { height: 24px; }
+
+/* ═══ LIGHTBOX ═══ */
+#lightbox { position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.97); display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s ease; }
+#lightbox.hidden { display:none!important }
+#lb-img { max-width: 90vw; max-height: 90vh; border-radius: 10px; object-fit: contain; box-shadow: 0 20px 60px rgba(0,0,0,0.8); }
+.lb-ctrl { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: #fff; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all var(--tr); border: 1px solid rgba(255,255,255,0.15); }
+.lb-ctrl:hover { background: var(--brand); transform: translateY(-50%) scale(1.1); }
+#lb-prev { left: 20px; } #lb-next { right: 20px; }
+#lb-close { position: absolute; top: 18px; right: 18px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); color: #fff; font-size: 1rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all var(--tr-bounce); border: 1px solid rgba(255,255,255,0.15); }
+#lb-close:hover { background: var(--error); transform: rotate(90deg) scale(1.1); }
+
+/* ═══ TOAST ═══ */
+#toast-wrap { position:fixed; bottom:24px; right:24px; z-index:99999; display:flex; flex-direction:column; gap:9px; pointer-events:none; }
+.toast { display:flex; align-items:center; gap:11px; padding: 12px 18px; border-radius: var(--radius); background: var(--surface-elev); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); color: var(--text-primary); font-size: 0.85rem; font-weight: 600; box-shadow: var(--shadow-prem); animation: toastIn 0.3s ease; min-width: 200px; pointer-events: auto; }
+.toast i { font-size: 1rem; }
+.toast.success i { color: var(--success); }
+.toast.error i { color: var(--error); }
+.toast.info i { color: var(--brand); }
+
+/* ═══ QR MODAL ═══ */
+#qr-modal { position: fixed; inset: 0; z-index: 10001; background: rgba(5,13,31,0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); display: flex; align-items: center; justify-content: center; animation: fadeIn 0.25s ease; }
+#qr-modal.hidden { display:none!important }
+.qr-box { background: var(--surface-elev); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px); border-radius: var(--radius-xl); padding: 32px; text-align: center; max-width: 320px; width: 100%; animation: scaleIn 0.3s cubic-bezier(0.34,1.56,0.64,1); border: 1px solid var(--glass-border); box-shadow: var(--shadow-xl); }
+.qr-title { font-family: 'Plus Jakarta Sans',sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-bottom: 4px; }
+.qr-subtitle { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px; }
+#qr-canvas { border-radius: 14px; margin: 0 auto 14px; border: 3px solid var(--border); }
+.qr-link-row { display:flex; gap:9px; margin-top: 13px; }
+.qr-link-row input { flex:1; padding: 9px 13px; border-radius: var(--radius-sm); border: 1.5px solid var(--border); background: var(--bg); color: var(--text-primary); font-size: 0.79rem; min-width: 0; }
+.qr-link-row button { padding: 9px 16px; border-radius: var(--radius-sm); background: linear-gradient(135deg, var(--brand), var(--brand-hover)); color:#fff; font-size:0.79rem; font-weight:700; transition: all var(--tr); flex-shrink:0; cursor: pointer; border: none; }
+
+/* ═══ VERIFIED BADGE ═══ */
+.shop-verified-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: var(--radius-pill);
+  background: rgba(37,99,235,0.1); color: var(--brand);
+  font-size: 0.65rem; font-weight: 800;
+  border: 1px solid rgba(37,99,235,0.25);
+  white-space: nowrap; vertical-align: middle;
+}
+.shop-verified-badge i { font-size: 0.65rem; }
+.shop-verified-badge.lg { font-size: 0.73rem; padding: 4px 12px; gap: 5px; margin-left: 8px; }
+.shop-verified-badge.lg i { font-size: 0.73rem; }
+
+/* ═══ FOOTER ═══ */
+#footer { background: var(--surface); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--border); margin-top: 72px; padding: 56px 24px 32px; position: relative; z-index: 1; }
+.footer-inner { max-width: 1400px; margin: 0 auto; }
+.footer-grid { display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr 1fr; gap:32px; margin-bottom:40px; }
+@media (max-width: 960px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
+.footer-brand-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; margin-top: 12px; max-width: 280px; }
+.footer-main-site-link { display:inline-flex; align-items:center; gap:7px; margin-top:14px; padding:9px 18px; border-radius:var(--radius-pill); background:var(--brand-soft); border:1px solid rgba(var(--brand-rgb),0.25); color:var(--brand); font-size:0.8rem; font-weight:700; transition: all var(--tr); }
+.footer-main-site-link:hover { background: var(--brand); color:#fff; transform: translateY(-2px); }
+.footer-col-title { font-family:'Plus Jakarta Sans',sans-serif; font-size: 0.9rem; font-weight: 800; color: var(--text-primary); margin-bottom: 14px; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a { font-size: 0.84rem; color: var(--text-muted); font-weight: 500; transition: color var(--tr); display: inline-block; }
+.footer-col ul li a:hover { color: var(--brand); transform: translateX(4px); }
+.footer-contact-item { display:flex; align-items:flex-start; gap:10px; margin-bottom:12px; font-size:0.84rem; color:var(--text-muted); line-height:1.4; }
+.footer-contact-item i { color:var(--brand); margin-top:2px; width:16px; flex-shrink:0; }
+.footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+.footer-copy { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
+.footer-socials { display:flex; gap:8px; }
+.social-btn { width: 34px; height: 34px; border-radius: 10px; background: var(--bg); border: 1px solid var(--border); color: var(--text-muted); font-size: 0.88rem; display: flex; align-items: center; justify-content: center; transition: all var(--tr-bounce); }
+.social-btn:hover { background: linear-gradient(135deg, var(--brand), var(--brand-hover)); color: #fff; border-color: transparent; transform: translateY(-3px) scale(1.1); }
+
+/* ═══ BACK TO TOP ═══ */
+.back-to-top {
+  position: fixed; bottom: 28px; right: 28px; z-index: 9990;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: rgba(37,99,235,0.12);
+  border: 1px solid rgba(37,99,235,0.3);
+  color: #2563EB;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  opacity: 0; visibility: hidden; transform: translateY(12px);
+  transition: opacity .3s ease, visibility .3s ease, transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
+}
+.back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+.back-to-top:hover { transform: translateY(-4px) scale(1.1); background: rgba(37,99,235,0.22); box-shadow: 0 8px 24px rgba(37,99,235,0.35); }
+.back-to-top i { font-size: 16px; }
+
+/* ═══ SCROLL REVEAL ═══ */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+/* ═══ GOLDEN FEATURED CARD ═══ */
+.shop-card.gold-featured {
+  border: 1.5px solid #C8962C !important;
+  background: linear-gradient(145deg, #fffbf0, #fff8e1, #fffdf5) !important;
+  box-shadow: 0 4px 24px rgba(200,150,44,0.22), 0 1px 6px rgba(200,150,44,0.14) !important;
+}
+[data-theme="dark"] .shop-card.gold-featured {
+  background: linear-gradient(145deg, #1a1000, #201400, #1a1000) !important;
+  border-color: #C8962C !important;
+  box-shadow: 0 4px 24px rgba(200,150,44,0.35) !important;
+}
+.shop-card.gold-featured .shop-name { color: #7a4f00; }
+[data-theme="dark"] .shop-card.gold-featured .shop-name { color: #FFD700; }
+.shop-card.gold-featured:hover { box-shadow: 0 16px 48px rgba(200,150,44,0.38), 0 4px 16px rgba(200,150,44,0.2) !important; border-color: #FFD700 !important; }
+
+.gold-top-bar { height: 3px; background: linear-gradient(90deg, #C8962C, #FFD700, #FFA500, #FFD700, #C8962C); }
+.gold-bottom-bar { height: 3px; background: linear-gradient(90deg, #C8962C, #FFD700, #FFA500, #FFD700, #C8962C); }
+
+.gold-featured-badge {
+  position: absolute; top: 12px; left: 12px; z-index: 4;
+  padding: 4px 11px; border-radius: 20px;
+  background: linear-gradient(135deg, #FFD700, #C8962C);
+  color: #3d2000; font-size: 0.68rem; font-weight: 700;
+  box-shadow: 0 2px 10px rgba(200,150,44,0.5);
+  display: flex; align-items: center; gap: 5px;
+}
+
+.shop-card.gold-featured .btn-view {
+  background: linear-gradient(135deg, #C8962C, #FFD700, #C8962C) !important;
+  color: #3d2000 !important;
+  box-shadow: 0 4px 12px rgba(200,150,44,0.4) !important;
+}
+.shop-card.gold-featured .btn-view:hover {
+  box-shadow: 0 6px 20px rgba(200,150,44,0.55) !important;
+}
+
+/* Gold shimmer on hover */
+.shop-card.gold-featured .shop-img-wrap::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255,215,0,0.12), transparent);
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.shop-card.gold-featured:hover .shop-img-wrap::after { opacity: 1; }
+/* Gold card pe Open/Closed status badge hide karo */
+.shop-card.gold-featured .shop-status {
+  display: none !important;
+  
+}
+/* ═══ GOLDEN MODAL THEME ═══ */
+#modal-box.gold-modal {
+  border: 1.5px solid #C8962C !important;
+  box-shadow: 0 24px 64px rgba(200,150,44,0.25), 0 6px 20px rgba(200,150,44,0.15) !important;
+}
+.gold-modal-top-bar {
+  height: 4px;
+  background: linear-gradient(90deg, #C8962C, #FFD700, #FFA500, #FFD700, #C8962C);
+}
+.gold-modal .modal-head {
+  background: linear-gradient(180deg, #fffbf0, #ffffff);
+}
+[data-theme="dark"] .gold-modal .modal-head {
+  background: linear-gradient(180deg, #1a1000, #0E1A34);
+}
+.gold-modal .modal-title { color: #7a4f00 !important; }
+[data-theme="dark"] .gold-modal .modal-title { color: #FFD700 !important; }
+.gold-modal .modal-tag-cat {
+  background: #FFD70018 !important;
+  color: #7a4f00 !important;
+  border: 0.5px solid #C8962C40;
+}
+.gold-modal .modal-rating-row {
+  background: #FFD70012;
+  border-color: #C8962C30;
+}
+.gold-modal .btn-action-call {
+  background: linear-gradient(135deg, #C8962C, #FFD700, #C8962C) !important;
+  color: #3d2000 !important;
+  box-shadow: 0 4px 14px rgba(200,150,44,0.4) !important;
+}
+.gold-modal .modal-actions {
+  background: linear-gradient(180deg, #fffbf0 0%, transparent 100%);
+}
+[data-theme="dark"] .gold-modal .modal-actions {
+  background: linear-gradient(180deg, #1a100050 0%, transparent 100%);
+}
+.gold-modal .info-item:hover {
+  background: #FFD70010 !important;
+  border-color: #C8962C30 !important;
+}
+.gold-modal .info-ico {
+  background: #FFD70015 !important;
+  color: #C8962C !important;
+}
+.gold-modal .modal-sec-title i { color: #C8962C !important; }
+.gold-modal .sched-day.today {
+  background: #FFD70015 !important;
+  border-color: #C8962C40 !important;
+  color: #7a4f00 !important;
+}
+[data-theme="dark"] .gold-modal .sched-day.today { color: #FFD700 !important; }
+.gold-modal .review-item { border-left-color: #C8962C !important; }
+.gold-modal .btn-submit {
+  background: linear-gradient(135deg, #C8962C, #FFD700, #C8962C) !important;
+  color: #3d2000 !important;
+}
+.gold-modal .star-picker i.active,
+.gold-modal .star-picker i:hover { color: #C8962C !important; }
+.gold-featured-star {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 12px; border-radius: 20px;
+  background: linear-gradient(135deg, #FFD700, #C8962C);
+  color: #3d2000; font-size: 0.72rem; font-weight: 700;
+  margin-left: 10px;
+  box-shadow: 0 2px 8px rgba(200,150,44,0.4);
+  vertical-align: middle;
+}
+.gold-modal .comment-form button {
+  background: linear-gradient(135deg, #C8962C, #FFD700, #C8962C) !important;
+  color: #3d2000 !important;
+  box-shadow: 0 4px 12px rgba(200,150,44,0.4) !important;
+}
+.gold-modal .comment-form button:hover {
+  box-shadow: 0 6px 20px rgba(200,150,44,0.55) !important;
+}
+/* ═══ GOLD MODAL — MISSING CSS ═══ */
+
+/* Share & QR hover */
+.gold-modal .btn-action-outline:hover {
+  border-color: #C8962C !important;
+  color: #7a4f00 !important;
+  background: #FFD70012 !important;
+}
+
+/* Like & Save hover/active */
+.gold-modal .engage-btn:hover {
+  border-color: #C8962C60 !important;
+  color: #7a4f00 !important;
+  background: #FFD70010 !important;
+}
+.gold-modal .engage-btn.liked {
+  border-color: #C8962C60 !important;
+  color: #C8962C !important;
+  background: #FFD70010 !important;
+}
+.gold-modal .engage-btn.saved {
+  border-color: #C8962C60 !important;
+  color: #7a4f00 !important;
+  background: #FFD70010 !important;
+}
+
+/* Input focus — name, review, comment */
+.gold-modal .review-form input:focus,
+.gold-modal .review-form textarea:focus,
+.gold-modal .comment-form input:focus {
+  border-color: #C8962C !important;
+  box-shadow: 0 0 0 3px rgba(200,150,44,0.18) !important;
+}
+
+/* Post Review hover */
+.gold-modal .btn-submit:hover {
+  box-shadow: 0 8px 24px rgba(200,150,44,0.5) !important;
+}
+
+/* Rating bar fill */
+.gold-modal .rating-bar-fill {
+  background: linear-gradient(90deg, #C8962C, #FFD700) !important;
+}
+
+/* Review avatar */
+.gold-modal .review-avatar {
+  background: linear-gradient(135deg, #C8962C, #FFD700) !important;
+  color: #3d2000 !important;
+}
+
+/* Rating summary & rate form background */
+.gold-modal .rating-summary {
+  background: #fffbf0 !important;
+  border-color: #C8962C25 !important;
+}
+[data-theme="dark"] .gold-modal .rating-summary {
+  background: #1a100080 !important;
+}
+.gold-modal .rate-form {
+  background: #fffbf0 !important;
+  border-color: #C8962C25 !important;
+}
+[data-theme="dark"] .gold-modal .rate-form {
+  background: #1a100080 !important;
+}
+
+/* Gallery thumb active border */
+.gold-modal .gallery-thumb.active {
+  border-color: #C8962C !important;
+}
+
+/* Gallery ctrl hover */
+.gold-modal .gallery-ctrl:hover,
+.gold-modal .gallery-expand-btn:hover {
+  background: #C8962C !important;
+}
+/* ═══ PERFORMANCE: reduce GPU load on low-end / mobile devices ═══
+   backdrop-filter (blur) is the single heaviest CSS property here —
+   it forces the GPU to re-composite blurred layers on every scroll
+   frame. On budget Android phones this causes visible scroll jank.
+   Below 768px width (mobile) we drop blur to near-zero and fall back
+   to a solid/semi-solid background instead, which looks almost
+   identical but costs the GPU nothing. */
+@media (max-width: 768px) {
+  #header, .nav-btn, .nav-search input,
+  #subcat-drawer, .subcat-header,
+  #modal-box, #modal-overlay,
+  .modal-close, .gallery-ctrl, .gallery-expand-btn, .gallery-counter,
+  #footer, .shop-card, .rv-mini, .toast, .qr-box,
+  .chip, .btn-load-more, .group-cat-card, .subcat-card,
+  .engage-btn, .btn-action-outline, .shop-fav {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  #header { background: var(--bg) !important; }
+  [data-theme="light"] #modal-overlay { background: rgba(15,23,42,0.72) !important; }
+  [data-theme="dark"] #modal-overlay  { background: rgba(5,13,31,0.85) !important; }
+  #modal-box, #subcat-drawer, .toast, .qr-box, .shop-card, .rv-mini {
+    background: var(--surface-solid) !important;
+  }
+}
+
+/* Low-power device hint: if the browser/OS reports reduced data or the
+   device can't hover (typically touch-only budget phones), also cut
+   blur regardless of screen width (covers tablets etc.). */
+@media (hover: none) and (pointer: coarse) {
+  #header, #modal-box, #subcat-drawer, .toast, .qr-box {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* PERF: low-end DESKTOP/LAPTOP handling.
+   The two rules above only cut blur by screen width or touch input —
+   a low-spec laptop with a normal mouse and a wide screen was still
+   paying full blur cost. A tiny inline script (see </body>) checks
+   navigator.hardwareConcurrency / navigator.deviceMemory and, if the
+   machine looks weak, adds `low-end` on <html> before first paint.
+   When that class is present we drop blur everywhere, same as mobile. */
+html.low-end #header, html.low-end .nav-btn, html.low-end .nav-search input,
+html.low-end #subcat-drawer, html.low-end .subcat-header,
+html.low-end #modal-box, html.low-end #modal-overlay,
+html.low-end .modal-close, html.low-end .gallery-ctrl, html.low-end .gallery-expand-btn, html.low-end .gallery-counter,
+html.low-end #footer, html.low-end .shop-card, html.low-end .rv-mini, html.low-end .toast, html.low-end .qr-box,
+html.low-end .chip, html.low-end .btn-load-more, html.low-end .group-cat-card, html.low-end .subcat-card,
+html.low-end .engage-btn, html.low-end .btn-action-outline, html.low-end .shop-fav {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+html.low-end #header { background: var(--bg) !important; }
+html.low-end #modal-box, html.low-end #subcat-drawer, html.low-end .toast,
+html.low-end .qr-box, html.low-end .shop-card, html.low-end .rv-mini {
+  background: var(--surface-solid) !important;
+}
+</style>
+
+<style>
+  #header, #hero, .main, #footer, .back-to-top { display: none !important; }
+
+  /* FIX: force the page to be scrollable no matter what inline
+     overflow:hidden style openModal() applies to <body>. */
+  html, body {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+  }
+
+  #modal-overlay {
+    position: static !important;
+    background: var(--bg) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    min-height: 100vh;
+    align-items: flex-start !important;
+    overflow: visible !important;
+    padding: 20px !important;
+  }
+  /* FIX: restore indexshop.html's original mobile behaviour (no side
+     padding on #modal-overlay below 768px) so .modal-actions buttons
+     get the same available width and wrap the same way as on the
+     homepage modal — instead of losing 40px to the standalone-only
+     padding override above. */
+  @media (max-width: 768px) {
+    #modal-overlay { padding: 0 !important; }
+  }
+  #modal-overlay.hidden { display: flex !important; }
+
+  #modal-box {
+    box-shadow: none !important;
+    margin: 0 auto !important;
+    max-width: 880px !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  @media (min-width: 640px) {
+    #modal-box { border-radius: var(--radius-xl) !important; margin: 20px auto !important; }
+  }
+
+  body { background: var(--bg) !important; }
+</style>
+<script>
+  window.addEventListener('DOMContentLoaded', function() {
+    // Close (×) button goes back to the main site instead of just
+    // hiding the modal, since this standalone page has no homepage
+    // underneath it to reveal.
+    window.closeModal = function() { window.location.href = '/rohini/indexshop.html'; };
+
+    // Extra safety net: in case anything re-applies overflow:hidden to
+    // <body> after load (e.g. re-opening a modal via JS), keep forcing
+    // scroll back on for this standalone page.
+    const enforceScroll = () => { document.body.style.overflow = ''; };
+    enforceScroll();
+    new MutationObserver(enforceScroll).observe(document.body, { attributes: true, attributeFilter: ['style'] });
+  });
+</script>
+
+</head>
+<body>
+<noscript>
+  <div style="max-width:640px;margin:24px auto;padding:0 16px;font-family:sans-serif;color:#0A1628">
+    <img src="https://res.cloudinary.com/db2tt1cy6/image/upload/v1782295402/ChatGPT_Image_Jun_24_2026_03_32_34_PM.png" alt="Gupta Stationery" style="width:100%;max-height:320px;object-fit:cover;border-radius:14px"/>
+    <h1>Gupta Stationery</h1>
+    <p><strong>Stationery</strong></p>
+    <p>Shop 12, Sector 7 Market, Rohini, Delhi</p>
+    <p>9:00 AM – 9:00 PM</p>
+    <p>Phone: +919876500001</p>
+    <p>Your one-stop shop for school and office stationery, art supplies, and printing services.</p>
+    <p><a href="/rohini/indexshop.html">View full site</a></p>
+  </div>
+</noscript>
+
+<!-- ═══ HEADER ═══ -->
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="#footer" onclick="scrollToFooter();return false" title="Jump to footer">
+      <div class="logo-mark"><i class="fas fa-location-dot"></i></div>
+      <div class="logo-name">Rohini<span>Local</span></div>
+    </a>
+    <div class="nav-search">
+      <input type="text" id="nav-search-input" placeholder="Search shops, services…" autocomplete="off"/>
+      <button class="nav-search-btn" onclick="doSearch()" aria-label="Search"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="nav-actions">
+      <a class="nav-btn" href="/rohini/indexshop.html" title="Main Website"><i class="fas fa-globe"></i></a>
+      <button class="nav-btn" id="btn-fav-nav" title="My Favorites" onclick="toggleFavPage()">
+        <i class="fas fa-heart"></i>
+        <span class="badge hidden" id="fav-badge">0</span>
+      </button>
+      <button class="nav-btn" id="theme-btn" title="Toggle Theme" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+      </button>
+      <a href="/rohini/shopadmin.html" class="nav-btn" title="Admin Panel"><i class="fas fa-user-shield"></i></a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-wrap">
+    <div class="hero-pill">
+      <span class="hero-pill-dot"><i class="fas fa-location-dot"></i></span>
+      Rohini, Delhi · Trusted since 2024
+    </div>
+    <h1 class="hero-title">
+      Discover <span class="brand-word">Local Businesses</span><br>
+      You Can <span class="accent-word">Trust</span>
+    </h1>
+    <p class="hero-sub">The premium directory connecting Rohini residents with verified local shops, services &amp; professionals — all in one place.</p>
+    <div class="hero-search">
+      <input type="text" id="hero-input" placeholder="Search by name, service, area…"/>
+      <div class="hero-search-divider"></div>
+      <select id="hero-cat-select">
+        <option value="">All Categories</option>
+      </select>
+      <div class="hero-search-submit">
+        <button class="hero-search-btn" onclick="doHeroSearch()">
+          <i class="fas fa-search"></i> Search
+        </button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num" id="stat-count"><span>0</span></div>
+        <div class="hero-stat-label">Businesses</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" id="stat-cats"><span>0</span></div>
+        <div class="hero-stat-label">Categories</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" id="stat-avg-rating">—<span>★</span></div>
+        <div class="hero-stat-label">Avg Rating</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span>100%</span></div>
+        <div class="hero-stat-label">Verified</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main">
+  <div class="sec-head reveal">
+    <h2 class="sec-title">Browse <span>Categories</span></h2>
+  </div>
+  <!-- BUG FIX: id="cat-grid" uses group-cat-grid class set in JS init -->
+  <div id="cat-grid" class="group-cat-grid reveal"></div>
+
+  <div class="filters-row" style="margin-top:8px">
+    <div class="filter-chips" id="cat-chips">
+      <div class="chip active" data-cat="" onclick="filterByCat('')">All</div>
+    </div>
+    <div class="view-toggle">
+      <div class="view-btn active" onclick="setViewMode('grid',this)" title="Grid"><i class="fas fa-grip"></i></div>
+      <div class="view-btn" onclick="setViewMode('list',this)" title="List"><i class="fas fa-list"></i></div>
+    </div>
+  </div>
+  <div class="filters-row" style="margin-top:-12px">
+    <div class="filter-chips">
+      <div class="chip active" data-filter="all" onclick="setFilter('all',this)">All</div>
+      <div class="chip" data-filter="open" onclick="setFilter('open',this)">Open Now</div>
+      <div class="chip" data-filter="rated" onclick="setFilter('rated',this)">Top Rated</div>
+      <div class="chip" data-filter="liked" onclick="setFilter('liked',this)">Most Liked</div>
+      <div class="chip" data-filter="new" onclick="setFilter('new',this)">Newest</div>
+      <div class="chip" data-filter="nearest" onclick="setFilter('nearest',this)"><i class="fas fa-location-arrow" style="margin-right:4px"></i>Nearest</div>
+    </div>
+    <div class="shops-meta" id="shops-meta">Showing 0 shops</div>
+  </div>
+
+  <div class="location-banner hidden" id="location-banner">
+    <i class="fas fa-map-marker-alt loc-ico"></i>
+    <span class="loc-text" id="location-banner-text">Enable location to see shops sorted by distance from you.</span>
+    <div class="loc-actions">
+      <button class="loc-btn" id="loc-enable-btn" onclick="handleEnableLocation()">Use My Location</button>
+      <button class="loc-btn secondary hidden" id="loc-update-btn" onclick="handleEnableLocation()">Update</button>
+      <button class="loc-btn secondary hidden" id="loc-clear-btn" onclick="handleClearLocation()">Clear</button>
+    </div>
+  </div>
+
+  <div id="shops-grid"></div>
+  <div class="load-more-wrap hidden" id="load-more-wrap">
+    <button class="btn-load-more" onclick="loadMore()">
+      Load more <i class="fas fa-chevron-down"></i>
+    </button>
+  </div>
+
+  <div class="rv-section hidden" id="rv-section">
+    <div class="sec-head">
+      <h2 class="sec-title">Recently <span>Viewed</span></h2>
+      <button class="sec-link" onclick="clearAllRV()" style="color:var(--error);opacity:0.8">
+        <i class="fas fa-trash-alt"></i> Clear All
+      </button>
+    </div>
+    <div class="rv-scroll" id="rv-scroll"></div>
+  </div>
+
+  <div id="fav-page" class="hidden">
+    <div class="sec-head">
+      <h2 class="sec-title">My <span>Favorites</span></h2>
+      <button class="sec-link" onclick="toggleFavPage()" style="color:var(--text-muted)">
+        <i class="fas fa-times"></i> Close
+      </button>
+    </div>
+    <div id="fav-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;"></div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">
+          <div class="logo-mark"><i class="fas fa-location-dot"></i></div>
+          <div class="logo-name">Rohini<span>Local</span></div>
+        </div>
+        <p class="footer-brand-desc">Your trusted local business directory for Rohini and surrounding areas. Connecting customers with quality local services.</p>
+        <a class="footer-main-site-link" href="/index.html"><i class="fas fa-globe"></i> Visit Main Website</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Quick Links</div>
+        <ul>
+          <li><a href="#" onclick="clearFilters();return false">All Shops</a></li>
+          <li><a href="#" onclick="toggleFavPage();return false">My Favorites</a></li>
+          <li><a href="../shopadmin.html">Admin Panel</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Categories</div>
+        <ul id="footer-cats"></ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Get In Touch</div>
+        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Rohini, New Delhi, India</span></div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+91 98765 43210</span></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>hello@rohinilocal.in</span></div>
+        <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Mon–Sat, 9 AM – 8 PM</span></div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Advertise</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 RohiniLocal. All rights reserved.</span>
+      <div class="footer-socials">
+        <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ SUBCAT DRAWER ═══ -->
+<div id="subcat-overlay" class="hidden" onclick="handleSubcatOverlayClick(event)">
+  <div id="subcat-drawer"></div>
+</div>
+
+<!-- ═══ MODAL ═══ -->
+<div id="modal-overlay" class="hidden" onclick="handleOverlayClick(event)">
+  <div id="modal-box"></div>
+</div>
+
+<!-- ═══ LIGHTBOX ═══ -->
+<div id="lightbox" class="hidden" onclick="closeLightbox()">
+  <button id="lb-close" onclick="event.stopPropagation();closeLightbox()"><i class="fas fa-times"></i></button>
+  <button class="lb-ctrl" id="lb-prev" onclick="event.stopPropagation();lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+  <img id="lb-img" src="" alt="Gallery photo"/>
+  <button class="lb-ctrl" id="lb-next" onclick="event.stopPropagation();lbNav(1)"><i class="fas fa-chevron-right"></i></button>
+</div>
+
+<!-- ═══ QR MODAL ═══ -->
+<div id="qr-modal" class="hidden" onclick="closeQR()">
+  <div class="qr-box" onclick="event.stopPropagation()">
+    <div class="qr-title">Share via QR</div>
+    <div class="qr-subtitle" id="qr-name"></div>
+    <canvas id="qr-canvas" width="200" height="200"></canvas>
+    <div class="qr-link-row">
+      <input type="text" id="qr-link" readonly/>
+      <button onclick="copyQR()">Copy</button>
+    </div>
+    <button class="btn-submit" style="margin-top:14px;width:100%;justify-content:center" onclick="closeQR()">Close</button>
+  </div>
+</div>
+
+<!-- ═══ TOASTS ═══ -->
+<div id="toast-wrap"></div>
+
+<!-- ═══ BACK TO TOP ═══ -->
+<button class="back-to-top" id="back-to-top-btn" onclick="scrollToTop()" aria-label="Back to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+/* ══════════════════════════════════════════
+   IMAGE SYSTEM
+══════════════════════════════════════════ */
+
+/**
+ * BUG FIX: placeholders now use a reliable picsum-style fallback instead of
+ * a broken Cloudinary URL, so 404 errors in the console are eliminated.
+ * Each role gets a visually distinct seed so they don't all look identical.
+ */
+function _placeholderImg(seed, w, h) {
+  // Uses a deterministic color-block SVG encoded as data URI — zero network requests
+  const hue = Math.abs(String(seed).split('').reduce((a, c) => a + c.charCodeAt(0), 0)) % 360;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="100%" height="100%" fill="hsl(${hue},40%,88%)"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="14" fill="hsl(${hue},40%,55%)">No Image</text></svg>`;
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+
+const IMG_PLACEHOLDERS = {
+  card:    id => _placeholderImg('card-' + id,    640, 400),
+  cover:   id => _placeholderImg('cover-' + id,  1280, 720),
+  gallery: id => _placeholderImg('gallery-' + id, 800, 600),
+};
+
+function isValidImageRef(v) {
+  return typeof v === 'string' && v.trim().length > 0;
+}
+
+const ImageResolver = {
+  getCardImage(shop) {
+    if (isValidImageRef(shop && shop.cardImage)) return shop.cardImage;
+    if (isValidImageRef(shop && shop.image)) return shop.image;
+    return IMG_PLACEHOLDERS.card(shop ? shop.id : 'x');
+  },
+  getCoverImage(shop) {
+    if (isValidImageRef(shop && shop.coverImage)) return shop.coverImage;
+    if (isValidImageRef(shop && shop.image)) return shop.image;
+    return IMG_PLACEHOLDERS.cover(shop ? shop.id : 'x');
+  },
+  getLogoImage(shop) {
+    if (isValidImageRef(shop && shop.logoImage)) return shop.logoImage;
+    return null;
+  },
+  getGalleryImages(shop) {
+    if (shop && Array.isArray(shop.galleryImages)) {
+      return shop.galleryImages.filter(isValidImageRef);
+    }
+    return [];
+  },
+  getGalleryImageAt(shop, index) {
+    const list = this.getGalleryImages(shop);
+    if (list.length && index >= 0 && index < list.length) return list[index];
+    return IMG_PLACEHOLDERS.gallery((shop ? shop.id : 'x') + '-' + index);
+  }
+};
+
+function imgFallbackAttr(placeholderUrl) {
+  const safe = placeholderUrl.replace(/'/g, '%27');
+  return `onerror="this.onerror=null;this.src='${safe}'"`;
+}
+
+/* Optional fields helpers */
+function isTruthyStr(v) { return typeof v === 'string' && v.trim().length > 0; }
+
+/* ══════════════════════════════════════════
+   FIX #9c: URL sanitizer to block javascript:/data: href injection
+   Used everywhere a user-influenced or admin-entered URL is rendered
+   as an href attribute (websiteUrl, bookingUrl, mapLink).
+══════════════════════════════════════════ */
+function sanitizeUrl(url) {
+  if (!isTruthyStr(url)) return '#';
+  try {
+    const u = new URL(url, window.location.href);
+    if (u.protocol === 'http:' || u.protocol === 'https:') return u.href;
+    return '#';
+  } catch (e) {
+    return '#';
+  }
+}
+
+function renderVerifiedBadge(shop, size) {
+  if (!shop || !shop.verified) return '';
+  const cls = size === 'lg' ? 'shop-verified-badge lg' : 'shop-verified-badge';
+  return `<span class="${cls}"><i class="fas fa-circle-check"></i> Verified</span>`;
+}
+function renderWebsiteButton(shop) {
+  if (!shop || !isTruthyStr(shop.websiteUrl)) return '';
+  return `<a class="btn-action btn-action-website" href="${esc(sanitizeUrl(shop.websiteUrl))}" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i> Website</a>`;
+}
+function renderBookingButton(shop) {
+  if (!shop || !isTruthyStr(shop.bookingUrl)) return '';
+  return `<a class="btn-action btn-action-book" href="${esc(sanitizeUrl(shop.bookingUrl))}" target="_blank" rel="noopener noreferrer"><i class="fas fa-calendar-check"></i> Book</a>`;
+}
+function renderSinceInfoItem(shop) {
+  let html = '';
+  if (shop && isTruthyStr(String(shop.since || ''))) {
+    html += `<div class="info-item"><div class="info-ico"><i class="fas fa-calendar-alt"></i></div><div style="min-width:0"><div class="info-label">Since</div><div class="info-val">${esc(shop.since)}</div></div></div>`;
+  }
+  if (shop && isTruthyStr(String(shop.email || ''))) {
+    html += `<div class="info-item"><div class="info-ico"><i class="fas fa-envelope"></i></div><div style="min-width:0"><div class="info-label">Email</div><div class="info-val">${esc(shop.email)}</div></div></div>`;
+  }
+  return html;
+}
+
+/* ══════════════════════════════════════════
+   FIX #12: Lightweight structured error logger.
+   Replaces silent catch(e){} swallowing. Logs to console
+   in a structured way now; swap LOG_SINK for a real
+   monitoring call (Sentry.captureException, etc.) later —
+   every call site is already routed through here.
+══════════════════════════════════════════ */
+const AppLog = {
+  _buffer: [],
+  error(scope, err, extra) {
+    const entry = { ts: new Date().toISOString(), scope, message: err && err.message ? err.message : String(err), extra: extra || null };
+    this._buffer.push(entry);
+    if (this._buffer.length > 200) this._buffer.shift(); // bound memory
+    console.error(`[${scope}]`, entry.message, extra || '');
+  },
+  warn(scope, msg, extra) {
+    console.warn(`[${scope}]`, msg, extra || '');
+  },
+  getRecent() { return this._buffer.slice(); }
+};
+
+/* ══════════════════════════════════════════
+   DEVICE ID
+══════════════════════════════════════════ */
+function getDeviceId() {
+  let id;
+  try { id = localStorage.getItem('dl_device_id'); } catch(e) { id = null; }
+  if (!id) {
+    id = 'dev_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+    try { localStorage.setItem('dl_device_id', id); } catch(e) {}
+  }
+  return id;
+}
+const DEVICE_ID = getDeviceId();
+
+/* ══════════════════════════════════════════
+   FIX #10 (partial client-side throttle):
+   Real spam/rate-limit protection MUST live in Firestore
+   Security Rules + Firebase App Check (server-enforced —
+   cannot be done from client JS alone). This client-side
+   throttle only stops accidental double-submits / rapid
+   button mashing from a single honest user; it is NOT a
+   substitute for server-side rules. See chat notes for the
+   exact Security Rules snippet to add in Firebase Console.
+══════════════════════════════════════════ */
+const ActionThrottle = {
+  _lastAt: {},
+  MIN_GAP_MS: 4000,
+  canProceed(key) {
+    const now = Date.now();
+    const last = this._lastAt[key] || 0;
+    if (now - last < this.MIN_GAP_MS) return false;
+    this._lastAt[key] = now;
+    return true;
+  }
+};
+
+/* ══════════════════════════════════════════
+   GEO UTILITIES
+══════════════════════════════════════════ */
+function haversineKm(lat1, lon1, lat2, lon2) {
+  if ([lat1, lon1, lat2, lon2].some(v => typeof v !== 'number' || Number.isNaN(v))) return Infinity;
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+function isValidCoord(lat, lng) {
+  return typeof lat === 'number' && typeof lng === 'number' &&
+    !Number.isNaN(lat) && !Number.isNaN(lng) &&
+    lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180 && !(lat === 0 && lng === 0);
+}
+
+const OSRM_BASE = 'https://router.project-osrm.org/route/v1/driving/';
+const RoadDistanceQueue = {
+  _queue:[], _running:false, _lastCallAt:0, MIN_GAP_MS:350,
+  enqueue(fn) { return new Promise(resolve => { this._queue.push({fn,resolve}); this._run(); }); },
+  async _run() {
+    if (this._running) return;
+    this._running = true;
+    while (this._queue.length) {
+      const {fn,resolve} = this._queue.shift();
+      const wait = Math.max(0, this.MIN_GAP_MS - (Date.now() - this._lastCallAt));
+      if (wait > 0) await new Promise(r => setTimeout(r, wait));
+      this._lastCallAt = Date.now();
+      let result = null;
+      try { result = await fn(); } catch(e) { AppLog.error('RoadDistanceQueue', e); }
+      resolve(result);
+    }
+    this._running = false;
+  }
+};
+/* ══════════════════════════════════════════
+   FIX #5 (cache bounds): localStorage caches now cap
+   their entry count (LRU-ish: oldest keys dropped first)
+   so they can never silently fail once the 5-10MB browser
+   quota is hit on a large 5,000-shop dataset.
+══════════════════════════════════════════ */
+const RoadDistanceCache = {
+  LS_KEY:'dl_road_dist_cache_v1', _mem:null, MAX_ENTRIES: 500,
+  _load() { if(this._mem) return this._mem; try{this._mem=JSON.parse(localStorage.getItem(this.LS_KEY)||'{}');}catch(e){this._mem={};} return this._mem; },
+  _save() {
+    try{
+      const keys = Object.keys(this._mem||{});
+      if (keys.length > this.MAX_ENTRIES) {
+        // drop oldest entries (insertion order) until back under the cap
+        const toDrop = keys.length - this.MAX_ENTRIES;
+        keys.slice(0, toDrop).forEach(k => delete this._mem[k]);
+      }
+      localStorage.setItem(this.LS_KEY,JSON.stringify(this._mem||{}));
+    }catch(e){ AppLog.warn('RoadDistanceCache', 'localStorage write failed, cache not persisted', e); }
+  },
+  _key(uLat,uLng,sid) { return `${uLat.toFixed(4)},${uLng.toFixed(4)}:${sid}`; },
+  get(uLat,uLng,sid) { return this._load()[this._key(uLat,uLng,sid)]||null; },
+  set(uLat,uLng,sid,data) { const c=this._load(); c[this._key(uLat,uLng,sid)]=data; this._mem=c; this._save(); }
+};
+function fetchRoadDistance(uLat,uLng,sLat,sLng) {
+  return RoadDistanceQueue.enqueue(async () => {
+    try {
+      const url = `${OSRM_BASE}${uLng},${uLat};${sLng},${sLat}?overview=false`;
+      const res = await fetch(url);
+      if(!res.ok) return null;
+      const data = await res.json();
+      if(data.code!=='Ok'||!data.routes||!data.routes.length) return null;
+      return { km: data.routes[0].distance/1000, minutes: data.routes[0].duration/60 };
+    } catch(e) { AppLog.error('fetchRoadDistance', e); return null; }
+  });
+}
+async function getRoadDistance(uLat,uLng,shop,sLat,sLng) {
+  const cached = RoadDistanceCache.get(uLat,uLng,shop.id);
+  if (cached) return cached;
+  const r = await fetchRoadDistance(uLat,uLng,sLat,sLng);
+  if (r) { const p={km:r.km,minutes:r.minutes,isRoadDistance:true}; RoadDistanceCache.set(uLat,uLng,shop.id,p); return p; }
+  return { km: haversineKm(uLat,uLng,sLat,sLng), minutes:null, isRoadDistance:false };
+}
+const NominatimQueue = {
+  _queue:[], _running:false, _lastCallAt:0, MIN_GAP_MS:1100,
+  enqueue(fn) { return new Promise(resolve => { this._queue.push({fn,resolve}); this._run(); }); },
+  async _run() {
+    if(this._running) return; this._running=true;
+    while(this._queue.length) {
+      const {fn,resolve}=this._queue.shift();
+      const wait=Math.max(0,this.MIN_GAP_MS-(Date.now()-this._lastCallAt));
+      if(wait>0) await new Promise(r=>setTimeout(r,wait));
+      this._lastCallAt=Date.now();
+      let r=null; try{r=await fn();}catch(e){ AppLog.error('NominatimQueue', e); }
+      resolve(r);
+    }
+    this._running=false;
+  }
+};
+const GeoStore = {
+  LS_KEY:'dl_user_location',
+  async save(lat,lng) {
+    const p={lat,lng,savedAt:Date.now()};
+    try{localStorage.setItem(this.LS_KEY,JSON.stringify(p));}catch(e){ AppLog.warn('GeoStore.save', 'localStorage failed', e); }
+    if(window.__FB_READY&&window.__FB_DB){try{const{doc,setDoc}=window.__FB;await setDoc(doc(window.__FB_DB,'userLocations',DEVICE_ID),p);}catch(e){ AppLog.error('GeoStore.save', e); }}
+    return p;
+  },
+  async load() {
+    if(window.__FB_READY&&window.__FB_DB){try{const{doc,getDoc}=window.__FB;const snap=await getDoc(doc(window.__FB_DB,'userLocations',DEVICE_ID));if(snap.exists()){const d=snap.data();try{localStorage.setItem(this.LS_KEY,JSON.stringify(d));}catch(e){}return d;}}catch(e){ AppLog.error('GeoStore.load', e); }}
+    try{const r=localStorage.getItem(this.LS_KEY);return r?JSON.parse(r):null;}catch(e){return null;}
+  },
+  async clear() {
+    try{localStorage.removeItem(this.LS_KEY);}catch(e){}
+    if(window.__FB_READY&&window.__FB_DB){try{const{doc,deleteDoc}=window.__FB;if(deleteDoc)await deleteDoc(doc(window.__FB_DB,'userLocations',DEVICE_ID));}catch(e){ AppLog.error('GeoStore.clear', e); }}
+  }
+};
+function requestGeolocation() {
+  return new Promise((resolve,reject)=>{
+    if(!('geolocation' in navigator)){reject(new Error('Geolocation not supported'));return;}
+    navigator.geolocation.getCurrentPosition(
+      pos=>resolve({lat:pos.coords.latitude,lng:pos.coords.longitude}),
+      err=>{
+        const msgs={1:'Location permission denied. Enable it in browser settings.',2:'Location unavailable. Try again.',3:'Location request timed out.'};
+        reject(new Error(msgs[err.code]||'Unable to get location.'));
+      },
+      {enableHighAccuracy:true,timeout:10000,maximumAge:5*60*1000}
+    );
+  });
+}
+const GeocodeCache = {
+  LS_KEY:'dl_geocode_cache_v1', _mem:null, MAX_ENTRIES: 1000,
+  _load() { if(this._mem)return this._mem; try{this._mem=JSON.parse(localStorage.getItem(this.LS_KEY)||'{}');}catch(e){this._mem={};} return this._mem; },
+  _save() {
+    try{
+      const keys = Object.keys(this._mem||{});
+      if (keys.length > this.MAX_ENTRIES) {
+        const toDrop = keys.length - this.MAX_ENTRIES;
+        keys.slice(0, toDrop).forEach(k => delete this._mem[k]);
+      }
+      localStorage.setItem(this.LS_KEY,JSON.stringify(this._mem||{}));
+    }catch(e){ AppLog.warn('GeocodeCache', 'localStorage write failed, cache not persisted', e); }
+  },
+  getLocal(id) { return this._load()[id]||null; },
+  setLocal(id,c) { const m=this._load(); m[id]=c; this._mem=m; this._save(); },
+  async getShared(id) { if(!window.__FB_READY||!window.__FB_DB)return null; try{const{doc,getDoc}=window.__FB;const s=await getDoc(doc(window.__FB_DB,'shopGeocodes',String(id)));return s.exists()?s.data():null;}catch(e){ AppLog.error('GeocodeCache.getShared', e); return null; } },
+  async getSharedBatch(ids) {
+    const out={};
+    if(!window.__FB_READY||!window.__FB_DB||!ids.length)return out;
+    const{collection,query,where,documentId,getDocs}=window.__FB;
+    const chunks=[];
+    for(let i=0;i<ids.length;i+=30)chunks.push(ids.slice(i,i+30));
+    try{ const rs=await Promise.all(chunks.map(c=>getDocs(query(collection(window.__FB_DB,'shopGeocodes'),where(documentId(),'in',c.map(String)))))); rs.forEach(s=>s.forEach(d=>{out[d.id]=d.data();})); }catch(e){ AppLog.error('GeocodeCache.getSharedBatch', e); }
+    return out;
+  },
+  setShared(id,c) { if(!window.__FB_READY||!window.__FB_DB)return; const{doc,setDoc}=window.__FB; setDoc(doc(window.__FB_DB,'shopGeocodes',String(id)),c).catch((e)=>{ AppLog.error('GeocodeCache.setShared', e); }); },
+  geocodeAddress(addr) {
+    return NominatimQueue.enqueue(async()=>{
+      try{
+        const url=`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(addr)}`;
+        const r=await fetch(url,{headers:{'Accept-Language':'en'}});
+        if(!r.ok)return null;
+        const d=await r.json();
+        if(!d||!d.length)return null;
+        const lat=parseFloat(d[0].lat),lng=parseFloat(d[0].lon);
+        return isValidCoord(lat,lng)?{lat,lng}:null;
+      }catch(e){ AppLog.error('GeocodeCache.geocodeAddress', e); return null; }
+    });
+  },
+  async resolve(shop) {
+    if(isValidCoord(shop.lat,shop.lng))return{lat:shop.lat,lng:shop.lng};
+    const l=this.getLocal(shop.id);
+    if(l&&isValidCoord(l.lat,l.lng))return l;
+    const s=await this.getShared(shop.id);
+    if(s&&isValidCoord(s.lat,s.lng)){this.setLocal(shop.id,s);return s;}
+    const g=await this.geocodeAddress(shop.address+', India');
+    if(g){this.setLocal(shop.id,g);this.setShared(shop.id,g);return g;}
+    return null;
+  }
+};
+
+/* ══════════════════════════════════════════
+   CATEGORIES
+══════════════════════════════════════════ */
+const CAT_GROUPS = [
+  { id:"retail", name:"Retail & Daily Needs", icon:"fa-shopping-bag", color:"#10B981",
+    cats:[
+      {name:"Grocery Store",      icon:"fa-shopping-basket",  color:"#10B981"},
+      {name:"Medical Store",      icon:"fa-prescription-bottle-alt",color:"#EF4444"},
+      {name:"Dairy",              icon:"fa-glass-whiskey",    color:"#A21CAF"},
+      {name:"Sweet Shop",         icon:"fa-candy-cane",       color:"#DB2777"},
+      {name:"Bakery",             icon:"fa-bread-slice",      color:"#D97706"},
+      {name:"Fruits & Vegetables",icon:"fa-apple-alt",        color:"#15803D"},
+      {name:"Meat & Poultry",     icon:"fa-drumstick-bite",   color:"#B45309"},
+      {name:"Stationery",         icon:"fa-pencil-ruler",     color:"#6366F1"},
+      {name:"Gift Shop",          icon:"fa-gift",             color:"#EC4899"},
+      {name:"Book Store",         icon:"fa-book",             color:"#4F46E5"},
+      {name:"Toy Store",          icon:"fa-puzzle-piece",     color:"#F59E0B"},
+    ]},
+  { id:"home_services", name:"Home Services & Repair", icon:"fa-tools", color:"#F59E0B",
+    cats:[
+      {name:"Electrical Shop",    icon:"fa-bolt",             color:"#F59E0B"},
+      {name:"Electrician",        icon:"fa-plug",             color:"#EAB308"},
+      {name:"Plumber",            icon:"fa-wrench",           color:"#0284C7"},
+      {name:"AC Repair",          icon:"fa-snowflake",        color:"#0EA5E9"},
+      {name:"Hardware Shop",      icon:"fa-tools",            color:"#92400E"},
+      {name:"Mobile Repair",      icon:"fa-mobile-alt",       color:"#8B5CF6"},
+      {name:"Automobile Repair",  icon:"fa-car-crash",        color:"#374151"},
+      {name:"Carpenter",          icon:"fa-hammer",           color:"#A16207"},
+      {name:"Pest Control",       icon:"fa-bug",              color:"#16A34A"},
+      {name:"Kabadi",             icon:"fa-recycle",          color:"#10B981"},
+      {name:"Water Purifier Service",icon:"fa-tint",          color:"#0284C7"},
+    ]},
+  { id:"fashion", name:"Fashion & Lifestyle", icon:"fa-tshirt", color:"#EC4899",
+    cats:[
+      {name:"Tailor",             icon:"fa-cut",              color:"#EC4899"},
+      {name:"Beauty Parlour",     icon:"fa-spa",              color:"#9333EA"},
+      {name:"Barber / Salon",     icon:"fa-scissors",         color:"#0D9488"},
+      {name:"Clothing Store",     icon:"fa-tshirt",           color:"#BE185D"},
+      {name:"Footwear Shop",      icon:"fa-shoe-prints",      color:"#92400E"},
+      {name:"Jewellery Shop",     icon:"fa-gem",              color:"#B45309"},
+      {name:"Laundry",            icon:"fa-tshirt",           color:"#6366F1"},
+    ]},
+  { id:"food", name:"Food & Beverage", icon:"fa-utensils", color:"#F97316",
+    cats:[
+      {name:"Restaurant",         icon:"fa-utensils",         color:"#F97316"},
+      {name:"Dhaba",              icon:"fa-fire",             color:"#DC2626"},
+      {name:"Fast Food",          icon:"fa-hamburger",        color:"#EF4444"},
+      {name:"Tea & Snacks",       icon:"fa-mug-hot",          color:"#D97706"},
+      {name:"Juice & Beverages",  icon:"fa-glass-cheers",     color:"#16A34A"},
+      {name:"Catering Service",   icon:"fa-concierge-bell",   color:"#9333EA"},
+      {name:"Tiffin Service",     icon:"fa-box-open",         color:"#0284C7"},
+    ]},
+  { id:"education", name:"Education & Coaching", icon:"fa-graduation-cap", color:"#4F46E5",
+    cats:[
+      {name:"Coaching Center",    icon:"fa-graduation-cap",   color:"#4F46E5"},
+      {name:"School",             icon:"fa-school",           color:"#1D4ED8"},
+      {name:"Play School",        icon:"fa-child",            color:"#F59E0B"},
+      {name:"Dance & Music Academy",icon:"fa-music",          color:"#9333EA"},
+      {name:"Computer Training",  icon:"fa-laptop-code",      color:"#0EA5E9"},
+      {name:"Art & Craft Classes",icon:"fa-paint-brush",      color:"#EC4899"},
+    ]},
+  { id:"health", name:"Health & Wellness", icon:"fa-heartbeat", color:"#EF4444",
+    cats:[
+      {name:"Clinic / Doctor",    icon:"fa-stethoscope",      color:"#06B6D4"},
+      {name:"Dental Clinic",      icon:"fa-tooth",            color:"#3B82F6"},
+      {name:"Physiotherapy",      icon:"fa-walking",          color:"#10B981"},
+      {name:"Pathology / Lab",    icon:"fa-vial",             color:"#8B5CF6"},
+      {name:"Ayurvedic / Homeopathic",icon:"fa-leaf",         color:"#15803D"},
+      {name:"Gym & Fitness",      icon:"fa-dumbbell",         color:"#EF4444"},
+      {name:"Yoga Center",        icon:"fa-spa",              color:"#A21CAF"},
+    ]},
+  { id:"professional", name:"Professional Services", icon:"fa-briefcase", color:"#2563EB",
+    cats:[
+      {name:"CA / Accountant",    icon:"fa-calculator",       color:"#1D4ED8"},
+      {name:"Advocate / Lawyer",  icon:"fa-balance-scale",    color:"#374151"},
+      {name:"Travel Agency",      icon:"fa-plane",            color:"#0EA5E9"},
+      {name:"Insurance Agent",    icon:"fa-shield-alt",       color:"#4F46E5"},
+      {name:"Property Dealer",    icon:"fa-building",         color:"#1D4ED8"},
+      {name:"Courier & Logistics",icon:"fa-box",              color:"#7C3AED"},
+      {name:"Cyber Cafe",         icon:"fa-wifi",             color:"#14B8A6"},
+      {name:"Printing Shop",      icon:"fa-print",            color:"#475569"},
+      {name:"Photography Studio", icon:"fa-camera",           color:"#9333EA"},
+      {name:"Event Management",   icon:"fa-calendar-check",   color:"#DB2777"},
+    ]},
+  { id:"religious", name:"Religious & Spiritual", icon:"fa-fire", color:"#DC2626",
+    cats:[
+      {name:"Pooja Store",        icon:"fa-fire",             color:"#DC2626"},
+      {name:"Temple / Mandir",    icon:"fa-place-of-worship", color:"#F59E0B"},
+    ]},
+];
+
+const CATS = CAT_GROUPS.flatMap(g => g.cats);
+
+/* ══════════════════════════════════════════
+   DATA — FROM shops.js (SHOPS_BASE) ONLY
+══════════════════════════════════════════ */
+function getShops() {
+  if (typeof SHOPS_BASE !== 'undefined' && Array.isArray(SHOPS_BASE)) return SHOPS_BASE;
+  return [];
+}
+
+/* ══════════════════════════════════════════
+   FIX #1: Precomputed category-count index.
+   Built once per shops dataset instead of re-filtering
+   the full shop array for every category/group on every
+   render. This turns an O(groups × cats × shops) scan into
+   a single O(shops) pass plus O(1) lookups.
+══════════════════════════════════════════ */
+let _categoryCountMapCache = null;
+let _categoryCountMapForLength = -1;
+function getCategoryCountMap() {
+  const shops = getShops();
+  // Cheap invalidation check: if the shop count changed, rebuild.
+  // (Good enough for a static shops.js dataset; if shops become
+  // dynamically mutable at runtime, call invalidateCategoryCountMap()
+  // explicitly after any add/edit/delete.)
+  if (_categoryCountMapCache && _categoryCountMapForLength === shops.length) {
+    return _categoryCountMapCache;
+  }
+  const map = {};
+  for (let i = 0; i < shops.length; i++) {
+    const cat = shops[i].category;
+    map[cat] = (map[cat] || 0) + 1;
+  }
+  _categoryCountMapCache = map;
+  _categoryCountMapForLength = shops.length;
+  return map;
+}
+function invalidateCategoryCountMap() {
+  _categoryCountMapCache = null;
+  _categoryCountMapForLength = -1;
+}
+
+/* ══════════════════════════════════════════
+   FIREBASE HELPERS
+══════════════════════════════════════════ */
+const FB = {
+  async getShopDoc(shopId) {
+    if (!window.__FB_READY || !window.__FB_DB) return null;
+    const {doc,getDoc,setDoc} = window.__FB;
+    const ref = doc(window.__FB_DB,'shops',String(shopId));
+    try {
+      const snap = await getDoc(ref);
+      if (!snap.exists()) {
+        const def = {likeCount:0,ratingTotal:0,ratingCount:0,ratingBreakdown:{1:0,2:0,3:0,4:0,5:0}};
+        try { await setDoc(ref,def); } catch(e) { AppLog.error('FB.getShopDoc.setDoc', e); }
+        return def;
+      }
+      return snap.data();
+    } catch(e) { AppLog.error('FB.getShopDoc', e); return null; }
+  },
+  /* ════════════════════════════════════════
+     FIX #4: Batched, one-time stat fetch for a page of
+     shop cards. Replaces N individual onSnapshot()
+     listeners (2 per card: like + rating) with a SINGLE
+     Firestore "in" query for up to 30 ids at once, using a
+     plain getDocs() (one-time read) instead of a live
+     listener. This is the single biggest scalability fix
+     in this file — see chat notes for why.
+  ════════════════════════════════════════ */
+  async getShopStatsBatch(shopIds) {
+    const out = {};
+    if (!shopIds.length) return out;
+    if (!window.__FB_READY || !window.__FB_DB) {
+      shopIds.forEach(id => {
+        const rd = FB._localGetRatingData(id);
+        out[id] = { likeCount: FB._localLikeCount(id), ratingTotal: rd.total, ratingCount: rd.count, ratingBreakdown: rd.bd };
+      });
+      return out;
+    }
+    const { collection, query, where, documentId, getDocs } = window.__FB;
+    const chunks = [];
+    for (let i = 0; i < shopIds.length; i += 30) chunks.push(shopIds.slice(i, i + 30));
+    try {
+      const results = await Promise.all(chunks.map(c =>
+        getDocs(query(collection(window.__FB_DB, 'shops'), where(documentId(), 'in', c.map(String))))
+      ));
+      results.forEach(snap => snap.forEach(d => { out[d.id] = d.data(); }));
+    } catch (e) {
+      AppLog.error('FB.getShopStatsBatch', e);
+    }
+    return out;
+  },
+  async toggleLike(shopId) {
+    if (!ActionThrottle.canProceed('like-'+shopId)) return FB._localIsLiked(shopId);
+    if (!window.__FB_READY || !window.__FB_DB) return FB._localToggleLike(shopId);
+    const {doc,getDoc,setDoc,updateDoc,increment} = window.__FB;
+    const db = window.__FB_DB;
+    const likerRef = doc(db,'shops',String(shopId),'likers',DEVICE_ID);
+    const shopRef  = doc(db,'shops',String(shopId));
+    try {
+      const shopSnap = await getDoc(shopRef);
+      if (!shopSnap.exists()) { try{await setDoc(shopRef,{likeCount:0,ratingTotal:0,ratingCount:0,ratingBreakdown:{1:0,2:0,3:0,4:0,5:0}});}catch(e){ AppLog.error('FB.toggleLike.initShop', e); } }
+      const likerSnap = await getDoc(likerRef);
+      const alreadyLiked = likerSnap.exists() && likerSnap.data().liked === true;
+      if (alreadyLiked) {
+        await setDoc(likerRef,{liked:false,deviceId:DEVICE_ID,ts:Date.now()},{merge:true});
+        const fresh = await getDoc(shopRef);
+        const cnt = fresh.exists()?(fresh.data().likeCount||0):0;
+        if (cnt > 0) await updateDoc(shopRef,{likeCount:increment(-1)});
+        return false;
+      } else {
+        await setDoc(likerRef,{liked:true,deviceId:DEVICE_ID,ts:Date.now()},{merge:true});
+        await updateDoc(shopRef,{likeCount:increment(1)});
+        return true;
+      }
+    } catch(e) { AppLog.error('FB.toggleLike', e); toast('Could not update like','error'); return FB._localIsLiked(shopId); }
+  },
+  async isLiked(shopId) {
+    if (!window.__FB_READY || !window.__FB_DB) return FB._localIsLiked(shopId);
+    try { const {doc,getDoc}=window.__FB; const s=await getDoc(doc(window.__FB_DB,'shops',String(shopId),'likers',DEVICE_ID)); return s.exists()&&s.data().liked===true; } catch(e){ AppLog.error('FB.isLiked', e); return FB._localIsLiked(shopId); }
+  },
+  async submitRating(shopId,stars) {
+    if (!ActionThrottle.canProceed('rate-'+shopId)) return {error:'too_fast'};
+    if (!window.__FB_READY || !window.__FB_DB) return FB._localSubmitRating(shopId,stars);
+    const {doc,getDoc,setDoc,updateDoc,increment}=window.__FB;
+    const db=window.__FB_DB;
+    const raterRef=doc(db,'shops',String(shopId),'raters',DEVICE_ID);
+    const shopRef=doc(db,'shops',String(shopId));
+    const s=Number(stars);
+    if(!Number.isInteger(s)||s<1||s>5) return {error:'invalid_rating'};
+    try {
+      const raterSnap=await getDoc(raterRef);
+      if(raterSnap.exists()) return {error:'already_rated',prev:raterSnap.data().stars};
+      const shopSnap=await getDoc(shopRef);
+      if(!shopSnap.exists()){try{await setDoc(shopRef,{likeCount:0,ratingTotal:0,ratingCount:0,ratingBreakdown:{1:0,2:0,3:0,4:0,5:0}});}catch(e){ AppLog.error('FB.submitRating.initShop', e); }}
+      await Promise.all([
+        setDoc(raterRef,{stars:s,deviceId:DEVICE_ID,ts:Date.now()}),
+        updateDoc(shopRef,{ratingTotal:increment(s),ratingCount:increment(1),['ratingBreakdown.'+s]:increment(1)})
+      ]);
+      return {ok:true};
+    } catch(e){ AppLog.error('FB.submitRating', e); return {error:'write_failed'}; }
+  },
+  subscribeTo(shopId,cb) {
+    if(!window.__FB_READY||!window.__FB_DB) return ()=>{};
+    try {
+      const {doc,onSnapshot}=window.__FB;
+      return onSnapshot(doc(window.__FB_DB,'shops',String(shopId)),snap=>{if(snap.exists())cb(snap.data());},(e)=>{ AppLog.error('FB.subscribeTo', e); });
+    } catch(e){ AppLog.error('FB.subscribeTo', e); return ()=>{}; }
+  },
+  async addReview(shopId,name,stars,text) {
+    if (!ActionThrottle.canProceed('review-'+shopId)) return {error:'too_fast'};
+    name=String(name||'').trim().slice(0,50); text=String(text||'').trim().slice(0,400);
+    const s=Number(stars);
+    if(!name||!text||!Number.isInteger(s)||s<1||s>5) return {error:'invalid_input'};
+    if(!window.__FB_READY||!window.__FB_DB) return FB._localAddReview(shopId,name,s,text);
+    try {
+      const {collection,addDoc,serverTimestamp}=window.__FB;
+      await addDoc(collection(window.__FB_DB,'shops',String(shopId),'reviews'),{name,stars:s,text,deviceId:DEVICE_ID,ts:serverTimestamp(),date:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})});
+      return {ok:true};
+    } catch(e){ AppLog.error('FB.addReview', e); return {error:'write_failed'}; }
+  },
+  async getReviews(shopId) {
+    if(!window.__FB_READY||!window.__FB_DB) return FB._localGetReviews(shopId);
+    try {
+      const {collection,query,orderBy,limit,getDocs}=window.__FB;
+      // FIX: cap reviews fetched per shop (50) — an unbounded orderBy
+      // query on a popular shop with thousands of reviews would pull
+      // everything on every modal open otherwise.
+      const q=query(collection(window.__FB_DB,'shops',String(shopId),'reviews'),orderBy('ts','desc'),limit(50));
+      const s=await getDocs(q); return s.docs.map(d=>({id:d.id,...d.data()}));
+    } catch(e){ AppLog.error('FB.getReviews', e); return FB._localGetReviews(shopId); }
+  },
+  async addComment(shopId,name,text) {
+    if (!ActionThrottle.canProceed('comment-'+shopId)) return {error:'too_fast'};
+    name=String(name||'').trim().slice(0,40); text=String(text||'').trim().slice(0,300);
+    if(!name||!text) return {error:'invalid_input'};
+    if(!window.__FB_READY||!window.__FB_DB) return FB._localAddComment(shopId,name,text);
+    try { const {collection,addDoc,serverTimestamp}=window.__FB; await addDoc(collection(window.__FB_DB,'shops',String(shopId),'comments'),{name,text,deviceId:DEVICE_ID,ts:serverTimestamp(),date:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}); return {ok:true}; } catch(e){ AppLog.error('FB.addComment', e); return {error:'write_failed'}; }
+  },
+  async getComments(shopId) {
+    if(!window.__FB_READY||!window.__FB_DB) return FB._localGetComments(shopId);
+    try {
+      const {collection,query,orderBy,limit,getDocs}=window.__FB;
+      const q=query(collection(window.__FB_DB,'shops',String(shopId),'comments'),orderBy('ts','desc'),limit(50));
+      const s=await getDocs(q); return s.docs.map(d=>({id:d.id,...d.data()}));
+    } catch(e){ AppLog.error('FB.getComments', e); return FB._localGetComments(shopId); }
+  },
+  _localToggleLike(id) { const k=`dl_liked_${id}`,cnt=parseInt(localStorage.getItem(`dl_lc_${id}`)||'0'); if(localStorage.getItem(k)){localStorage.removeItem(k);localStorage.setItem(`dl_lc_${id}`,String(Math.max(0,cnt-1)));return false;} localStorage.setItem(k,'1');localStorage.setItem(`dl_lc_${id}`,String(cnt+1));return true; },
+  _localIsLiked(id) { return !!localStorage.getItem(`dl_liked_${id}`); },
+  _localLikeCount(id) { return parseInt(localStorage.getItem(`dl_lc_${id}`)||'0'); },
+  _localSubmitRating(id,stars) { const k=`dl_rated_${id}`; if(localStorage.getItem(k))return{error:'already_rated',prev:parseInt(localStorage.getItem(k))}; localStorage.setItem(k,String(stars)); let d=JSON.parse(localStorage.getItem(`dl_rdata_${id}`)||'{"total":0,"count":0,"bd":{"1":0,"2":0,"3":0,"4":0,"5":0}}'); d.total+=stars;d.count+=1;d.bd[stars]=(d.bd[stars]||0)+1; localStorage.setItem(`dl_rdata_${id}`,JSON.stringify(d)); return {ok:true}; },
+  _localGetRatingData(id) { return JSON.parse(localStorage.getItem(`dl_rdata_${id}`)||'{"total":0,"count":0,"bd":{"1":0,"2":0,"3":0,"4":0,"5":0}}'); },
+  _localAddReview(id,name,stars,text) { let rs=JSON.parse(localStorage.getItem(`dl_rev_${id}`)||'[]'); rs.unshift({name,stars,text,date:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}); localStorage.setItem(`dl_rev_${id}`,JSON.stringify(rs)); return {ok:true}; },
+  _localGetReviews(id) { return JSON.parse(localStorage.getItem(`dl_rev_${id}`)||'[]'); },
+  _localAddComment(id,name,text) { let cs=JSON.parse(localStorage.getItem(`dl_com_${id}`)||'[]'); cs.unshift({name,text,date:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}); localStorage.setItem(`dl_com_${id}`,JSON.stringify(cs)); return {ok:true}; },
+  _localGetComments(id) { return JSON.parse(localStorage.getItem(`dl_com_${id}`)||'[]'); },
+};
+
+/* ══════════════════════════════════════════
+   STATE
+══════════════════════════════════════════ */
+// PERF: PAGE (items rendered per load) now scales with viewport width
+// instead of a fixed 12 for everyone. A budget phone rendering 8 cards
+// at a time (each with its own image + Firestore stats fetch) feels far
+// smoother than forcing it to build 12-15 every load. Desktop screens
+// have room and CPU headroom for a bigger batch.
+function computePageSize(){
+  const w = window.innerWidth || document.documentElement.clientWidth || 1024;
+  if (w <= 480) return 8;   // small phones
+  if (w <= 768) return 10;  // large phones / small tablets
+  if (w <= 1200) return 12; // tablets / small laptops
+  return 15;                // desktop
+}
+let filtered=[], page=0, PAGE=computePageSize();
+let activeCat='', activeFilter='all', q='';
+let curShop=null, gallIdx=0, lbIdx=0, selRating=0;
+let modalUnsub=null;
+let userLocation=null;
+let distanceCache={};
+let loadMoreBusy=false;
+let currentGroup=null;
+let searchDebounceTimer=null; // FIX #1: debounce handle for live search input
+
+/* ══════════════════════════════════════════
+   FIX #5: Track every active card-level Firestore
+   listener/async-load so it can be torn down whenever
+   the grid re-renders (filter change, load more, page
+   switch). Previously these were never cleaned up and
+   accumulated indefinitely across a session.
+══════════════════════════════════════════ */
+let activeCardUnsubs = [];
+function clearActiveCardUnsubs() {
+  activeCardUnsubs.forEach(fn => { try { fn(); } catch(e) {} });
+  activeCardUnsubs = [];
+}
+
+/* ══════════════════════════════════════════
+   LOCAL STORAGE HELPERS
+══════════════════════════════════════════ */
+const ls=(k,d='null')=>{try{const v=JSON.parse(localStorage.getItem(k)||d);return v===null?JSON.parse(d):v;}catch(e){try{return JSON.parse(d);}catch(e2){return null;}}};
+const lss=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){ AppLog.warn('localStorage', 'write failed for key '+k, e); }};
+const getFavs=()=>{ const f=ls('dl_favs','[]'); return Array.isArray(f)?f:[]; };
+const saveFavs=d=>lss('dl_favs',d);
+const getRV=()=>{ const r=ls('dl_rv','[]'); return Array.isArray(r)?r:[]; };
+const addRV=id=>{let rv=getRV();rv=[id,...rv.filter(x=>x!==id)].slice(0,8);lss('dl_rv',rv);};
+function removeRV(e,id){ e.stopPropagation(); lss('dl_rv',getRV().filter(x=>x!==id)); renderRV(); toast('Removed from history'); }
+function clearAllRV(){ lss('dl_rv',[]); renderRV(); toast('History cleared'); }
+const getTheme=()=>{ try{return localStorage.getItem('dl_theme')||'light';}catch(e){return 'light';} };
+const setTheme=t=>{ try{localStorage.setItem('dl_theme',t);}catch(e){} };
+
+function scrollToFooter(){ const el=document.getElementById('footer'); if(el)el.scrollIntoView({behavior:'smooth',block:'start'}); }
+function scrollToTop(){ window.scrollTo({top:0,behavior:'smooth'}); }
+
+/* ══════════════════════════════════════════
+   INIT
+   PERF: DOMContentLoaded used to run every init function back-to-back,
+   synchronously, in one long task — including several pieces of UI
+   (category grid, category chips, footer categories, the Recently
+   Viewed rail, the average-rating stat) that aren't needed for the very
+   first paint. That single long task is exactly what causes the
+   "unresponsive for a second" feel on a slow phone right after the page
+   loads. Below, only what's needed for the primary shop grid to appear
+   correctly (theme + skeleton + the actual filtered shop list) runs
+   immediately; everything else is staggered onto idle callbacks so the
+   browser can paint in between.
+══════════════════════════════════════════ */
+function _idle(fn, timeout) {
+  if ('requestIdleCallback' in window) requestIdleCallback(fn, { timeout: timeout || 1500 });
+  else setTimeout(fn, 0);
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const theme = getTheme();
+  document.documentElement.setAttribute('data-theme', theme);
+  updateThemeBtn(theme);
+  updateMetaTheme(theme);
+
+  // Critical path: get the actual shop grid (the page's main content)
+  // showing as fast as possible.
+  renderSkeletons();
+  await applyFilters();
+
+  // Everything below is secondary chrome around the main content —
+  // stagger it in small idle-time slices instead of one long task.
+  _idle(() => { buildCatDropdown(); renderCatGrid(); });
+  _idle(() => { renderCatChips(); renderFooterCats(); });
+  _idle(() => { updateFavBadge(); renderRV(); });
+  _idle(() => { initScrollReveal(); initScrollHeader(); });
+  _idle(async () => {
+    const shops = getShops();
+    document.getElementById('stat-count').innerHTML = '<span>' + shops.length + '</span>';
+    document.getElementById('stat-cats').innerHTML  = '<span>' + CATS.length + '</span>';
+    updateAvgRatingStat();
+
+    const saved = await GeoStore.load();
+    if (saved && typeof saved.lat === 'number') {
+      userLocation = saved;
+    }
+    updateLocationBannerUI();
+
+    // Deep link: if the URL has #shop-<id> (from Google search results
+    // landing on a generated /shop/*.html page, or from a shared link),
+    // open that exact shop's modal automatically.
+    openShopFromHash();
+    window.addEventListener('hashchange', openShopFromHash);
+  });
+});
+
+function openShopFromHash() {
+  const match = location.hash.match(/^#shop-(\d+)$/);
+  if (!match) return;
+  const id = Number(match[1]);
+  const shop = getShops().find(s => s.id === id);
+  if (!shop) return;
+  openModal(id);
+}
+
+function updateMetaTheme(t) {
+  const el = document.getElementById('meta-theme-color');
+  if (el) el.content = t === 'dark' ? '#050D1F' : '#2563EB';
+}
+
+async function updateAvgRatingStat() {
+  const el = document.getElementById('stat-avg-rating');
+  if (!el) return;
+  try {
+    let totalStars=0, totalCount=0;
+    if (window.__FB_READY && window.__FB_DB) {
+      const {collection,getDocs}=window.__FB;
+      const snap = await getDocs(collection(window.__FB_DB,'shops'));
+      snap.forEach(d=>{ const data=d.data(); totalStars+=(data.ratingTotal||0); totalCount+=(data.ratingCount||0); });
+    } else {
+      getShops().forEach(s=>{ const rd=FB._localGetRatingData(s.id); totalStars+=rd.total||0; totalCount+=rd.count||0; });
+    }
+    const avg = totalCount>0?(totalStars/totalCount).toFixed(1):'—';
+    el.innerHTML = avg + '<span>★</span>';
+  } catch(e) { AppLog.error('updateAvgRatingStat', e); el.innerHTML = '—<span>★</span>'; }
+}
+
+function buildCatDropdown() {
+  const s = document.getElementById('hero-cat-select');
+  s.innerHTML = '<option value="">All Categories</option>';
+  CATS.forEach(c=>{ const o=document.createElement('option'); o.value=c.name; o.textContent=c.name; s.appendChild(o); });
+}
+
+/* ══════════════════════════════════════════
+   GROUP CATEGORY GRID
+   FIX #1: uses precomputed count map instead of
+   filtering the full shops array per category.
+══════════════════════════════════════════ */
+function renderCatGrid() {
+  const countMap = getCategoryCountMap();
+  const grid  = document.getElementById('cat-grid');
+  grid.innerHTML = '';
+  grid.className = 'group-cat-grid reveal';
+
+  CAT_GROUPS.forEach((group, i) => {
+    const totalInGroup = group.cats.reduce((sum,c) => sum + (countMap[c.name]||0), 0);
+    const card = document.createElement('div');
+    card.className = 'group-cat-card';
+    card.style.animationDelay = (i * 0.05) + 's';
+    card.innerHTML = `
+      <div class="group-icon-wrap" style="background:linear-gradient(135deg,${esc(group.color)},${esc(group.color)}bb)">
+        <i class="fas ${esc(group.icon)}"></i>
+      </div>
+      <div class="group-cat-name">${esc(group.name)}</div>
+      <div class="group-cat-count">${totalInGroup} shop${totalInGroup!==1?'s':''}</div>
+      <div class="group-cat-arrow"><i class="fas fa-chevron-right"></i></div>`;
+    card.addEventListener('mouseenter',()=>{ card.style.boxShadow=`0 16px 48px ${group.color}30,0 4px 16px ${group.color}18`; });
+    card.addEventListener('mouseleave',()=>{ card.style.boxShadow=''; });
+    card.onclick = () => openSubcatDrawer(group);
+    grid.appendChild(card);
+  });
+}
+
+/* ══════════════════════════════════════════
+   SUBCAT DRAWER
+   FIX #1: also uses precomputed count map.
+══════════════════════════════════════════ */
+function openSubcatDrawer(group) {
+  currentGroup = group;
+  const countMap = getCategoryCountMap();
+  const overlay = document.getElementById('subcat-overlay');
+  const drawer  = document.getElementById('subcat-drawer');
+  const totalInGroup = group.cats.reduce((sum,c) => sum+(countMap[c.name]||0), 0);
+
+  drawer.innerHTML = `
+    <div class="subcat-handle"></div>
+    <div class="subcat-header">
+      <div class="subcat-header-icon" style="background:linear-gradient(135deg,${esc(group.color)},${esc(group.color)}bb)">
+        <i class="fas ${esc(group.icon)}"></i>
+      </div>
+      <div>
+        <div class="subcat-header-title">${esc(group.name)}</div>
+        <div class="subcat-header-sub">${totalInGroup} shop${totalInGroup!==1?'s':''} · ${group.cats.length} categories</div>
+      </div>
+      <button class="subcat-close" onclick="closeSubcatDrawer()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="subcat-grid">
+      ${group.cats.map(cat => {
+        const cnt = countMap[cat.name]||0;
+        return `<div class="subcat-card" onclick="selectSubcat('${esc(cat.name)}')">
+          <div class="subcat-icon-wrap" style="background:linear-gradient(135deg,${esc(cat.color)},${esc(cat.color)}bb)">
+            <i class="fas ${esc(cat.icon)}"></i>
+          </div>
+          <div class="subcat-name">${esc(cat.name)}</div>
+          <div class="subcat-shop-count">${cnt} shop${cnt!==1?'s':''}</div>
+        </div>`;
+      }).join('')}
+    </div>`;
+
+  overlay.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSubcatDrawer() {
+  document.getElementById('subcat-overlay').classList.add('hidden');
+  document.body.style.overflow = '';
+  currentGroup = null;
+}
+
+function handleSubcatOverlayClick(e) {
+  if (e.target.id === 'subcat-overlay') closeSubcatDrawer();
+}
+
+function selectSubcat(catName) {
+  closeSubcatDrawer();
+  setTimeout(() => {
+    filterByCat(catName);
+    const el = document.getElementById('shops-grid');
+    if (el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  }, 150);
+}
+
+function renderCatChips() {
+  const wrap = document.getElementById('cat-chips');
+  wrap.innerHTML = '<div class="chip active" data-cat="" onclick="filterByCat(\'\')">All</div>';
+  CATS.forEach(c => {
+    const d = document.createElement('div');
+    d.className = 'chip'; d.dataset.cat = c.name;
+    d.innerHTML = `<i class="fas ${c.icon}" style="color:${c.color};margin-right:5px"></i>${esc(c.name)}`;
+    d.onclick = () => filterByCat(c.name);
+    wrap.appendChild(d);
+  });
+}
+
+function renderFooterCats() {
+  const el = document.getElementById('footer-cats'); el.innerHTML='';
+  CATS.slice(0,8).forEach(c=>{ const li=document.createElement('li'),a=document.createElement('a'); a.href='#'; a.textContent=c.name; a.onclick=e=>{e.preventDefault();filterByCat(c.name);}; li.appendChild(a); el.appendChild(li); });
+}
+
+function renderSkeletons() {
+  const grid = document.getElementById('shops-grid'); grid.innerHTML='';
+  for(let i=0;i<8;i++){
+    const el=document.createElement('div'); el.className='skel-card';
+    el.innerHTML=`<div class="skeleton skel-img"></div><div class="skel-body"><div class="skeleton skel-line w60"></div><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w40"></div></div>`;
+    el.style.animationDelay=(i*0.05)+'s';
+    grid.appendChild(el);
+  }
+}
+
+/* ══════════════════════════════════════════
+   SCROLL EFFECTS
+══════════════════════════════════════════ */
+function initScrollReveal() {
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});
+  els.forEach(el=>obs.observe(el));
+}
+function initScrollHeader() {
+  window.addEventListener('scroll',()=>{
+    document.getElementById('header').classList.toggle('scrolled',window.scrollY>10);
+    const btt=document.getElementById('back-to-top-btn');
+    if(btt) btt.classList.toggle('visible',window.scrollY>400);
+  },{passive:true});
+}
+
+/* ══════════════════════════════════════════
+   FILTERS
+══════════════════════════════════════════ */
+function filterByCat(cat) {
+  activeCat=cat; page=0;
+  document.querySelectorAll('#cat-chips .chip').forEach(c=>c.classList.toggle('active',c.dataset.cat===cat));
+  applyFilters();
+  document.getElementById('shops-grid').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function setFilter(f,btn) {
+  activeFilter=f; page=0;
+  document.querySelectorAll('.filters-row .chip[data-filter]').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  if(f==='nearest') handleNearestFilterSelected();
+  else document.getElementById('location-banner').classList.add('hidden');
+  applyFilters();
+}
+function clearFilters() {
+  activeCat=''; activeFilter='all'; q='';
+  document.getElementById('nav-search-input').value='';
+  document.getElementById('hero-input').value='';
+  document.getElementById('hero-cat-select').value='';
+  document.querySelectorAll('#cat-chips .chip').forEach(c=>c.classList.toggle('active',c.dataset.cat===''));
+  document.querySelectorAll('.chip[data-filter]').forEach(c=>c.classList.toggle('active',c.dataset.filter==='all'));
+  document.getElementById('location-banner').classList.add('hidden');
+  page=0; applyFilters();
+}
+function doSearch(){ q=document.getElementById('nav-search-input').value.trim().toLowerCase(); page=0; applyFilters(); }
+function doHeroSearch() {
+  q=document.getElementById('hero-input').value.trim().toLowerCase();
+  activeCat=document.getElementById('hero-cat-select').value;
+  if(activeCat) document.querySelectorAll('#cat-chips .chip').forEach(c=>c.classList.toggle('active',c.dataset.cat===activeCat));
+  page=0; applyFilters();
+  document.getElementById('shops-grid').scrollIntoView({behavior:'smooth'});
+}
+
+/* ══════════════════════════════════════════
+   FIX #1: debounced live search.
+   Previously every keystroke could trigger a full
+   array filter pass over all shops with zero delay.
+   Now: Enter still searches instantly (UX unchanged),
+   but typing triggers a single filter pass 300ms after
+   the user stops typing, not on every keystroke.
+══════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded',()=>{
+  const navInput = document.getElementById('nav-search-input');
+  const heroInput = document.getElementById('hero-input');
+
+  navInput.addEventListener('keydown',e=>{ if(e.key==='Enter'){ clearTimeout(searchDebounceTimer); doSearch(); } });
+  navInput.addEventListener('input',()=>{
+    clearTimeout(searchDebounceTimer);
+    searchDebounceTimer=setTimeout(doSearch,300);
+  });
+
+  heroInput.addEventListener('keydown',e=>{ if(e.key==='Enter'){ clearTimeout(searchDebounceTimer); doHeroSearch(); } });
+  heroInput.addEventListener('input',()=>{
+    clearTimeout(searchDebounceTimer);
+    searchDebounceTimer=setTimeout(doHeroSearch,300);
+  });
+});
+
+function isOpen(shop) {
+  const now=new Date(),h=now.getHours(),m=now.getMinutes(),cur=h*60+m;
+  function pt(s) {
+    if(!s||typeof s!=='string')return null;
+    const parts=s.split(' ');
+    if(parts.length<2)return null;
+    const[t,ap]=parts;let[hh,mm]=t.split(':').map(Number);
+    if(Number.isNaN(hh)||Number.isNaN(mm))return null;
+    if(ap==='PM'&&hh!==12)hh+=12;if(ap==='AM'&&hh===12)hh=0;return hh*60+mm;
+  }
+  try {
+    const o=pt(shop.openTime),c=pt(shop.closeTime);
+    if(o===null||c===null)return true;
+    return c>o ? cur>=o&&cur<c : cur>=o||cur<c;
+  } catch(e){ AppLog.error('isOpen', e); return true; }
+}
+
+/* ══════════════════════════════════════════
+   LOCATION / NEAREST
+══════════════════════════════════════════ */
+function updateLocationBannerUI() {
+  const banner=document.getElementById('location-banner');
+  const text=document.getElementById('location-banner-text');
+  const enableBtn=document.getElementById('loc-enable-btn');
+  const updateBtn=document.getElementById('loc-update-btn');
+  const clearBtn=document.getElementById('loc-clear-btn');
+  if(!banner)return;
+  if(activeFilter!=='nearest'){banner.classList.add('hidden');return;}
+  banner.classList.remove('hidden');
+  if(userLocation){
+    text.textContent='Showing shops sorted by distance from your saved location.';
+    enableBtn.classList.add('hidden');updateBtn.classList.remove('hidden');clearBtn.classList.remove('hidden');
+  } else {
+    text.textContent='Enable location to see the nearest shops first.';
+    enableBtn.classList.remove('hidden');updateBtn.classList.add('hidden');clearBtn.classList.add('hidden');
+  }
+}
+async function handleNearestFilterSelected() {
+  updateLocationBannerUI();
+  if(!userLocation){
+    const saved=await GeoStore.load();
+    if(saved&&typeof saved.lat==='number'){userLocation=saved;updateLocationBannerUI();applyFilters();}
+  }
+}
+async function handleEnableLocation() {
+  const isUpdate=!document.getElementById('loc-update-btn').classList.contains('hidden');
+  const btn=document.getElementById(isUpdate?'loc-update-btn':'loc-enable-btn');
+  const orig=btn.innerHTML; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Locating…'; btn.disabled=true;
+  try {
+    const coords=await requestGeolocation();
+    userLocation=coords; distanceCache={};
+    await GeoStore.save(coords.lat,coords.lng);
+    toast('Location saved! Showing nearest shops.','success');
+    updateLocationBannerUI(); applyFilters();
+  } catch(err){ AppLog.error('handleEnableLocation', err); toast(err.message||'Could not get location','error'); }
+  finally{ btn.innerHTML=orig; btn.disabled=false; }
+}
+async function handleClearLocation() {
+  userLocation=null; distanceCache={};
+  await GeoStore.clear();
+  toast('Saved location cleared');
+  updateLocationBannerUI(); applyFilters();
+}
+async function getShopDistance(shop) {
+  if(!userLocation)return null;
+  if(distanceCache[shop.id]!==undefined)return distanceCache[shop.id];
+  const coords=await GeocodeCache.resolve(shop);
+  if(!coords||!isValidCoord(coords.lat,coords.lng)){distanceCache[shop.id]=null;return null;}
+  const result=await getRoadDistance(userLocation.lat,userLocation.lng,shop,coords.lat,coords.lng);
+  distanceCache[shop.id]=result;
+  return result;
+}
+async function sortByNearest(shops) {
+  const needsLookup=shops.filter(s=>!isValidCoord(s.lat,s.lng)&&!GeocodeCache.getLocal(s.id));
+  if(needsLookup.length){
+    const shared=await GeocodeCache.getSharedBatch(needsLookup.map(s=>s.id));
+    needsLookup.forEach(s=>{const d=shared[String(s.id)];if(d&&isValidCoord(d.lat,d.lng))GeocodeCache.setLocal(s.id,d);});
+  }
+  const withDist=await Promise.all(shops.map(async s=>({shop:s,dist:await getShopDistance(s)})));
+  withDist.sort((a,b)=>{
+    const da=(a.dist===null||a.dist===undefined)?Infinity:a.dist.km;
+    const db=(b.dist===null||b.dist===undefined)?Infinity:b.dist.km;
+    return Math.round(da*1000)/1000 - Math.round(db*1000)/1000 || new Date(b.shop.addedAt||0)-new Date(a.shop.addedAt||0);
+  });
+  return withDist.map(x=>x.shop);
+}
+
+async function applyFilters() {
+  let shops=getShops();
+  if(activeCat) shops=shops.filter(s=>s.category===activeCat);
+  if(q) shops=shops.filter(s=>(s.name||'').toLowerCase().includes(q)||(s.category||'').toLowerCase().includes(q)||(s.address||'').toLowerCase().includes(q)||(s.description||'').toLowerCase().includes(q));
+  if(activeFilter==='open') shops=shops.filter(s=>isOpen(s));
+  if(activeFilter==='new') shops=shops.slice().sort((a,b)=>new Date(b.addedAt||0)-new Date(a.addedAt||0));
+  if(activeFilter==='nearest') {
+    if(userLocation){
+      const metaEl=document.getElementById('shops-meta');
+      if(metaEl)metaEl.textContent='Calculating distance…';
+      shops=await sortByNearest(shops);
+    }
+  }
+  filtered=shops;
+  const metaEl=document.getElementById('shops-meta');
+  if(metaEl)metaEl.textContent=`Showing ${shops.length} shop${shops.length!==1?'s':''}`;
+  page=0; renderShops();
+}
+
+/* ══════════════════════════════════════════
+   RENDER SHOPS
+   FIX #4 + #5: stats are now loaded via ONE batched,
+   one-time read for the whole visible page of cards
+   (loadVisibleCardStats), instead of opening 2 live
+   onSnapshot listeners per card. Any listeners that DO
+   get created (none in the default path below) are
+   tracked in activeCardUnsubs and torn down on every
+   re-render via clearActiveCardUnsubs().
+══════════════════════════════════════════ */
+function renderShops() {
+  clearActiveCardUnsubs(); // FIX #5: tear down any previous page's listeners first
+  const grid=document.getElementById('shops-grid'); grid.innerHTML='';
+  const end=Math.min((page+1)*PAGE,filtered.length);
+  if(!filtered.length){
+    grid.innerHTML=`<div class="empty-state"><div class="empty-state-icon"><i class="fas fa-store-slash"></i></div><h3>No shops found</h3><p>Try adjusting your search or filter</p></div>`;
+    document.getElementById('load-more-wrap').classList.add('hidden'); return;
+  }
+  const favs=getFavs();
+  const pageShops = filtered.slice(0,end);
+  // PERF: build every card in an off-DOM DocumentFragment and append once.
+  // appendChild-in-a-loop forces the browser to recompute layout on each
+  // call; a single fragment append batches all of them into one reflow.
+  const frag=document.createDocumentFragment();
+  pageShops.forEach((shop,i)=>{
+    const card=makeCard(shop,i,favs);
+    frag.appendChild(card);
+  });
+  grid.appendChild(frag);
+  // FIX #4: one batched call covers like+rating for the whole visible page,
+  // instead of 2 onSnapshot() listeners × N cards.
+  loadVisibleCardStats(pageShops);
+  if(activeFilter==='nearest'&&userLocation){
+    pageShops.forEach(shop=>{
+      const card = grid.querySelector(`[data-shop-id="${shop.id}"]`);
+      if (card) attachDistanceBadge(shop,card);
+    });
+  }
+  document.getElementById('load-more-wrap').classList.toggle('hidden',end>=filtered.length);
+}
+
+/* ══════════════════════════════════════════
+   FIX #4 (core function): one batched, one-time Firestore
+   read for an entire visible page of shop cards. Replaces
+   loadCardLikeCount()/loadCardRating() which each opened a
+   live onSnapshot listener PER CARD (2 listeners × 12 cards
+   = 24 live connections per page load). This version does
+   ONE getDocs("in" query) call for up to 30 shop ids.
+══════════════════════════════════════════ */
+async function loadVisibleCardStats(shops) {
+  if (!shops.length) return;
+  const ids = shops.map(s => s.id);
+  let statsMap;
+  try {
+    statsMap = await FB.getShopStatsBatch(ids);
+  } catch(e) {
+    AppLog.error('loadVisibleCardStats', e);
+    statsMap = {};
+  }
+  shops.forEach(shop => {
+    const data = statsMap[shop.id] || statsMap[String(shop.id)] || null;
+    applyStatsToCard(shop.id, data);
+  });
+}
+
+function applyStatsToCard(shopId, data) {
+  const likeEl = document.getElementById('lc-'+shopId);
+  const ratingEl = document.getElementById('rb-'+shopId);
+  const likeCount = data ? (data.likeCount||0) : 0;
+  if (likeEl) likeEl.textContent = likeCount;
+  if (ratingEl) {
+    const count = data ? (data.ratingCount||0) : 0;
+    const avg = (data && count>0) ? (data.ratingTotal/count).toFixed(1) : null;
+    ratingEl.innerHTML = avg ? `<i class="fas fa-star"></i> ${avg}` : 'New';
+    ratingEl.classList.toggle('no-rating', !avg);
+  }
+}
+
+async function attachDistanceBadge(shop,card) {
+  const dist=distanceCache[shop.id];
+  if(dist===undefined||dist===null)return;
+  const addrEl=card.querySelector('.shop-address');
+  if(!addrEl)return;
+  const badge=document.createElement('div');
+  badge.className='shop-distance';
+  const km=dist.km;
+  const distText=km<1?Math.round(km*1000)+' m':km.toFixed(1)+' km';
+  const prefix=dist.isRoadDistance?'':'~';
+  const minutesText=dist.isRoadDistance&&dist.minutes?` · ${Math.round(dist.minutes)} min drive`:'';
+  badge.innerHTML=`<i class="fas fa-location-arrow"></i> ${prefix}${distText}${minutesText}`;
+  addrEl.insertAdjacentElement('afterend',badge);
+}
+
+function makeCard(shop, i, favs) {
+  const open = isOpen(shop), isFav = favs.includes(shop.id);
+  const cat = CATS.find(c => c.name === shop.category) || {color:'#2563EB', icon:'fa-store'};
+  const isGold = shop.featured === 'gold';
+  const card = document.createElement('div');
+  card.className = 'shop-card' + (isGold ? ' gold-featured' : '');
+  card.dataset.shopId = shop.id; // FIX #4: used to target this card for batched stat updates
+  card.style.animationDelay = (i * 0.04) + 's';
+  const cardImg = ImageResolver.getCardImage(shop);
+  const cardPh = IMG_PLACEHOLDERS.card(shop.id);
+
+  const goldBadgeHtml = isGold
+    ? `<div class="gold-featured-badge"><i class="fas fa-star"></i> Featured</div>`
+    : '';
+
+  // PERF (LCP): the very first card's image is typically the largest
+  // above-the-fold element on first paint — the actual LCP candidate for
+  // this page. Load it eagerly with high fetch priority; every other
+  // card (i>0) stays lazy so off-screen images don't compete for
+  // bandwidth on slow connections. width/height reserve the box so the
+  // image doesn't cause a layout shift (CLS) once it finishes loading.
+  const cardImgLoadAttrs = i === 0
+    ? `loading="eager" fetchpriority="high"`
+    : `loading="lazy"`;
+  card.innerHTML = `
+    ${isGold ? '<div class="gold-top-bar"></div>' : ''}
+    <div class="shop-img-wrap">
+      <img class="shop-img" src="${esc(cardImg)}" alt="${esc(shop.name)}" width="400" height="200" ${cardImgLoadAttrs} ${imgFallbackAttr(cardPh)}/>
+      <div class="shop-status ${open?'status-open':'status-closed'}"><span class="status-dot"></span>${open?'Open Now':'Closed'}</div>
+      <button class="shop-fav ${isFav?'active':''}" onclick="toggleFav(event,${shop.id})" aria-label="Save to favorites"><i class="${isFav?'fas':'far'} fa-heart"></i></button>
+      ${goldBadgeHtml}
+    </div>
+    <div class="shop-body">
+      <div class="shop-meta-row">
+        <span class="shop-cat-tag" style="background:${cat.color}18;color:${cat.color}"><i class="fas ${cat.icon}"></i> ${esc(shop.category)}</span>
+        <span class="shop-rating-badge no-rating" id="rb-${shop.id}">...</span>
+      </div>
+      <div class="shop-name">${esc(shop.name)}${isGold?' ✦':''} ${renderVerifiedBadge(shop)}</div>
+      <div class="shop-address"><i class="fas fa-location-dot"></i>${esc(shop.address)}</div>
+      <div class="shop-footer">
+    <button class="btn-view" onclick="window.location.href='${shop.detailPage}'">View Details</button>
+        <button class="btn-like" id="bl-${shop.id}" onclick="toggleLike(event,${shop.id},this)"><i class="fas fa-heart"></i> <span id="lc-${shop.id}">—</span></button>
+        <a class="btn-wa" href="https://wa.me/${esc(shop.whatsapp)}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    ${isGold ? '<div class="gold-bottom-bar"></div>' : ''}`;
+  return card;
+}
+
+function loadMore() {
+  if(loadMoreBusy)return;
+  loadMoreBusy=true;
+  const btn=document.querySelector('#load-more-wrap .btn-load-more');
+  if(btn)btn.disabled=true;
+  page++;
+  const favs=getFavs(),grid=document.getElementById('shops-grid');
+  const start=page*PAGE,end=Math.min((page+1)*PAGE,filtered.length);
+  const newShops = filtered.slice(start,end);
+  // PERF: same batched-fragment approach as renderShops() — one reflow
+  // for the whole new batch of cards instead of one reflow per card.
+  const frag=document.createDocumentFragment();
+  newShops.forEach((shop,i)=>{
+    const card=makeCard(shop,i,favs);
+    frag.appendChild(card);
+  });
+  grid.appendChild(frag);
+  // FIX #4: batched stats fetch for the newly-appended page only
+  loadVisibleCardStats(newShops);
+  if(activeFilter==='nearest'&&userLocation){
+    newShops.forEach(shop=>{
+      const card = grid.querySelector(`[data-shop-id="${shop.id}"]`);
+      if (card) attachDistanceBadge(shop,card);
+    });
+  }
+  if(end>=filtered.length)document.getElementById('load-more-wrap').classList.add('hidden');
+  if(btn)btn.disabled=false;
+  loadMoreBusy=false;
+}
+
+function setViewMode(mode,btn) {
+  document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('shops-grid').classList.toggle('list-mode',mode==='list');
+}
+
+/* ══════════════════════════════════════════
+   MODAL
+   (modal keeps its live onSnapshot listener — this is the
+   ONE place a real-time listener is justified, since only
+   one modal is open at a time, and it's properly unsub'd in
+   closeModal()/before the next openModal())
+══════════════════════════════════════════ */
+function openModal(id) {
+  const shop=getShops().find(s=>s.id===id);if(!shop)return;
+  curShop=shop; gallIdx=0;
+  addRV(id); renderRV();
+  if(modalUnsub){modalUnsub();modalUnsub=null;}
+document.getElementById('modal-box').innerHTML=buildModal(shop);
+
+const modalBox = document.getElementById('modal-box');
+if (shop.featured === 'gold') {
+  modalBox.classList.add('gold-modal');
+} else {
+  modalBox.classList.remove('gold-modal');
+}
+
+document.getElementById('modal-overlay').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+  initStars(); loadModalData(shop);
+}
+
+async function loadModalData(shop) {
+  if(window.__FB_READY&&window.__FB_DB){
+    modalUnsub=FB.subscribeTo(shop.id,data=>updateModalLiveData(shop.id,data));
+  } else {
+    const cnt=FB._localLikeCount(shop.id),rd=FB._localGetRatingData(shop.id);
+    updateModalLiveData(shop.id,{likeCount:cnt,ratingTotal:rd.total,ratingCount:rd.count,ratingBreakdown:rd.bd});
+  }
+  const liked=await FB.isLiked(shop.id);
+  const lb=document.getElementById('mlike');
+  if(lb&&liked)lb.classList.add('liked');
+  const [reviews,comments]=await Promise.all([FB.getReviews(shop.id),FB.getComments(shop.id)]);
+  renderReviews(reviews); renderComments(comments); renderRatingBreakdown(shop.id);
+}
+
+function updateModalLiveData(shopId,data) {
+  if(!curShop||curShop.id!==shopId)return;
+  const cnt=data.likeCount||0;
+  const mlc=document.getElementById('mlc');if(mlc)mlc.textContent=cnt;
+  const lc=document.getElementById('lc-'+shopId);if(lc)lc.textContent=cnt;
+  const count=data.ratingCount||0;
+  const avg=count>0?(data.ratingTotal/count).toFixed(1):null;
+  const stars=avg?'★'.repeat(Math.round(avg))+'☆'.repeat(5-Math.round(avg)):'☆☆☆☆☆';
+  const els={avgEl:document.getElementById('m-avg-rating'),cntEl:document.getElementById('m-rating-count'),starsEl:document.getElementById('m-rating-stars'),rb:document.getElementById('rb-'+shopId),avgEl2:document.getElementById('m-avg-rating2'),starsEl2:document.getElementById('m-stars2'),cntEl2:document.getElementById('m-cnt2')};
+  if(els.avgEl)els.avgEl.textContent=avg||'—';
+  if(els.cntEl)els.cntEl.textContent=count>0?`${count} rating${count!==1?'s':''}`:'No ratings yet';
+  if(els.starsEl)els.starsEl.textContent=stars;
+  if(els.avgEl2)els.avgEl2.textContent=avg||'—';
+  if(els.starsEl2)els.starsEl2.textContent=stars;
+  if(els.cntEl2)els.cntEl2.textContent=count>0?`${count} rating${count!==1?'s':''}`:'No ratings yet';
+  if(els.rb){els.rb.innerHTML=avg?`<i class="fas fa-star"></i> ${avg}`:'New';els.rb.classList.toggle('no-rating',!avg);}
+}
+
+async function renderRatingBreakdown(shopId) {
+  let bd,count;
+  if(window.__FB_READY&&window.__FB_DB){
+    const data=await FB.getShopDoc(shopId);
+    bd=data?data.ratingBreakdown:{1:0,2:0,3:0,4:0,5:0};count=data?(data.ratingCount||0):0;
+  } else { const d=FB._localGetRatingData(shopId);bd=d.bd;count=d.count; }
+  if(!curShop||curShop.id!==shopId)return;
+  const wrap=document.getElementById('rating-breakdown');if(!wrap)return;
+  wrap.innerHTML=[5,4,3,2,1].map(n=>{
+    const c=(bd&&bd[n])||0,pct=count>0?Math.round((c/count)*100):0;
+    return `<div class="rating-bar-row"><span class="rating-bar-label">${n} ★</span><div class="rating-bar-track"><div class="rating-bar-fill" style="width:${pct}%"></div></div><span class="rating-bar-pct">${pct}%</span></div>`;
+  }).join('');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.add('hidden');
+  document.body.style.overflow=''; curShop=null;
+  if(modalUnsub){modalUnsub();modalUnsub=null;}
+}
+function handleOverlayClick(e){ if(e.target.id==='modal-overlay')closeModal(); }
+
+function renderLogoBadge(shop,cat) {
+  const logo=ImageResolver.getLogoImage(shop);
+  if(logo) return `<img class="logo-img" src="${esc(logo)}" alt="${esc(shop.name)} logo" width="58" height="58" loading="lazy" onerror="this.onerror=null;this.parentElement.innerHTML='<i class=\\'fas ${esc(cat.icon)}\\'></i>';"/>`;
+  return `<i class="fas ${cat.icon}"></i>`;
+}
+
+function renderGalleryMarkup(shop) {
+  const images=ImageResolver.getGalleryImages(shop);
+  if(!images.length) return `<div class="gallery-main" style="cursor:default;aspect-ratio:4/3"><div class="gallery-empty"><i class="fas fa-images"></i><span>No gallery photos yet</span></div></div>`;
+  const ph0=IMG_PLACEHOLDERS.gallery(shop.id+'-0');
+  return `
+    <div class="gallery-main" onclick="openLightbox()">
+      <img id="gmain" src="${esc(images[0])}" alt="Photo" width="800" height="600" loading="eager" fetchpriority="high" ${imgFallbackAttr(ph0)}/>
+      <button class="gallery-ctrl gallery-prev" onclick="event.stopPropagation();gallNav(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+      <button class="gallery-ctrl gallery-next" onclick="event.stopPropagation();gallNav(1)" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+      <span class="gallery-counter" id="gctr">1/${images.length}</span>
+      <button class="gallery-expand-btn" onclick="event.stopPropagation();openLightbox()"><i class="fas fa-expand"></i> Full</button>
+    </div>
+    <div class="gallery-thumbs" id="gthumbs">${images.map((im,i)=>`<div class="gallery-thumb ${i===0?'active':''}" onclick="setGall(${i})" id="gt-${i}"><img src="${esc(im)}" alt="" width="60" height="60" loading="lazy" ${imgFallbackAttr(IMG_PLACEHOLDERS.gallery(shop.id+'-'+i))}/></div>`).join('')}</div>`;
+}
+
+function buildModal(shop) {
+  const open=isOpen(shop),isFav=getFavs().includes(shop.id);
+  const cat=CATS.find(c=>c.name===shop.category)||{color:'#2563EB',icon:'fa-store'};
+  const isGold = shop.featured === 'gold';
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],today=new Date().getDay();
+  const sched=days.map((d,i)=>`<div class="sched-day ${i===today?'today':''}"><div class="day-n">${d}</div><div class="day-t">${i===0?'Closed':esc((shop.openTime||'').split(' ')[0])}</div></div>`).join('');
+  const coverImg=ImageResolver.getCoverImage(shop);
+  const coverPh=IMG_PLACEHOLDERS.cover(shop.id);
+  return `
+   ${isGold ? '<div class="gold-modal-top-bar"></div>' : ''}
+    <button class="modal-close" onclick="closeModal()" aria-label="Close"><i class="fas fa-times"></i></button>
+    <div class="modal-cover"><img class="modal-cover-img" src="${esc(coverImg)}" alt="${esc(shop.name)}" width="800" height="320" loading="eager" fetchpriority="high" ${imgFallbackAttr(coverPh)}/></div>
+    <div class="modal-head">
+      <div class="modal-icon-row">
+        <div class="modal-icon" style="background:linear-gradient(135deg,${cat.color},${cat.color}bb)">${renderLogoBadge(shop,cat)}</div>
+      </div>
+    <div class="modal-title">${esc(shop.name)}${isGold ? '<span class="gold-featured-star"><i class="fas fa-star"></i> Featured</span>' : ''}${renderVerifiedBadge(shop,'lg')}</div>
+      <div class="modal-tags">
+        <span class="modal-tag-cat">${esc(shop.category)}</span>
+        <span class="modal-tag-status ${open?'open':'closed'}"><i class="fas fa-circle" style="font-size:0.5rem"></i> ${open?'Open Now':'Closed'}</span>
+        <div class="modal-rating-row"><span class="modal-rating-stars" id="m-rating-stars">☆☆☆☆☆</span><span class="modal-rating-num" id="m-avg-rating">—</span><span class="modal-rating-count" id="m-rating-count">Loading…</span></div>
+      </div>
+    </div>
+    <div class="modal-gallery">${renderGalleryMarkup(shop)}</div>
+    <div class="modal-actions">
+      <a class="btn-action btn-action-wa" href="https://wa.me/${esc(shop.whatsapp)}" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a class="btn-action btn-action-call" href="tel:${esc(shop.phone)}"><i class="fas fa-phone"></i> Call</a>
+      <a class="btn-action btn-action-maps" href="${esc(sanitizeUrl(shop.mapLink))}" target="_blank" rel="noopener noreferrer"><i class="fas fa-map-marker-alt"></i> Maps</a>
+      ${renderWebsiteButton(shop)}
+      ${renderBookingButton(shop)}
+      <button class="btn-action btn-action-outline" onclick="shareShop(${shop.id})"><i class="fas fa-share-alt"></i> Share</button>
+      <button class="btn-action btn-action-outline" onclick="openQR(${shop.id})"><i class="fas fa-qrcode"></i></button>
+    </div>
+    <div class="modal-engage">
+      <button class="engage-btn" id="mlike" onclick="toggleLikeModal(${shop.id})"><i class="fas fa-heart"></i> Like <span id="mlc">—</span></button>
+      <button class="engage-btn ${isFav?'saved':''}" id="msave" onclick="toggleSaveModal(${shop.id})"><i class="${isFav?'fas':'far'} fa-bookmark"></i> ${isFav?'Saved':'Save'}</button>
+    </div>
+    <div class="modal-info-grid">
+      <div class="info-item"><div class="info-ico"><i class="fas fa-user"></i></div><div style="min-width:0"><div class="info-label">Owner</div><div class="info-val">${esc(shop.owner||'—')}</div></div></div>
+      <div class="info-item"><div class="info-ico"><i class="fas fa-phone"></i></div><div style="min-width:0"><div class="info-label">Phone</div><div class="info-val">${esc(shop.phone||'—')}</div></div></div>
+      <div class="info-item"><div class="info-ico"><i class="fas fa-location-dot"></i></div><div style="min-width:0"><div class="info-label">Address</div><div class="info-val">${esc(shop.address||'—')}</div></div></div>
+      <div class="info-item"><div class="info-ico"><i class="fas fa-clock"></i></div><div style="min-width:0"><div class="info-label">Hours</div><div class="info-val">${esc(shop.openTime||'—')} – ${esc(shop.closeTime||'—')}</div></div></div>
+      ${renderSinceInfoItem(shop)}
+    </div>
+    <div class="modal-sec"><div class="modal-sec-title"><i class="fas fa-info-circle"></i> About</div><p class="modal-desc">${esc(shop.description||'No description available.')}</p></div>
+    <div class="modal-sec"><div class="modal-sec-title"><i class="fas fa-calendar-week"></i> Weekly Schedule</div><div class="sched-grid">${sched}</div></div>
+    <div class="modal-sec">
+      <div class="modal-sec-title"><i class="fas fa-star"></i> Ratings & Reviews</div>
+      <div class="rating-summary">
+        <div class="rating-summary-row">
+          <div class="rating-big">
+            <div class="rating-big-num" id="m-avg-rating2">—</div>
+            <div class="rating-big-stars" id="m-stars2">☆☆☆☆☆</div>
+            <div class="rating-big-count" id="m-cnt2">No ratings yet</div>
+          </div>
+          <div class="rating-bars" id="rating-breakdown"><div style="color:var(--text-muted);font-size:0.8rem">Loading…</div></div>
+        </div>
+      </div>
+      <div class="rate-form">
+        <div class="rate-form-title">Rate this shop:</div>
+        <div class="star-picker" id="spicker">${[1,2,3,4,5].map(n=>`<i class="fas fa-star" data-v="${n}"></i>`).join('')}</div>
+      </div>
+      <div class="review-form">
+        <input type="text" id="rname" placeholder="Your name" maxlength="50"/>
+        <textarea id="rtext" placeholder="Share your experience…" maxlength="400"></textarea>
+        <button class="btn-submit" id="rsubmit" onclick="submitReview(${shop.id})"><i class="fas fa-paper-plane"></i> Post Review</button>
+      </div>
+      <div class="reviews-list" id="rlist"><div style="color:var(--text-muted);font-size:0.84rem;padding:8px 0">Loading reviews…</div></div>
+    </div>
+    <div class="modal-sec">
+      <div class="modal-sec-title"><i class="fas fa-comments"></i> Comments</div>
+      <div class="comment-form">
+        <input type="text" id="cname" placeholder="Your name" maxlength="40"/>
+        <input type="text" id="ctext" placeholder="Add a comment…" maxlength="300" onkeydown="if(event.key==='Enter'){event.preventDefault();submitComment(${shop.id});}"/>
+        <button onclick="submitComment(${shop.id})">Post</button>
+      </div>
+      <div class="comments-list" id="clist"><div style="color:var(--text-muted);font-size:0.84rem;padding:8px 0">Loading…</div></div>
+    </div>
+    <div class="modal-pad"></div>`;
+}
+
+/* ══ Gallery / Lightbox ══ */
+function gallNav(d){ if(!curShop)return; const imgs=ImageResolver.getGalleryImages(curShop); if(!imgs.length)return; gallIdx=(gallIdx+d+imgs.length)%imgs.length; updateGall(); }
+function setGall(i){ gallIdx=i; updateGall(); }
+function updateGall(){
+  if(!curShop)return;
+  const imgs=ImageResolver.getGalleryImages(curShop);if(!imgs.length)return;
+  const img=document.getElementById('gmain'),ctr=document.getElementById('gctr');
+  if(img)img.src=imgs[gallIdx];
+  if(ctr)ctr.textContent=`${gallIdx+1}/${imgs.length}`;
+  document.querySelectorAll('.gallery-thumb').forEach((t,i)=>t.classList.toggle('active',i===gallIdx));
+}
+function openLightbox(){ if(!curShop)return; const imgs=ImageResolver.getGalleryImages(curShop);if(!imgs.length)return; lbIdx=gallIdx; document.getElementById('lb-img').src=imgs[lbIdx]; document.getElementById('lightbox').classList.remove('hidden'); }
+function closeLightbox(){ document.getElementById('lightbox').classList.add('hidden'); }
+function lbNav(d){ if(!curShop)return; const imgs=ImageResolver.getGalleryImages(curShop);if(!imgs.length)return; lbIdx=(lbIdx+d+imgs.length)%imgs.length; document.getElementById('lb-img').src=imgs[lbIdx]; }
+
+/* ══ Stars ══ */
+function initStars(){
+  selRating=0;
+  const stars=document.querySelectorAll('#spicker i');
+  stars.forEach((s,i)=>{
+    s.onmouseover=()=>stars.forEach((x,j)=>x.classList.toggle('active',j<=i));
+    s.onmouseout=()=>stars.forEach((x,j)=>x.classList.toggle('active',j<selRating));
+    s.onclick=()=>{selRating=i+1;stars.forEach((x,j)=>x.classList.toggle('active',j<selRating));};
+  });
+}
+
+async function toggleLikeModal(id){
+  const btn=document.getElementById('mlike');
+  if(btn){btn.disabled=true;btn.querySelector('i').className='fas fa-spinner fa-spin';}
+  try {
+    const isNowLiked=await FB.toggleLike(id);
+    const lb=document.getElementById('bl-'+id);
+    if(isNowLiked){if(btn)btn.classList.add('liked');if(lb)lb.classList.add('liked');toast('Liked! ❤️','success');}
+    else{if(btn)btn.classList.remove('liked');if(lb)lb.classList.remove('liked');toast('Like removed');}
+  } finally { if(btn){btn.disabled=false;btn.querySelector('i').className='fas fa-heart';} }
+}
+
+function toggleSaveModal(id){
+  let favs=getFavs();const btn=document.getElementById('msave');
+  if(favs.includes(id)){favs=favs.filter(f=>f!==id);if(btn){btn.innerHTML='<i class="far fa-bookmark"></i> Save';btn.classList.remove('saved');}toast('Removed from saved');}
+  else{favs.push(id);if(btn){btn.innerHTML='<i class="fas fa-bookmark"></i> Saved';btn.classList.add('saved');}toast('Saved!','success');}
+  saveFavs(favs);updateFavBadge();
+}
+
+async function submitReview(shopId){
+  const name=document.getElementById('rname').value.trim(),text=document.getElementById('rtext').value.trim();
+  if(!name){toast('Enter your name','error');return;}
+  if(!selRating){toast('Select a star rating','error');return;}
+  if(!text){toast('Write your review','error');return;}
+  const btn=document.getElementById('rsubmit');
+  if(btn){btn.innerHTML='<i class="fas fa-spinner spin"></i> Posting…';btn.disabled=true;}
+  try {
+    const rResult=await FB.submitRating(shopId,selRating);
+    if(rResult&&rResult.error==='already_rated'){toast('You have already rated this shop','error');return;}
+    if(rResult&&rResult.error==='too_fast'){toast('Please slow down a little','error');return;}
+    if(rResult&&rResult.error){toast('Could not submit rating','error');return;}
+    const result=await FB.addReview(shopId,name,selRating,text);
+    if(result&&result.error==='too_fast'){toast('Please slow down a little','error');return;}
+    if(result&&result.ok){
+      document.getElementById('rname').value='';document.getElementById('rtext').value='';selRating=0;initStars();
+      const reviews=await FB.getReviews(shopId);renderReviews(reviews);renderRatingBreakdown(shopId);
+      toast('Review posted! ⭐','success');
+    } else { toast('Failed to post review','error'); }
+  } finally { if(btn){btn.innerHTML='<i class="fas fa-paper-plane"></i> Post Review';btn.disabled=false;} }
+}
+
+function renderReviews(reviews){
+  const el=document.getElementById('rlist');if(!el)return;
+  if(!reviews||!reviews.length){el.innerHTML='<p style="color:var(--text-muted);font-size:.85rem;padding:8px 0">No reviews yet — be the first!</p>';return;}
+  el.innerHTML=reviews.map(r=>`<div class="review-item"><div class="review-top"><div class="review-avatar">${esc((r.name||'A').charAt(0).toUpperCase())}</div><div><div class="review-name">${esc(r.name||'Anonymous')}</div><div class="review-stars">${'★'.repeat(r.stars||0)}${'☆'.repeat(5-(r.stars||0))}</div></div><span class="review-date">${esc(r.date||'')}</span></div><div class="review-text">${esc(r.text)}</div></div>`).join('');
+}
+
+async function submitComment(shopId){
+  const name=document.getElementById('cname').value.trim(),text=document.getElementById('ctext').value.trim();
+  if(!name||!text){toast('Fill in both fields','error');return;}
+  const btn=document.querySelector('.comment-form button');
+  if(btn)btn.disabled=true;
+  try {
+    const result=await FB.addComment(shopId,name,text);
+    if(result&&result.error==='too_fast'){toast('Please slow down a little','error');return;}
+    if(result&&result.error){toast('Could not post comment','error');return;}
+    document.getElementById('cname').value='';document.getElementById('ctext').value='';
+    const comments=await FB.getComments(shopId);renderComments(comments);
+    toast('Comment posted!','success');
+  } finally { if(btn)btn.disabled=false; }
+}
+
+function renderComments(comments){
+  const el=document.getElementById('clist');if(!el)return;
+  if(!comments||!comments.length){el.innerHTML='<p style="color:var(--text-muted);font-size:.85rem;padding:8px 0">No comments yet.</p>';return;}
+  el.innerHTML=comments.map(c=>`<div class="comment-item"><div class="comment-meta"><span class="comment-user">${esc(c.name||'Anonymous')}</span><span class="comment-date">${esc(c.date||'')}</span></div><div class="comment-text">${esc(c.text)}</div></div>`).join('');
+}
+
+async function toggleLike(e,id,btn){
+  e.stopPropagation();
+  if(btn.disabled)return;
+  btn.disabled=true;
+  const icon=btn.querySelector('i');
+  if(icon)icon.className='fas fa-spinner fa-spin';
+  try {
+    const isNowLiked=await FB.toggleLike(id);
+    btn.classList.toggle('liked',isNowLiked);
+    const lb=document.getElementById('bl-'+id);if(lb)lb.classList.toggle('liked',isNowLiked);
+  } finally { if(icon)icon.className='fas fa-heart'; btn.disabled=false; }
+}
+
+function toggleFav(e,id){
+  e.stopPropagation();
+  let favs=getFavs();const btn=e.currentTarget;
+  if(favs.includes(id)){favs=favs.filter(f=>f!==id);btn.classList.remove('active');btn.innerHTML='<i class="far fa-heart"></i>';toast('Removed from favorites');}
+  else{favs.push(id);btn.classList.add('active');btn.innerHTML='<i class="fas fa-heart"></i>';toast('Saved to favorites ❤️','success');}
+  saveFavs(favs);updateFavBadge();
+}
+function updateFavBadge(){ const cnt=getFavs().length,badge=document.getElementById('fav-badge'); badge.textContent=cnt; badge.classList.toggle('hidden',cnt===0); }
+function toggleFavPage(){
+  const pg=document.getElementById('fav-page'),hidden=pg.classList.contains('hidden');
+  pg.classList.toggle('hidden',!hidden);
+  if(!hidden)return;
+  renderFavPage();pg.scrollIntoView({behavior:'smooth'});
+}
+function renderFavPage(){
+  const favs=getFavs(),shops=getShops(),grid=document.getElementById('fav-grid');grid.innerHTML='';
+  if(!favs.length){grid.innerHTML='<div class="empty-state"><div class="empty-state-icon"><i class="fas fa-heart"></i></div><h3>No favorites yet</h3><p>Tap the heart on any shop to save it here</p></div>';return;}
+  const favShops = favs.map(id=>shops.find(s=>s.id===id)).filter(Boolean);
+  favShops.forEach((shop,i)=>{ const card=makeCard(shop,i,favs);grid.appendChild(card); });
+  loadVisibleCardStats(favShops); // FIX #4: batched here too, instead of per-card listeners
+}
+
+function renderRV(){
+  const rv=getRV();
+  if(!rv.length){document.getElementById('rv-section').classList.add('hidden');return;}
+  document.getElementById('rv-section').classList.remove('hidden');
+  const shops=getShops(),scroll=document.getElementById('rv-scroll');scroll.innerHTML='';
+  rv.forEach(id=>{
+    const shop=shops.find(s=>s.id===id);if(!shop)return;
+    const open=isOpen(shop);
+    const cat=CATS.find(c=>c.name===shop.category)||{color:'#2563EB',icon:'fa-store'};
+    const cardImg=ImageResolver.getCardImage(shop);
+    const cardPh=IMG_PLACEHOLDERS.card(shop.id);
+    const d=document.createElement('div');d.className='rv-mini'; d.dataset.shopId=shop.id;
+    d.innerHTML=`
+      <div class="rv-mini-img-wrap">
+        <img class="rv-mini-img" src="${esc(cardImg)}" alt="${esc(shop.name)}" width="185" height="115" loading="lazy" ${imgFallbackAttr(cardPh)}/>
+        <div class="rv-mini-status ${open?'open':'closed'}"><span class="rv-mini-status-dot"></span>${open?'Open':'Closed'}</div>
+        <button class="rv-mini-remove" onclick="removeRV(event,${shop.id})" title="Remove"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="rv-mini-info">
+        <div class="rv-mini-cat-row"><span class="rv-mini-cat-dot" style="background:${cat.color}"></span><span class="rv-mini-cat">${esc(shop.category)}</span></div>
+        <div class="rv-mini-name">${esc(shop.name)}</div>
+        <div class="rv-mini-footer">
+          <div class="rv-mini-rating" id="rv-rating-${shop.id}"><i class="fas fa-star" style="font-size:0.62rem"></i> —</div>
+          <a class="rv-mini-wa" href="https://wa.me/${esc(shop.whatsapp)}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>`;
+    // PERF: no rating fetch here anymore — see loadRVRatingSingle() below.
+    d.addEventListener('click',()=>{ loadRVRatingSingle(shop.id); openModal(id); });
+    scroll.appendChild(d);
+  });
+  // PERF: previously called loadRVRatingsBatch(rvShops) right here, which
+  // fired a Firestore read for every single RV item the moment the rail
+  // rendered — even for items the user never looks at twice. Ratings for
+  // a shop are now only fetched lazily, one shop at a time, when that
+  // specific card is actually clicked (see loadRVRatingSingle).
+}
+
+/* ══════════════════════════════════════════
+   PERF: lazy, single-shop rating fetch for the "Recently Viewed" rail.
+   Previously loadRVRatingsBatch() fired one batched-but-still-eager
+   Firestore read for ALL visible RV items as soon as the rail rendered.
+   Now nothing is fetched until the user actually clicks a specific RV
+   card, and only that one shop's rating is requested — every other RV
+   card stays untouched (its badge just keeps showing "—").
+══════════════════════════════════════════ */
+const _rvRatingLoaded = new Set();
+async function loadRVRatingSingle(shopId) {
+  if (_rvRatingLoaded.has(shopId)) return; // already fetched this session
+  _rvRatingLoaded.add(shopId);
+  const el = document.getElementById('rv-rating-'+shopId);
+  if (!el) return;
+  let statsMap;
+  try { statsMap = await FB.getShopStatsBatch([shopId]); }
+  catch(e) { AppLog.error('loadRVRatingSingle', e); statsMap = {}; }
+  const data = statsMap[shopId] || statsMap[String(shopId)] || null;
+  const count = data ? (data.ratingCount||0) : 0;
+  const avg = (data && count>0) ? (data.ratingTotal/count).toFixed(1) : null;
+  const el2 = document.getElementById('rv-rating-'+shopId); // re-check: rail may have re-rendered while awaiting
+  if (el2) el2.innerHTML = `<i class="fas fa-star" style="font-size:0.62rem"></i> ${avg||'New'}`;
+}
+
+/* ══ Share / QR ══ */
+function shareShop(id){
+  const shop=getShops().find(s=>s.id===id);if(!shop)return;
+  const url=`${location.href.split('#')[0]}#shop-${id}`;
+  if(navigator.share)navigator.share({title:shop.name,text:`Check out ${shop.name} on RohiniLocal!`,url}).catch(()=>{});
+  else if(navigator.clipboard)navigator.clipboard.writeText(url).then(()=>toast('Link copied!','success')).catch((e)=>{ AppLog.error('shareShop.clipboard', e); toast('Could not copy link','error'); });
+  else toast('Sharing not supported','error');
+}
+function openQR(id){
+  const shop=getShops().find(s=>s.id===id);if(!shop)return;
+  document.getElementById('qr-name').textContent=shop.name;
+  const url=`${location.href.split('#')[0]}#shop-${id}`;
+  document.getElementById('qr-link').value=url;
+  const canvas=document.getElementById('qr-canvas'),ctx=canvas.getContext('2d');
+  const bg=getComputedStyle(document.documentElement).getPropertyValue('--surface-solid').trim()||'#fff';
+  ctx.fillStyle=bg;ctx.fillRect(0,0,200,200);
+  const brand=document.documentElement.getAttribute('data-theme')==='dark'?'#3B82F6':'#2563EB';
+  [[0,0],[0,6],[6,0]].forEach(([cx,cy])=>{ ctx.fillStyle=brand;ctx.fillRect(10+cx*26,10+cy*26,52,52);ctx.fillStyle=bg;ctx.fillRect(16+cx*26,16+cy*26,40,40);ctx.fillStyle=brand;ctx.fillRect(22+cx*26,22+cy*26,28,28); });
+  ctx.fillStyle=brand;ctx.font='bold 12px Inter';ctx.textAlign='center';ctx.fillText('RohiniLocal',100,112);
+  ctx.font='10px Inter';ctx.fillStyle='#94A3B8';ctx.fillText(`Shop #${id}`,100,126);
+  document.getElementById('qr-modal').classList.remove('hidden');
+}
+function closeQR(){document.getElementById('qr-modal').classList.add('hidden');}
+function copyQR(){
+  if(!navigator.clipboard){toast('Clipboard not supported','error');return;}
+  navigator.clipboard.writeText(document.getElementById('qr-link').value).then(()=>toast('Link copied!','success')).catch((e)=>{ AppLog.error('copyQR', e); toast('Could not copy link','error'); });
+}
+
+/* ══ Theme ══ */
+function toggleTheme(){
+  const cur=document.documentElement.getAttribute('data-theme'),next=cur==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  setTheme(next);updateThemeBtn(next);updateMetaTheme(next);
+}
+function updateThemeBtn(t){
+  const btn=document.getElementById('theme-btn');if(!btn)return;
+  btn.innerHTML=t==='dark'?'<i class="fas fa-sun"></i>':'<i class="fas fa-moon"></i>';
+}
+
+/* ══ Toast ══ */
+function toast(msg,type='info'){
+  const wrap=document.getElementById('toast-wrap');
+  const t=document.createElement('div');t.className=`toast ${type}`;
+  const icons={success:'fa-check-circle',error:'fa-exclamation-circle',info:'fa-info-circle'};
+  t.innerHTML=`<i class="fas ${icons[type]||icons.info}"></i> ${esc(msg)}`;
+  wrap.appendChild(t);
+  setTimeout(()=>{t.style.transition='0.3s ease';t.style.opacity='0';t.style.transform='translateX(30px)';setTimeout(()=>t.remove(),300);},3200);
+}
+
+/* ══ XSS-safe escaping ══ */
+function esc(s){
+  return String(s===undefined||s===null?'':s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+/* ══ Keyboard / Touch ══ */
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(!document.getElementById('subcat-overlay').classList.contains('hidden')){closeSubcatDrawer();return;}
+    if(!document.getElementById('lightbox').classList.contains('hidden')){closeLightbox();return;}
+    if(!document.getElementById('modal-overlay').classList.contains('hidden')){closeModal();return;}
+    if(!document.getElementById('qr-modal').classList.contains('hidden')){closeQR();return;}
+  }
+  if(!document.getElementById('modal-overlay').classList.contains('hidden')){if(e.key==='ArrowLeft')gallNav(-1);if(e.key==='ArrowRight')gallNav(1);}
+  if(!document.getElementById('lightbox').classList.contains('hidden')){if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='ArrowRight')lbNav(1);}
+});
+let tSX=0;
+document.addEventListener('touchstart',e=>{tSX=e.changedTouches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{
+  const diff=tSX-e.changedTouches[0].clientX;
+  if(Math.abs(diff)>50){
+    if(!document.getElementById('modal-overlay').classList.contains('hidden'))gallNav(diff>0?1:-1);
+    if(!document.getElementById('lightbox').classList.contains('hidden'))lbNav(diff>0?1:-1);
+  }
+},{passive:true});
+</script>
+</body>
+</html>

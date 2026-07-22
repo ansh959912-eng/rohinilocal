@@ -1,0 +1,2248 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Balaji Store – Today's Best Offers & Deals on Groceries in Rohini, Delhi. Save big on milk, paneer, chips, cold drinks, biscuits & more!">
+<meta name="keywords" content="balaji store offers, grocery deals rohini, discount grocery delhi, flash sale grocery">
+<title>Balaji Store – Today's Offers & Deals 🔥</title>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json"/>
+ 
+  <!-- iOS Home Screen Icons (Apple doesn't use manifest icons) -->
+  <link rel="apple-touch-icon" href="/icon/icon-192.png"/>
+  <link rel="icon" type="image/png" href="/icon/icon-192.png"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800;900&family=Hind:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ══════════════════════════════════════════════════════
+   CSS VARIABLES & BASE RESET
+   Mobile-first approach throughout
+══════════════════════════════════════════════════════ */
+:root {
+  --orange: #FF6B00;
+  --orange-dark: #CC5500;
+  --orange-light: #FFF0E6;
+  --orange-glow: rgba(255,107,0,0.25);
+  --red: #E53935;
+  --green: #2E7D32;
+  --gold: #F9A825;
+  --purple: #6A1B9A;
+  --blue: #1565C0;
+  --white: #FFFFFF;
+  --cream: #FDF8F2;
+  --gray-100: #F5F5F5;
+  --gray-200: #EEEEEE;
+  --gray-400: #BDBDBD;
+  --gray-600: #757575;
+  --gray-800: #212121;
+  --text: #1A1A1A;
+  --shadow-sm: 0 2px 12px rgba(0,0,0,0.08);
+  --shadow-md: 0 8px 32px rgba(0,0,0,0.12);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.18);
+  --shadow-orange: 0 12px 40px rgba(255,107,0,0.30);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Fluid spacing scale */
+  --space-xs: clamp(4px, 1vw, 8px);
+  --space-sm: clamp(8px, 2vw, 14px);
+  --space-md: clamp(12px, 3vw, 20px);
+  --space-lg: clamp(16px, 4vw, 28px);
+  --space-xl: clamp(20px, 5vw, 40px);
+  --space-2xl: clamp(28px, 6vw, 56px);
+  /* Container */
+  --container-max: 1280px;
+  --container-pad: clamp(12px, 4vw, 24px);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Hind', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Safe area support for notch/punch-hole phones */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Universal responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ══ LOGIN PAGE ══ */
+#loginPage {
+  position: fixed; inset: 0; z-index: 999999;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--space-md);
+  /* Allow scroll on very small screens */
+  overflow-y: auto;
+}
+#loginPage.hide { opacity: 0; pointer-events: none; transition: opacity 0.6s ease; }
+
+.login-card {
+  background: #fff;
+  border-radius: clamp(16px, 4vw, 28px);
+  padding: clamp(24px, 5vw, 44px) clamp(20px, 5vw, 40px) clamp(20px, 4vw, 40px);
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.35);
+  position: relative;
+  overflow: hidden;
+  /* Prevent overflow on 320px */
+  min-width: 0;
+}
+.login-card::before {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: clamp(100px, 30vw, 180px); height: clamp(100px, 30vw, 180px);
+  border-radius: 50%; background: var(--orange-light);
+  /* Prevent pseudo-element from causing overflow */
+  pointer-events: none;
+}
+.login-card::after {
+  content: ''; position: absolute; bottom: -40px; left: -40px;
+  width: clamp(80px, 20vw, 120px); height: clamp(80px, 20vw, 120px);
+  border-radius: 50%; background: #e3f2fd;
+  pointer-events: none;
+}
+
+.login-logo {
+  display: flex; align-items: center; gap: clamp(8px, 2vw, 12px);
+  margin-bottom: 8px; position: relative; z-index: 1;
+}
+.login-logo-icon {
+  width: clamp(40px, 10vw, 52px); height: clamp(40px, 10vw, 52px);
+  background: var(--orange); border-radius: clamp(10px, 2.5vw, 16px);
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(20px, 5vw, 26px);
+  box-shadow: 0 6px 20px rgba(255,107,0,0.4);
+  flex-shrink: 0;
+}
+.login-logo-name {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(16px, 4vw, 22px);
+  font-weight: 900; color: var(--orange);
+  line-height: 1.1;
+}
+.login-logo-sub { font-size: clamp(10px, 2.5vw, 11px); color: var(--gray-600); font-weight: 500; }
+
+.login-title {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(20px, 5vw, 26px);
+  font-weight: 800; color: var(--text);
+  margin: clamp(14px, 3vw, 20px) 0 4px;
+  position: relative; z-index: 1;
+}
+.login-sub {
+  font-size: clamp(12px, 3vw, 14px);
+  color: var(--gray-600);
+  margin-bottom: clamp(20px, 4vw, 28px);
+  position: relative; z-index: 1;
+}
+.login-field { margin-bottom: clamp(12px, 3vw, 16px); position: relative; z-index: 1; }
+.login-field label {
+  display: block; font-size: clamp(10px, 2.5vw, 12px); font-weight: 700;
+  color: var(--text); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px;
+}
+.login-field input {
+  width: 100%;
+  padding: clamp(10px, 2.5vw, 13px) clamp(12px, 3vw, 16px);
+  border: 2px solid var(--gray-200); border-radius: 12px;
+  font-family: 'Hind', sans-serif;
+  font-size: clamp(14px, 3.5vw, 15px);
+  color: var(--text); outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s; background: #fafafa;
+  /* Prevent iOS zoom on focus (font-size must be ≥16px OR set explicitly) */
+  font-size: max(16px, clamp(14px, 3.5vw, 15px));
+}
+.login-field input:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 4px rgba(255,107,0,0.1);
+  background: #fff;
+}
+.login-field .eye-btn {
+  position: absolute;
+  right: 8px;
+  bottom: 0;
+  height: 100%;
+  background: none; border: none; cursor: pointer;
+  font-size: 18px; color: var(--gray-600);
+  min-width: 44px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0;
+}
+.login-hint { font-size: 11px; color: var(--gray-600); margin-top: 4px; }
+.login-hint span { color: var(--orange); font-weight: 700; }
+
+.login-error {
+  background: #ffebee; border: 1.5px solid #ffcdd2; border-radius: 10px;
+  padding: clamp(8px, 2vw, 10px) clamp(10px, 3vw, 14px);
+  font-size: clamp(12px, 3vw, 13px); color: #c62828; font-weight: 600;
+  margin-bottom: 14px; display: none; align-items: center; gap: 8px;
+}
+.login-error.show { display: flex; }
+
+.login-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--orange), #FF8C00);
+  color: #fff; border: none; border-radius: 14px;
+  padding: clamp(12px, 3vw, 14px);
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(14px, 3.5vw, 16px);
+  font-weight: 800; cursor: pointer; transition: var(--transition); margin-top: 4px;
+  box-shadow: 0 6px 24px rgba(255,107,0,0.4);
+  position: relative; z-index: 1;
+  /* Minimum touch target */
+  min-height: 48px;
+}
+.login-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(255,107,0,0.5); }
+.login-btn:active { transform: translateY(0); }
+.login-btn.loading { opacity: 0.75; pointer-events: none; }
+
+.login-footer {
+  text-align: center; margin-top: clamp(14px, 3vw, 20px);
+  font-size: clamp(11px, 2.5vw, 12px); color: var(--gray-600);
+  position: relative; z-index: 1;
+}
+.login-footer a { color: var(--orange); font-weight: 700; text-decoration: none; }
+.login-circle { position: absolute; border-radius: 50%; opacity: 0.06; pointer-events: none; }
+.login-circle-1 { width: 300px; height: 300px; background: var(--orange); top: -150px; right: -100px; }
+.login-circle-2 { width: 200px; height: 200px; background: var(--blue); bottom: -80px; left: -60px; }
+
+/* ══ LOADER ══ */
+/* PREMIUM OFFER WEBSITE LOADER */
+
+#pageLoader{
+    position:fixed;
+    inset:0;
+    z-index:999999;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    radial-gradient(circle at top left,#ff6b0020,transparent 40%),
+    radial-gradient(circle at bottom right,#ffb80020,transparent 40%),
+    linear-gradient(135deg,#070b16 0%,#0f172a 50%,#111827 100%);
+
+    backdrop-filter: blur(20px);
+    transition:all .8s ease;
+}
+
+#pageLoader.hide{
+    opacity:0;
+    visibility:hidden;
+    transform:scale(1.05);
+}
+
+/* Premium Glow Ring */
+
+.loader-ring{
+    position:relative;
+    width:130px;
+    height:130px;
+    margin-bottom:30px;
+}
+
+.loader-ring::before{
+    content:'';
+    position:absolute;
+    inset:-10px;
+    border-radius:50%;
+    background:conic-gradient(
+        from 0deg,
+        #ff6b00,
+        #ffb800,
+        #ff6b00
+    );
+    filter:blur(20px);
+    opacity:.7;
+    animation:spin 3s linear infinite;
+}
+
+.loader-ring svg{
+    width:100%;
+    height:100%;
+    animation:spin 2s linear infinite;
+}
+
+.loader-ring-track{
+    fill:none;
+    stroke:rgba(255,255,255,.08);
+    stroke-width:4;
+}
+
+.loader-ring-fill{
+    fill:none;
+    stroke:url(#loaderGradient);
+    stroke-width:5;
+    stroke-linecap:round;
+    stroke-dasharray:250;
+    stroke-dashoffset:70;
+}
+
+/* Premium Icon */
+
+.loader-icon-wrap{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.loader-icon-inner{
+    width:70px;
+    height:70px;
+    border-radius:20px;
+
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:34px;
+
+    box-shadow:
+    0 0 40px rgba(255,107,0,.4),
+    inset 0 0 15px rgba(255,255,255,.1);
+
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.08);
+    }
+}
+
+/* Brand Name */
+
+.loader-name{
+    font-size:34px;
+    font-weight:900;
+    letter-spacing:4px;
+
+    background:linear-gradient(
+        90deg,
+        #ffffff,
+        #ffb800,
+        #ffffff
+    );
+
+    background-size:300% auto;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation:shine 4s linear infinite;
+}
+
+@keyframes shine{
+    to{
+        background-position:300% center;
+    }
+}
+
+.loader-tagline{
+    color:rgba(255,255,255,.55);
+    letter-spacing:3px;
+    margin-top:6px;
+    margin-bottom:35px;
+    text-transform:uppercase;
+}
+
+/* Premium Progress Bar */
+
+.loader-bar-wrap{
+    width:min(320px,80vw);
+    height:8px;
+
+    border-radius:20px;
+    overflow:hidden;
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(10px);
+}
+
+.loader-bar{
+    height:100%;
+    width:0;
+
+    border-radius:20px;
+
+    background:linear-gradient(
+        90deg,
+        #ff6b00,
+        #ffb800,
+        #ffd95a
+    );
+
+    box-shadow:
+    0 0 25px rgba(255,107,0,.7);
+
+    animation:premiumLoad 3s ease forwards;
+}
+
+@keyframes premiumLoad{
+    0%{width:0%}
+    25%{width:35%}
+    50%{width:65%}
+    75%{width:90%}
+    100%{width:100%}
+}
+
+/* Status Dots */
+
+.loader-steps{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+}
+
+.loader-step{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:rgba(255,255,255,.15);
+}
+
+.loader-step.active{
+    background:#ff6b00;
+    box-shadow:0 0 15px #ff6b00;
+    transform:scale(1.5);
+}
+
+/* Loading Text */
+
+.loader-text{
+    margin-top:25px;
+    color:rgba(255,255,255,.7);
+    font-size:14px;
+    letter-spacing:1px;
+}
+
+/* Premium Floating Particles */
+
+.loader-particles{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.loader-particle{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,184,0,.25);
+    filter:blur(2px);
+    animation:floatParticle linear infinite;
+}
+
+@keyframes floatParticle{
+    0%{
+        transform:translateY(110vh) scale(0);
+        opacity:0;
+    }
+    10%{
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-20vh) scale(1.5);
+        opacity:0;
+    }
+}
+
+/* Background Animation */
+
+#pageLoader::before{
+    content:'';
+    position:absolute;
+    inset:-50%;
+    background:
+    radial-gradient(circle,#ff6b0015 0%,transparent 60%);
+    animation:rotateBg 20s linear infinite;
+}
+
+@keyframes rotateBg{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* ══ STICKY HEADER ══ */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 2px solid var(--orange);
+  box-shadow: 0 2px 20px rgba(255,107,0,0.12);
+}
+.header-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: clamp(8px, 2vw, 12px) var(--container-pad);
+  display: flex; align-items: center; gap: clamp(8px, 2vw, 12px);
+  /* No wrap on header — actions collapse gracefully instead */
+}
+.header-logo {
+  display: flex; align-items: center; gap: clamp(6px, 1.5vw, 10px);
+  text-decoration: none; flex-shrink: 0;
+}
+.header-logo-icon {
+  width: clamp(36px, 9vw, 44px); height: clamp(36px, 9vw, 44px);
+  background: var(--orange); border-radius: clamp(8px, 2vw, 12px);
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(18px, 4.5vw, 22px);
+  box-shadow: 0 4px 16px rgba(255,107,0,0.4);
+  flex-shrink: 0;
+}
+.header-logo-name {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(13px, 3.5vw, 18px);
+  font-weight: 900; color: var(--orange); line-height: 1;
+}
+.header-logo-sub { font-size: clamp(9px, 2vw, 10px); color: var(--gray-600); font-weight: 500; }
+
+/* Search bar — grows to fill available space */
+.header-search-wrap {
+  flex: 1;
+  min-width: 0; /* critical: prevents flex overflow */
+  display: flex; align-items: center;
+  background: var(--gray-100); border: 1.5px solid var(--gray-200);
+  border-radius: 50px;
+  padding: clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 18px);
+  gap: 8px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.header-search-wrap:focus-within {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(255,107,0,0.12);
+}
+.header-search-wrap input {
+  border: none; background: transparent; outline: none;
+  font-family: 'Hind', sans-serif;
+  font-size: clamp(13px, 3vw, 14px);
+  color: var(--text); flex: 1; min-width: 0;
+  /* Prevent iOS zoom */
+  font-size: max(16px, clamp(13px, 3vw, 14px));
+}
+.header-search-wrap input::placeholder { color: var(--gray-600); }
+.search-icon { font-size: clamp(14px, 3vw, 16px); color: var(--gray-600); flex-shrink: 0; }
+.search-clear {
+  background: none; border: none; cursor: pointer;
+  font-size: 14px; color: var(--gray-600); padding: 0;
+  display: none; line-height: 1;
+  /* Touch target */
+  min-width: 28px; min-height: 28px;
+  align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.search-clear.vis { display: flex; }
+
+/* Header actions — responsive collapse */
+.header-actions {
+  display: flex; gap: clamp(4px, 1.5vw, 8px);
+  align-items: center; flex-shrink: 0;
+}
+.header-pill {
+  background: var(--orange); color: #fff;
+  border: none; border-radius: 50px;
+  padding: clamp(6px, 1.5vw, 8px) clamp(10px, 2.5vw, 16px);
+  font-family: 'Baloo 2', cursive; font-size: clamp(11px, 2.5vw, 13px); font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  display: flex; align-items: center; gap: 5px;
+  transition: var(--transition); white-space: nowrap;
+  min-height: 36px;
+}
+.header-pill:hover { background: var(--orange-dark); transform: translateY(-1px); }
+
+/* User badge */
+.user-badge {
+  display: flex; align-items: center; gap: clamp(4px, 1.5vw, 8px);
+  background: var(--orange-light); border: 1.5px solid rgba(255,107,0,0.3);
+  border-radius: 50px;
+  padding: clamp(4px, 1vw, 6px) clamp(8px, 2vw, 14px) clamp(4px, 1vw, 6px) clamp(4px, 1vw, 8px);
+  cursor: pointer; transition: var(--transition);
+  white-space: nowrap; flex-shrink: 0;
+}
+.user-badge:hover { background: rgba(255,107,0,0.2); }
+.user-avatar {
+  width: clamp(24px, 6vw, 28px); height: clamp(24px, 6vw, 28px);
+  border-radius: 50%; background: var(--orange);
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(10px, 2.5vw, 12px); font-weight: 800; color: #fff; flex-shrink: 0;
+}
+.user-name {
+  font-size: clamp(10px, 2.5vw, 12px); font-weight: 700; color: var(--orange);
+  /* Hide on very small screens */
+}
+.logout-btn {
+  background: none; border: none; cursor: pointer;
+  font-size: clamp(10px, 2vw, 11px); color: var(--gray-600);
+  font-weight: 600; padding: 0;
+  min-height: 28px; /* touch target contribution */
+}
+
+/* Live Store button */
+.top-bar-right {
+  display: flex; align-items: center; gap: clamp(4px, 1.5vw, 8px);
+  flex-shrink: 0;
+}
+.live-store-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, #25D366, #1da851);
+  color: #fff; border: none; border-radius: 8px;
+  padding: clamp(6px, 1.5vw, 8px) clamp(8px, 2vw, 16px);
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(11px, 2.5vw, 13px); font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  transition: all .2s; box-shadow: 0 2px 8px rgba(37,211,102,.3);
+  white-space: nowrap; min-height: 36px;
+}
+.live-store-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(37,211,102,.4); color: #fff; }
+.live-store-btn .ls-dot {
+  width: 7px; height: 7px; background: #fff; border-radius: 50%;
+  animation: blink 1.2s infinite; flex-shrink: 0;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ══ PRICE TICKER ══ */
+.ticker-wrap {
+  background: #1a1a1a; overflow: hidden; padding: clamp(8px, 2vw, 10px) 0;
+  border-top: 2px solid #FF6B00; border-bottom: 2px solid #FF6B00;
+  position: relative;
+}
+.ticker-wrap::before, .ticker-wrap::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none;
+}
+.ticker-wrap::before { left: 0; background: linear-gradient(to right, #1a1a1a, transparent); }
+.ticker-wrap::after { right: 0; background: linear-gradient(to left, #1a1a1a, transparent); }
+.ticker-track {
+  display: inline-flex; gap: 0;
+  animation: ticker 35s linear infinite; will-change: transform;
+  white-space: nowrap;
+}
+.ticker-wrap:hover .ticker-track { animation-play-state: paused; }
+@keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+.t-item {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 0 clamp(12px, 3vw, 20px);
+  font-size: clamp(11px, 2.5vw, 13px); font-weight: 600; color: #fff; white-space: nowrap;
+}
+.t-item .t-save {
+  background: #FF6B00; color: #fff; border-radius: 20px;
+  padding: 2px 8px; font-size: clamp(9px, 2vw, 10px); font-weight: 700;
+}
+.t-sep { color: rgba(255,255,255,0.25); font-size: 14px; padding: 0 4px; }
+
+/* ══ HERO BANNER ══ */
+.hero {
+  background: linear-gradient(135deg, #FF6B00 0%, #FF8C00 40%, #FFA500 70%, #FFB800 100%);
+  padding: clamp(30px, 7vw, 50px) var(--container-pad);
+  text-align: center; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 30%, rgba(255,200,0,0.25) 0%, transparent 50%);
+  pointer-events: none;
+}
+/* Constrain hero content on ultra-wide */
+.hero-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  position: relative;
+}
+.hero-orb { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.07); pointer-events: none; }
+.hero-orb-1 { width: clamp(150px, 30vw, 300px); height: clamp(150px, 30vw, 300px); top: -100px; left: -80px; animation: orbFloat 6s ease-in-out infinite alternate; }
+.hero-orb-2 { width: clamp(100px, 20vw, 200px); height: clamp(100px, 20vw, 200px); bottom: -80px; right: -50px; animation: orbFloat 8s ease-in-out infinite alternate-reverse; }
+@keyframes orbFloat { to { transform: translate(20px, 20px); } }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 50px; padding: 5px 14px;
+  font-family: 'Hind', sans-serif; font-size: clamp(10px, 2.5vw, 12px);
+  font-weight: 600; color: #fff; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: clamp(10px, 2.5vw, 14px);
+  position: relative;
+}
+.hero-badge::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: #4caf50; display: inline-block; flex-shrink: 0;
+  animation: pulseDot 1.5s ease-in-out infinite;
+}
+@keyframes pulseDot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+.hero h1 {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(26px, 6vw, 52px);
+  font-weight: 900; color: #fff; line-height: 1.1;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  margin-bottom: clamp(8px, 2vw, 10px);
+  position: relative;
+}
+.hero p {
+  font-size: clamp(13px, 3vw, 17px);
+  color: rgba(255,255,255,0.9);
+  margin-bottom: clamp(16px, 4vw, 24px);
+  position: relative;
+}
+.hero-tags {
+  display: flex; gap: clamp(6px, 1.5vw, 8px);
+  justify-content: center; flex-wrap: wrap; position: relative;
+}
+.hero-tag {
+  background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 50px;
+  padding: clamp(4px, 1.5vw, 6px) clamp(10px, 2.5vw, 14px);
+  font-size: clamp(11px, 2.5vw, 12px); font-weight: 600; color: #fff;
+  backdrop-filter: blur(4px);
+}
+
+/* ══ SECTION FILTERS / NAV ══ */
+.section-nav {
+  max-width: var(--container-max);
+  margin: clamp(16px, 4vw, 30px) auto 0;
+  padding: 0 var(--container-pad);
+}
+.filter-bar {
+  display: flex; gap: clamp(5px, 1.5vw, 8px);
+  align-items: center;
+  /* Horizontal scroll on small screens — no wrapping */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 6px; /* space for scrollbar */
+  /* Hide scrollbar visually but keep functionality */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.filter-bar::-webkit-scrollbar { display: none; }
+.filter-pill {
+  background: #fff; border: 1.5px solid var(--gray-200);
+  border-radius: 50px;
+  padding: clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 18px);
+  font-family: 'Hind', sans-serif; font-size: clamp(12px, 2.5vw, 13px);
+  font-weight: 600; color: var(--gray-600);
+  cursor: pointer; transition: var(--transition);
+  white-space: nowrap; display: flex; align-items: center; gap: 6px;
+  scroll-snap-align: start; flex-shrink: 0;
+  /* Touch target */
+  min-height: 40px;
+}
+.filter-pill:hover, .filter-pill.active { background: var(--orange-light); border-color: var(--orange); color: var(--orange); }
+.filter-pill.active { box-shadow: 0 0 0 3px rgba(255,107,0,0.15); }
+
+.sort-select {
+  /* Remove margin-left:auto that broke wrapping — sort goes after pills naturally in scroll row */
+  flex-shrink: 0;
+  background: #fff; border: 1.5px solid var(--gray-200);
+  border-radius: 50px;
+  padding: clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 18px);
+  font-family: 'Hind', sans-serif; font-size: clamp(12px, 2.5vw, 13px); color: var(--text);
+  cursor: pointer; outline: none; transition: border-color 0.2s;
+  min-height: 40px;
+}
+.sort-select:focus { border-color: var(--orange); }
+
+/* ══ MAIN CONTAINER ══ */
+.main {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--container-pad) clamp(40px, 8vw, 60px);
+}
+
+/* ══ SECTION TITLES ══ */
+.section-head {
+  display: flex; align-items: center; gap: clamp(10px, 3vw, 14px);
+  margin-bottom: clamp(14px, 3vw, 20px); margin-top: clamp(28px, 6vw, 40px);
+}
+.section-head:first-child { margin-top: 0; }
+.section-icon {
+  width: clamp(40px, 10vw, 48px); height: clamp(40px, 10vw, 48px);
+  border-radius: clamp(10px, 2.5vw, 14px);
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(18px, 4.5vw, 22px); flex-shrink: 0;
+}
+.section-icon.orange { background: linear-gradient(135deg, #FF6B00, #FFA500); box-shadow: 0 6px 20px rgba(255,107,0,0.4); }
+.section-icon.red { background: linear-gradient(135deg, #E53935, #FF5722); box-shadow: 0 6px 20px rgba(229,57,53,0.4); }
+.section-icon.purple { background: linear-gradient(135deg, #6A1B9A, #AB47BC); box-shadow: 0 6px 20px rgba(106,27,154,0.35); }
+.section-icon.blue { background: linear-gradient(135deg, #1565C0, #42A5F5); box-shadow: 0 6px 20px rgba(21,101,192,0.35); }
+.section-icon.green { background: linear-gradient(135deg, #2E7D32, #66BB6A); box-shadow: 0 6px 20px rgba(46,125,50,0.35); }
+.section-icon.gold { background: linear-gradient(135deg, #F9A825, #FFD740); box-shadow: 0 6px 20px rgba(249,168,37,0.4); }
+.section-title-text { flex: 1; min-width: 0; }
+.section-title-text h2 {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(16px, 4vw, 24px);
+  font-weight: 800; color: var(--text); line-height: 1.1;
+}
+.section-title-text p { font-size: clamp(11px, 2.5vw, 13px); color: var(--gray-600); margin-top: 2px; }
+.see-all {
+  background: var(--orange-light); border: 1.5px solid rgba(255,107,0,0.3);
+  color: var(--orange); border-radius: 50px;
+  padding: clamp(5px, 1.5vw, 7px) clamp(10px, 2.5vw, 16px);
+  font-size: clamp(11px, 2.5vw, 12px); font-weight: 700;
+  cursor: pointer; text-decoration: none; transition: var(--transition);
+  white-space: nowrap; flex-shrink: 0; min-height: 36px;
+  display: flex; align-items: center;
+}
+.see-all:hover { background: rgba(255,107,0,0.2); }
+.section-divider {
+  width: 100%; height: 2px;
+  background: linear-gradient(to right, var(--orange), transparent);
+  margin-bottom: clamp(14px, 3vw, 20px); border-radius: 2px;
+}
+
+/* ══ FEATURED SLIDER ══ */
+.featured-slider {
+  position: relative; overflow: hidden;
+  border-radius: var(--radius-lg);
+  margin-bottom: clamp(24px, 5vw, 40px);
+}
+.slides-wrap { display: flex; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
+.slide {
+  min-width: 100%; position: relative;
+  border-radius: var(--radius-lg); overflow: hidden;
+  min-height: clamp(180px, 35vw, 280px);
+  display: flex; align-items: center;
+}
+.slide-content {
+  flex: 1; min-width: 0;
+  padding: clamp(20px, 5vw, 40px) clamp(16px, 4vw, 44px);
+  position: relative; z-index: 2;
+}
+.slide-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 50px; padding: 4px 12px;
+  font-size: clamp(10px, 2vw, 11px); font-weight: 700;
+  color: #fff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
+}
+.slide-tag {
+  display: inline-block; background: rgba(255,255,255,0.25);
+  border-radius: 50px; padding: 3px 12px;
+  font-size: clamp(10px, 2vw, 11px); font-weight: 600; color: #fff; margin-bottom: 6px;
+}
+.slide h3 {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(16px, 4vw, 34px);
+  font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 6px;
+}
+.slide-desc {
+  font-size: clamp(12px, 2.5vw, 14px);
+  color: rgba(255,255,255,0.88); margin-bottom: clamp(10px, 2.5vw, 16px);
+  /* Hide on very small screens to save space */
+}
+.slide-price-wrap {
+  display: flex; align-items: baseline; gap: clamp(6px, 2vw, 10px);
+  margin-bottom: clamp(12px, 3vw, 20px); flex-wrap: wrap;
+}
+.slide-price {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(20px, 5vw, 38px);
+  font-weight: 900; color: #fff;
+}
+.slide-mrp { font-size: clamp(13px, 3vw, 16px); color: rgba(255,255,255,0.65); text-decoration: line-through; }
+.slide-save {
+  background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 50px; padding: 3px 10px;
+  font-size: clamp(10px, 2.5vw, 12px); font-weight: 700; color: #fff;
+}
+.slide-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #fff; border-radius: 50px;
+  padding: clamp(9px, 2.5vw, 11px) clamp(16px, 4vw, 24px);
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(12px, 2.5vw, 14px); font-weight: 800;
+  border: none; cursor: pointer; transition: var(--transition);
+  text-decoration: none; white-space: nowrap;
+}
+.slide-img-wrap {
+  flex-shrink: 0; width: clamp(140px, 22vw, 220px);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 2; padding: clamp(12px, 3vw, 20px);
+}
+.slide-img-wrap img {
+  width: clamp(100px, 18vw, 170px); height: clamp(100px, 18vw, 170px);
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
+  animation: imgFloat 3s ease-in-out infinite;
+}
+@keyframes imgFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+.slide-disc-badge {
+  position: absolute; top: -10px; right: -10px;
+  width: clamp(48px, 10vw, 64px); height: clamp(48px, 10vw, 64px);
+  border-radius: 50%; background: #fff;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2); z-index: 3;
+  animation: badgePulse 2s ease-in-out infinite;
+}
+@keyframes badgePulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+.slide-disc-pct {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(12px, 2.5vw, 16px);
+  font-weight: 900; color: var(--red); line-height: 1;
+}
+.slide-disc-off { font-size: clamp(7px, 1.5vw, 9px); font-weight: 700; color: var(--red); text-transform: uppercase; }
+
+.slider-dots { display: flex; gap: 7px; justify-content: center; margin-top: clamp(10px, 2.5vw, 16px); }
+.slider-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--gray-400);
+  cursor: pointer; transition: var(--transition); border: none;
+  /* Touch target */
+  min-width: 24px; min-height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  background-clip: content-box; padding: 8px;
+  background-color: var(--gray-400);
+}
+.slider-dot.active {
+  background-color: var(--orange);
+  padding: 8px 4px;
+  border-radius: 6px;
+}
+.slider-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+  width: clamp(32px, 8vw, 40px); height: clamp(32px, 8vw, 40px);
+  border-radius: 50%; background: rgba(255,255,255,0.9); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(16px, 4vw, 18px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: var(--transition);
+}
+.slider-arrow:hover { background: #fff; transform: translateY(-50%) scale(1.08); }
+.slider-arrow.prev { left: clamp(8px, 2vw, 14px); }
+.slider-arrow.next { right: clamp(8px, 2vw, 14px); }
+
+/* ══ OFFER CARDS GRID ══ */
+/* 
+  Mobile-first grid:
+  - 320–479px: 1 column
+  - 480–639px: 2 columns
+  - 640–1023px: 3 columns
+  - 1024px+:   4 columns
+  - 1440px+:   5 columns
+  Using auto-fill with sensible min — avoids orphan single-card rows
+*/
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  gap: clamp(10px, 2.5vw, 16px);
+}
+
+.offer-card {
+  background: #fff; border-radius: var(--radius-md); overflow: hidden;
+  border: 1.5px solid var(--gray-200); box-shadow: var(--shadow-sm);
+  transition: var(--transition); position: relative; cursor: pointer;
+  display: flex; flex-direction: column;
+  /* Prevent cards from shrinking below a usable size */
+  min-width: 0;
+}
+.offer-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: var(--shadow-orange); border-color: rgba(255,107,0,0.35); }
+
+.card-img-wrap {
+  width: 100%; height: clamp(130px, 25vw, 180px);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.card-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.offer-card:hover .card-img-wrap img { transform: scale(1.06); }
+.card-emoji {
+  font-size: clamp(48px, 12vw, 70px); line-height: 1;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+}
+
+.disc-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: linear-gradient(135deg, #E53935, #C62828); color: #fff; border-radius: 8px;
+  padding: 4px 10px; font-size: clamp(10px, 2vw, 11px); font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(229,57,53,0.45);
+  animation: badgeShine 3s ease-in-out infinite;
+}
+@keyframes badgeShine { 0%,100%{box-shadow:0 4px 12px rgba(229,57,53,0.45)} 50%{box-shadow:0 4px 20px rgba(229,57,53,0.7)} }
+.expiry-badge {
+  position: absolute; top: 12px; right: 12px;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+  color: #fff; border-radius: 8px; padding: 4px 8px;
+  font-size: clamp(9px, 2vw, 10px); font-weight: 600;
+}
+.type-pill {
+  position: absolute; bottom: 10px; left: 10px;
+  border-radius: 50px; padding: 3px 9px;
+  font-size: clamp(9px, 2vw, 10px); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.type-flash { background: rgba(229,57,53,0.9); color: #fff; }
+.type-bogo { background: rgba(106,27,154,0.9); color: #fff; }
+.type-combo { background: rgba(21,101,192,0.9); color: #fff; }
+.type-festival { background: rgba(249,168,37,0.95); color: #7B5800; }
+.type-special { background: rgba(46,125,50,0.9); color: #fff; }
+
+.card-body {
+  padding: clamp(10px, 2.5vw, 14px) clamp(12px, 3vw, 16px) clamp(12px, 3vw, 16px);
+  flex: 1; display: flex; flex-direction: column;
+}
+.card-category { font-size: clamp(9px, 2vw, 10px); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--orange); margin-bottom: 4px; }
+.card-title {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(13px, 3vw, 16px);
+  font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 4px;
+}
+.card-desc {
+  font-size: clamp(11px, 2.5vw, 12px); color: var(--gray-600); line-height: 1.5;
+  margin-bottom: clamp(8px, 2vw, 12px); flex: 1;
+}
+.card-price-row { display: flex; align-items: baseline; gap: clamp(5px, 1.5vw, 8px); margin-bottom: clamp(5px, 1.5vw, 8px); flex-wrap: wrap; }
+.card-price { font-family: 'Baloo 2', cursive; font-size: clamp(18px, 4vw, 22px); font-weight: 800; color: var(--orange); }
+.card-mrp { font-size: clamp(12px, 2.5vw, 14px); color: var(--gray-400); text-decoration: line-through; }
+.card-save { background: #E8F5E9; color: #2E7D32; border-radius: 50px; padding: 2px 8px; font-size: clamp(10px, 2vw, 11px); font-weight: 700; }
+
+.countdown-row { display: flex; align-items: center; gap: 6px; margin-bottom: clamp(8px, 2vw, 12px); flex-wrap: wrap; }
+.countdown-label { font-size: clamp(10px, 2vw, 11px); color: var(--gray-600); font-weight: 500; white-space: nowrap; }
+.countdown-time { display: flex; gap: 4px; }
+.c-block { background: var(--text); color: #fff; border-radius: 6px; padding: 3px 6px; font-family: 'Baloo 2', cursive; font-size: clamp(11px, 2.5vw, 12px); font-weight: 700; min-width: 26px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.c-unit { font-size: 7px; font-weight: 500; color: rgba(255,255,255,0.7); text-transform: uppercase; }
+.c-sep { color: var(--text); font-weight: 700; font-size: 13px; align-self: flex-start; padding-top: 4px; }
+
+.card-cta {
+  width: 100%; background: var(--orange); color: #fff; border: none; border-radius: 10px;
+  padding: clamp(9px, 2.5vw, 11px);
+  font-family: 'Baloo 2', cursive; font-size: clamp(12px, 2.5vw, 14px); font-weight: 800;
+  cursor: pointer; transition: var(--transition);
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  min-height: 44px; /* touch target */
+  margin-top: auto;
+}
+.card-cta:hover { background: var(--orange-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,107,0,0.4); }
+.card-cta.bogo { background: linear-gradient(135deg, #6A1B9A, #AB47BC); }
+.card-cta.bogo:hover { background: linear-gradient(135deg, #4a147a, #8B2FA0); }
+.card-cta.combo { background: linear-gradient(135deg, #1565C0, #42A5F5); }
+.card-cta.combo:hover { background: linear-gradient(135deg, #0D47A1, #1E88E5); }
+
+/* ══ SEARCH RESULTS ══ */
+#searchResultsSection { display: none; }
+#searchResultsSection.show { display: block; }
+.search-results-header {
+  background: linear-gradient(135deg, #1a1a1a, #2d2d2d); border-radius: var(--radius-lg);
+  padding: clamp(14px, 3.5vw, 20px) clamp(16px, 4vw, 24px); margin-bottom: clamp(14px, 3.5vw, 20px);
+  display: flex; align-items: center; gap: clamp(10px, 3vw, 16px); flex-wrap: wrap;
+}
+.search-results-title { font-family: 'Baloo 2', cursive; font-size: clamp(16px, 4vw, 20px); font-weight: 800; color: #fff; }
+.search-results-count { background: var(--orange); color: #fff; border-radius: 50px; padding: 4px 12px; font-size: clamp(11px, 2.5vw, 12px); font-weight: 700; }
+.search-clear-btn {
+  margin-left: auto; background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.25);
+  color: #fff; border-radius: 50px; padding: clamp(5px, 1.5vw, 7px) clamp(10px, 2.5vw, 16px);
+  font-size: clamp(11px, 2.5vw, 12px); font-weight: 700; cursor: pointer; transition: var(--transition);
+  min-height: 36px;
+}
+.search-clear-btn:hover { background: rgba(255,255,255,0.2); }
+
+/* ══ NO RESULTS ══ */
+.no-results { text-align: center; padding: clamp(40px, 8vw, 60px) var(--space-md); }
+.no-results .icon { font-size: clamp(52px, 12vw, 72px); margin-bottom: 16px; display: block; filter: grayscale(0.3); }
+.no-results h3 { font-family: 'Baloo 2', cursive; font-size: clamp(18px, 4vw, 22px); font-weight: 700; margin-bottom: 8px; color: var(--text); }
+.no-results p { font-size: clamp(13px, 3vw, 14px); color: var(--gray-600); margin-bottom: 20px; }
+.no-results-suggestions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.no-results-suggestion {
+  background: #fff; border: 1.5px solid var(--gray-200); border-radius: 50px;
+  padding: 8px 16px; font-size: clamp(11px, 2.5vw, 12px); font-weight: 600; color: var(--gray-800);
+  cursor: pointer; transition: var(--transition); min-height: 40px;
+}
+.no-results-suggestion:hover { border-color: var(--orange); color: var(--orange); background: var(--orange-light); }
+
+/* ══ FLASH SALE ══ */
+.flash-sale-strip {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: var(--radius-lg);
+  padding: clamp(14px, 4vw, 18px) clamp(14px, 4vw, 24px) clamp(16px, 4vw, 20px);
+  margin-bottom: 20px; position: relative; overflow: hidden;
+}
+.flash-sale-strip::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,107,0,0.04) 30px, rgba(255,107,0,0.04) 60px);
+  pointer-events: none;
+}
+.flash-head {
+  display: flex; align-items: center; gap: clamp(10px, 3vw, 16px);
+  margin-bottom: clamp(14px, 3.5vw, 18px); flex-wrap: wrap;
+}
+.flash-title {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(16px, 4vw, 22px); font-weight: 900; color: #fff;
+  display: flex; align-items: center; gap: 8px;
+}
+.flash-timer { display: flex; gap: 6px; align-items: center; }
+.flash-timer-block {
+  background: var(--orange); border-radius: 8px;
+  padding: clamp(4px, 1.5vw, 6px) clamp(8px, 2vw, 10px);
+  font-family: 'Baloo 2', cursive; font-size: clamp(14px, 3.5vw, 16px); font-weight: 900; color: #fff;
+  min-width: clamp(32px, 8vw, 38px); text-align: center; line-height: 1;
+  display: flex; flex-direction: column; align-items: center;
+  box-shadow: 0 4px 16px rgba(255,107,0,0.5);
+}
+.flash-timer-unit { font-size: clamp(8px, 2vw, 9px); font-weight: 600; color: rgba(255,255,255,0.8); text-transform: uppercase; }
+.flash-sep { color: rgba(255,255,255,0.5); font-size: clamp(16px, 4vw, 20px); font-weight: 700; }
+
+/* Flash grid: 2-col on mobile, wider on larger screens */
+.flash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: clamp(10px, 2.5vw, 14px);
+  /* Prevent the strip's padding from causing column overflow */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.flash-card {
+    min-width: 0; 
+  background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-md);
+  padding: clamp(10px, 2.5vw, 14px);
+  display: flex; align-items: center; gap: clamp(10px, 2.5vw, 14px);
+  cursor: pointer; transition: var(--transition);
+}
+.flash-card:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,107,0,0.5); transform: translateY(-3px); }
+.flash-card-img {
+  width: clamp(56px, 14vw, 70px); height: clamp(56px, 14vw, 70px);
+  border-radius: 10px; background: rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(28px, 7vw, 36px); flex-shrink: 0; overflow: hidden;
+}
+.flash-card-img img { width: 100%; height: 100%; object-fit: contain; }
+.flash-card-info { flex: 1; min-width: 0; }
+.flash-card-name {
+  font-family: 'Baloo 2', cursive; font-size: clamp(12px, 3vw, 14px); font-weight: 700; color: #fff;
+  margin-bottom: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.flash-card-weight { font-size: clamp(10px, 2vw, 11px); color: rgba(255,255,255,0.55); margin-bottom: 6px; }
+.flash-card-prices { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.flash-card-price { font-family: 'Baloo 2', cursive; font-size: clamp(15px, 3.5vw, 18px); font-weight: 800; color: var(--orange); }
+.flash-card-mrp { font-size: clamp(10px, 2.5vw, 12px); color: rgba(255,255,255,0.4); text-decoration: line-through; }
+.flash-card-disc { background: rgba(229,57,53,0.9); color: #fff; border-radius: 5px; padding: 2px 6px; font-size: clamp(9px, 2vw, 10px); font-weight: 800; }
+.flash-card-btn {
+  background: var(--orange); color: #fff; border: none; border-radius: 8px;
+  padding: clamp(6px, 1.5vw, 7px) clamp(10px, 2.5vw, 14px);
+  font-family: 'Baloo 2', cursive; font-size: clamp(11px, 2.5vw, 12px); font-weight: 800;
+  cursor: pointer; white-space: nowrap; transition: var(--transition);
+  min-height: 40px; flex-shrink: 0;
+}
+.flash-card-btn:hover { background: var(--orange-dark); }
+
+/* ══ BOGO ══ */
+.bogo-strip {
+  background: linear-gradient(135deg, #4a0e8f 0%, #7B1FA2 50%, #AB47BC 100%);
+  border-radius: var(--radius-lg);
+  padding: clamp(16px, 4vw, 24px);
+  margin-bottom: 8px; position: relative; overflow: hidden;
+}
+.bogo-strip::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(255,255,255,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* ══ COMBO CARDS ══ */
+/* Combo grid: fluid, never below 260px but also full-width on small screens */
+#comboGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: clamp(12px, 3vw, 16px);
+}
+.combo-card {
+  background: #fff; border-radius: var(--radius-md);
+  border: 1.5px solid var(--gray-200); overflow: hidden;
+  transition: var(--transition); cursor: pointer; min-width: 0;
+}
+.combo-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: rgba(21,101,192,0.3); }
+.combo-card-header {
+  padding: clamp(14px, 3.5vw, 20px) clamp(14px, 3.5vw, 20px) clamp(10px, 2.5vw, 14px);
+  position: relative;
+  background: linear-gradient(135deg, var(--headerBg, #E3F2FD), white);
+}
+.combo-items { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; margin-bottom: clamp(8px, 2vw, 12px); }
+.combo-item { font-size: clamp(22px, 5.5vw, 28px); }
+.combo-plus { font-size: clamp(13px, 3vw, 16px); color: var(--gray-600); font-weight: 700; }
+.combo-tag { background: rgba(21,101,192,0.12); color: #1565C0; border-radius: 50px; padding: 3px 10px; font-size: clamp(10px, 2.5vw, 11px); font-weight: 700; display: inline-block; margin-bottom: 6px; }
+.combo-name { font-family: 'Baloo 2', cursive; font-size: clamp(14px, 3.5vw, 17px); font-weight: 800; color: var(--text); line-height: 1.3; }
+.combo-desc { font-size: clamp(11px, 2.5vw, 12px); color: var(--gray-600); margin-top: 4px; }
+.combo-price-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: clamp(10px, 2.5vw, 14px) clamp(14px, 3.5vw, 20px);
+  border-top: 1px solid var(--gray-200);
+  gap: 10px; flex-wrap: wrap;
+}
+.combo-price-block { display: flex; align-items: baseline; gap: 6px; }
+.combo-price { font-family: 'Baloo 2', cursive; font-size: clamp(18px, 4.5vw, 22px); font-weight: 800; color: #1565C0; }
+.combo-mrp { font-size: clamp(11px, 2.5vw, 13px); color: var(--gray-400); text-decoration: line-through; }
+.combo-save-pill { background: #E3F2FD; color: #1565C0; border-radius: 50px; padding: 4px 10px; font-size: clamp(10px, 2.5vw, 11px); font-weight: 700; }
+.combo-btn {
+  background: linear-gradient(135deg, #1565C0, #42A5F5); color: #fff;
+  border: none; border-radius: 10px;
+  padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 18px);
+  font-family: 'Baloo 2', cursive; font-size: clamp(12px, 2.5vw, 13px); font-weight: 800;
+  cursor: pointer; transition: var(--transition); min-height: 40px;
+}
+.combo-btn:hover { opacity: 0.9; transform: scale(1.04); }
+
+/* ══ FESTIVAL ══ */
+.festival-section-bg {
+  background: linear-gradient(135deg, #FFF8E1, #FFFDE7); border-radius: var(--radius-lg);
+  padding: clamp(16px, 4vw, 24px); border: 2px dashed rgba(249,168,37,0.5);
+}
+
+/* ══ RESULTS COUNT ══ */
+.results-count { font-size: clamp(12px, 2.5vw, 13px); color: var(--gray-600); margin-bottom: clamp(12px, 3vw, 16px); font-weight: 500; }
+.results-count strong { color: var(--orange); }
+
+/* ══ FLOATING WHATSAPP ══ */
+.floating-wa {
+  position: fixed; right: clamp(14px, 4vw, 18px); bottom: clamp(16px, 4vw, 20px);
+  width: clamp(48px, 12vw, 56px); height: clamp(48px, 12vw, 56px);
+  border-radius: 50%; background: linear-gradient(135deg, #25D366, #1da851);
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; z-index: 9999; box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+  animation: waFloat 3s ease-in-out infinite;
+}
+.floating-wa::before {
+  content: ''; position: absolute; inset: -8px; border-radius: 50%;
+  border: 2px solid rgba(37,211,102,0.35); animation: pulseRing 2s infinite;
+}
+.floating-wa svg { width: clamp(22px, 5.5vw, 28px); height: clamp(22px, 5.5vw, 28px); }
+@keyframes waFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+@keyframes pulseRing { 0%{transform:scale(.85);opacity:.8} 70%{transform:scale(1.3);opacity:0} 100%{opacity:0} }
+
+/* ══ TOAST ══ */
+#toast {
+  position: fixed; bottom: clamp(16px, 4vw, 20px); left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--green); color: #fff; border-radius: 50px;
+  padding: clamp(8px, 2vw, 10px) clamp(16px, 4vw, 22px);
+  font-size: clamp(12px, 3vw, 14px); font-weight: 600;
+  z-index: 99999; transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2); white-space: nowrap; pointer-events: none;
+  /* Don't overlap WhatsApp button */
+  max-width: calc(100vw - 100px);
+}
+#toast.show { transform: translateX(-50%) translateY(0); }
+
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   Mobile-first: styles above are the base (smallest screen)
+   We only ADD or OVERRIDE for larger screens
+══════════════════════════════════════════════════════ */
+
+/* ── 480px+ : Large mobiles ── */
+@media (min-width: 480px) {
+  .offers-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  .flash-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── 640px+ : Small tablets ── */
+@media (min-width: 640px) {
+  .offers-grid {
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  }
+  .card-desc { display: block; }
+  .slide-desc { display: block; }
+}
+
+/* ── 768px+ : Tablets ── */
+@media (min-width: 768px) {
+  .slide-img-wrap { display: flex; }
+  .slide { min-height: 260px; }
+  .flash-grid { grid-template-columns: repeat(2, 1fr); }
+  .offers-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .flash-card { flex-direction: row; text-align: left; }
+  .flash-card-btn { width: auto; }
+}
+
+/* ── 1024px+ : Laptops ── */
+@media (min-width: 1024px) {
+  .offers-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  .flash-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  #comboGrid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+}
+
+/* ── 1280px+ : Desktops ── */
+@media (min-width: 1280px) {
+  .offers-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ── 1440px+ : Large desktops ── */
+@media (min-width: 1440px) {
+  .offers-grid { grid-template-columns: repeat(5, 1fr); }
+  #comboGrid { grid-template-columns: repeat(4, 1fr); }
+  .flash-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ── Ultra-wide 1920px+ ── */
+@media (min-width: 1920px) {
+  :root {
+    --container-max: 1600px;
+  }
+  .offers-grid { grid-template-columns: repeat(6, 1fr); }
+}
+
+
+/* ══════════════════════════════════════════════════════
+   MOBILE HEADER — collapse actions on tiny screens
+══════════════════════════════════════════════════════ */
+
+/* On phones under 500px: hide text labels, keep icons */
+@media (max-width: 499px) {
+  .user-name, .logout-btn { display: none; }
+  .user-badge { padding: 6px; gap: 0; }
+  .live-store-btn .ls-text { display: none; }
+  .header-pill span { display: none; } /* keep emoji, hide text */
+  /* Shrink header logo sub-text */
+  .header-logo-sub { display: none; }
+}
+
+/* On phones under 400px: only show logo icon + search + minimal actions */
+@media (max-width: 399px) {
+  .header-logo-name { font-size: 12px; }
+  .top-bar-right { gap: 4px; }
+  .header-pill { padding: 6px 8px; font-size: 10px; }
+}
+
+/* ══════════════════════════════════════════════════════
+   REDUCED MOTION
+══════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   PRINT
+══════════════════════════════════════════════════════ */
+@media print {
+  #loginPage, #pageLoader, .floating-wa, #toast, .ticker-wrap, .slider-arrow { display: none !important; }
+  header { position: static; }
+  .main { padding: 16px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ LOGIN PAGE ═══════════════════ -->
+<div id="loginPage">
+  <div class="login-card">
+    <div class="login-circle login-circle-1"></div>
+    <div class="login-circle login-circle-2"></div>
+    <div class="login-logo">
+      <div class="login-logo-icon">🛒</div>
+      <div>
+        <div class="login-logo-name">BALAJI STORE</div>
+        <div class="login-logo-sub">Fresh &amp; Daily Essentials</div>
+      </div>
+    </div>
+    <div class="login-title">Welcome Back! 👋</div>
+    <div class="login-sub">Sign in to access exclusive deals &amp; offers</div>
+    <div class="login-error" id="loginError">
+      <span>⚠️</span><span id="loginErrorMsg">Invalid username or password.</span>
+    </div>
+    <div class="login-field">
+      <label for="loginUser">Username</label>
+      <input type="text" id="loginUser" placeholder="Enter your username" autocomplete="username" inputmode="text">
+      
+    </div>
+    <div class="login-field">
+      <label for="loginPass">Password</label>
+      <input type="password" id="loginPass" placeholder="Enter your password" autocomplete="current-password">
+      <button class="eye-btn" type="button" id="eyeBtn" onclick="togglePass()" aria-label="Show or hide password">👁️</button>
+      <div class="login-hint">Hint: <span>Open Only Sunday</span></div>
+    </div>
+    <button class="login-btn" id="loginBtn" onclick="doLogin()">🔓 Sign In to Store</button>
+    <div class="login-footer">
+      Need help? <a href="https://wa.me/919205002319" target="_blank" rel="noopener">Contact on WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ PAGE LOADER ═══════════════════ -->
+<div id="pageLoader" style="display:none;">
+  <div class="loader-particles" id="loaderParticles"></div>
+
+  <div class="loader-ring">
+    <svg viewBox="0 0 90 90">
+      <circle class="loader-ring-track" cx="45" cy="45" r="38"/>
+      <circle class="loader-ring-fill"  cx="45" cy="45" r="38"/>
+    </svg>
+    <div class="loader-icon-wrap">
+      <div class="loader-icon-inner">🛒</div>
+    </div>
+  </div>
+
+  <div class="loader-name">BALAJI STORE</div>
+  <div class="loader-tagline">Fresh &amp; Daily Essentials</div>
+
+  <div class="loader-bar-wrap">
+    <div class="loader-bar" id="loaderBar"></div>
+  </div>
+
+  <div class="loader-steps" id="loaderSteps">
+    <div class="loader-step active" id="lstep0"></div>
+    <div class="loader-step" id="lstep1"></div>
+    <div class="loader-step" id="lstep2"></div>
+    <div class="loader-step" id="lstep3"></div>
+  </div>
+
+  <div class="loader-text" id="loaderText">Checking today's offers...</div>
+</div>
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/919205002319?text=Hello%20Balaji%20Store%2C%20I%20want%20to%20order%20from%20the%20offers%20page!" class="floating-wa" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- TOAST -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header id="mainHeader" style="display:none;">
+  <div class="header-inner">
+    <a href="#" class="header-logo" aria-label="Balaji Store home">
+      <div class="header-logo-icon" aria-hidden="true">🛒</div>
+      <div>
+        <div class="header-logo-name">BALAJI STORE</div>
+        <div class="header-logo-sub">Fresh &amp; Daily Essentials</div>
+      </div>
+    </a>
+    <div class="header-search-wrap" role="search">
+      <span class="search-icon" aria-hidden="true">🔍</span>
+      <input type="text" placeholder="Search offers, deals, products..." id="searchInput" autocomplete="off" aria-label="Search offers and deals">
+      <button class="search-clear" id="searchClearBtn" onclick="clearSearch()" title="Clear search" aria-label="Clear search">✕</button>
+    </div>
+    <div class="header-actions">
+      <div class="user-badge" id="userBadge">
+        <div class="user-avatar" id="userAvatar" aria-hidden="true">B</div>
+        <span class="user-name" id="userName">balaji</span>
+        <button class="logout-btn" onclick="doLogout()" title="Logout" aria-label="Log out">⎋ Logout</button>
+      </div>
+      <div class="top-bar-right">
+        <a href="/balaji/index.html" target="_blank" class="live-store-btn" title="Open Live Store" rel="noopener">
+          <div class="ls-dot" aria-hidden="true"></div><span class="ls-text">Live Store</span>🏪
+        </a>
+        <a href="https://wa.me/919205002319" target="_blank" rel="noopener" class="header-pill" aria-label="Contact on WhatsApp">💬 <span>WhatsApp</span></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PRICE TICKER -->
+<div class="ticker-wrap" id="tickerWrap" style="display:none;" aria-hidden="true" role="marquee">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="heroSection" style="display:none;" aria-labelledby="heroTitle">
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-badge" aria-live="polite">🟢 Live Deals Updated Daily</div>
+    <h1 id="heroTitle">🔥 Today's Offers<br>&amp; Deals</h1>
+    <p>Rohini ki sabse best deals – fresh groceries at unbeatable prices!</p>
+    <div class="hero-tags" role="list" aria-label="Store highlights">
+      <span class="hero-tag" role="listitem">💰 Up to 40% OFF</span>
+      <span class="hero-tag" role="listitem">🛒 200+ Products</span>
+      <span class="hero-tag" role="listitem">🚚 Free Delivery ₹100+</span>
+      <span class="hero-tag" role="listitem">⏰ Open 6AM – 10PM</span>
+      <span class="hero-tag" role="listitem">📍 Rohini Sector 25</span>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="section-nav" id="filterNav" style="display:none;">
+  <div class="filter-bar" role="navigation" aria-label="Filter offers by category">
+    <button class="filter-pill active" data-cat="all" onclick="filterOffers('all',this)">🛍️ All Deals</button>
+    <button class="filter-pill" data-cat="flash" onclick="filterOffers('flash',this)">⚡ Flash Sale</button>
+    <button class="filter-pill" data-cat="festival" onclick="filterOffers('festival',this)">🎉 Festival</button>
+    <button class="filter-pill" data-cat="bogo" onclick="filterOffers('bogo',this)">2️⃣ Buy 1 Get 1</button>
+    <button class="filter-pill" data-cat="combo" onclick="filterOffers('combo',this)">📦 Combo Packs</button>
+    <button class="filter-pill" data-cat="dairy" onclick="filterOffers('dairy',this)">🥛 Dairy</button>
+    <button class="filter-pill" data-cat="snacks" onclick="filterOffers('snacks',this)">🍪 Snacks</button>
+    <button class="filter-pill" data-cat="drinks" onclick="filterOffers('drinks',this)">🥤 Drinks</button>
+    <select class="sort-select" id="sortSelect" onchange="sortOffers()" aria-label="Sort offers">
+      <option value="default">Sort: Default</option>
+      <option value="disc-high">Highest Discount</option>
+      <option value="price-low">Price: Low to High</option>
+      <option value="price-high">Price: High to Low</option>
+      <option value="expiry">Expiring Soon</option>
+    </select>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="main" id="mainContent" style="display:none;">
+
+  <!-- SEARCH RESULTS SECTION -->
+  <section id="searchResultsSection" aria-label="Search results">
+    <div class="search-results-header">
+      <span class="search-results-title">🔍 Search Results</span>
+      <span class="search-results-count" id="searchCountBadge" aria-live="polite">0 found</span>
+      <button class="search-clear-btn" onclick="clearSearch()">✕ Clear Search</button>
+    </div>
+    <div class="offers-grid" id="searchResultsGrid"></div>
+    <div id="searchNoResults" class="no-results" style="display:none;" aria-live="polite">
+      <span class="icon" aria-hidden="true">🔍</span>
+      <h3 id="searchNoResultsTitle">Koi result nahi mila!</h3>
+      <p id="searchNoResultsMsg">Try different keywords or browse categories below.</p>
+      <div class="no-results-suggestions">
+        <button class="no-results-suggestion" onclick="quickSearch('milk')">🥛 Milk</button>
+        <button class="no-results-suggestion" onclick="quickSearch('chips')">🍟 Chips</button>
+        <button class="no-results-suggestion" onclick="quickSearch('cold drink')">🥤 Cold Drinks</button>
+        <button class="no-results-suggestion" onclick="quickSearch('paneer')">🧀 Paneer</button>
+        <button class="no-results-suggestion" onclick="quickSearch('biscuit')">🍪 Biscuits</button>
+        <button class="no-results-suggestion" onclick="quickSearch('atta')">🌾 Atta</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED SLIDER -->
+  <div id="featuredSection">
+    <div class="section-head">
+      <div class="section-icon orange" aria-hidden="true">⭐</div>
+      <div class="section-title-text">
+        <h2>Featured Offers</h2>
+        <p>Best deals handpicked for you today</p>
+      </div>
+    </div>
+    <div class="section-divider" aria-hidden="true"></div>
+    <div class="featured-slider" id="featuredSlider" aria-label="Featured offers slideshow" aria-roledescription="carousel">
+      <div class="slides-wrap" id="slidesWrap">
+
+        <!-- SLIDE 1: Milk -->
+        <div class="slide" style="background:linear-gradient(135deg,#1565C0 0%,#42A5F5 60%,#81D4FA 100%);" role="group" aria-roledescription="slide" aria-label="Slide 1 of 3">
+          <div class="slide-content">
+            <span class="slide-badge">⭐ Today's Pick</span>
+            <div class="slide-tag">🥛 Dairy</div>
+            <h3>Amul Full Cream Milk – Best Price!</h3>
+            <p class="slide-desc">Fresh, pure &amp; creamy. Perfect for chai, kheer &amp; everyday use. Direct from Amul.</p>
+            <div class="slide-price-wrap">
+              <span class="slide-price">₹66</span>
+              <span class="slide-mrp">₹72</span>
+              <span class="slide-save">Save ₹6</span>
+            </div>
+            <a href="https://wa.me/919205002319?text=Hello!%20I%20want%20to%20order%20Amul%20Full%20Cream%20Milk%201L%20at%20the%20offer%20price%20%E2%82%B966" target="_blank" rel="noopener" class="slide-btn" style="color:#1565C0;">🛒 Order Now on WhatsApp</a>
+          </div>
+          <div class="slide-img-wrap" aria-hidden="true">
+            <div style="position:relative;">
+              <img src="https://res.cloudinary.com/db2tt1cy6/image/upload/v1780421930/image/pooja_kumkum5.png" alt="Amul Full Cream Milk 1 Litre" loading="eager" width="170" height="170">
+              <div class="slide-disc-badge"><span class="slide-disc-pct">8%</span><span class="slide-disc-off">OFF</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 2: Chips -->
+        <div class="slide" style="background:linear-gradient(135deg,#E53935 0%,#FF7043 50%,#FFAB91 100%);" role="group" aria-roledescription="slide" aria-label="Slide 2 of 3">
+          <div class="slide-content">
+            <span class="slide-badge">⚡ Flash Sale</span>
+            <div class="slide-tag">🍪 Snacks</div>
+            <h3>Lays + Kurkure Combo Pack Deal!</h3>
+            <p class="slide-desc">Party favourite! Get your favourite chips at the lowest price. Limited stock available.</p>
+            <div class="slide-price-wrap">
+              <span class="slide-price">₹35</span>
+              <span class="slide-mrp">₹50</span>
+              <span class="slide-save">30% OFF</span>
+            </div>
+            <a href="https://wa.me/919205002319?text=Hello!%20I%20want%20to%20order%20the%20Lays%20%2B%20Kurkure%20Combo%20offer!" target="_blank" rel="noopener" class="slide-btn" style="color:#E53935;">🔥 Grab This Deal!</a>
+          </div>
+          <div class="slide-img-wrap" aria-hidden="true">
+            <div style="position:relative;">
+              <img src="https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Lays Kurkure Combo snacks" loading="eager" width="170" height="170">
+              <div class="slide-disc-badge"><span class="slide-disc-pct">30%</span><span class="slide-disc-off">OFF</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 3: Cold Drinks -->
+        <div class="slide" style="background:linear-gradient(135deg,#2E7D32 0%,#43A047 50%,#A5D6A7 100%);" role="group" aria-roledescription="slide" aria-label="Slide 3 of 3">
+          <div class="slide-content">
+            <span class="slide-badge">🎉 Festival Special</span>
+            <div class="slide-tag">🥤 Drinks</div>
+            <h3>Cold Drinks Mega Festival Offer!</h3>
+            <p class="slide-desc">Coca Cola, Sprite, Fanta &amp; more. Stock up for parties &amp; gatherings at bulk price!</p>
+            <div class="slide-price-wrap">
+              <span class="slide-price">₹50</span>
+              <span class="slide-mrp">₹65</span>
+              <span class="slide-save">Save ₹15</span>
+            </div>
+            <a href="https://wa.me/919205002319?text=Hello!%20I%20want%20the%20Cold%20Drinks%20Festival%20Offer%20deal!" target="_blank" rel="noopener" class="slide-btn" style="color:#2E7D32;">🥤 Order Drinks Now</a>
+          </div>
+          <div class="slide-img-wrap" aria-hidden="true">
+            <div style="position:relative;">
+              <img src="https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Cold drinks festival offer" loading="eager" width="170" height="170">
+              <div class="slide-disc-badge"><span class="slide-disc-pct">23%</span><span class="slide-disc-off">OFF</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <button class="slider-arrow prev" onclick="prevSlide()" aria-label="Previous slide">‹</button>
+      <button class="slider-arrow next" onclick="nextSlide()" aria-label="Next slide">›</button>
+    </div>
+    <div class="slider-dots" id="sliderDots" role="tablist" aria-label="Slide navigation"></div>
+  </div>
+
+  <!-- FLASH SALE -->
+  <section id="flashSection" data-section="flash" aria-labelledby="flashHeading">
+    <div class="section-head">
+      <div class="section-icon red" aria-hidden="true">⚡</div>
+      <div class="section-title-text">
+        <h2 id="flashHeading">⚡ Flash Sale – Limited Time!</h2>
+        <p>Hurry! These deals expire soon</p>
+      </div>
+    </div>
+    <div class="section-divider" aria-hidden="true"></div>
+    <div class="flash-sale-strip">
+      <div class="flash-head">
+        <div class="flash-title">⚡ Flash Sale Ends In</div>
+        <div class="flash-timer" id="flashTimer" aria-live="off" aria-label="Flash sale countdown">
+          <div class="flash-timer-block"><span id="fh">00</span><span class="flash-timer-unit">Hrs</span></div>
+          <span class="flash-sep" aria-hidden="true">:</span>
+          <div class="flash-timer-block"><span id="fm">00</span><span class="flash-timer-unit">Min</span></div>
+          <span class="flash-sep" aria-hidden="true">:</span>
+          <div class="flash-timer-block"><span id="fs">00</span><span class="flash-timer-unit">Sec</span></div>
+        </div>
+      </div>
+      <div class="flash-grid" id="flashGrid">
+        <div class="flash-card">
+          <div class="flash-card-img" aria-hidden="true">🧈</div>
+          <div class="flash-card-info">
+            <div class="flash-card-name">Amul Butter 100g</div>
+            <div class="flash-card-weight">100 gm</div>
+            <div class="flash-card-prices"><span class="flash-card-price">₹52</span><span class="flash-card-mrp">₹60</span><span class="flash-card-disc">13% OFF</span></div>
+          </div>
+          <button class="flash-card-btn" onclick="orderOnWA('Amul Butter 100g Flash Sale at ₹52')" aria-label="Buy Amul Butter 100g at ₹52">Buy Now</button>
+        </div>
+        <div class="flash-card">
+          <div class="flash-card-img" aria-hidden="true">🐂</div>
+          <div class="flash-card-info">
+            <div class="flash-card-name">Red Bull 250ml</div>
+            <div class="flash-card-weight">250 ml</div>
+            <div class="flash-card-prices"><span class="flash-card-price">₹100</span><span class="flash-card-mrp">₹150</span><span class="flash-card-disc">33% OFF</span></div>
+          </div>
+          <button class="flash-card-btn" onclick="orderOnWA('Red Bull 250ml Flash Sale at ₹100')" aria-label="Buy Red Bull 250ml at ₹100">Buy Now</button>
+        </div>
+        <div class="flash-card">
+          <div class="flash-card-img" aria-hidden="true">🍪</div>
+          <div class="flash-card-info">
+            <div class="flash-card-name">Kurkure Masala Munch</div>
+            <div class="flash-card-weight">90 gm</div>
+            <div class="flash-card-prices"><span class="flash-card-price">₹15</span><span class="flash-card-mrp">₹20</span><span class="flash-card-disc">25% OFF</span></div>
+          </div>
+          <button class="flash-card-btn" onclick="orderOnWA('Kurkure Masala Munch Flash Sale at ₹15')" aria-label="Buy Kurkure at ₹15">Buy Now</button>
+        </div>
+        <div class="flash-card">
+          <div class="flash-card-img" aria-hidden="true">🥤</div>
+          <div class="flash-card-info">
+            <div class="flash-card-name">Coca Cola 2L</div>
+            <div class="flash-card-weight">2 Litre</div>
+            <div class="flash-card-prices"><span class="flash-card-price">₹85</span><span class="flash-card-mrp">₹120</span><span class="flash-card-disc">29% OFF</span></div>
+          </div>
+          <button class="flash-card-btn" onclick="orderOnWA('Coca Cola 2L Flash Sale at ₹85')" aria-label="Buy Coca Cola 2L at ₹85">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALL OFFERS -->
+  <section id="allOffersSection" aria-labelledby="allOffersHeading">
+    <div class="section-head">
+      <div class="section-icon orange" aria-hidden="true">🏷️</div>
+      <div class="section-title-text">
+        <h2 id="allOffersHeading">All Offers &amp; Deals</h2>
+        <p>Browse all active offers – updated daily</p>
+      </div>
+    </div>
+    <div class="section-divider" aria-hidden="true"></div>
+    <div class="results-count" id="resultsCount" aria-live="polite"></div>
+    <div class="offers-grid" id="offersGrid"></div>
+    <div id="noResults" class="no-results" style="display:none;" aria-live="polite">
+      <span class="icon" aria-hidden="true">🙁</span>
+      <h3>Koi offer nahi mila!</h3>
+      <p>Try a different filter or search term.</p>
+    </div>
+  </section>
+
+  <!-- FESTIVAL -->
+  <section id="festivalSection" data-section="festival" aria-labelledby="festivalHeading">
+    <div class="section-head" style="margin-top:clamp(28px,6vw,50px);">
+      <div class="section-icon gold" aria-hidden="true">🎉</div>
+      <div class="section-title-text">
+        <h2 id="festivalHeading">🎉 Festival Special Offers</h2>
+        <p>Celebrate every occasion with unbeatable deals</p>
+      </div>
+    </div>
+    <div class="section-divider" aria-hidden="true"></div>
+    <div class="festival-section-bg">
+      <div class="offers-grid" id="festivalGrid"></div>
+    </div>
+  </section>
+
+  <!-- BOGO -->
+  <section id="bogoSection" data-section="bogo" aria-labelledby="bogoHeading">
+    <div class="section-head" style="margin-top:clamp(28px,6vw,50px);">
+      <div class="section-icon purple" aria-hidden="true">2️⃣</div>
+      <div class="section-title-text">
+        <h2 id="bogoHeading">Buy 1 Get 1 FREE 🎁</h2>
+        <p>Double the value – grab more for the same price!</p>
+      </div>
+    </div>
+    <div class="section-divider" aria-hidden="true"></div>
+    <div class="bogo-strip">
+      <div class="offers-grid" id="bogoGrid"></div>
+    </div>
+  </section>
+
+  <!-- COMBO -->
+  <section id="comboSection" data-section="combo" aria-labelledby="comboHeading">
+    <div class="section-head" style="margin-top:clamp(28px,6vw,50px);">
+      <div class="section-icon blue" aria-hidden="true">📦</div>
+      <div class="section-title-text">
+        <h2 id="comboHeading">📦 Combo Pack Offers</h2>
+        <p>Buy together, save more – best value combos!</p>
+      </div>
+    </div>
+    <div class="section-divider" aria-hidden="true"></div>
+    <div id="comboGrid"></div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════ JAVASCRIPT ═══════════════════ -->
+<script>
+'use strict';
+
+/* ════ CREDENTIALS ════ */
+const CREDENTIALS = {
+  balaji: 'store2024',
+  admin: 'balaji123',
+};
+
+/* ════ OFFERS DATA ════ */
+const OFFERS_DATA = [
+  { id:'milk-amul-1l', name:'Amul Full Cream Milk 1L', desc:'Premium full-fat milk for chai, desserts & everyday use.', category:'dairy', type:'special', emoji:'🥛', img:'https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=400', price:66, mrp:72, discPct:8, expiry:'2026-06-20', weight:'1 Litre', section:'', featured:true },
+  { id:'paneer-amul-200g', name:'Amul Paneer 200g', desc:'Soft, fresh paneer. Perfect for sabzi, tikka & curries.', category:'dairy', type:'festival', emoji:'🧀', img:'https://images.pexels.com/photos/5765/cheese-ingredients-food-cooking.jpg?auto=compress&cs=tinysrgb&w=400', price:78, mrp:90, discPct:13, expiry:'2026-06-18', weight:'200 gm', section:'festival', featured:false },
+  { id:'dahi-amul-1kg', name:'Amul Dahi 1kg', desc:'Thick, creamy curd. Fresh and tangy for raita & lassi.', category:'dairy', type:'special', emoji:'🍶', img:'', price:72, mrp:80, discPct:10, expiry:'2026-06-16', weight:'1 kg', section:'', featured:false },
+  { id:'butter-amul-100g', name:'Amul Butter 100g', desc:'Golden, salted butter. Perfect for bread, roti & parathas.', category:'dairy', type:'flash', emoji:'🧈', img:'', price:52, mrp:60, discPct:13, expiry:'2026-06-15', weight:'100 gm', section:'', featured:false },
+  { id:'bogo-milk-amul', name:'Amul Toned Milk 500ml – Buy 1 Get 1 FREE!', desc:'Buy one pouch of Amul Toned Milk and get another absolutely FREE!', category:'dairy', type:'bogo', emoji:'🥛', img:'', price:30, mrp:60, discPct:50, expiry:'2026-06-25', weight:'2 × 500ml', section:'bogo', featured:false },
+  { id:'lays-blue-20', name:'Lays India Magic Masala', desc:"Crispy, tangy & absolutely irresistible! India's favourite flavour.", category:'snacks', type:'flash', emoji:'🍟', img:'https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&w=400', price:15, mrp:20, discPct:25, expiry:'2026-06-15', weight:'26 gm', section:'', featured:false },
+  { id:'kurkure-masala-20', name:'Kurkure Masala Munch', desc:'Crunchy corn puffs with spicy masala – snack time ka raja!', category:'snacks', type:'flash', emoji:'🌽', img:'', price:15, mrp:20, discPct:25, expiry:'2026-06-15', weight:'90 gm', section:'', featured:false },
+  { id:'good-day-10', name:'Britannia Good Day Biscuit', desc:'Buttery, crumbly biscuit. Perfect with evening chai!', category:'snacks', type:'special', emoji:'🍪', img:'https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg?auto=compress&cs=tinysrgb&w=400', price:8, mrp:10, discPct:20, expiry:'2026-06-30', weight:'67 gm', section:'', featured:false },
+  { id:'parleg-5', name:'Parle-G Glucose Biscuit', desc:'The original! Energy-packed glucose biscuit loved by all ages.', category:'snacks', type:'special', emoji:'🍪', img:'', price:4, mrp:5, discPct:20, expiry:'2026-07-01', weight:'45 gm', section:'', featured:false },
+  { id:'bourbon-10', name:'Britannia Bourbon Biscuit', desc:'Rich chocolate cream filled biscuit sandwich. Festival favourite!', category:'snacks', type:'festival', emoji:'🍫', img:'', price:8, mrp:10, discPct:20, expiry:'2026-06-22', weight:'60 gm', section:'festival', featured:false },
+  { id:'bogo-lays-20', name:'Lays Classic – Buy 2 Get 1 FREE!', desc:'Buy any 2 Lays packets and get 1 completely FREE! Party mein mazaa double!', category:'snacks', type:'bogo', emoji:'🍟', img:'', price:40, mrp:60, discPct:33, expiry:'2026-06-28', weight:'3 × 20gm packs', section:'bogo', featured:false },
+  { id:'cocacola-2l', name:'Coca Cola 2 Litre', desc:'The real thing! Ice-cold, fizzy refreshment for the whole family.', category:'drinks', type:'flash', emoji:'🥤', img:'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=400', price:85, mrp:120, discPct:29, expiry:'2026-06-15', weight:'2 Litre', section:'', featured:true },
+  { id:'redbull-250ml', name:'Red Bull Energy Drink', desc:'Wings when you need them! Stay energised all day with Red Bull.', category:'drinks', type:'flash', emoji:'🐂', img:'https://images.pexels.com/photos/1292294/pexels-photo-1292294.jpeg?auto=compress&cs=tinysrgb&w=400', price:100, mrp:150, discPct:33, expiry:'2026-06-15', weight:'250 ml', section:'', featured:false },
+  { id:'frooti-2l', name:'Frooti Mango 2L', desc:'Fresh & juicy mango drink! Best thirst quencher this summer.', category:'drinks', type:'festival', emoji:'🥭', img:'', price:85, mrp:120, discPct:29, expiry:'2026-06-22', weight:'2 Litre', section:'festival', featured:false },
+  { id:'bisleri-20l', name:'Bisleri Water 20L', desc:'Pure, safe drinking water for your home. Heavy pack, best price!', category:'drinks', type:'special', emoji:'💧', img:'', price:110, mrp:140, discPct:21, expiry:'2026-07-01', weight:'20 Litre', section:'', featured:false },
+  { id:'bogo-sprite', name:'Sprite 740ml – Buy 1 Get 1 FREE!', desc:'Refreshing lemon-lime flavour! Buy one bottle and get another one FREE.', category:'drinks', type:'bogo', emoji:'🍃', img:'', price:35, mrp:70, discPct:50, expiry:'2026-06-25', weight:'2 × 740ml', section:'bogo', featured:false },
+  { id:'aashirvaad-5kg', name:'Aashirvaad Atta 5kg', desc:'Soft, wholesome wheat flour. Makes perfectly soft rotis every time.', category:'grains', type:'special', emoji:'🌾', img:'https://images.pexels.com/photos/4110251/pexels-photo-4110251.jpeg?auto=compress&cs=tinysrgb&w=400', price:235, mrp:270, discPct:13, expiry:'2026-06-30', weight:'5 kg', section:'', featured:false },
+  { id:'fortune-oil-1l', name:'Fortune Sunflower Oil 1L', desc:'Light, healthy cooking oil with zero cholesterol. Best for daily cooking.', category:'oil', type:'special', emoji:'🫙', img:'', price:165, mrp:215, discPct:23, expiry:'2026-06-30', weight:'1 Litre', section:'', featured:false },
+  { id:'festival-dry-fruits', name:'Festival Grocery Gift Pack', desc:'Special festival hamper – atta, oil, sugar, tea & more. Perfect for gifting!', category:'grains', type:'festival', emoji:'🎁', img:'', price:399, mrp:599, discPct:33, expiry:'2026-06-30', weight:'Combo pack ~3kg', section:'festival', featured:false },
+  { id:'festival-namkeen', name:'Haldiram Namkeen Festival Pack', desc:'Assorted namkeen combo for festivals. Bhujia + Navratan + Moong Dal.', category:'snacks', type:'festival', emoji:'🎉', img:'', price:140, mrp:180, discPct:22, expiry:'2026-06-28', weight:'3 × 200gm', section:'festival', featured:false },
+  { id:'combo-breakfast', name:'Breakfast Combo Pack', desc:'Complete breakfast kit: Bread + Amul Butter + Tea + Eggs.', category:'dairy', type:'combo', emoji:'🍳', img:'', price:185, mrp:250, discPct:26, expiry:'2026-06-30', weight:'Complete kit', section:'combo', featured:false, comboEmojis:['🍞','🧈','☕','🥚'], comboLabel:'Breakfast Kit' },
+  { id:'combo-drinks-party', name:'Party Drinks Combo', desc:'Coca Cola 2L + Sprite 2L + Frooti 2L – perfect for get-togethers!', category:'drinks', type:'combo', emoji:'🥤', img:'', price:245, mrp:360, discPct:32, expiry:'2026-06-25', weight:'3 × 2 Litre bottles', section:'combo', featured:false, comboEmojis:['🥤','🍃','🥭'], comboLabel:'Party Drinks' },
+  { id:'combo-snack-box', name:'Snack Box Combo', desc:'Lays (3 pcs) + Kurkure (2 pcs) + Bourbon Biscuit.', category:'snacks', type:'combo', emoji:'📦', img:'', price:75, mrp:110, discPct:32, expiry:'2026-06-20', weight:'6 items combo', section:'combo', featured:false, comboEmojis:['🍟','🌽','🍪'], comboLabel:'Snack Box' },
+  { id:'combo-atta-oil', name:'Atta + Oil Monthly Combo', desc:'Aashirvaad Atta 10kg + Fortune Oil 1L + Silver Coin Atta 5kg.', category:'grains', type:'combo', emoji:'🌾', img:'', price:820, mrp:1150, discPct:29, expiry:'2026-06-30', weight:'Monthly family pack', section:'combo', featured:false, comboEmojis:['🌾','🫙','🌾'], comboLabel:'Monthly Essentials' },
+];
+
+/* ════ HELPERS ════ */
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function calcDisc(p) { if(!p.mrp||p.mrp<=p.price)return 0; return p.discPct>0?p.discPct:Math.round(((p.mrp-p.price)/p.mrp)*100); }
+function daysUntil(ds) { return Math.ceil((new Date(ds)-new Date())/(1000*60*60*24)); }
+function formatExpiry(ds) { const d=daysUntil(ds); if(d<=0)return'Expired'; if(d===1)return'Ends today!'; if(d<=3)return d+' days left'; return'Ends '+ds; }
+function orderOnWA(productName) { const msg='Hello Balaji Store! 🛒\n\nMujhe yeh offer lena hai:\n*'+productName+'*\n\nPlease confirm availability. Thank you! 🙏'; window.open('https://wa.me/919205002319?text='+encodeURIComponent(msg),'_blank'); }
+window.orderOnWA = orderOnWA;
+
+/* ════ LOGIN ════ */
+function togglePass() {
+  const i=document.getElementById('loginPass'), b=document.getElementById('eyeBtn');
+  if(i.type==='password'){i.type='text';b.textContent='🙈';}else{i.type='password';b.textContent='👁️';}
+}
+window.togglePass = togglePass;
+
+function doLogin() {
+  const u=document.getElementById('loginUser').value.trim().toLowerCase();
+  const p=document.getElementById('loginPass').value;
+  const err=document.getElementById('loginError');
+  const msg=document.getElementById('loginErrorMsg');
+  const btn=document.getElementById('loginBtn');
+  if(!u||!p){err.className='login-error show';msg.textContent='Please enter both username and password.';return;}
+  btn.textContent='🔄 Signing in...';btn.classList.add('loading');
+  setTimeout(()=>{
+    if(CREDENTIALS[u]&&CREDENTIALS[u]===p){
+      sessionStorage.setItem('bs_user',u);
+      err.className='login-error';
+      showMainApp(u);
+    } else {
+      err.className='login-error show';
+      msg.textContent='Wrong username or password. Please try again.';
+      btn.textContent='🔓 Sign In to Store';
+      btn.classList.remove('loading');
+      document.getElementById('loginPass').value='';
+      document.getElementById('loginPass').focus();
+    }
+  }, 800);
+}
+window.doLogin = doLogin;
+
+['loginUser','loginPass'].forEach(id=>{
+  document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+});
+
+function showMainApp(username) {
+  const loginPage=document.getElementById('loginPage');
+  const loader=document.getElementById('pageLoader');
+  loginPage.classList.add('hide');
+  setTimeout(()=>{
+    loginPage.style.display='none';
+    loader.style.display='flex';
+    if(window._startLoaderAnim) window._startLoaderAnim();
+    document.getElementById('userAvatar').textContent=username.charAt(0).toUpperCase();
+    document.getElementById('userName').textContent=username;
+    setTimeout(()=>{
+      loader.classList.add('hide');
+      setTimeout(()=>{
+        loader.style.display='none';
+        document.getElementById('mainHeader').style.display='';
+        document.getElementById('tickerWrap').style.display='';
+        document.getElementById('heroSection').style.display='';
+        document.getElementById('filterNav').style.display='';
+        document.getElementById('mainContent').style.display='';
+        initApp();
+        showToast('Welcome back, '+username+'! 🎉','success');
+      },600);
+    },2000);
+  },600);
+}
+
+function doLogout() {
+  sessionStorage.removeItem('bs_user');
+  showToast('Logged out successfully. See you soon!','info');
+  setTimeout(()=>{
+    ['mainHeader','tickerWrap','heroSection','filterNav','mainContent'].forEach(id=>{
+      document.getElementById(id).style.display='none';
+    });
+    const lp=document.getElementById('loginPage');
+    lp.style.display='flex'; lp.classList.remove('hide');
+    document.getElementById('loginUser').value='';
+    document.getElementById('loginPass').value='';
+    document.getElementById('loginError').className='login-error';
+    document.getElementById('loginBtn').textContent='🔓 Sign In to Store';
+    document.getElementById('loginBtn').classList.remove('loading');
+  },1200);
+}
+window.doLogout = doLogout;
+
+/* ════ SEARCH ════ */
+let searchQ = '';
+let _searchTimer = null;
+
+function performSearch(q) {
+  searchQ = q.toLowerCase().trim();
+  const searchSection = document.getElementById('searchResultsSection');
+  const featured    = document.getElementById('featuredSection');
+  const flash       = document.getElementById('flashSection');
+  const allOffers   = document.getElementById('allOffersSection');
+  const festival    = document.getElementById('festivalSection');
+  const bogo        = document.getElementById('bogoSection');
+  const combo       = document.getElementById('comboSection');
+  const clearBtn    = document.getElementById('searchClearBtn');
+
+  if(!searchQ) {
+    searchSection.classList.remove('show');
+    featured.style.display=''; flash.style.display=''; allOffers.style.display='';
+    festival.style.display=''; bogo.style.display=''; combo.style.display='';
+    clearBtn.classList.remove('vis');
+    renderAll();
+    return;
+  }
+
+  clearBtn.classList.add('vis');
+
+  const results = OFFERS_DATA.filter(p => {
+    const n = searchQ;
+    return (
+      p.name.toLowerCase().includes(n) ||
+      p.desc.toLowerCase().includes(n) ||
+      p.category.toLowerCase().includes(n) ||
+      p.type.toLowerCase().includes(n) ||
+      (p.weight && p.weight.toLowerCase().includes(n)) ||
+      (p.comboLabel && p.comboLabel.toLowerCase().includes(n))
+    );
+  });
+
+  searchSection.classList.add('show');
+  featured.style.display='none'; flash.style.display='none'; allOffers.style.display='none';
+  festival.style.display='none'; bogo.style.display='none'; combo.style.display='none';
+
+  const grid       = document.getElementById('searchResultsGrid');
+  const noRes      = document.getElementById('searchNoResults');
+  const countBadge = document.getElementById('searchCountBadge');
+  const titleEl    = document.getElementById('searchNoResultsTitle');
+  const msgEl      = document.getElementById('searchNoResultsMsg');
+
+  countBadge.textContent = results.length + ' found';
+
+  if(results.length === 0) {
+    grid.innerHTML = '';
+    noRes.style.display = 'block';
+    titleEl.textContent = '"' + q + '" ke liye koi result nahi mila!';
+    msgEl.textContent = 'Try different keywords or tap a suggestion below.';
+  } else {
+    noRes.style.display = 'none';
+    grid.innerHTML = results.map(renderCard).join('');
+    startCountdowns();
+  }
+}
+
+function clearSearch() {
+  const input = document.getElementById('searchInput');
+  input.value = '';
+  performSearch('');
+  input.focus();
+}
+window.clearSearch = clearSearch;
+
+function quickSearch(q) {
+  const input = document.getElementById('searchInput');
+  input.value = q;
+  performSearch(q);
+}
+window.quickSearch = quickSearch;
+
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value;
+  clearTimeout(_searchTimer);
+  _searchTimer = setTimeout(() => performSearch(q), 220);
+});
+
+/* ════ CARD RENDERING ════ */
+function makeCountdown(expiry, id) {
+  if(daysUntil(expiry) > 7) return '';
+  return `<div class="countdown-row"><span class="countdown-label">⏰ Ends in:</span><div class="countdown-time" id="cd_${id}"><div class="c-block"><span class="c-val">--</span><span class="c-unit">Hrs</span></div><span class="c-sep" aria-hidden="true">:</span><div class="c-block"><span class="c-val">--</span><span class="c-unit">Min</span></div><span class="c-sep" aria-hidden="true">:</span><div class="c-block"><span class="c-val">--</span><span class="c-unit">Sec</span></div></div></div>`;
+}
+function getTypePill(type) {
+  const m={flash:'<span class="type-pill type-flash">⚡ Flash</span>',festival:'<span class="type-pill type-festival">🎉 Festival</span>',bogo:'<span class="type-pill type-bogo">2️⃣ B1G1</span>',combo:'<span class="type-pill type-combo">📦 Combo</span>',special:'<span class="type-pill type-special">✅ Special</span>'};
+  return m[type]||'';
+}
+function getCtaClass(type) { if(type==='bogo')return'bogo'; if(type==='combo')return'combo'; return''; }
+
+function renderCard(p) {
+  const disc=calcDisc(p), saveAmt=p.mrp-p.price, expLabel=formatExpiry(p.expiry), urgency=daysUntil(p.expiry)<=3;
+  const imgHtml=p.img?`<img src="${esc(p.img)}" alt="${esc(p.name)}" loading="lazy" width="400" height="300" onerror="this.style.display='none';this.nextSibling.style.display='flex'"><span class="card-emoji" style="display:none">${esc(p.emoji)}</span>`:`<span class="card-emoji" aria-hidden="true">${esc(p.emoji)}</span>`;
+  const bgColor=p.type==='bogo'?'linear-gradient(135deg,#f3e5f5,#fff)':p.type==='festival'?'linear-gradient(135deg,#fffde7,#fff)':p.type==='combo'?'linear-gradient(135deg,#e3f2fd,#fff)':p.type==='flash'?'linear-gradient(135deg,#ffebee,#fff)':'linear-gradient(135deg,#fff3e8,#fff)';
+  return `<article class="offer-card" data-id="${esc(p.id)}" data-cat="${esc(p.category)}" data-type="${esc(p.type)}" data-disc="${disc}" data-price="${p.price}" data-expiry="${esc(p.expiry)}" onclick="orderOnWA('${esc(p.name)} at ₹${p.price}')" role="button" tabindex="0" aria-label="${esc(p.name)} – ₹${p.price}, click to order on WhatsApp">
+    ${disc>0?`<span class="disc-badge" aria-label="${disc}% off">${disc}% OFF</span>`:''}
+    <span class="expiry-badge"${urgency?' style="background:rgba(229,57,53,.85);"':''}>${esc(expLabel)}</span>
+    <div class="card-img-wrap" style="background:${bgColor};" aria-hidden="true">${imgHtml}${getTypePill(p.type)}</div>
+    <div class="card-body">
+      <div class="card-category">${esc(p.category.toUpperCase())}</div>
+      <div class="card-title">${esc(p.name)}</div>
+      <div class="card-desc">${esc(p.desc)}</div>
+      ${makeCountdown(p.expiry,p.id)}
+      <div class="card-price-row">
+        <span class="card-price">₹${p.price}</span>
+        ${p.mrp>p.price?`<span class="card-mrp">₹${p.mrp}</span>`:''}
+        ${saveAmt>0?`<span class="card-save">Save ₹${saveAmt}</span>`:''}
+      </div>
+      <div style="font-size:clamp(10px,2vw,11px);color:var(--gray-600);margin-bottom:10px;">${esc(p.weight||'')}</div>
+      <button class="card-cta ${getCtaClass(p.type)}" onclick="event.stopPropagation();orderOnWA('${esc(p.name)} at ₹${p.price}')">🛒 Shop Now on WhatsApp →</button>
+    </div>
+  </article>`;
+}
+
+function renderComboCard(p, idx) {
+  const disc=calcDisc(p), emojis=p.comboEmojis||[p.emoji];
+  const COMBO_BG=['#E3F2FD','#E8F5E9','#FFF3E8','#F3E5F5','#FFFDE7'];
+  const bgColor=COMBO_BG[idx%COMBO_BG.length];
+  return `<div class="combo-card" onclick="orderOnWA('${esc(p.name)} at ₹${p.price}')" role="button" tabindex="0" aria-label="${esc(p.name)} – ₹${p.price}">
+    <div class="combo-card-header" style="--headerBg:${bgColor};">
+      <div class="combo-items" aria-hidden="true">${emojis.map((e,i)=>`<span class="combo-item">${esc(e)}</span>${i<emojis.length-1?'<span class="combo-plus">+</span>':''}`).join('')}</div>
+      <div class="combo-tag">${esc(p.comboLabel||'Combo')}</div>
+      <div class="combo-name">${esc(p.name)}</div>
+      <div class="combo-desc">${esc(p.desc)}</div>
+      ${disc>0?`<span class="disc-badge" style="position:relative;top:auto;left:auto;display:inline-block;margin-top:10px;">${disc}% OFF</span>`:''}
+    </div>
+    <div class="combo-price-row">
+      <div>
+        <div class="combo-price-block"><span class="combo-price">₹${p.price}</span><span class="combo-mrp">₹${p.mrp}</span></div>
+        <div style="font-size:clamp(10px,2vw,11px);color:var(--gray-600);margin-top:2px;">${esc(p.weight||'')}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+        ${(p.mrp-p.price)>0?`<span class="combo-save-pill">Save ₹${p.mrp-p.price}</span>`:''}
+        <button class="combo-btn" onclick="event.stopPropagation();orderOnWA('${esc(p.name)} at ₹${p.price}')">Order Now 🛒</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ════ FILTER & SORT ════ */
+let currentFilter = 'all';
+let currentSort = 'default';
+
+function getFilteredOffers() {
+  let list = OFFERS_DATA.filter(p => currentFilter==='all'||p.category===currentFilter||p.type===currentFilter);
+  if(currentSort==='disc-high') list=[...list].sort((a,b)=>calcDisc(b)-calcDisc(a));
+  else if(currentSort==='price-low') list=[...list].sort((a,b)=>a.price-b.price);
+  else if(currentSort==='price-high') list=[...list].sort((a,b)=>b.price-a.price);
+  else if(currentSort==='expiry') list=[...list].sort((a,b)=>new Date(a.expiry)-new Date(b.expiry));
+  return list;
+}
+
+function renderAll() {
+  const mainOffers = getFilteredOffers().filter(p=>!p.section);
+  const grid=document.getElementById('offersGrid'), noRes=document.getElementById('noResults'), count=document.getElementById('resultsCount');
+  if(mainOffers.length===0){grid.innerHTML='';noRes.style.display='block';count.innerHTML='';}
+  else{noRes.style.display='none';grid.innerHTML=mainOffers.map(renderCard).join('');count.innerHTML=`Showing <strong>${mainOffers.length}</strong> offer${mainOffers.length!==1?'s':''}`;}
+  document.getElementById('festivalGrid').innerHTML=OFFERS_DATA.filter(p=>p.section==='festival').map(renderCard).join('')||'<p style="color:var(--gray-600);padding:20px;text-align:center;">Festival offers coming soon! 🎉</p>';
+  document.getElementById('bogoGrid').innerHTML=OFFERS_DATA.filter(p=>p.section==='bogo').map(p=>renderCard(p).replace('class="card-cta ','class="card-cta bogo ')).join('')||'<p style="color:rgba(255,255,255,.7);padding:20px;text-align:center;">BOGO offers coming soon! 🎁</p>';
+  document.getElementById('comboGrid').innerHTML=OFFERS_DATA.filter(p=>p.section==='combo').map((p,i)=>renderComboCard(p,i)).join('')||'<p style="color:var(--gray-600);padding:20px;text-align:center;">Combo packs coming soon! 📦</p>';
+  startCountdowns();
+}
+
+window.filterOffers = function(cat, el) {
+  if(searchQ) clearSearch();
+  currentFilter = cat;
+  document.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  renderAll();
+  document.getElementById('allOffersSection').scrollIntoView({behavior:'smooth',block:'start'});
+};
+window.sortOffers = function() { currentSort=document.getElementById('sortSelect').value; renderAll(); };
+
+/* ════ COUNTDOWNS ════ */
+const _cdIntervals = {};
+function startCountdowns() {
+  Object.values(_cdIntervals).forEach(clearInterval);
+  OFFERS_DATA.filter(p=>daysUntil(p.expiry)<=7).forEach(p=>{
+    const wrap=document.getElementById('cd_'+p.id); if(!wrap)return;
+    function update(){
+      const diff=new Date(p.expiry+'T23:59:59')-new Date();
+      if(diff<=0){wrap.innerHTML='<span style="font-size:11px;color:#e53935;font-weight:700;">Expired!</span>';return;}
+      const h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+      const blocks=wrap.querySelectorAll('.c-val');
+      if(blocks[0])blocks[0].textContent=String(h).padStart(2,'0');
+      if(blocks[1])blocks[1].textContent=String(m).padStart(2,'0');
+      if(blocks[2])blocks[2].textContent=String(s).padStart(2,'0');
+    }
+    update(); _cdIntervals[p.id]=setInterval(update,1000);
+  });
+}
+
+/* Flash sale timer */
+(function flashTimer(){
+  function update(){
+    const now=new Date(), midnight=new Date(); midnight.setHours(23,59,59,999);
+    const diff=midnight-now;
+    const h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    const fh=document.getElementById('fh'),fm=document.getElementById('fm'),fs=document.getElementById('fs');
+    if(fh)fh.textContent=String(h).padStart(2,'0');
+    if(fm)fm.textContent=String(m).padStart(2,'0');
+    if(fs)fs.textContent=String(s).padStart(2,'0');
+  }
+  update(); setInterval(update,1000);
+})();
+
+/* ════ SLIDER ════ */
+let _slideIdx=0, _slideTimer=null;
+const slides=document.querySelectorAll('.slide');
+const dots=document.getElementById('sliderDots');
+function buildDots(){
+  dots.innerHTML='';
+  slides.forEach((_,i)=>{
+    const d=document.createElement('button');
+    d.className='slider-dot'+(i===0?' active':'');
+    d.setAttribute('aria-label','Go to slide '+(i+1));
+    d.setAttribute('role','tab');
+    d.setAttribute('aria-selected', i===0?'true':'false');
+    d.onclick=()=>goSlide(i);
+    dots.appendChild(d);
+  });
+}
+function goSlide(idx){
+  _slideIdx=(idx+slides.length)%slides.length;
+  document.getElementById('slidesWrap').style.transform=`translateX(-${_slideIdx*100}%)`;
+  document.querySelectorAll('.slider-dot').forEach((d,i)=>{
+    d.classList.toggle('active',i===_slideIdx);
+    d.setAttribute('aria-selected', i===_slideIdx?'true':'false');
+  });
+}
+window.prevSlide=()=>{goSlide(_slideIdx-1);resetAutoSlide();};
+window.nextSlide=()=>{goSlide(_slideIdx+1);resetAutoSlide();};
+function resetAutoSlide(){clearInterval(_slideTimer);_slideTimer=setInterval(()=>goSlide(_slideIdx+1),4500);}
+
+/* ════ TICKER ════ */
+(function buildTicker(){
+  const TICKER=[
+    {icon:'🥛',text:'Amul Milk 1L',old:'₹72',price:'₹66'},
+    {icon:'🧀',text:'Amul Paneer 200g',old:'₹90',price:'₹78'},
+    {icon:'🍟',text:'Lays Magic Masala',old:'₹20',price:'₹15'},
+    {icon:'🥤',text:'Coca Cola 2L',old:'₹120',price:'₹85'},
+    {icon:'🐂',text:'Red Bull 250ml',old:'₹150',price:'₹100'},
+    {icon:'🌾',text:'Aashirvaad Atta 5kg',old:'₹270',price:'₹235'},
+    {icon:'🧈',text:'Amul Butter 100g',old:'₹60',price:'₹52'},
+    {icon:'🍪',text:'Good Day Biscuit',old:'₹10',price:'₹8'},
+    {icon:'💧',text:'Bisleri 20L',old:'₹140',price:'₹110'},
+    {icon:'🚚',text:'FREE Delivery above ₹100!',special:true},
+    {icon:'⏰',text:'Open 6AM – 10PM daily',special:true},
+  ];
+  const track=document.getElementById('tickerTrack');
+  function esc2(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function buildItems(arr){
+    arr.forEach((item,i)=>{
+      if(i>0){const s=document.createElement('span');s.className='t-sep';s.textContent='•';track.appendChild(s);}
+      const el=document.createElement('span');el.className='t-item';
+      if(item.special){el.textContent=item.icon+' '+item.text;}
+      else{el.innerHTML=`${esc2(item.icon)} ${esc2(item.text)}: <s style="opacity:.55">${esc2(item.old)}</s> → <span class="t-save">${esc2(item.price)}</span>`;}
+      track.appendChild(el);
+    });
+  }
+  buildItems([...TICKER,...TICKER]);
+})();
+
+/* ════ TOAST ════ */
+let _toastT;
+function showToast(msg, type='success'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.style.background=type==='error'?'#E53935':type==='info'?'#FF6B00':'#2E7D32';
+  t.classList.add('show');
+  clearTimeout(_toastT);_toastT=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+/* ════ INIT ════ */
+function initApp(){
+  renderAll();
+  buildDots();
+  resetAutoSlide();
+}
+
+/* Auto-login if session exists */
+window.addEventListener('DOMContentLoaded', function(){
+  const saved=sessionStorage.getItem('bs_user');
+  if(saved && CREDENTIALS[saved]){ showMainApp(saved); }
+});
+
+/* Agar Login page remove karna ho to */
+
+/*window.addEventListener('DOMContentLoaded', function(){
+  showMainApp('balaji');
+});/   
+
+/* Keyboard accessibility for offer cards */
+document.addEventListener('keydown', function(e){
+  if(e.key==='Enter' && e.target.classList.contains('offer-card')) e.target.click();
+  if(e.key==='Enter' && e.target.classList.contains('combo-card')) e.target.click();
+  // Slider keyboard nav
+  if(e.key==='ArrowLeft') window.prevSlide && prevSlide();
+  if(e.key==='ArrowRight') window.nextSlide && nextSlide();
+});
+
+/* Touch swipe for slider */
+(function initSwipe(){
+  let startX=0, isDragging=false;
+  const slider=document.getElementById('featuredSlider');
+  if(!slider) return;
+  slider.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;isDragging=true;},{passive:true});
+  slider.addEventListener('touchend',e=>{
+    if(!isDragging)return; isDragging=false;
+    const dx=e.changedTouches[0].clientX-startX;
+    if(Math.abs(dx)>50){dx<0?nextSlide():prevSlide();resetAutoSlide();}
+  },{passive:true});
+})();
+(function initPremiumLoader(){
+  const msgs = [
+    'Checking today\'s offers...',
+    'Loading fresh deals...',
+    'Almost ready...',
+    'Welcome to Balaji Store! 🎉'
+  ];
+  let _li = 0;
+  window._loaderInterval = null;
+
+  window._startLoaderAnim = function(){
+    const txt = document.getElementById('loaderText');
+    const steps = document.querySelectorAll('.loader-step');
+    _li = 0;
+    if(txt) txt.textContent = msgs[0];
+
+    window._loaderInterval = setInterval(function(){
+      _li++;
+      if(_li >= msgs.length){ clearInterval(window._loaderInterval); return; }
+      if(txt){ txt.style.opacity='0'; setTimeout(()=>{ txt.textContent=msgs[_li]; txt.style.opacity='1'; },200); }
+      steps.forEach((s,i)=>{
+        if(i < _li)  s.className='loader-step done';
+        else if(i===_li) s.className='loader-step active';
+        else         s.className='loader-step';
+      });
+    }, 500);
+
+    const pp = document.getElementById('loaderParticles');
+    if(pp){
+      for(let i=0;i<12;i++){
+        const p=document.createElement('div'); p.className='loader-particle';
+        const sz=Math.random()*40+10;
+        p.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;
+          animation-duration:${Math.random()*6+5}s;
+          animation-delay:${Math.random()*4}s;`;
+        pp.appendChild(p);
+      }
+    }
+  };
+})();
+</script>
+</body>
+</html>

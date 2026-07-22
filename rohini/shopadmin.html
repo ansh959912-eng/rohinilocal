@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin Panel – RohiniLocal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json"/>
+ 
+  <!-- iOS Home Screen Icons (Apple doesn't use manifest icons) -->
+  <link rel="apple-touch-icon" href="/icon/icon-192.png"/>
+  <link rel="icon" type="image/png" href="/icon/icon-192.png"/>
+
+<!-- ══════════════════════════════════════════
+     SHOPS_BASE — the SAME static data file the main
+     website (indexshop.html) reads. This is now the ONLY
+     source of truth for shop directory data on this page.
+     Firestore is never queried for shop/category records —
+     only for the live engagement data (Likes, Reviews,
+     Comments) tied to each shop's id.
+══════════════════════════════════════════ -->
+<script src="/rohini/shops.js"></script>
+
+<!-- ══════════════════════════════════════════
+     FIREBASE — must match indexshop.html config
+     Adds: Firebase Authentication (Email/Password)
+
+     SCOPE NOTE: Firestore is used in this panel ONLY for:
+       • Likes        (shops/{id}.likeCount + likers subcollection)
+       • Reviews       (shops/{id}/reviews subcollection + rating aggregates)
+       • Comments      (shops/{id}/comments subcollection)
+       • Admin roles   (roles/{uid})
+     Shop directory data and Categories are NEVER read from or
+     written to Firestore — see SHOPS_BASE (shops.js) and the
+     CATS constant below, which exactly mirror indexshop.html.
+══════════════════════════════════════════ -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getFirestore, collection, getDocs, doc, getDoc,
+    query, orderBy, deleteDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import {
+    getAuth, onAuthStateChanged, signInWithEmailAndPassword,
+    signOut, setPersistence, browserLocalPersistence
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  // ── SAME CONFIG AS indexshop.html ──────────────────────────────────────
+  const firebaseConfig = {
+    apiKey: "AIzaSyDMOd2nYV1h6DLqpueRd1tQOfaILjZ3gTQ",
+    authDomain: "shopsrohini.firebaseapp.com",
+    projectId: "shopsrohini",
+    storageBucket: "shopsrohini.firebasestorage.app",
+    messagingSenderId: "978210348395",
+    appId: "1:978210348395:web:88a2f7b690efb2274d002e"
+  };
+  // ───────────────────────────────────────────────────────────────────────
+
+  let db   = null;
+  let auth = null;
+
+  try {
+    const app = initializeApp(firebaseConfig);
+    db   = getFirestore(app);
+    auth = getAuth(app);
+    window.__FB_DB   = db;
+    window.__FB_AUTH = auth;
+    window.__FB_OK   = true;
+  } catch (e) {
+    console.error("Firebase failed to initialize:", e);
+    window.__FB_OK   = false;
+    window.__FB_DB   = null;
+    window.__FB_AUTH = null;
+  }
+
+  // NOTE: only the primitives actually needed for Likes / Reviews /
+  // Comments / Roles are exposed here. addDoc/setDoc/updateDoc were
+  // removed because shop & category records are no longer written to
+  // Firestore from this panel.
+  window.__FB = { collection, getDocs, doc, getDoc, query, orderBy, deleteDoc };
+
+  // ──────────────────────────────────────────────────────────────────────
+  // AUTH BRIDGE — exposes Firebase Auth functions to the non-module script
+  // below via window.__AUTH, and reacts to auth state changes globally.
+  // ──────────────────────────────────────────────────────────────────────
+  window.__AUTH_READY = false;
+
+  window.__AUTH = {
+    /**
+     * Attempts an email/password sign-in.
+     * Returns { ok: true } on success or { ok: false, code, message } on failure.
+     */
+    async login(email, password) {
+      if (!auth) return { ok: false, code: "auth/unavailable", message: "Authentication service unavailable." };
+      try {
+        // Persist session across page refreshes/browser restarts until logout.
+        await setPersistence(auth, browserLocalPersistence);
+        await signInWithEmailAndPassword(auth, email, password);
+        return { ok: true };
+      } catch (err) {
+        return { ok: false, code: err.code || "unknown", message: mapAuthError(err.code) };
+      }
+    },
+    async logout() {
+      if (!auth) return;
+      await signOut(auth);
+    },
+    getCurrentUser() {
+      return auth ? auth.currentUser : null;
+    }
+  };
+
+  /** Maps Firebase Auth error codes to friendly, non-revealing messages. */
+  function mapAuthError(code) {
+    switch (code) {
+      case "auth/invalid-email":
+        return "Please enter a valid email address.";
+      case "auth/user-disabled":
+        return "This account has been disabled. Contact the site owner.";
+      case "auth/invalid-credential":
+      case "auth/user-not-found":
+      case "auth/wrong-password":
+        // Intentionally generic — do not reveal whether the email exists.
+        return "Invalid email or password.";
+      case "auth/too-many-requests":
+        return "Too many failed attempts. Please wait a moment and try again.";
+      case "auth/network-request-failed":
+        return "Network error. Check your connection and try again.";
+      default:
+        return "Unable to sign in. Please try again.";
+    }
+  }
+
+  // ──────────────────────────────────────────────────────────────────────
+  // GLOBAL AUTH GATE
+  // This is the single source of truth for "is the admin signed in?".
+  // Every protected page render is driven from this listener — nothing
+  // in the UI is shown until Firebase explicitly confirms auth state.
+  // ──────────────────────────────────────────────────────────────────────
+  onAuthStateChanged(auth, (user) => {
+    window.__AUTH_READY = true;
+    window.dispatchEvent(new CustomEvent("auth-state-changed", { detail: { user } }));
+  });
+
+  window.dispatchEvent(new Event("fb-admin-ready"));
+</script>
+
+<style>
+/* ═══════════════════════ CSS VARIABLES ═══════════════════════ */
+:root {
+  --primary:#6C63FF;--primary-dark:#5A52E0;--primary-light:#A09AFF;
+  --accent:#FF6584;--accent2:#43D9AD;
+  --bg:#F0F2FF;--surface:#FFFFFF;--surface2:#F7F8FF;
+  --glass:rgba(255,255,255,0.85);--glass-border:rgba(108,99,255,0.15);
+  --text:#1A1A2E;--text2:#4A4A6A;--text3:#8888AA;
+  --shadow:0 8px 32px rgba(108,99,255,0.12);
+  --shadow-lg:0 20px 60px rgba(108,99,255,0.18);
+  --radius:16px;--radius-lg:24px;--radius-sm:10px;
+  --sidebar:260px;--tr:0.3s cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="dark"]{
+  --bg:#0E0E1A;--surface:#1A1A2E;--surface2:#16162A;
+  --glass:rgba(26,26,46,0.95);--glass-border:rgba(108,99,255,0.25);
+  --text:#E8E8FF;--text2:#A0A0CC;--text3:#606088;
+  --shadow:0 8px 32px rgba(0,0,0,0.4);
+  --shadow-lg:0 20px 60px rgba(0,0,0,0.5);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background var(--tr),color var(--tr);}
+button{cursor:pointer;font-family:inherit;border:none;outline:none}
+input,textarea,select{font-family:inherit;outline:none}
+a{text-decoration:none;color:inherit}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--primary);border-radius:3px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes bounceIn{0%{transform:scale(0.3);opacity:0}50%{transform:scale(1.05)}70%{transform:scale(0.9)}100%{transform:scale(1);opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hidden{display:none!important}
+
+/* ════════ AUTH CHECK / LOADING SCREEN ════════ */
+#auth-check-screen{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  background:linear-gradient(135deg,#0E0E2E,#1A1040,#0E1A2E);color:#fff;
+}
+#auth-check-screen .spinner{
+  width:42px;height:42px;border-radius:50%;border:3px solid rgba(255,255,255,0.2);
+  border-top-color:#6C63FF;animation:spin 0.8s linear infinite;
+}
+#auth-check-screen p{font-size:0.85rem;color:rgba(255,255,255,0.6)}
+
+/* ════════ LOGIN ════════ */
+#login-page{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#0E0E2E,#1A1040,#0E1A2E);
+  position:relative;overflow:hidden;
+}
+#login-page::before{
+  content:'';position:absolute;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(108,99,255,0.3),transparent 70%);
+  top:-200px;left:-100px;animation:float 8s ease-in-out infinite;
+}
+.login-card{
+  width:100%;max-width:420px;padding:44px;
+  background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-lg);
+  animation:bounceIn 0.5s ease;position:relative;z-index:1;
+}
+.login-icon{width:64px;height:64px;border-radius:20px;margin:0 auto 12px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:2rem;color:#fff;box-shadow:0 8px 32px rgba(108,99,255,0.5);}
+.login-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;text-align:center;}
+.login-sub{font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:4px;text-align:center;}
+.login-field{margin:16px 0 0;}
+.login-field label{display:block;font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+.login-field input{width:100%;padding:12px 16px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.15);color:#fff;font-size:0.95rem;transition:all var(--tr);}
+.login-field input::placeholder{color:rgba(255,255,255,0.4);}
+.login-field input:focus{border-color:var(--primary);background:rgba(108,99,255,0.15);}
+.login-field input:disabled{opacity:0.5;cursor:not-allowed;}
+.login-btn{width:100%;padding:13px;border-radius:50px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;font-weight:700;font-size:1rem;margin-top:20px;transition:all var(--tr);box-shadow:0 6px 24px rgba(108,99,255,0.4);display:flex;align-items:center;justify-content:center;gap:8px;}
+.login-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 30px rgba(108,99,255,0.5);}
+.login-btn:disabled{opacity:0.7;cursor:not-allowed;transform:none;}
+.login-error{color:#ff8080;font-size:0.82rem;text-align:center;margin-top:12px;display:none;background:rgba(255,101,132,0.1);border:1px solid rgba(255,101,132,0.3);padding:10px;border-radius:var(--radius-sm);}
+
+/* ════════ LAYOUT ════════ */
+#admin-layout{display:flex;min-height:100vh;}
+
+/* SIDEBAR */
+#sidebar{width:var(--sidebar);min-height:100vh;background:var(--surface);border-right:1px solid var(--glass-border);position:fixed;top:0;left:0;z-index:100;display:flex;flex-direction:column;transition:transform var(--tr);box-shadow:var(--shadow);}
+#sidebar.collapsed{transform:translateX(calc(-1 * var(--sidebar)));}
+.sidebar-head{padding:20px 20px 16px;border-bottom:1px solid var(--glass-border);display:flex;align-items:center;justify-content:space-between;}
+.sidebar-logo{display:flex;align-items:center;gap:10px;}
+.s-logo-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;}
+.s-logo-text{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sidebar-close{background:none;color:var(--text3);font-size:1.1rem;display:none;}
+.sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
+.nav-group{margin-bottom:24px;}
+.nav-group-label{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);padding:0 8px;margin-bottom:8px;}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-sm);color:var(--text2);font-size:0.9rem;font-weight:500;cursor:pointer;transition:all var(--tr);margin-bottom:2px;}
+.nav-item:hover{background:rgba(108,99,255,0.08);color:var(--primary);}
+.nav-item.active{background:rgba(108,99,255,0.12);color:var(--primary);font-weight:700;}
+.nav-item i{width:20px;text-align:center;font-size:0.95rem;}
+.nav-badge{margin-left:auto;background:var(--accent);color:#fff;font-size:0.65rem;font-weight:700;padding:2px 6px;border-radius:10px;}
+.sidebar-footer{padding:16px;border-top:1px solid var(--glass-border);}
+.sidebar-user{display:flex;align-items:center;gap:10px;}
+.user-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;}
+.user-info{min-width:0;overflow:hidden;}
+.user-info .user-name{font-size:0.85rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.user-info .user-role{font-size:0.72rem;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.btn-logout{margin-left:auto;background:none;color:var(--text3);font-size:1rem;transition:color var(--tr);flex-shrink:0;}
+.btn-logout:hover{color:var(--accent);}
+
+/* MAIN */
+#main-content{margin-left:var(--sidebar);flex:1;transition:margin var(--tr);}
+#main-content.full{margin-left:0;}
+
+/* TOPBAR */
+#topbar{position:sticky;top:0;z-index:99;background:var(--glass);backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border);padding:0 28px;height:62px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow);}
+.topbar-toggle{background:none;color:var(--text2);font-size:1.2rem;transition:color var(--tr);}
+.topbar-toggle:hover{color:var(--primary);}
+.topbar-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text);flex:1;}
+.topbar-actions{display:flex;align-items:center;gap:10px;}
+.tb-btn{width:38px;height:38px;border-radius:10px;background:var(--surface2);border:1px solid var(--glass-border);color:var(--text2);font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all var(--tr);}
+.tb-btn:hover{background:var(--primary);color:#fff;}
+.tb-search{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--glass-border);border-radius:50px;padding:6px 14px;}
+.tb-search input{background:none;border:none;color:var(--text);font-size:0.85rem;width:180px;}
+.tb-search i{color:var(--text3);}
+
+/* PAGE */
+.page-content{padding:28px;animation:fadeUp 0.4s ease;}
+.page-content.hidden{display:none!important;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;margin-bottom:32px;}
+.stat-card{background:var(--glass);border:1.5px solid var(--glass-border);border-radius:var(--radius);padding:20px;backdrop-filter:blur(10px);transition:all var(--tr);animation:fadeUp 0.4s ease both;}
+.stat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.stat-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;margin-bottom:14px;}
+.stat-val{font-size:2rem;font-weight:800;color:var(--text);line-height:1;}
+.stat-label{font-size:0.82rem;color:var(--text3);margin-top:4px;}
+
+/* TABLE */
+.table-wrap{background:var(--glass);border:1.5px solid var(--glass-border);border-radius:var(--radius-lg);overflow:hidden;backdrop-filter:blur(10px);}
+.table-head{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--glass-border);}
+.table-head h3{font-size:1rem;font-weight:700;color:var(--text);}
+.table-search{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--glass-border);border-radius:50px;padding:6px 14px;}
+.table-search input{background:none;border:none;color:var(--text);font-size:0.83rem;width:160px;}
+table{width:100%;border-collapse:collapse;}
+th,td{padding:12px 20px;text-align:left;font-size:0.85rem;border-bottom:1px solid var(--glass-border);}
+th{font-weight:700;color:var(--text2);background:var(--surface2);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.5px;}
+td{color:var(--text2);}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(108,99,255,0.04);}
+.td-name{font-weight:600;color:var(--text);}
+.td-cat{padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:600;background:rgba(108,99,255,0.1);color:var(--primary);display:inline-block;}
+.td-rating{color:#f59e0b;font-weight:600;}
+.td-status{padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:700;display:inline-block;}
+.status-open{background:rgba(67,217,173,0.15);color:#43D9AD;}
+.status-closed{background:rgba(255,101,132,0.15);color:#FF6584;}
+.action-btns{display:flex;gap:6px;}
+.btn-action{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;transition:all var(--tr);}
+.btn-edit{background:rgba(108,99,255,0.1);color:var(--primary);}
+.btn-edit:hover{background:var(--primary);color:#fff;}
+.btn-delete{background:rgba(255,101,132,0.1);color:var(--accent);}
+.btn-delete:hover{background:var(--accent);color:#fff;}
+
+/* FORM */
+.form-wrap{background:var(--glass);border:1.5px solid var(--glass-border);border-radius:var(--radius-lg);padding:28px;backdrop-filter:blur(10px);animation:fadeUp 0.4s ease;}
+.form-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:24px;color:var(--text);}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-col-full{grid-column:1/-1;}
+.form-field{display:flex;flex-direction:column;gap:6px;}
+.form-field label{font-size:0.82rem;font-weight:600;color:var(--text2);}
+.form-field input,.form-field textarea,.form-field select{padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--glass-border);background:var(--surface2);color:var(--text);font-size:0.9rem;transition:border var(--tr);}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:var(--primary);}
+.form-field textarea{resize:vertical;min-height:90px;}
+.form-field select option{background:var(--surface);color:var(--text);}
+.form-actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;}
+.btn-primary{padding:11px 28px;border-radius:50px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;font-weight:700;font-size:0.9rem;transition:all var(--tr);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(108,99,255,0.4);}
+.btn-primary:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.btn-secondary{padding:11px 24px;border-radius:50px;background:var(--surface2);border:1.5px solid var(--glass-border);color:var(--text2);font-weight:600;font-size:0.9rem;transition:all var(--tr);}
+.btn-secondary:hover{border-color:var(--primary);color:var(--primary);}
+.btn-danger{padding:11px 24px;border-radius:50px;background:rgba(255,101,132,0.1);border:1.5px solid var(--accent);color:var(--accent);font-weight:600;font-size:0.9rem;transition:all var(--tr);}
+.btn-danger:hover{background:var(--accent);color:#fff;}
+
+/* ANALYTICS */
+.analytics-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px;}
+.chart-card{background:var(--glass);border:1.5px solid var(--glass-border);border-radius:var(--radius);padding:20px;backdrop-filter:blur(10px);}
+.chart-card h4{font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:16px;}
+.bar-chart{display:flex;flex-direction:column;gap:10px;}
+.bar-row{display:flex;align-items:center;gap:10px;}
+.bar-label{font-size:0.78rem;color:var(--text2);width:130px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bar-track{flex:1;height:10px;border-radius:5px;background:var(--surface2);overflow:hidden;}
+.bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--primary),var(--primary-light));transition:width 1s ease;}
+.bar-val{font-size:0.78rem;font-weight:700;color:var(--text2);width:30px;text-align:right;}
+.top-list{display:flex;flex-direction:column;gap:10px;}
+.top-item{display:flex;align-items:center;gap:12px;padding:10px;background:var(--surface2);border-radius:var(--radius-sm);}
+.top-rank{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;font-size:0.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.top-name{font-size:0.85rem;font-weight:700;color:var(--text);flex:1;}
+.top-val{font-size:0.78rem;color:var(--text3);}
+
+/* FB status banner */
+.fb-status{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 18px;border-radius:var(--radius-sm);
+  font-size:0.82rem;font-weight:600;margin-bottom:20px;
+}
+.fb-status.connected{background:rgba(67,217,173,0.12);border:1px solid rgba(67,217,173,0.3);color:#43D9AD;}
+.fb-status.local{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:#f59e0b;}
+.fb-status.error{background:rgba(255,101,132,0.12);border:1px solid rgba(255,101,132,0.3);color:var(--accent);}
+
+/* EMPTY STATE */
+.empty-state{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;padding:48px 20px;color:var(--text3);text-align:center;
+}
+.empty-state i{font-size:2rem;opacity:0.5;}
+.empty-state .empty-title{font-size:0.95rem;font-weight:700;color:var(--text2);}
+.empty-state .empty-sub{font-size:0.82rem;color:var(--text3);max-width:340px;}
+
+/* Spinner */
+.spin{animation:spin 0.8s linear infinite;display:inline-block;}
+
+/* TOAST */
+#toast-wrap{position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;flex-direction:column;gap:8px;}
+.toast{display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:50px;background:var(--surface);border:1.5px solid var(--glass-border);color:var(--text);font-size:0.85rem;box-shadow:var(--shadow-lg);animation:slideIn 0.3s ease;min-width:200px;}
+.toast.success{border-color:var(--accent2);color:var(--accent2);}
+.toast.error{border-color:var(--accent);color:var(--accent);}
+
+/* CONFIRM */
+#confirm-modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);animation:fadeIn 0.2s ease;}
+#confirm-modal.hidden{display:none!important;}
+.confirm-box{background:var(--surface);border-radius:var(--radius-lg);padding:32px;max-width:380px;width:90%;text-align:center;animation:bounceIn 0.4s ease;}
+.confirm-icon{font-size:2.5rem;margin-bottom:12px;}
+.confirm-title{font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:8px;}
+.confirm-msg{font-size:0.88rem;color:var(--text2);margin-bottom:24px;}
+.confirm-actions{display:flex;gap:12px;justify-content:center;}
+
+/* REVIEW / COMMENT CARDS */
+.content-card{display:flex;align-items:flex-start;gap:14px;padding:14px;background:var(--surface2);border-radius:var(--radius-sm);margin-bottom:10px;border-left:3px solid var(--primary);}
+.content-card.comment{border-left-color:var(--accent2);}
+.content-card-body{flex:1;min-width:0;}
+.content-card-shop{font-size:0.78rem;color:var(--primary);font-weight:700;margin-bottom:3px;}
+.content-card-shop.c{color:var(--accent2);}
+.content-card-meta{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
+.content-card-name{font-size:0.88rem;font-weight:700;color:var(--text);}
+.content-card-stars{color:#f59e0b;font-size:0.85rem;}
+.content-card-date{font-size:0.75rem;color:var(--text3);margin-left:auto;}
+.content-card-text{font-size:0.85rem;color:var(--text2);line-height:1.55;}
+
+@media(max-width:900px){
+  #sidebar{transform:translateX(calc(-1 * var(--sidebar)));}
+  #sidebar.open{transform:translateX(0);}
+  #main-content{margin-left:0;}
+  .sidebar-close{display:block;}
+  .analytics-grid{grid-template-columns:1fr;}
+  .form-grid{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .page-content{padding:16px;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  table{font-size:0.8rem;}
+  th,td{padding:10px 12px;}
+  .topbar-title{font-size:1rem;}
+  .tb-search{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ AUTH CHECK SCREEN ════════
+     Shown the instant the page loads, before Firebase has confirmed
+     whether a session exists. Prevents any flash of protected content
+     or of the login form while the real auth state is unknown. -->
+<div id="auth-check-screen">
+  <div class="spinner"></div>
+  <p>Checking session…</p>
+</div>
+
+<!-- ════════ LOGIN ════════ -->
+<div id="login-page" class="hidden">
+  <div class="login-card">
+    <div style="text-align:center;margin-bottom:28px">
+      <div class="login-icon"><i class="fas fa-user-shield"></i></div>
+      <div class="login-title">Admin Panel</div>
+      <div class="login-sub">RohiniiLocal Business Directory</div>
+    </div>
+    <form id="login-form" autocomplete="on">
+      <div class="login-field">
+        <label for="login-user">Email</label>
+        <input type="email" id="login-user" placeholder="you@example.com" autocomplete="username" required/>
+      </div>
+      <div class="login-field">
+        <label for="login-pass">Password</label>
+        <input type="password" id="login-pass" placeholder="Enter password" autocomplete="current-password" required/>
+      </div>
+      <button type="submit" class="login-btn" id="login-submit-btn">
+        <i class="fas fa-sign-in-alt"></i> <span id="login-btn-label">Login</span>
+      </button>
+      <div class="login-error" id="login-error"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ════════ ADMIN LAYOUT ════════ -->
+<div id="admin-layout" class="hidden">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-logo">
+        <div class="s-logo-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <span class="s-logo-text">RohiniLocal</span>
+      </div>
+      <button class="sidebar-close" onclick="toggleSidebar()"><i class="fas fa-times"></i></button>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-label">Overview</div>
+        <div class="nav-item active" onclick="showPage('dashboard',this)"><i class="fas fa-chart-pie"></i> Dashboard</div>
+        <div class="nav-item" onclick="showPage('analytics',this)"><i class="fas fa-chart-bar"></i> Analytics</div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">Manage</div>
+        <div class="nav-item" onclick="showPage('shops',this)">
+          <i class="fas fa-store"></i> All Shops
+          <span class="nav-badge" id="nav-shop-count">…</span>
+        </div>
+        <div class="nav-item" id="nav-add-shop" onclick="showPage('add-shop',this)"><i class="fas fa-plus-circle"></i> Add Shop</div>
+        <div class="nav-item" onclick="showPage('categories',this)"><i class="fas fa-tags"></i> Categories</div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">Content</div>
+        <div class="nav-item" onclick="showPage('reviews',this)">
+          <i class="fas fa-star"></i> Reviews
+          <span class="nav-badge" id="nav-review-count">…</span>
+        </div>
+        <div class="nav-item" onclick="showPage('comments',this)">
+          <i class="fas fa-comments"></i> Comments
+          <span class="nav-badge" id="nav-comment-count">…</span>
+        </div>
+        <div class="nav-item" onclick="showPage('likes',this)"><i class="fas fa-heart"></i> Likes</div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">More</div>
+   <div class="nav-item" onclick="location.href='/rohini/indexshop.html'">
+    <i class="fas fa-external-link-alt"></i> View Website
+</div>
+        <div class="nav-item" onclick="showPage('settings',this)"><i class="fas fa-cog"></i> Settings</div>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar" id="user-avatar-initial">A</div>
+        <div class="user-info">
+          <div class="user-name" id="sidebar-user-email">Admin</div>
+          <div class="user-role" id="sidebar-user-role">Signed in</div>
+        </div>
+        <button class="btn-logout" onclick="doLogout()" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div id="main-content">
+    <div id="topbar">
+      <button class="topbar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+      <span class="topbar-title" id="topbar-title">Dashboard</span>
+      <div class="topbar-actions">
+        <div class="tb-search">
+          <i class="fas fa-search"></i>
+          <input type="text" id="admin-search" placeholder="Search shops…" oninput="adminSearch(this.value)"/>
+        </div>
+        <button class="tb-btn" onclick="toggleTheme()" id="theme-btn"><i class="fas fa-moon"></i></button>
+        <button class="tb-btn" id="tb-add-shop-btn" onclick="showPage('add-shop',null)" title="Add Shop"><i class="fas fa-plus"></i></button>
+      </div>
+    </div>
+
+    <!-- ── DASHBOARD ── -->
+    <div class="page-content" id="page-dashboard">
+      <div id="fb-status-banner"></div>
+      <div class="stats-grid" id="stats-grid"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div class="table-wrap">
+          <div class="table-head"><h3><i class="fas fa-star" style="color:#f59e0b"></i> Top Rated</h3></div>
+          <div style="padding:16px" id="top-rated-list"><div style="color:var(--text3);font-size:.85rem">Loading…</div></div>
+        </div>
+        <div class="table-wrap">
+          <div class="table-head"><h3><i class="fas fa-heart" style="color:var(--accent)"></i> Most Liked</h3></div>
+          <div style="padding:16px" id="most-liked-list"><div style="color:var(--text3);font-size:.85rem">Loading…</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SHOPS TABLE ── -->
+    <div class="page-content hidden" id="page-shops">
+      <div class="table-wrap">
+        <div class="table-head">
+          <h3>All Shops</h3>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <div class="table-search">
+              <i class="fas fa-search"></i>
+              <input type="text" id="shop-table-search" placeholder="Search…" oninput="filterShopTable(this.value)"/>
+            </div>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table id="shops-table">
+            <thead>
+              <tr>
+                <th>#</th><th>Name</th><th>Category</th><th>Owner</th>
+                <th>Phone</th><th>Rating</th><th>Likes</th><th>Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="shops-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ADD / EDIT SHOP ── -->
+    <div class="page-content hidden" id="page-add-shop">
+      <div class="form-wrap">
+        <div class="form-title" id="shop-form-title"><i class="fas fa-plus-circle" style="color:var(--primary)"></i> Add New Shop</div>
+        <div class="fb-status local" style="margin-bottom:20px">
+          <i class="fas fa-circle-info"></i> Shop directory data lives in <code>shops.js</code> (shared with the main website). Saving here updates this session's preview table only — to make a change permanent for everyone, update the matching entry in <code>shops.js</code> directly.
+        </div>
+        <input type="hidden" id="edit-shop-id"/>
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Shop Name *</label>
+            <input type="text" id="f-name" placeholder="e.g. Gupta Stationery"/>
+          </div>
+          <div class="form-field">
+            <label>Category *</label>
+            <select id="f-cat"></select>
+          </div>
+          <div class="form-field">
+            <label>Owner Name *</label>
+            <input type="text" id="f-owner" placeholder="Owner full name"/>
+          </div>
+          <div class="form-field">
+            <label>Phone *</label>
+            <input type="text" id="f-phone" placeholder="+919876543210"/>
+          </div>
+          <div class="form-field">
+            <label>WhatsApp (no +)</label>
+            <input type="text" id="f-whatsapp" placeholder="919876543210"/>
+          </div>
+          <div class="form-field">
+            <label>Opening Time</label>
+            <input type="text" id="f-open" placeholder="09:00 AM"/>
+          </div>
+          <div class="form-field">
+            <label>Closing Time</label>
+            <input type="text" id="f-close" placeholder="09:00 PM"/>
+          </div>
+          <div class="form-field">
+            <label>Added Date</label>
+            <input type="date" id="f-date"/>
+          </div>
+          <div class="form-field form-col-full">
+            <label>Address *</label>
+            <input type="text" id="f-address" placeholder="Full address, Rohini"/>
+          </div>
+          <div class="form-field form-col-full">
+            <label>Google Maps Link</label>
+            <input type="url" id="f-map" placeholder="https://maps.google.com/..."/>
+          </div>
+          <div class="form-field form-col-full">
+            <label>Description</label>
+            <textarea id="f-desc" placeholder="Describe the shop, products and services…"></textarea>
+          </div>
+          <div class="form-field form-col-full">
+            <label>Image URLs (comma-separated)</label>
+            <textarea id="f-images" placeholder="https://img1.jpg, https://img2.jpg, …" style="min-height:60px"></textarea>
+            <small style="color:var(--text3);font-size:0.77rem;margin-top:4px">
+              Leave blank if no images are available yet.
+            </small>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn-primary" id="save-shop-btn" onclick="saveShop()"><i class="fas fa-save"></i> Save Shop</button>
+          <button class="btn-secondary" onclick="clearShopForm()"><i class="fas fa-redo"></i> Reset</button>
+          <button class="btn-secondary" onclick="showPage('shops',null)"><i class="fas fa-arrow-left"></i> Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CATEGORIES ── -->
+    <div class="page-content hidden" id="page-categories">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div class="form-wrap" id="add-category-wrap">
+          <div class="form-title"><i class="fas fa-plus" style="color:var(--primary)"></i> Add Category</div>
+          <div class="fb-status local" style="margin-bottom:16px">
+            <i class="fas fa-circle-info"></i> Categories are defined in <code>shops.js</code> (shared with the main website). Adding one here previews it for this session only — update the <code>CATS</code> list in code to make it permanent.
+          </div>
+          <div class="form-field" style="margin-bottom:12px">
+            <label>Category Name</label>
+            <input type="text" id="new-cat-name" placeholder="e.g. Book Store"/>
+          </div>
+          <div class="form-field" style="margin-bottom:12px">
+            <label>Icon (Font Awesome class)</label>
+            <input type="text" id="new-cat-icon" placeholder="fa-book"/>
+          </div>
+          <div class="form-field" style="margin-bottom:16px">
+            <label>Colour</label>
+            <input type="color" id="new-cat-color" value="#6C63FF" style="height:40px;padding:4px;border-radius:8px"/>
+          </div>
+          <button class="btn-primary" id="add-cat-btn" onclick="addCategory()"><i class="fas fa-plus"></i> Add Category</button>
+        </div>
+        <div class="table-wrap">
+          <div class="table-head"><h3>All Categories</h3></div>
+          <div id="cat-list-admin" style="padding:12px;max-height:420px;overflow-y:auto;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── REVIEWS ── -->
+    <div class="page-content hidden" id="page-reviews">
+      <div class="table-wrap">
+        <div class="table-head">
+          <h3>All Reviews <span id="reviews-source-label" style="font-size:0.78rem;color:var(--text3);font-weight:500"></span></h3>
+          <button class="btn-primary" style="padding:8px 18px;font-size:0.82rem" onclick="loadReviews()">
+            <i class="fas fa-sync"></i> Refresh
+          </button>
+        </div>
+        <div id="reviews-admin" style="padding:16px;"></div>
+      </div>
+    </div>
+
+    <!-- ── COMMENTS ── -->
+    <div class="page-content hidden" id="page-comments">
+      <div class="table-wrap">
+        <div class="table-head">
+          <h3>All Comments <span id="comments-source-label" style="font-size:0.78rem;color:var(--text3);font-weight:500"></span></h3>
+          <button class="btn-primary" style="padding:8px 18px;font-size:0.82rem" onclick="loadComments()">
+            <i class="fas fa-sync"></i> Refresh
+          </button>
+        </div>
+        <div id="comments-admin" style="padding:16px;"></div>
+      </div>
+    </div>
+
+    <!-- ── LIKES ── -->
+    <div class="page-content hidden" id="page-likes">
+      <div class="table-wrap">
+        <div class="table-head">
+          <h3>Shop Likes <span id="likes-source-label" style="font-size:0.78rem;color:var(--text3);font-weight:500"></span></h3>
+          <button class="btn-primary" style="padding:8px 18px;font-size:0.82rem" onclick="loadLikesPage()">
+            <i class="fas fa-sync"></i> Refresh
+          </button>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr><th>Rank</th><th>Shop Name</th><th>Category</th><th>Likes</th></tr></thead>
+            <tbody id="likes-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ANALYTICS ── -->
+    <div class="page-content hidden" id="page-analytics">
+      <div class="analytics-grid">
+        <div class="chart-card">
+          <h4><i class="fas fa-chart-bar" style="color:var(--primary)"></i> Shops by Category</h4>
+          <div class="bar-chart" id="cat-bar-chart"></div>
+        </div>
+        <div class="chart-card">
+          <h4><i class="fas fa-star" style="color:#f59e0b"></i> Top Rated</h4>
+          <div class="top-list" id="analytics-top-rated"></div>
+        </div>
+        <div class="chart-card">
+          <h4><i class="fas fa-heart" style="color:var(--accent)"></i> Most Liked</h4>
+          <div class="top-list" id="analytics-most-liked"></div>
+        </div>
+        <div class="chart-card">
+          <h4><i class="fas fa-comments" style="color:var(--accent2)"></i> Most Reviewed</h4>
+          <div class="top-list" id="analytics-most-reviewed"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SETTINGS ── -->
+    <div class="page-content hidden" id="page-settings">
+      <div class="form-wrap">
+        <div class="form-title"><i class="fas fa-cog" style="color:var(--primary)"></i> Settings</div>
+        <div class="form-grid">
+          <div class="form-field"><label>Site Name</label><input type="text" value="DadriLocal"/></div>
+          <div class="form-field"><label>Admin Email</label><input type="email" id="settings-admin-email" value=""/></div>
+          <div class="form-field"><label>City</label><input type="text" value="Rohini, Delhi"/></div>
+          <div class="form-field"><label>Contact Phone</label><input type="text" value="+91 9876543210"/></div>
+          <div class="form-field form-col-full"><label>About</label><textarea>Your trusted local business directory for Rohini and surrounding areas.</textarea></div>
+        </div>
+        <div class="form-actions">
+          <button class="btn-primary" id="settings-save-btn" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main-content -->
+</div><!-- /admin-layout -->
+
+<!-- CONFIRM -->
+<div id="confirm-modal" class="hidden">
+  <div class="confirm-box">
+    <div class="confirm-icon">⚠️</div>
+    <div class="confirm-title" id="confirm-title">Are you sure?</div>
+    <div class="confirm-msg" id="confirm-msg">This action cannot be undone.</div>
+    <div class="confirm-actions">
+      <button class="btn-danger" id="confirm-yes">Confirm</button>
+      <button class="btn-secondary" onclick="closeConfirm()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-wrap"></div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SCRIPT
+     Data sources, by design:
+       • Shops      → SHOPS_BASE from shops.js (same file the main
+                      website reads). Never fetched from Firestore.
+       • Categories → the CATS constant below (identical to the one
+                      in indexshop.html). Never fetched from Firestore.
+       • Likes / Reviews / Comments → Firestore (shops/{id} aggregate
+                      fields + likers/reviews/comments subcollections).
+       • Admin roles → Firestore (roles/{uid}).
+     There is exactly ONE in-memory copy of each list (allShopsCache /
+     allCategoriesCache), built once from shops.js + CATS and kept in
+     sync with Firestore's live engagement numbers on every refresh.
+══════════════════════════════════════════════════════════════ -->
+<script>
+const LS_THEME_KEY = 'dl_theme';   // UI preference only — not business data
+
+let confirmCallback   = null;
+let currentEditId      = null;   // local id of the shop being edited, or null
+let allShopsCache       = [];     // shops.js directory data + live Firestore engagement numbers
+let allCategoriesCache  = [];     // CATS, cloned for local (session-only) admin edits
+
+// Track whether we've already initialized the dashboard for this session,
+// so a re-fired auth event (e.g. token refresh) doesn't re-render everything.
+let adminInitialized = false;
+
+/* ══════════════════════════════════════════════════════════════
+   CATEGORIES — static list, identical to the one in indexshop.html.
+   This is the single source of truth for category data; it is never
+   read from or written to Firestore. "Adding"/"deleting" a category
+   in this panel only mutates this in-memory array for the current
+   session (see addCategory/deleteCategory) — to persist a change for
+   the live website too, edit this list (and the matching one in
+   indexshop.html) in source.
+══════════════════════════════════════════════════════════════ */
+const CAT_GROUPS = [
+  { id:"retail", name:"Retail & Daily Needs", icon:"fa-shopping-bag", color:"#10B981", cats:[
+    {name:"Grocery Store",icon:"fa-shopping-basket",color:"#10B981"},
+    {name:"Medical Store",icon:"fa-prescription-bottle-alt",color:"#EF4444"},
+    {name:"Dairy",icon:"fa-glass-whiskey",color:"#A21CAF"},
+    {name:"Sweet Shop",icon:"fa-candy-cane",color:"#DB2777"},
+    {name:"Bakery",icon:"fa-bread-slice",color:"#D97706"},
+    {name:"Fruits & Vegetables",icon:"fa-apple-alt",color:"#15803D"},
+    {name:"Meat & Poultry",icon:"fa-drumstick-bite",color:"#B45309"},
+    {name:"Stationery",icon:"fa-pencil-ruler",color:"#6366F1"},
+    {name:"Gift Shop",icon:"fa-gift",color:"#EC4899"},
+    {name:"Book Store",icon:"fa-book",color:"#4F46E5"},
+    {name:"Toy Store",icon:"fa-puzzle-piece",color:"#F59E0B"},
+  ]},
+  { id:"home_services", name:"Home Services & Repair", icon:"fa-tools", color:"#F59E0B", cats:[
+    {name:"Electrical Shop",icon:"fa-bolt",color:"#F59E0B"},
+    {name:"Electrician",icon:"fa-plug",color:"#EAB308"},
+    {name:"Plumber",icon:"fa-wrench",color:"#0284C7"},
+    {name:"AC Repair",icon:"fa-snowflake",color:"#0EA5E9"},
+    {name:"Hardware Shop",icon:"fa-tools",color:"#92400E"},
+    {name:"Mobile Repair",icon:"fa-mobile-alt",color:"#8B5CF6"},
+    {name:"Automobile Repair",icon:"fa-car-crash",color:"#374151"},
+    {name:"Carpenter",icon:"fa-hammer",color:"#A16207"},
+    {name:"Pest Control",icon:"fa-bug",color:"#16A34A"},
+    {name:"Kabadi",icon:"fa-recycle",color:"#10B981"},
+    {name:"Water Purifier Service",icon:"fa-tint",color:"#0284C7"},
+  ]},
+  { id:"fashion", name:"Fashion & Lifestyle", icon:"fa-tshirt", color:"#EC4899", cats:[
+    {name:"Tailor",icon:"fa-cut",color:"#EC4899"},
+    {name:"Beauty Parlour",icon:"fa-spa",color:"#9333EA"},
+    {name:"Barber / Salon",icon:"fa-scissors",color:"#0D9488"},
+    {name:"Clothing Store",icon:"fa-tshirt",color:"#BE185D"},
+    {name:"Footwear Shop",icon:"fa-shoe-prints",color:"#92400E"},
+    {name:"Jewellery Shop",icon:"fa-gem",color:"#B45309"},
+    {name:"Laundry",icon:"fa-tshirt",color:"#6366F1"},
+  ]},
+  { id:"food", name:"Food & Beverage", icon:"fa-utensils", color:"#F97316", cats:[
+    {name:"Restaurant",icon:"fa-utensils",color:"#F97316"},
+    {name:"Dhaba",icon:"fa-fire",color:"#DC2626"},
+    {name:"Fast Food",icon:"fa-hamburger",color:"#EF4444"},
+    {name:"Tea & Snacks",icon:"fa-mug-hot",color:"#D97706"},
+    {name:"Juice & Beverages",icon:"fa-glass-cheers",color:"#16A34A"},
+    {name:"Catering Service",icon:"fa-concierge-bell",color:"#9333EA"},
+    {name:"Tiffin Service",icon:"fa-box-open",color:"#0284C7"},
+  ]},
+  { id:"education", name:"Education & Coaching", icon:"fa-graduation-cap", color:"#4F46E5", cats:[
+    {name:"Coaching Center",icon:"fa-graduation-cap",color:"#4F46E5"},
+    {name:"School",icon:"fa-school",color:"#1D4ED8"},
+    {name:"Play School",icon:"fa-child",color:"#F59E0B"},
+    {name:"Dance & Music Academy",icon:"fa-music",color:"#9333EA"},
+    {name:"Computer Training",icon:"fa-laptop-code",color:"#0EA5E9"},
+    {name:"Art & Craft Classes",icon:"fa-paint-brush",color:"#EC4899"},
+  ]},
+  { id:"health", name:"Health & Wellness", icon:"fa-heartbeat", color:"#EF4444", cats:[
+    {name:"Clinic / Doctor",icon:"fa-stethoscope",color:"#06B6D4"},
+    {name:"Dental Clinic",icon:"fa-tooth",color:"#3B82F6"},
+    {name:"Physiotherapy",icon:"fa-walking",color:"#10B981"},
+    {name:"Pathology / Lab",icon:"fa-vial",color:"#8B5CF6"},
+    {name:"Ayurvedic / Homeopathic",icon:"fa-leaf",color:"#15803D"},
+    {name:"Gym & Fitness",icon:"fa-dumbbell",color:"#EF4444"},
+    {name:"Yoga Center",icon:"fa-spa",color:"#A21CAF"},
+  ]},
+  { id:"professional", name:"Professional Services", icon:"fa-briefcase", color:"#2563EB", cats:[
+    {name:"CA / Accountant",icon:"fa-calculator",color:"#1D4ED8"},
+    {name:"Advocate / Lawyer",icon:"fa-balance-scale",color:"#374151"},
+    {name:"Travel Agency",icon:"fa-plane",color:"#0EA5E9"},
+    {name:"Insurance Agent",icon:"fa-shield-alt",color:"#4F46E5"},
+    {name:"Property Dealer",icon:"fa-building",color:"#1D4ED8"},
+    {name:"Courier & Logistics",icon:"fa-box",color:"#7C3AED"},
+    {name:"Cyber Cafe",icon:"fa-wifi",color:"#14B8A6"},
+    {name:"Printing Shop",icon:"fa-print",color:"#475569"},
+    {name:"Photography Studio",icon:"fa-camera",color:"#9333EA"},
+    {name:"Event Management",icon:"fa-calendar-check",color:"#DB2777"},
+  ]},
+  { id:"religious", name:"Religious & Spiritual", icon:"fa-fire", color:"#DC2626", cats:[
+    {name:"Pooja Store",icon:"fa-fire",color:"#DC2626"},
+    {name:"Temple / Mandir",icon:"fa-place-of-worship",color:"#F59E0B"},
+  ]},
+];
+
+const CATS = CAT_GROUPS.flatMap(g => g.cats);
+/** Turns a category name into a stable, URL-safe id for table rows / keys. */
+function slugify(name){
+  return String(name||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+}
+
+/* ══════════════════════════════════════════════════════════════
+   VIEW-ONLY ADMIN ROLE SYSTEM
+   ══════════════════════════════════════════════════════════════
+   Roles live in Firestore at roles/{uid} (field: role = "admin" | "viewer").
+   They are set up by hand in the Firebase console — never from this
+   page — so a view-only admin can never grant themselves write access,
+   even via devtools. See fetchAdminRole() below and firestore.rules.
+────────────────────────────────────────────────── */
+window.__ADMIN_ROLE = null;                          // 'admin' | 'viewer' | null
+const RESTRICTED_PAGES_FOR_VIEWER = ['add-shop'];    // pages a viewer is redirected away from
+
+function isAdminRole(){ return window.__ADMIN_ROLE === 'admin'; }
+function isViewerRole(){ return window.__ADMIN_ROLE === 'viewer'; }
+
+/** Looks up roles/{uid} in Firestore. Defaults to 'viewer' — the safe,
+ *  least-privilege option — if no role document exists yet, so nobody
+ *  accidentally gets full write access just because their role was
+ *  never configured. */
+async function fetchAdminRole(uid){
+  if(!window.__FB_OK) return 'viewer';
+  try{
+    const {doc, getDoc} = window.__FB;
+    const snap = await getDoc(doc(window.__FB_DB, 'roles', uid));
+    if(snap.exists() && (snap.data().role === 'admin' || snap.data().role === 'viewer')){
+      return snap.data().role;
+    }
+    return 'viewer';
+  }catch(e){
+    console.error('fetchAdminRole error:', e);
+    return 'viewer';
+  }
+}
+
+/** Call at the top of any mutating action. Returns true (and shows the
+ *  View Only message) if the action should be blocked. */
+function blockIfViewer(){
+  if(isViewerRole()){
+    showToast('You have View Only Access', 'error');
+    return true;
+  }
+  return false;
+}
+
+/** Shows/hides every Add/Edit/Delete/Save control based on role. Safe
+ *  to call repeatedly (e.g. after every render). */
+function applyRoleUI(){
+  const viewer = isViewerRole();
+
+  const roleLabelEl = document.getElementById('sidebar-user-role');
+  if (roleLabelEl) {
+    roleLabelEl.textContent = viewer ? 'View Only Access' : 'Admin · Signed in';
+    roleLabelEl.style.color = viewer ? 'var(--accent)' : '';
+    roleLabelEl.style.fontWeight = viewer ? '700' : '';
+  }
+
+  const navAddShop = document.getElementById('nav-add-shop');
+  if (navAddShop) navAddShop.style.display = viewer ? 'none' : '';
+  const tbAddShopBtn = document.getElementById('tb-add-shop-btn');
+  if (tbAddShopBtn) tbAddShopBtn.style.display = viewer ? 'none' : '';
+
+  const addCatWrap = document.getElementById('add-category-wrap');
+  if (addCatWrap) addCatWrap.style.display = viewer ? 'none' : '';
+
+  document.querySelectorAll('#page-settings input, #page-settings textarea').forEach(el => { el.disabled = viewer; });
+  const settingsSaveBtn = document.getElementById('settings-save-btn');
+  if (settingsSaveBtn) settingsSaveBtn.style.display = viewer ? 'none' : '';
+
+  // Re-render whatever list/table is currently on screen so its action
+  // buttons reflect the resolved role (covers the case where the role
+  // finishes loading after the first render).
+  if (currentPage === 'shops')      renderShopsTable(document.getElementById('shop-table-search')?.value || '');
+  if (currentPage === 'categories') renderCatList();
+  if (currentPage === 'reviews')    loadReviews();
+  if (currentPage === 'comments')   loadComments();
+}
+
+/* ──────────────────────────────────────────────────
+   SHOPS — sourced exclusively from shops.js (SHOPS_BASE), the same
+   file the main website reads. Firestore is consulted only to attach
+   the live engagement numbers (likeCount / rating aggregates) that
+   the main site writes when a visitor likes or rates a shop — never
+   for the shop's directory fields (name, category, address, etc).
+────────────────────────────────────────────────── */
+
+async function fetchShops(){
+  const base = (typeof SHOPS_BASE !== 'undefined' && Array.isArray(SHOPS_BASE)) ? SHOPS_BASE : [];
+
+  // Pull live like/rating aggregates from Firestore (read-only) so the
+  // dashboard/table reflect what visitors are doing on the main site.
+  // If Firestore is unreachable, shops still render with 0s instead of
+  // failing the whole page — directory data never depends on Firestore.
+  let engagement = {};
+  if (window.__FB_OK) {
+    try {
+      const {collection, getDocs} = window.__FB;
+      const snap = await getDocs(collection(window.__FB_DB, 'shops'));
+      snap.forEach(d => { engagement[d.id] = d.data(); });
+    } catch(e) {
+      console.error('fetchShops engagement lookup error:', e);
+    }
+  }
+
+  const shops = base.map(s => {
+    const eng = engagement[String(s.id)] || {};
+    return {
+      ...s,
+      likeCount       : eng.likeCount || 0,
+      ratingTotal     : eng.ratingTotal || 0,
+      ratingCount     : eng.ratingCount || 0,
+      ratingBreakdown : eng.ratingBreakdown || {1:0,2:0,3:0,4:0,5:0}
+    };
+  });
+
+  allShopsCache = shops;
+  return shops;
+}
+
+/**
+ * Adds a shop to the in-memory list for this admin session only.
+ * Shop directory data lives in shops.js — there is no backend write
+ * path for it from this panel, so this does NOT persist across a
+ * refresh and does NOT affect the main website. The caller is
+ * responsible for telling the admin this via toast.
+ */
+function addShopLocal(data){
+  const nextId = allShopsCache.length
+    ? Math.max(...allShopsCache.map(s => Number(s.id) || 0)) + 1
+    : 1;
+  const shop = { id: nextId, likeCount:0, ratingTotal:0, ratingCount:0, ratingBreakdown:{1:0,2:0,3:0,4:0,5:0}, ...data };
+  allShopsCache.push(shop);
+  return shop.id;
+}
+
+/** Session-only update — see addShopLocal() note above. */
+function updateShopLocal(id, data){
+  const idx = allShopsCache.findIndex(s => String(s.id) === String(id));
+  if (idx === -1) return false;
+  allShopsCache[idx] = { ...allShopsCache[idx], ...data };
+  return true;
+}
+
+/** Session-only delete — see addShopLocal() note above. */
+function deleteShopLocal(id){
+  const before = allShopsCache.length;
+  allShopsCache = allShopsCache.filter(s => String(s.id) !== String(id));
+  return allShopsCache.length < before;
+}
+
+/* ──────────────────────────────────────────────────
+   CATEGORIES — sourced exclusively from the CATS constant above
+   (kept identical to indexshop.html). Firestore is never used for
+   category data.
+────────────────────────────────────────────────── */
+
+async function fetchCategories(){
+  // Clone with a stable synthetic id (slug of the name) so the rest of
+  // the admin UI — which expects c.id for table rows / delete actions —
+  // keeps working unchanged.
+  const cats = CATS.map(c => ({ id: slugify(c.name), ...c }));
+  allCategoriesCache = cats;
+  return cats;
+}
+
+/** Session-only add — Categories live in source (CATS), not Firestore. */
+function addCategoryLocal(data){
+  const cat = { id: slugify(data.name), ...data };
+  allCategoriesCache.push(cat);
+  return cat.id;
+}
+
+/** Session-only delete — Categories live in source (CATS), not Firestore. */
+function deleteCategoryLocal(id){
+  const before = allCategoriesCache.length;
+  allCategoriesCache = allCategoriesCache.filter(c => String(c.id) !== String(id));
+  return allCategoriesCache.length < before;
+}
+
+async function fbGetReviews(shopId){
+  if(!window.__FB_OK) return null;
+  try{
+    const {collection, getDocs, query, orderBy} = window.__FB;
+    const q = query(collection(window.__FB_DB,'shops',String(shopId),'reviews'), orderBy('ts','desc'));
+    const snap = await getDocs(q);
+    return snap.docs.map(d=>({id:d.id,...d.data()}));
+  }catch(e){ console.error('fbGetReviews error:', e); return null; }
+}
+
+async function fbGetComments(shopId){
+  if(!window.__FB_OK) return null;
+  try{
+    const {collection, getDocs, query, orderBy} = window.__FB;
+    const q = query(collection(window.__FB_DB,'shops',String(shopId),'comments'), orderBy('ts','desc'));
+    const snap = await getDocs(q);
+    return snap.docs.map(d=>({id:d.id,...d.data()}));
+  }catch(e){ console.error('fbGetComments error:', e); return null; }
+}
+
+async function fbDeleteReview(shopId, reviewId){
+  // VIEW-ONLY GUARD (frontend). The real, unbypassable enforcement is
+  // the Firestore rule requiring an 'admin' role on /reviews deletes —
+  // see firestore.rules. This guard just avoids a wasted round trip
+  // and gives the user immediate feedback.
+  if (blockIfViewer()) return false;
+  if(!window.__FB_OK) return false;
+  try{
+    const {doc, deleteDoc} = window.__FB;
+    await deleteDoc(doc(window.__FB_DB,'shops',String(shopId),'reviews',reviewId));
+    return true;
+  }catch(e){ return false; }
+}
+
+async function fbDeleteComment(shopId, commentId){
+  // VIEW-ONLY GUARD (frontend) — see fbDeleteReview() above. Server-side
+  // enforcement is the Firestore rule requiring an 'admin' role.
+  if (blockIfViewer()) return false;
+  if(!window.__FB_OK) return false;
+  try{
+    const {doc, deleteDoc} = window.__FB;
+    await deleteDoc(doc(window.__FB_DB,'shops',String(shopId),'comments',commentId));
+    return true;
+  }catch(e){ return false; }
+}
+
+/** Shared "couldn't reach the backend" banner/markup used wherever a
+ *  Firestore-backed lookup (reviews/comments/likes) fails. */
+function backendErrorHTML(what){
+  return `<div class="empty-state">
+    <i class="fas fa-plug-circle-xmark"></i>
+    <div class="empty-title">Couldn't load ${esc(what)}</div>
+    <div class="empty-sub">The backend (Firebase) is unreachable or not configured. Please check the connection and try again.</div>
+  </div>`;
+}
+function emptyStateHTML(what){
+  return `<div class="empty-state">
+    <i class="fas fa-inbox"></i>
+    <div class="empty-title">No ${esc(what)} yet</div>
+    <div class="empty-sub">Nothing has been added on the main website yet. This will update automatically once data comes in.</div>
+  </div>`;
+}
+
+/* ──────────────────────────────────────────────────
+   AUTHENTICATION — Firebase Authentication (Email/Password)
+   ══════════════════════════════════════════════════════════════
+   Flow:
+   1. Page loads → #auth-check-screen is shown (login/admin both hidden).
+   2. The module script in <head> attaches onAuthStateChanged, which
+      fires once immediately with the current session (or null), and
+      again any time the user signs in/out.
+   3. We listen for the custom 'auth-state-changed' event it dispatches.
+        - user present  → show admin layout, load data.
+        - user absent   → show login form.
+   4. Login form submit calls window.__AUTH.login(email, password).
+      Firebase validates credentials server-side; we never check
+      passwords ourselves and never store them.
+   5. Session persistence is handled by Firebase's browserLocalPersistence
+      (set in the login() call), so refreshing the page keeps the user
+      signed in until they explicitly log out.
+────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  const t = localStorage.getItem(LS_THEME_KEY) || 'light';
+  document.documentElement.setAttribute('data-theme', t);
+  updateThemeBtn(t);
+
+  // Wire up the login form (prevents default GET submission/page reload).
+  const form = document.getElementById('login-form');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    doLogin();
+  });
+});
+
+/**
+ * Central auth-state handler. This is the ONLY place that decides whether
+ * the protected admin UI or the login screen is shown. Because it is
+ * driven by Firebase's onAuthStateChanged (not a localStorage flag),
+ * there is no client-side way to fake being logged in.
+ */
+window.addEventListener('auth-state-changed', async (e) => {
+  const user = e.detail.user;
+
+  document.getElementById('auth-check-screen').classList.add('hidden');
+
+  if (user) {
+    // ── Authenticated: show the protected admin panel ──
+    document.getElementById('login-page').classList.add('hidden');
+    document.getElementById('admin-layout').classList.remove('hidden');
+
+    // Reflect signed-in user in the sidebar.
+    const email = user.email || 'Admin';
+    document.getElementById('sidebar-user-email').textContent = email;
+    document.getElementById('user-avatar-initial').textContent = email.charAt(0).toUpperCase();
+    const settingsEmailField = document.getElementById('settings-admin-email');
+    if (settingsEmailField) settingsEmailField.value = email;
+
+    // Reset any stale login form state from a previous session.
+    resetLoginFormUI();
+
+    // ── Resolve this user's role (admin vs view-only) BEFORE the first
+    // render, so there is never a flash of full-access UI. ──
+    window.__ADMIN_ROLE = await fetchAdminRole(user.uid);
+    applyRoleUI();
+
+    if (!adminInitialized) {
+      adminInitialized = true;
+      await buildCatDropdown();
+      renderDashboard();
+      updateNavBadges();
+      // Honor a deep-linked page in the URL hash (e.g. shopadmin.html#shops),
+      // redirecting view-only admins away from restricted pages.
+      const requestedPage = (location.hash || '').replace('#', '') || 'dashboard';
+      navigateToPage(requestedPage);
+    }
+  } else {
+    // ── Not authenticated: show login, hide everything protected ──
+    adminInitialized = false;
+    window.__ADMIN_ROLE = null;
+    document.getElementById('admin-layout').classList.add('hidden');
+    document.getElementById('login-page').classList.remove('hidden');
+  }
+});
+
+// Supports direct/deep links like shopadmin.html#add-shop, and the
+// browser back/forward buttons.
+window.addEventListener('hashchange', () => {
+  if (!adminInitialized) return;
+  const requestedPage = (location.hash || '').replace('#', '') || 'dashboard';
+  navigateToPage(requestedPage);
+});
+
+/** Single entry point for going to a page by name. Used by hash
+ *  navigation; showPage() itself carries the same guard so every other
+ *  call path (nav clicks, editShop(), the topbar “+” button, etc.) is
+ *  covered too. */
+function navigateToPage(page){
+  if (isViewerRole() && RESTRICTED_PAGES_FOR_VIEWER.includes(page)) {
+    showToast('You have View Only Access', 'error');
+    page = 'dashboard';
+  }
+  showPage(page, null);
+}
+
+/** Handles the login form submission. */
+async function doLogin(){
+  const emailEl = document.getElementById('login-user');
+  const passEl  = document.getElementById('login-pass');
+  const errEl   = document.getElementById('login-error');
+  const btn     = document.getElementById('login-submit-btn');
+  const btnLabel= document.getElementById('login-btn-label');
+
+  const email = emailEl.value.trim();
+  const pass  = passEl.value;
+
+  errEl.style.display = 'none';
+
+  if (!email || !pass) {
+    errEl.textContent = 'Please enter both email and password.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  // Disable inputs + show a loading state while Firebase verifies credentials.
+  emailEl.disabled = true; passEl.disabled = true; btn.disabled = true;
+  btnLabel.textContent = 'Signing in…';
+
+  const result = await window.__AUTH.login(email, pass);
+
+  if (!result.ok) {
+    errEl.textContent = result.message;
+    errEl.style.display = 'block';
+    passEl.value = '';
+  }
+  // On success, onAuthStateChanged fires and the listener above
+  // swaps the UI — no manual redirect needed here.
+
+  resetLoginFormUI();
+}
+
+function resetLoginFormUI(){
+  const emailEl = document.getElementById('login-user');
+  const passEl  = document.getElementById('login-pass');
+  const btn     = document.getElementById('login-submit-btn');
+  const btnLabel= document.getElementById('login-btn-label');
+  if (emailEl) emailEl.disabled = false;
+  if (passEl)  passEl.disabled  = false;
+  if (btn)     btn.disabled     = false;
+  if (btnLabel) btnLabel.textContent = 'Login';
+}
+
+/** Signs the user out via Firebase Auth. UI updates via onAuthStateChanged. */
+async function doLogout(){
+  await window.__AUTH.logout();
+  showToast('Logged out', 'success');
+}
+
+/* ──────────────────────────────────────────────────
+   NAVIGATION
+────────────────────────────────────────────────── */
+let currentPage = 'dashboard';
+function showPage(page, navEl){
+  // ── VIEW-ONLY GUARD ──────────────────────────────────────────
+  // Catches every entry point: sidebar clicks, the topbar "+" button,
+  // editShop(), and direct/deep-linked URLs (shopadmin.html#add-shop).
+  if (isViewerRole() && RESTRICTED_PAGES_FOR_VIEWER.includes(page)) {
+    showToast('You have View Only Access', 'error');
+    page = 'dashboard';
+    navEl = null;
+  }
+  location.hash = page; // keep the URL in sync so deep-links/back work
+  document.querySelectorAll('.page-content').forEach(p => p.classList.add('hidden'));
+  document.getElementById(`page-${page}`).classList.remove('hidden');
+  currentPage = page;
+  const titles = {
+    dashboard:'Dashboard', shops:'All Shops', 'add-shop':'Add / Edit Shop',
+    categories:'Categories', reviews:'Reviews', comments:'Comments',
+    likes:'Likes', analytics:'Analytics', settings:'Settings'
+  };
+  document.getElementById('topbar-title').textContent = titles[page] || page;
+  if(navEl){
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    navEl.classList.add('active');
+  }
+  if(page === 'shops')      renderShopsTable();
+  if(page === 'dashboard')  renderDashboard();
+  if(page === 'categories') renderCatList();
+  if(page === 'reviews')    loadReviews();
+  if(page === 'comments')   loadComments();
+  if(page === 'likes')      loadLikesPage();
+  if(page === 'analytics')  renderAnalytics();
+  if(page === 'add-shop' && !currentEditId) clearShopForm();
+  if(window.innerWidth < 900) document.getElementById('sidebar').classList.remove('open');
+}
+function toggleSidebar(){
+  const sb = document.getElementById('sidebar');
+  if(window.innerWidth < 900){ sb.classList.toggle('open'); }
+  else { sb.classList.toggle('collapsed'); document.getElementById('main-content').classList.toggle('full'); }
+}
+
+/* ──────────────────────────────────────────────────
+   DASHBOARD — shops/categories from shops.js + CATS; like/rating
+   aggregates read live from Firestore.
+────────────────────────────────────────────────── */
+async function renderDashboard(){
+  const banner = document.getElementById('fb-status-banner');
+
+  if(!window.__FB_OK){
+    banner.innerHTML = `<div class="fb-status local"><i class="fas fa-circle" style="font-size:.6rem"></i> Backend unreachable — shops/categories still show from shops.js, but live likes &amp; ratings can't be loaded.</div>`;
+  } else {
+    banner.innerHTML = `<div class="fb-status connected"><i class="fas fa-circle" style="font-size:.6rem"></i> Shops &amp; Categories loaded from shops.js · Likes/Reviews/Comments connected to backend</div>`;
+  }
+  if (isViewerRole()) {
+    banner.innerHTML += `<div class="fb-status local" style="border-color:rgba(108,99,255,0.35);color:var(--primary);background:rgba(108,99,255,0.08)"><i class="fas fa-eye"></i> View Only Access — you can browse all data but cannot add, edit, or delete anything.</div>`;
+  }
+
+  const [shops, cats] = await Promise.all([fetchShops(), fetchCategories()]);
+
+  let totalLikes = 0, totalRatings = 0;
+  shops.forEach(s => {
+    totalLikes   += (s.likeCount   || 0);
+    totalRatings += (s.ratingCount || 0);
+  });
+
+  const items = [
+    {icon:'fa-store',  color:'linear-gradient(135deg,#6C63FF,#A09AFF)', val:shops.length,        label:'Total Shops'},
+    {icon:'fa-tags',   color:'linear-gradient(135deg,#43D9AD,#10B981)', val:(cats||[]).length,   label:'Categories'},
+    {icon:'fa-heart',  color:'linear-gradient(135deg,#FF6584,#F97316)', val:totalLikes,          label:'Total Likes'},
+    {icon:'fa-star',   color:'linear-gradient(135deg,#f59e0b,#fbbf24)', val:totalRatings,        label:'Total Ratings'},
+  ];
+  document.getElementById('stats-grid').innerHTML = items.map((s,i) => `
+    <div class="stat-card" style="animation-delay:${i*0.08}s">
+      <div class="stat-icon" style="background:${s.color}"><i class="fas ${s.icon}"></i></div>
+      <div class="stat-val">${s.val}</div>
+      <div class="stat-label">${s.label}</div>
+    </div>`).join('');
+
+  if(!shops.length){
+    document.getElementById('top-rated-list').innerHTML  = emptyStateHTML('shops');
+    document.getElementById('most-liked-list').innerHTML = emptyStateHTML('shops');
+    return;
+  }
+
+  // Top rated
+  const ratedShops = shops
+    .map(s => ({...s, liveRating: (s.ratingCount > 0) ? (s.ratingTotal / s.ratingCount) : 0, liveCount: s.ratingCount || 0}))
+    .filter(s => s.liveCount > 0)
+    .sort((a,b) => b.liveRating - a.liveRating)
+    .slice(0,5);
+
+  const trEl = document.getElementById('top-rated-list');
+  trEl.innerHTML = ratedShops.length
+    ? ratedShops.map((s,i) => `
+        <div class="top-item">
+          <div class="top-rank">${i+1}</div>
+          <div class="top-name">${esc(s.name||'Untitled')}</div>
+          <div class="top-val">⭐ ${s.liveRating.toFixed(1)} <span style="color:var(--text3)">(${s.liveCount})</span></div>
+        </div>`).join('')
+    : emptyStateHTML('ratings');
+
+  // Most liked
+  const likedShops = shops
+    .map(s => ({...s, liveLikes: s.likeCount || 0}))
+    .sort((a,b) => b.liveLikes - a.liveLikes)
+    .slice(0,5);
+
+  document.getElementById('most-liked-list').innerHTML = likedShops.map((s,i) => `
+    <div class="top-item">
+      <div class="top-rank" style="background:linear-gradient(135deg,#FF6584,#F97316)">${i+1}</div>
+      <div class="top-name">${esc(s.name||'Untitled')}</div>
+      <div class="top-val">❤️ ${s.liveLikes}</div>
+    </div>`).join('');
+}
+
+/* ──────────────────────────────────────────────────
+   SHOPS TABLE — shops.js directory data + live Firestore engagement
+────────────────────────────────────────────────── */
+function isOpenNow(shop){
+  const now = new Date(); const cur = now.getHours()*60 + now.getMinutes();
+  function pt(s){ const[t,ap]=s.split(' ');let[h,m]=t.split(':').map(Number);if(ap==='PM'&&h!==12)h+=12;if(ap==='AM'&&h===12)h=0;return h*60+m; }
+  try{ return cur >= pt(shop.openTime) && cur < pt(shop.closeTime); }catch(e){ return true; }
+}
+
+let allShopsForTable = [];
+async function renderShopsTable(query=''){
+  const tbody = document.getElementById('shops-tbody');
+  tbody.innerHTML = `<tr><td colspan="9"><i class="fas fa-spinner spin"></i> Loading…</td></tr>`;
+
+  const shops = await fetchShops();
+
+  document.getElementById('nav-shop-count').textContent = shops.length;
+
+  allShopsForTable = query
+    ? shops.filter(s => (s.name||'').toLowerCase().includes(query.toLowerCase()) ||
+                        (s.category||'').toLowerCase().includes(query.toLowerCase()) ||
+                        (s.owner||'').toLowerCase().includes(query.toLowerCase()))
+    : shops;
+
+  if(!allShopsForTable.length){
+    tbody.innerHTML = `<tr><td colspan="9">${shops.length ? '<div class="empty-state"><i class="fas fa-search"></i><div class="empty-title">No matches</div></div>' : emptyStateHTML('shops')}</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = allShopsForTable.map((s,i) => {
+    const avg = (s.ratingCount > 0) ? (s.ratingTotal/s.ratingCount).toFixed(1) : null;
+    return `
+    <tr>
+      <td>${i+1}</td>
+      <td class="td-name">${esc(s.name||'Untitled')}</td>
+      <td><span class="td-cat">${esc(s.category||'Uncategorized')}</span></td>
+      <td>${esc(s.owner||'')}</td>
+      <td>${esc(s.phone||'')}</td>
+      <td class="td-rating">${avg ? `<i class="fas fa-star" style="color:#f59e0b"></i> ${avg} <span style="color:var(--text3);font-size:.75rem">(${s.ratingCount})</span>` : '<span style="color:var(--text3)">—</span>'}</td>
+      <td><i class="fas fa-heart" style="color:var(--accent)"></i> ${s.likeCount||0}</td>
+      <td><span class="td-status ${isOpenNow(s)?'status-open':'status-closed'}">${isOpenNow(s)?'Open':'Closed'}</span></td>
+      <td>
+        <div class="action-btns">
+          ${isViewerRole() ? '<span style="color:var(--text3);font-size:0.75rem;white-space:nowrap"><i class="fas fa-lock"></i> View only</span>' : `
+          <button class="btn-action btn-edit" onclick="editShop('${s.id}')" title="Edit"><i class="fas fa-edit"></i></button>
+          <button class="btn-action btn-delete" onclick="confirmDelete('${s.id}','${esc(s.name||'this shop')}')" title="Delete"><i class="fas fa-trash"></i></button>
+          `}
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function filterShopTable(q){ renderShopsTable(q); }
+function adminSearch(q){ if(currentPage==='shops') renderShopsTable(q); }
+
+/* ──────────────────────────────────────────────────
+   ADD / EDIT SHOP
+   NOTE: shop directory data lives in shops.js, so Save/Delete here
+   only mutate the in-memory preview table for this session — they do
+   not write to a backend and will not affect the main website. See
+   the notice on the Add/Edit Shop page.
+────────────────────────────────────────────────── */
+async function buildCatDropdown(){
+  const sel = document.getElementById('f-cat');
+  sel.innerHTML = '';
+  const cats = await fetchCategories();
+  if(!cats.length){
+    sel.innerHTML = '<option value="">No categories available</option>';
+    return;
+  }
+  cats.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c.name; o.textContent = c.name;
+    sel.appendChild(o);
+  });
+}
+function clearShopForm(){
+  currentEditId = null;
+  document.getElementById('edit-shop-id').value = '';
+  document.getElementById('shop-form-title').innerHTML =
+    '<i class="fas fa-plus-circle" style="color:var(--primary)"></i> Add New Shop';
+  ['f-name','f-owner','f-phone','f-whatsapp','f-open','f-close','f-address','f-map','f-desc','f-images','f-date']
+    .forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+}
+async function editShop(id){
+  // VIEW-ONLY GUARD: stop here so we never touch the (hidden) edit
+  // form or push state for a page the viewer isn't allowed to reach.
+  // showPage() carries the same guard as a second line of defense.
+  if (blockIfViewer()) return;
+  const shops = await fetchShops();
+  const shop = shops.find(s => String(s.id) === String(id));
+  if(!shop){ showToast('Shop not found','error'); return; }
+  currentEditId = id;
+  await buildCatDropdown();
+  showPage('add-shop', null);
+  document.getElementById('shop-form-title').innerHTML =
+    '<i class="fas fa-edit" style="color:var(--primary)"></i> Edit Shop: ' + esc(shop.name||'');
+  document.getElementById('edit-shop-id').value  = id;
+  document.getElementById('f-name').value        = shop.name        || '';
+  document.getElementById('f-cat').value         = shop.category    || '';
+  document.getElementById('f-owner').value       = shop.owner       || '';
+  document.getElementById('f-phone').value       = shop.phone       || '';
+  document.getElementById('f-whatsapp').value    = shop.whatsapp    || '';
+  document.getElementById('f-open').value        = shop.openTime    || '';
+  document.getElementById('f-close').value       = shop.closeTime   || '';
+  document.getElementById('f-address').value     = shop.address     || '';
+  document.getElementById('f-map').value         = shop.mapLink     || '';
+  document.getElementById('f-desc').value        = shop.description || '';
+  document.getElementById('f-date').value        = shop.addedAt     || '';
+  document.getElementById('f-images').value      = (shop.images||[]).join(', ');
+}
+async function saveShop(){
+  if (blockIfViewer()) return;
+
+  const name  = document.getElementById('f-name').value.trim();
+  const cat   = document.getElementById('f-cat').value;
+  const owner = document.getElementById('f-owner').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  if(!name||!cat||!owner||!phone){
+    showToast('Fill required fields (Name, Category, Owner, Phone)','error'); return;
+  }
+
+  const imgStr = document.getElementById('f-images').value;
+  const images = imgStr ? imgStr.split(',').map(s=>s.trim()).filter(Boolean) : [];
+
+  const btn = document.getElementById('save-shop-btn');
+  btn.disabled = true;
+
+  const payload = {
+    name, category:cat, owner, phone,
+    whatsapp    : document.getElementById('f-whatsapp').value.trim(),
+    openTime    : document.getElementById('f-open').value,
+    closeTime   : document.getElementById('f-close').value,
+    address     : document.getElementById('f-address').value.trim(),
+    mapLink     : document.getElementById('f-map').value.trim(),
+    description : document.getElementById('f-desc').value.trim(),
+    addedAt     : document.getElementById('f-date').value || new Date().toISOString().split('T')[0],
+    images
+  };
+
+  if(currentEditId){
+    updateShopLocal(currentEditId, payload);
+    showToast(`"${name}" updated for this session — edit shops.js to persist it.`, 'success');
+  } else {
+    addShopLocal(payload);
+    showToast(`"${name}" added for this session — add it to shops.js to persist it.`, 'success');
+  }
+
+  btn.disabled = false;
+  currentEditId = null;
+  clearShopForm();
+  updateNavBadges();
+  showPage('shops', null);
+}
+
+function confirmDelete(id, name){
+  if (blockIfViewer()) return;
+  document.getElementById('confirm-title').textContent = `Delete "${name}"?`;
+  document.getElementById('confirm-msg').textContent   = 'This removes the shop from this session\'s preview only — it stays in shops.js until you edit that file.';
+  document.getElementById('confirm-yes').textContent   = 'Delete';
+  document.getElementById('confirm-modal').classList.remove('hidden');
+  confirmCallback = async () => {
+    const ok = deleteShopLocal(id);
+    if(ok){
+      showToast(`"${name}" removed from this session's preview`, 'success');
+      renderShopsTable();
+      updateNavBadges();
+    } else {
+      showToast('Could not find that shop', 'error');
+    }
+    closeConfirm();
+  };
+}
+function closeConfirm(){ document.getElementById('confirm-modal').classList.add('hidden'); confirmCallback=null; }
+document.getElementById('confirm-yes').addEventListener('click', () => { if(confirmCallback) confirmCallback(); });
+
+/* ──────────────────────────────────────────────────
+   CATEGORIES — sourced from the CATS constant (shared with
+   indexshop.html). Add/Delete here are session-only previews.
+────────────────────────────────────────────────── */
+async function renderCatList(){
+  const div = document.getElementById('cat-list-admin');
+  const cats = await fetchCategories();
+  if(!cats.length){ div.innerHTML = emptyStateHTML('categories'); return; }
+
+  div.innerHTML = cats.map(c => `
+    <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:var(--radius-sm);background:var(--surface2);margin-bottom:8px;">
+      <div style="width:32px;height:32px;border-radius:8px;background:${c.color||'#6C63FF'};display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0">
+        <i class="fas ${c.icon||'fa-store'}"></i>
+      </div>
+      <span style="flex:1;font-size:0.88rem;font-weight:600;color:var(--text)">${esc(c.name)}</span>
+      ${isViewerRole() ? '' : `<button class="btn-action btn-delete" onclick="deleteCategory('${c.id}','${esc(c.name)}')"><i class="fas fa-trash"></i></button>`}
+    </div>`).join('');
+}
+async function addCategory(){
+  if (blockIfViewer()) return;
+
+  const name  = document.getElementById('new-cat-name').value.trim();
+  const icon  = document.getElementById('new-cat-icon').value.trim() || 'fa-store';
+  const color = document.getElementById('new-cat-color').value || '#6C63FF';
+  if(!name){ showToast('Enter category name','error'); return; }
+
+  const cats = await fetchCategories();
+  if(cats.find(c => c.name.toLowerCase() === name.toLowerCase())){
+    showToast('Category already exists','error'); return;
+  }
+
+  const btn = document.getElementById('add-cat-btn');
+  btn.disabled = true;
+  addCategoryLocal({name, icon, color});
+  btn.disabled = false;
+
+  document.getElementById('new-cat-name').value = '';
+  renderCatList();
+  buildCatDropdown();
+  showToast(`"${name}" added for this session — add it to the CATS list in code to persist it.`,'success');
+}
+async function deleteCategory(id, name){
+  if (blockIfViewer()) return;
+  const ok = deleteCategoryLocal(id);
+  if(ok){
+    renderCatList();
+    buildCatDropdown();
+    showToast(`"${name}" removed from this session's preview`,'success');
+  } else {
+    showToast('Could not find that category','error');
+  }
+}
+
+/* ──────────────────────────────────────────────────
+   REVIEWS — exclusively live Firestore data
+────────────────────────────────────────────────── */
+async function loadReviews(){
+  const div = document.getElementById('reviews-admin');
+  const labelEl = document.getElementById('reviews-source-label');
+  div.innerHTML = '<p style="color:var(--text3);padding:12px"><i class="fas fa-spinner spin"></i> Loading reviews…</p>';
+
+  if(!window.__FB_OK){
+    labelEl.textContent = '';
+    div.innerHTML = backendErrorHTML('reviews');
+    document.getElementById('nav-review-count').textContent = '—';
+    return;
+  }
+  labelEl.textContent = '';
+
+  const shops = await fetchShops();
+  if(!shops.length){
+    div.innerHTML = emptyStateHTML('reviews');
+    document.getElementById('nav-review-count').textContent = 0;
+    return;
+  }
+
+  const results = await Promise.all(
+    shops.map(s => fbGetReviews(s.id).then(revs => (revs||[]).map(r => ({...r, shopName:s.name, shopId:s.id}))))
+  );
+  const allReviews = results.flat();
+
+  document.getElementById('nav-review-count').textContent = allReviews.length;
+
+  if(!allReviews.length){
+    div.innerHTML = emptyStateHTML('reviews');
+    return;
+  }
+
+  div.innerHTML = allReviews.map(r => `
+    <div class="content-card">
+      <div class="content-card-body">
+        <div class="content-card-shop">${esc(r.shopName)}</div>
+        <div class="content-card-meta">
+          <span class="content-card-name">${esc(r.name||'Anonymous')}</span>
+          <span class="content-card-stars">${'★'.repeat(r.stars||0)}${'☆'.repeat(5-(r.stars||0))}</span>
+          <span class="content-card-date">${r.date||''}</span>
+        </div>
+        <div class="content-card-text">${esc(r.text||'')}</div>
+      </div>
+      ${isViewerRole() ? '' : `
+      <button class="btn-action btn-delete"
+        onclick="deleteReviewItem('${r.shopId}','${(r.id||'').replace(/'/g,"\\'")}',this.closest('.content-card'))"
+        title="Delete"><i class="fas fa-trash"></i></button>
+      `}
+    </div>`).join('');
+}
+
+async function deleteReviewItem(shopId, fbId, el){
+  if (blockIfViewer()) return;
+  const ok = await fbDeleteReview(shopId, fbId);
+  if(ok){ el.remove(); showToast('Review deleted','success'); updateNavBadges(); }
+  else   showToast('Could not delete review','error');
+}
+
+/* ──────────────────────────────────────────────────
+   COMMENTS — exclusively live Firestore data
+────────────────────────────────────────────────── */
+async function loadComments(){
+  const div = document.getElementById('comments-admin');
+  const labelEl = document.getElementById('comments-source-label');
+  div.innerHTML = '<p style="color:var(--text3);padding:12px"><i class="fas fa-spinner spin"></i> Loading comments…</p>';
+
+  if(!window.__FB_OK){
+    labelEl.textContent = '';
+    div.innerHTML = backendErrorHTML('comments');
+    document.getElementById('nav-comment-count').textContent = '—';
+    return;
+  }
+  labelEl.textContent = '';
+
+  const shops = await fetchShops();
+  if(!shops.length){
+    div.innerHTML = emptyStateHTML('comments');
+    document.getElementById('nav-comment-count').textContent = 0;
+    return;
+  }
+
+  const results = await Promise.all(
+    shops.map(s => fbGetComments(s.id).then(c => (c||[]).map(x => ({...x, shopName:s.name, shopId:s.id}))))
+  );
+  const allComments = results.flat();
+
+  document.getElementById('nav-comment-count').textContent = allComments.length;
+
+  if(!allComments.length){
+    div.innerHTML = emptyStateHTML('comments');
+    return;
+  }
+
+  div.innerHTML = allComments.map(c => `
+    <div class="content-card comment">
+      <div class="content-card-body">
+        <div class="content-card-shop c">${esc(c.shopName)}</div>
+        <div class="content-card-meta">
+          <span class="content-card-name">${esc(c.name||'Anonymous')}</span>
+          <span class="content-card-date">${c.date||''}</span>
+        </div>
+        <div class="content-card-text">${esc(c.text||'')}</div>
+      </div>
+      ${isViewerRole() ? '' : `
+      <button class="btn-action btn-delete"
+        onclick="deleteCommentItem('${c.shopId}','${(c.id||'').replace(/'/g,"\\'")}',this.closest('.content-card'))"
+        title="Delete"><i class="fas fa-trash"></i></button>
+      `}
+    </div>`).join('');
+}
+
+async function deleteCommentItem(shopId, fbId, el){
+  if (blockIfViewer()) return;
+  const ok = await fbDeleteComment(shopId, fbId);
+  if(ok){ el.remove(); showToast('Comment deleted','success'); updateNavBadges(); }
+  else   showToast('Could not delete comment','error');
+}
+
+/* ──────────────────────────────────────────────────
+   LIKES — shops.js directory data + live Firestore like counts
+────────────────────────────────────────────────── */
+async function loadLikesPage(){
+  const tbody  = document.getElementById('likes-tbody');
+  const labelEl = document.getElementById('likes-source-label');
+  tbody.innerHTML = '<tr><td colspan="4" style="color:var(--text3);padding:12px"><i class="fas fa-spinner spin"></i> Loading…</td></tr>';
+  labelEl.textContent = '';
+
+  const shops = await fetchShops();
+  if(!shops.length){
+    tbody.innerHTML = `<tr><td colspan="4">${emptyStateHTML('shops')}</td></tr>`;
+    return;
+  }
+
+  const sorted = shops
+    .map(s => ({...s, liveLikes: s.likeCount || 0}))
+    .sort((a,b) => b.liveLikes - a.liveLikes);
+
+  tbody.innerHTML = sorted.map((s,i) => `
+    <tr>
+      <td><strong>${i+1}</strong></td>
+      <td class="td-name">${esc(s.name||'Untitled')}</td>
+      <td><span class="td-cat">${esc(s.category||'Uncategorized')}</span></td>
+      <td><strong style="color:var(--accent)">❤️ ${s.liveLikes}</strong></td>
+    </tr>`).join('');
+}
+
+/* ──────────────────────────────────────────────────
+   ANALYTICS — shops.js directory data + live Firestore engagement
+────────────────────────────────────────────────── */
+async function renderAnalytics(){
+  const [shops, cats] = await Promise.all([fetchShops(), fetchCategories()]);
+
+  if(!shops.length){
+    document.getElementById('cat-bar-chart').innerHTML        = emptyStateHTML('shops');
+    document.getElementById('analytics-top-rated').innerHTML  = emptyStateHTML('ratings');
+    document.getElementById('analytics-most-liked').innerHTML = emptyStateHTML('likes');
+    document.getElementById('analytics-most-reviewed').innerHTML = emptyStateHTML('reviews');
+    return;
+  }
+
+  // Shops per category bar chart
+  const catCounts = (cats||[]).map(c => ({
+    name:c.name, count:shops.filter(s => s.category===c.name).length
+  })).sort((a,b)=>b.count-a.count).slice(0,10);
+  if(!catCounts.length){
+    document.getElementById('cat-bar-chart').innerHTML = emptyStateHTML('categories');
+  } else {
+    const maxCount = Math.max(...catCounts.map(c=>c.count), 1);
+    document.getElementById('cat-bar-chart').innerHTML = catCounts.map(c=>`
+      <div class="bar-row">
+        <div class="bar-label" title="${esc(c.name)}">${esc(c.name)}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${(c.count/maxCount)*100}%"></div></div>
+        <div class="bar-val">${c.count}</div>
+      </div>`).join('');
+  }
+
+  // Top rated
+  const ratedShops = shops.map(s => ({
+    ...s,
+    liveAvg   : (s.ratingCount>0) ? s.ratingTotal/s.ratingCount : 0,
+    liveCount : s.ratingCount || 0
+  })).filter(s=>s.liveCount>0).sort((a,b)=>b.liveAvg-a.liveAvg).slice(0,5);
+
+  document.getElementById('analytics-top-rated').innerHTML = ratedShops.length
+    ? ratedShops.map((s,i)=>`
+        <div class="top-item">
+          <div class="top-rank">${i+1}</div>
+          <div class="top-name">${esc(s.name||'Untitled')}</div>
+          <div class="top-val">⭐ ${s.liveAvg.toFixed(1)} <span style="color:var(--text3)">(${s.liveCount})</span></div>
+        </div>`).join('')
+    : emptyStateHTML('ratings');
+
+  // Most liked
+  const likedShops = shops.map(s => ({...s, liveLikes: s.likeCount || 0}))
+    .sort((a,b)=>b.liveLikes-a.liveLikes).slice(0,5);
+
+  document.getElementById('analytics-most-liked').innerHTML = likedShops.map((s,i)=>`
+    <div class="top-item">
+      <div class="top-rank" style="background:linear-gradient(135deg,#FF6584,#F97316)">${i+1}</div>
+      <div class="top-name">${esc(s.name||'Untitled')}</div>
+      <div class="top-val">❤️ ${s.liveLikes}</div>
+    </div>`).join('');
+
+  // Most reviewed (parallel fetch from Firestore)
+  const reviewCounts = await Promise.all(
+    shops.map(async s => {
+      const revs = await fbGetReviews(s.id);
+      return {...s, reviewCount: (revs||[]).length};
+    })
+  );
+  const topReviewed = reviewCounts.sort((a,b)=>b.reviewCount-a.reviewCount).slice(0,5);
+  document.getElementById('analytics-most-reviewed').innerHTML = topReviewed.some(s=>s.reviewCount>0)
+    ? topReviewed.map((s,i)=>`
+        <div class="top-item">
+          <div class="top-rank" style="background:linear-gradient(135deg,#43D9AD,#10B981)">${i+1}</div>
+          <div class="top-name">${esc(s.name||'Untitled')}</div>
+          <div class="top-val">💬 ${s.reviewCount}</div>
+        </div>`).join('')
+    : emptyStateHTML('reviews');
+}
+
+/* ──────────────────────────────────────────────────
+   NAV BADGES — shop count from shops.js; review/comment counts
+   live from Firestore.
+────────────────────────────────────────────────── */
+async function updateNavBadges(){
+  const shops = await fetchShops();
+  document.getElementById('nav-shop-count').textContent = shops.length;
+
+  if(!shops.length){
+    document.getElementById('nav-review-count').textContent  = 0;
+    document.getElementById('nav-comment-count').textContent = 0;
+    return;
+  }
+
+  if(!window.__FB_OK){
+    document.getElementById('nav-review-count').textContent  = '—';
+    document.getElementById('nav-comment-count').textContent = '—';
+    return;
+  }
+
+  const counts = await Promise.all(shops.map(async s => {
+    const [revs, coms] = await Promise.all([fbGetReviews(s.id), fbGetComments(s.id)]);
+    return { rev:(revs||[]).length, com:(coms||[]).length };
+  }));
+  document.getElementById('nav-review-count').textContent  = counts.reduce((a,c)=>a+c.rev,0);
+  document.getElementById('nav-comment-count').textContent = counts.reduce((a,c)=>a+c.com,0);
+}
+
+/* ──────────────────────────────────────────────────
+   SETTINGS
+────────────────────────────────────────────────── */
+function saveSettings(){
+  if (blockIfViewer()) return;
+  showToast('Settings saved!','success');
+}
+
+/* ──────────────────────────────────────────────────
+   THEME (cosmetic UI preference only — not business data)
+────────────────────────────────────────────────── */
+function toggleTheme(){
+  const cur  = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem(LS_THEME_KEY, next);
+  updateThemeBtn(next);
+}
+function updateThemeBtn(t){
+  const btn = document.getElementById('theme-btn');
+  if(btn) btn.innerHTML = t==='dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+}
+
+/* ──────────────────────────────────────────────────
+   TOAST
+────────────────────────────────────────────────── */
+function showToast(msg, type=''){
+  const wrap = document.getElementById('toast-wrap');
+  const t    = document.createElement('div');
+  t.className = `toast ${type}`;
+  const icons = {success:'fa-check-circle', error:'fa-exclamation-circle', '':'fa-bell'};
+  t.innerHTML = `<i class="fas ${icons[type]||icons['']}"></i> ${msg}`;
+  wrap.appendChild(t);
+  setTimeout(()=>{
+    t.style.transition = '0.3s ease';
+    t.style.opacity    = '0';
+    t.style.transform  = 'translateX(120%)';
+    setTimeout(()=>t.remove(), 300);
+  }, 3000);
+}
+
+/* ──────────────────────────────────────────────────
+   UTILS
+────────────────────────────────────────────────── */
+function esc(s){
+  return String(s||'')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape' && !document.getElementById('confirm-modal').classList.contains('hidden')) closeConfirm();
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "id": 4,
+  "name": "Delhi  Store",
+  "category": " Store",
+  "owner": "Dr. Anita Verma",
+  "phone": "+919876500003",
+  "email": "ansh@gmail.com",
+  "whatsapp": "919876500003",
+  "address": "Shop 22, Main Market, Rohini Sector 3, Delhi",
+  "description": "24x7 pharmacy with home delivery and a qualified pharmacist on duty.",
+  "openTime": "12:00 AM",
+  "closeTime": "11:59 PM",
+  "lat": 28.703134,
+  "lng": 77.1080838,
+  "mapLink": "https://www.google.com/maps/place/Royal+Pepper+Banquet+hall+-+Sector+3,+Rohini/@28.703134,77.1080838,18.46z/data=!4m15!1m8!3m7!1s0x390d03fc2d4d3e8b:0x636c1d669fb87e73!2sSector+3,+Rohini,+Delhi,+110085!3b1!8m2!3d28.7077393!4d77.1075892!16s%2Fg%2F1hc2w4gnq!3m5!1s0x390d03fcafffffff:0xc6dfc3f01877cea9!8m2!3d28.703746!4d77.107889!16s%2Fg%2F1tdwhwzw?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D",
+  "addedAt": "2026-03-15",
+  "galleryImages": [
+    "https://picsum.photos/seed/delhimed-gallery1/800/600",
+    "https://picsum.photos/seed/delhimed-gallery2/800/600"
+  ]
+}
