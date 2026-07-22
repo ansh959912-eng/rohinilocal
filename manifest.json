@@ -3,7 +3,7 @@
   "name": "Balaji Store",
   "short_name": "Balaji",
   "description": "Fresh & Daily Essentials – Order on WhatsApp",
-  "start_url": "/index.html",
+  "start_url": "/balaji/index.html",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",

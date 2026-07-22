@@ -63,7 +63,7 @@ featured: "gold",
   {
     id: 2,
     name: "Sharma Electricals",
-      detailPage: "shop/2-sharma-electricals.html",
+      detailPage: "/shop/2-sharma-electricals.html",
     category: "Electrical Shop",
     owner: "Mr. Vinod Sharma",
     phone: "+919876500002",
@@ -115,28 +115,39 @@ featured: "gold",
     ]
   },  {
     id:4 ,
-    name: "Delhi  Store",
+    name: "Mahadev Enterprises",
+    detailPage: "/shop/4-mahadev-enterprises.html",
     category: " Store",
-    owner: "Dr. Anita Verma",
-    phone: "+919876500003",
-    email:"ansh@gmail.com",
-    whatsapp: "919876500003",
-    address: "Shop 22, Main Market, Rohini Sector 3, Delhi",
-    description: "24x7 pharmacy with home delivery and a qualified pharmacist on duty.",
-    openTime: "12:00 AM",
-    closeTime: "11:59 PM",
+    owner: "",
+    phone: "+918796070307",
+
+    whatsapp: "918796070307",
+    address: "A3, J.j Colony, Rohini Sector 25, Delhi",
+    description: "",
+    openTime: "10:00 AM",
+    closeTime: "08:00 PM",
     
     lat: 28.703134,
      lng: 77.1080838,
     mapLink: "https://www.google.com/maps/place/Royal+Pepper+Banquet+hall+-+Sector+3,+Rohini/@28.703134,77.1080838,18.46z/data=!4m15!1m8!3m7!1s0x390d03fc2d4d3e8b:0x636c1d669fb87e73!2sSector+3,+Rohini,+Delhi,+110085!3b1!8m2!3d28.7077393!4d77.1075892!16s%2Fg%2F1hc2w4gnq!3m5!1s0x390d03fcafffffff:0xc6dfc3f01877cea9!8m2!3d28.703746!4d77.107889!16s%2Fg%2F1tdwhwzw?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D",
     
     addedAt: "2026-03-15",
+      // 1. cardImage — used ONLY on the listing card
+    cardImage: "https://res.cloudinary.com/db2tt1cy6/image/upload/v1784740070/IMG-20260721-WA0002.jpg",
 
-    // Example: every field intentionally missing to demonstrate
-    // graceful placeholder fallback across all 4 roles.
+    // 2. coverImage — used ONLY as the modal hero banner
+    coverImage: "https://res.cloudinary.com/db2tt1cy6/image/upload/v1784740018/IMG-20260721-WA0008.jpg",
+
+    /* 3. logoImage — used ONLY as the circular/square logo badge*/
+    logoImage: "https://res.cloudinary.com/db2tt1cy6/image/upload/v1784740018/IMG-20260721-WA0007.jpg",
+
+    // 4. galleryImages — used ONLY inside the carousel/lightbox
     galleryImages: [
-      "https://picsum.photos/seed/delhimed-gallery1/800/600",
-      "https://picsum.photos/seed/delhimed-gallery2/800/600"
+      "https://res.cloudinary.com/db2tt1cy6/image/upload/v1784740069/IMG-20260721-WA0003.jpg",
+      "https://res.cloudinary.com/db2tt1cy6/image/upload/v1784740018/IMG-20260721-WA0004.jpg"
+      
     ]
+
+    
   }
 ];
