@@ -77,7 +77,7 @@ const SHOPS_BASE = [
      "id": 3,
   "name": "ICCS Computer Academy",
   "category": "Computer Training",
-  "owner": "Dr. Anita Verma",
+  "owner": "",
   "phone": "+919625878007",
   "whatsapp": "919625878007",
   "address": "103/1st Floor, Pocket-13, Rohini Sector 24,New Delhi-110085",
@@ -96,7 +96,8 @@ const SHOPS_BASE = [
     "https://res.cloudinary.com/db2tt1cy6/video/upload/f_auto,q_auto:eco,w_720/v1784746347/AQPbh9KuIZnYLbp8SUfYwTvk2cDDADpzNNmfjCXwAsIt4TTNTRXBpgup6F0DzicWZ29aooPv1BxxFxxVjXpV-pGJBGEQUwaSPCdUv7M.mp4",
     "https://res.cloudinary.com/db2tt1cy6/image/upload/v1784746350/IMG_0439_1.jpg"
   ]
-  },  {
+  },
+    {
     id:4 ,
     name: "Mahadev Enterprises",
     detailPage: "/shop/4-mahadev-enterprises.html",
