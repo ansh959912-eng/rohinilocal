@@ -117,7 +117,7 @@ featured: "gold",
     id:4 ,
     name: "Mahadev Enterprises",
     detailPage: "/shop/4-mahadev-enterprises.html",
-    category: " Store",
+    category: "Cyber Cafe",
     owner: "",
     phone: "+918796070307",
 
@@ -133,7 +133,7 @@ featured: "gold",
     
     addedAt: "2026-03-15",
       // 1. cardImage — used ONLY on the listing card
-    cardImage: "https://res.cloudinary.com/db2tt1cy6/image/upload/v1784740070/IMG-20260721-WA0002.jpg",
+    cardImage: "https://res.cloudinary.com/db2tt1cy6/image/upload/f_auto,q_auto/v1784740070/IMG-20260721-WA0002.jpg",
 
     // 2. coverImage — used ONLY as the modal hero banner
     coverImage: "https://res.cloudinary.com/db2tt1cy6/image/upload/v1784740018/IMG-20260721-WA0008.jpg",

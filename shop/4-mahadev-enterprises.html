@@ -4,8 +4,7 @@
 <script>if(!location.hash){location.hash='shop-4';}</script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Your one-stop destination for online services, printing, photocopy, scanning, lamination, passport photos, internet access, and document support. Fast, reliable, and affordable services.
-."/>
+<meta name="description" content="Mahadev Enterprises is a  Store located in Rohini, Delhi."/>
 <meta name="theme-color" content="#2563EB" id="meta-theme-color"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -18,16 +17,14 @@
 <meta name="robots" content="index, follow, max-image-preview:large"/>
 <meta property="og:type" content="business.business"/>
 <meta property="og:site_name" content="RohiniLocal"/>
-<meta property="og:title" content="Delhi  Store –  Store"/>
-<meta property="og:description" content="Your one-stop destination for online services, printing, photocopy, scanning, lamination, passport photos, internet access, and document support. Fast, reliable, and affordable services.
-"/>
+<meta property="og:title" content="Mahadev Enterprises –  Store"/>
+<meta property="og:description" content="Mahadev Enterprises is a  Store located in Rohini, Delhi."/>
 <meta property="og:url" content="https://rohinilocal.example.com/shop/4-mahadev-enterprises.html"/>
-<meta property="og:image" content="https://rohinilocal.example.com/icon/icon-512.png"/>
+<meta property="og:image" content="https://res.cloudinary.com/db2tt1cy6/image/upload/v1784740018/IMG-20260721-WA0008.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Mahadev Enterprises/>
-<meta name="twitter:description" content="Your one-stop destination for online services, printing, photocopy, scanning, lamination, passport photos, internet access, and document support. Fast, reliable, and affordable services.
-"/>
-<meta name="twitter:image" content="https://rohinilocal.example.com/icon/icon-512.png"/>
+<meta name="twitter:title" content="Mahadev Enterprises"/>
+<meta name="twitter:description" content="Mahadev Enterprises is a  Store located in Rohini, Delhi."/>
+<meta name="twitter:image" content="https://res.cloudinary.com/db2tt1cy6/image/upload/v1784740018/IMG-20260721-WA0008.jpg"/>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -45,23 +42,22 @@
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "Delhi  Store",
-  "image": "https://rohinilocal.example.com/icon/icon-512.png",
-  "description": "24x7 pharmacy with home delivery and a qualified pharmacist on duty.",
+  "name": "Mahadev Enterprises",
+  "image": "https://res.cloudinary.com/db2tt1cy6/image/upload/v1784740018/IMG-20260721-WA0008.jpg",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Shop 22, Main Market, Rohini Sector 3, Delhi",
+    "streetAddress": "A3, J.j Colony, Rohini Sector 25, Delhi",
     "addressLocality": "Rohini, Delhi",
     "addressCountry": "IN"
   },
-  "telephone": "+919876500003",
-  "url": "https://rohinilocal.example.com/shop/4-delhi-store.html",
+  "telephone": "+918796070307",
+  "url": "https://rohinilocal.example.com/shop/4-mahadev-enterprises.html",
   "geo": {
     "@type": "GeoCoordinates",
     "latitude": 28.703134,
     "longitude": 77.1080838
   },
-  "openingHours": "Mo-Su 12:00 AM-11:59 PM"
+  "openingHours": "Mo-Su 10:00 AM-08:00 PM"
 }</script>
 
 <link rel="manifest" href="/manifest.json"/>
@@ -500,8 +496,26 @@ ul { list-style:none }
 .hero-search input { flex: 1; padding: 15px 18px; background: transparent; color: var(--text-primary); font-size: 0.92rem; font-weight: 500; border: none; min-width: 0; }
 .hero-search input::placeholder { color: var(--text-muted) }
 .hero-search-divider { width: 1px; background: var(--border); margin: 10px 0; flex-shrink: 0; }
-.hero-search select { padding: 15px 16px; background: transparent; color: var(--text-secondary); font-size: 0.85rem; font-weight: 500; border: none; cursor: pointer; flex-shrink: 0; max-width: 160px; }
-.hero-search select option { background: var(--surface-solid); color: var(--text-primary); }
+.hero-mic-wrap { display:flex; align-items:center; padding: 0 8px; flex-shrink: 0; }
+.hero-mic-btn {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--brand-soft);
+  border: 1.5px solid rgba(var(--brand-rgb),0.25);
+  color: var(--brand);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; cursor: pointer;
+  transition: all var(--tr);
+}
+.hero-mic-btn:hover { background: var(--brand); color: #fff; transform: scale(1.06); }
+.hero-mic-btn.listening {
+  background: linear-gradient(135deg,#EF4444,#DC2626);
+  border-color: transparent; color: #fff;
+  animation: micPulse 1.2s ease infinite;
+}
+@keyframes micPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.5); }
+  50% { box-shadow: 0 0 0 10px rgba(239,68,68,0); }
+}
 .hero-search-submit { padding: 8px 8px 8px 10px; display:flex; align-items:center; flex-shrink: 0; }
 .hero-search-btn {
   padding: 11px 22px; border-radius: var(--radius);
@@ -519,7 +533,7 @@ ul { list-style:none }
   .hero-search { flex-wrap: wrap; border-radius: var(--radius-lg); }
   .hero-search input { width: 100%; min-width: 100%; }
   .hero-search-divider { display: none; }
-  .hero-search select { flex: 1; border-top: 1px solid var(--border); }
+  .hero-mic-wrap { flex: 1; justify-content: center; border-top: 1px solid var(--border); padding: 8px 0; }
   .hero-search-submit { flex: 1; border-top: 1px solid var(--border); }
   .hero-search-btn { width: 100%; justify-content: center; }
 }
@@ -1397,6 +1411,56 @@ html.low-end #modal-box, html.low-end #subcat-drawer, html.low-end .toast,
 html.low-end .qr-box, html.low-end .shop-card, html.low-end .rv-mini {
   background: var(--surface-solid) !important;
 }
+/* ═══ VISITOR STATS EYE BUTTON ═══ */
+.visitor-eye-btn {
+  position: fixed; bottom: 28px; left: 28px; z-index: 9990;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: rgba(37,99,235,0.12);
+  border: 1px solid rgba(37,99,235,0.3);
+  color: #2563EB;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease, background .25s ease;
+}
+.visitor-eye-btn:hover { transform: translateY(-4px) scale(1.1); background: rgba(37,99,235,0.22); box-shadow: 0 8px 24px rgba(37,99,235,0.35); }
+.visitor-eye-btn i { font-size: 16px; }
+.visitor-eye-btn .live-dot {
+  position: absolute; top: -2px; right: -2px;
+  width: 11px; height: 11px; border-radius: 50%;
+  background: #10B981; border: 2px solid var(--bg);
+  animation: pulse 2s ease infinite;
+}
+
+#visitor-stats-panel {
+  position: fixed; bottom: 84px; left: 28px; z-index: 9991;
+  width: 230px;
+  background: var(--surface-elev);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding: 16px;
+  opacity: 0; visibility: hidden; transform: translateY(12px) scale(0.96);
+  transform-origin: bottom left;
+  transition: opacity .25s ease, visibility .25s ease, transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+#visitor-stats-panel.visible { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+.vs-title { font-family:'Plus Jakarta Sans',sans-serif; font-size: 0.82rem; font-weight: 800; color: var(--text-primary); margin-bottom: 12px; display:flex; align-items:center; gap:7px; }
+.vs-title i { color: var(--brand); }
+.vs-row { display:flex; align-items:center; justify-content:space-between; padding: 8px 0; border-bottom: 1px solid var(--border-soft); }
+.vs-row:last-child { border-bottom: none; }
+.vs-label { font-size: 0.78rem; color: var(--text-secondary); font-weight: 600; display:flex; align-items:center; gap:7px; }
+.vs-label .vs-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.vs-dot.live { background:#10B981; animation: pulse 2s ease infinite; }
+.vs-dot.today { background:#F59E0B; }
+.vs-dot.total { background:#2563EB; }
+.vs-val { font-family:'Plus Jakarta Sans',sans-serif; font-size: 0.95rem; font-weight: 800; color: var(--text-primary); }
+
+@media (max-width: 640px) {
+  .visitor-eye-btn { bottom: 20px; left: 20px; width: 42px; height: 42px; }
+  #visitor-stats-panel { bottom: 74px; left: 16px; width: 200px; }
+}
 </style>
 
 <style>
@@ -1450,7 +1514,7 @@ html.low-end .qr-box, html.low-end .shop-card, html.low-end .rv-mini {
     // Close (×) button goes back to the main site instead of just
     // hiding the modal, since this standalone page has no homepage
     // underneath it to reveal.
-    window.closeModal = function() { window.location.href = '../indexshop.html'; };
+    window.closeModal = function() { window.location.href = '/rohini/indexshop.html'; };
 
     // Extra safety net: in case anything re-applies overflow:hidden to
     // <body> after load (e.g. re-opening a modal via JS), keep forcing
@@ -1465,14 +1529,14 @@ html.low-end .qr-box, html.low-end .shop-card, html.low-end .rv-mini {
 <body>
 <noscript>
   <div style="max-width:640px;margin:24px auto;padding:0 16px;font-family:sans-serif;color:#0A1628">
-    <img src="https://rohinilocal.example.com/icon/icon-512.png" alt="Delhi  Store" style="width:100%;max-height:320px;object-fit:cover;border-radius:14px"/>
-    <h1>Delhi  Store</h1>
-    <p><strong> Store</strong></p>
-    <p>Shop 22, Main Market, Rohini Sector 3, Delhi</p>
-    <p>12:00 AM – 11:59 PM</p>
-    <p>Phone: +919876500003</p>
-    <p>24x7 pharmacy with home delivery and a qualified pharmacist on duty.</p>
-    <p><a href="../indexshop.html">View full site</a></p>
+    <img src="https://res.cloudinary.com/db2tt1cy6/image/upload/v1784740018/IMG-20260721-WA0008.jpg" alt="Mahadev Enterprises" style="width:100%;max-height:320px;object-fit:cover;border-radius:14px"/>
+    <h1>Mahadev Enterprises</h1>
+    <p><strong> Cyber Cafe</strong></p>
+    <p>A3, J.j Colony, Rohini Sector 25, Delhi</p>
+    <p>10:00 AM – 08:00 PM</p>
+    <p>Phone: +918796070307</p>
+    <p></p>
+    <p><a href="/rohini/indexshop.html">View full site</a></p>
   </div>
 </noscript>
 
@@ -1487,8 +1551,12 @@ html.low-end .qr-box, html.low-end .shop-card, html.low-end .rv-mini {
       <input type="text" id="nav-search-input" placeholder="Search shops, services…" autocomplete="off"/>
       <button class="nav-search-btn" onclick="doSearch()" aria-label="Search"><i class="fas fa-search"></i></button>
     </div>
-    <div class="nav-actions">
-      <a class="nav-btn" href="../indexshop.html" title="Main Website"><i class="fas fa-globe"></i></a>
+    
+   <div class="nav-actions">
+      <a class="nav-btn" href="/rohini/indexshop.html" title="Main Website"><i class="fas fa-globe"></i></a>
+      <a class="nav-btn" href="/balaji/index.html"  rel="noopener noreferrer" title="Visit WebHub India">
+        <i class="fas fa-circle-nodes"></i>
+      </a>
       <button class="nav-btn" id="btn-fav-nav" title="My Favorites" onclick="toggleFavPage()">
         <i class="fas fa-heart"></i>
         <span class="badge hidden" id="fav-badge">0</span>
@@ -1496,7 +1564,7 @@ html.low-end .qr-box, html.low-end .shop-card, html.low-end .rv-mini {
       <button class="nav-btn" id="theme-btn" title="Toggle Theme" onclick="toggleTheme()">
         <i class="fas fa-moon"></i>
       </button>
-      <a href="../shopadmin.html" class="nav-btn" title="Admin Panel"><i class="fas fa-user-shield"></i></a>
+      
     </div>
   </div>
 </header>
@@ -1513,18 +1581,20 @@ html.low-end .qr-box, html.low-end .shop-card, html.low-end .rv-mini {
       You Can <span class="accent-word">Trust</span>
     </h1>
     <p class="hero-sub">The premium directory connecting Rohini residents with verified local shops, services &amp; professionals — all in one place.</p>
-    <div class="hero-search">
-      <input type="text" id="hero-input" placeholder="Search by name, service, area…"/>
-      <div class="hero-search-divider"></div>
-      <select id="hero-cat-select">
-        <option value="">All Categories</option>
-      </select>
-      <div class="hero-search-submit">
-        <button class="hero-search-btn" onclick="doHeroSearch()">
-          <i class="fas fa-search"></i> Search
-        </button>
-      </div>
-    </div>
+   <div class="hero-search">
+  <input type="text" id="hero-input" placeholder="Search by name, service, area…" onkeydown="if(event.key==='Enter'){doHeroSearch();}"/>
+  <div class="hero-search-divider"></div>
+  <div class="hero-mic-wrap">
+    <button type="button" class="hero-mic-btn" id="hero-mic-btn" onclick="startVoiceSearch()" title="Search by voice" aria-label="Search by voice">
+      <i class="fas fa-microphone"></i>
+    </button>
+  </div>
+  <div class="hero-search-submit">
+    <button class="hero-search-btn" onclick="doHeroSearch()">
+      <i class="fas fa-search"></i> Search
+    </button>
+  </div>
+</div>
     <div class="hero-stats">
       <div class="hero-stat">
         <div class="hero-stat-num" id="stat-count"><span>0</span></div>
@@ -1623,14 +1693,14 @@ html.low-end .qr-box, html.low-end .shop-card, html.low-end .rv-mini {
           <div class="logo-name">Rohini<span>Local</span></div>
         </div>
         <p class="footer-brand-desc">Your trusted local business directory for Rohini and surrounding areas. Connecting customers with quality local services.</p>
-        <a class="footer-main-site-link" href="/index.html"><i class="fas fa-globe"></i> Visit Main Website</a>
+        <a class="footer-main-site-link" href="/balaji/index.html"><i class="fas fa-globe"></i> Visit Main Website</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Quick Links</div>
         <ul>
           <li><a href="#" onclick="clearFilters();return false">All Shops</a></li>
           <li><a href="#" onclick="toggleFavPage();return false">My Favorites</a></li>
-          <li><a href="../shopadmin.html">Admin Panel</a></li>
+          <li><a href="/shopadmin.html">Admin Panel</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
       </div>
@@ -1707,7 +1777,31 @@ html.low-end .qr-box, html.low-end .shop-card, html.low-end .rv-mini {
 <button class="back-to-top" id="back-to-top-btn" onclick="scrollToTop()" aria-label="Back to top">
   <i class="fas fa-arrow-up"></i>
 </button>
-
+<!-- ═══ VISITOR STATS ═══ -->
+ 
+<button class="visitor-eye-btn" id="visitor-eye-btn" onclick="toggleVisitorPanel()" aria-label="View visitor stats">
+  <i class="fas fa-eye"></i>
+  <span class="live-dot"></span>
+</button>
+<div id="visitor-stats-panel">
+  <div class="vs-title"><i class="fas fa-chart-simple"></i> Visitor Stats</div>
+  <div class="vs-row">
+    <span class="vs-label"><span class="vs-dot live"></span>Live Now</span>
+    <span class="vs-val" id="vs-live">—</span>
+  </div>
+  <div class="vs-row">
+    <span class="vs-label"><span class="vs-dot today"></span>Today</span>
+    <span class="vs-val" id="vs-today">—</span>
+  </div>
+  <div class="vs-row">
+    <span class="vs-label"><span class="vs-dot total"></span>Total</span>
+    <span class="vs-val" id="vs-total">—</span>
+  </div>
+  <div class="vs-row">
+  <span class="vs-label"><span class="vs-dot" style="background:#8B5CF6"></span>Page Views</span>
+  <span class="vs-val" id="vs-pageviews">—</span>
+</div>
+</div>
 <script>
 /* ══════════════════════════════════════════
    IMAGE SYSTEM
@@ -2476,6 +2570,7 @@ async function updateAvgRatingStat() {
 
 function buildCatDropdown() {
   const s = document.getElementById('hero-cat-select');
+  if (!s) return; // mic button ne category dropdown replace kar diya hai
   s.innerHTML = '<option value="">All Categories</option>';
   CATS.forEach(c=>{ const o=document.createElement('option'); o.value=c.name; o.textContent=c.name; s.appendChild(o); });
 }
@@ -2642,12 +2737,9 @@ function clearFilters() {
 function doSearch(){ q=document.getElementById('nav-search-input').value.trim().toLowerCase(); page=0; applyFilters(); }
 function doHeroSearch() {
   q=document.getElementById('hero-input').value.trim().toLowerCase();
-  activeCat=document.getElementById('hero-cat-select').value;
-  if(activeCat) document.querySelectorAll('#cat-chips .chip').forEach(c=>c.classList.toggle('active',c.dataset.cat===activeCat));
   page=0; applyFilters();
   document.getElementById('shops-grid').scrollIntoView({behavior:'smooth'});
 }
-
 /* ══════════════════════════════════════════
    FIX #1: debounced live search.
    Previously every keystroke could trigger a full
@@ -2672,7 +2764,110 @@ document.addEventListener('DOMContentLoaded',()=>{
     searchDebounceTimer=setTimeout(doHeroSearch,300);
   });
 });
+/* ══════════════════════════════════════════
+   VOICE SEARCH — hero mic button.
+   Uses the Web Speech API (SpeechRecognition /
+   webkitSpeechRecognition — Chrome, Edge, Android WebView).
+   Needs HTTPS or localhost; falls back with a toast on
+   unsupported browsers (Firefox desktop, iOS Safari, etc).
+══════════════════════════════════════════ */
+let _voiceRecognition = null;
+let _voiceListening = false;
 
+function getSpeechRecognitionCtor() {
+  return window.SpeechRecognition || window.webkitSpeechRecognition || null;
+}
+
+function startVoiceSearch() {
+  const Ctor = getSpeechRecognitionCtor();
+  const btn = document.getElementById('hero-mic-btn');
+  if (!Ctor) { toast('Voice search is not supported in this browser', 'error'); return; }
+  if (_voiceListening) { try { _voiceRecognition && _voiceRecognition.stop(); } catch(e) {} return; }
+
+  try {
+    _voiceRecognition = new Ctor();
+    _voiceRecognition.lang = 'en-IN';
+    _voiceRecognition.interimResults = false;
+    _voiceRecognition.maxAlternatives = 1;
+
+    _voiceRecognition.onstart = () => {
+      _voiceListening = true;
+      if (btn) btn.classList.add('listening');
+      toast('Listening… speak the shop or service name', 'info');
+    };
+    _voiceRecognition.onerror = (e) => {
+      AppLog.error('voiceSearch', e.error || e);
+      if (e.error === 'not-allowed' || e.error === 'permission-denied') toast('Microphone permission denied', 'error');
+      else if (e.error === 'no-speech') toast("Didn't catch that — try again", 'error');
+      else toast('Voice search failed', 'error');
+    };
+    _voiceRecognition.onend = () => {
+      _voiceListening = false;
+      if (btn) btn.classList.remove('listening');
+    };
+    _voiceRecognition.onresult = (event) => {
+      const transcript = (event.results && event.results[0] && event.results[0][0]) ? event.results[0][0].transcript.trim() : '';
+      if (!transcript) return;
+      document.getElementById('hero-input').value = transcript;
+      handleVoiceTranscript(transcript);
+    };
+
+    _voiceRecognition.start();
+  } catch(e) {
+    AppLog.error('startVoiceSearch', e);
+    toast('Could not start voice search', 'error');
+  }
+}
+
+/* Scores every shop against the spoken text. A single, clearly-ahead
+   match navigates straight to that shop's page; otherwise it just runs
+   the normal text search so the user gets a filtered list to browse. */
+function handleVoiceTranscript(rawText) {
+  const text = rawText.toLowerCase().trim();
+  const shops = getShops();
+  if (!shops.length || !text) { doHeroSearch(); return; }
+  const words = text.split(/\s+/).filter(Boolean);
+
+  function scoreShop(shop) {
+    const name = (shop.name || '').toLowerCase();
+    const category = (shop.category || '').toLowerCase();
+    const address = (shop.address || '').toLowerCase();
+    let score = 0;
+    if (name === text) score += 100;
+    else if (name.includes(text)) score += 60;
+    else if (text.includes(name) && name.length > 2) score += 50;
+    words.forEach(w => {
+      if (w.length < 3) return;
+      if (name.includes(w)) score += 10;
+      if (category.includes(w)) score += 5;
+      if (address.includes(w)) score += 3;
+    });
+    return score;
+  }
+
+  const scored = shops.map(shop => ({ shop, score: scoreShop(shop) }))
+    .filter(s => s.score > 0)
+    .sort((a, b) => b.score - a.score);
+
+  const top = scored[0], second = scored[1];
+  const isConfidentMatch = top && top.score >= 50 && (!second || top.score - second.score >= 20);
+
+  if (isConfidentMatch) {
+    toast(`Taking you to ${top.shop.name}…`, 'success');
+    setTimeout(() => {
+      if (top.shop.detailPage) window.location.href = top.shop.detailPage;
+      else location.hash = 'shop-' + top.shop.id;
+    }, 400);
+    return;
+  }
+
+  // No single confident match — run the normal search instead.
+  q = text; activeCat = ''; page = 0;
+  const navInput = document.getElementById('nav-search-input');
+  if (navInput) navInput.value = text;
+  applyFilters();
+  document.getElementById('shops-grid').scrollIntoView({behavior:'smooth'});
+}
 function isOpen(shop) {
   const now=new Date(),h=now.getHours(),m=now.getMinutes(),cur=h*60+m;
   function pt(s) {
@@ -3403,6 +3598,174 @@ document.addEventListener('touchend',e=>{
     if(!document.getElementById('lightbox').classList.contains('hidden'))lbNav(diff>0?1:-1);
   }
 },{passive:true});
+/* ══════════════════════════════════════════
+   VISITOR STATS — Live / Today / Total / Page Views
+   Uses existing window.__FB_DB / window.__FB (Firebase v10 modular SDK
+   already initialized at the top of this page).
+   Firestore layout:
+     presence/{deviceId}          -> { lastSeen: serverTimestamp }
+     siteStats/total              -> { count: N }   (unique devices, all time)
+     siteStats/daily_YYYY-MM-DD   -> { count: N }   (unique devices, today)
+     siteStats/pageviews          -> { count: N }   (every single page load, no dedup)
+══════════════════════════════════════════ */
+const VisitorStats = {
+  LIVE_WINDOW_MS: 60000,      // a presence doc counts as "live" if seen in last 60s
+  HEARTBEAT_MS: 20000,        // how often we refresh our own presence doc
+  _presenceUnsub: null,
+  _totalUnsub: null,
+  _todayUnsub: null,
+  _pageviewsUnsub: null,
+  _liveInterval: null,
+  _latestPresenceDocs: [],
+
+  todayKey() {
+    const d = new Date();
+    return 'daily_' + d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  },
+
+  async init() {
+    if (!window.__FB_READY || !window.__FB_DB) return; // no Firebase, skip silently
+    this._recordVisitOnce();
+    this._recordPageView();
+    this._startPresenceHeartbeat();
+    this._listenLive();
+    this._listenCounter('total', 'vs-total');
+    this._listenCounter(this.todayKey(), 'vs-today');
+    this._listenCounter('pageviews', 'vs-pageviews');
+    window.addEventListener('beforeunload', () => this._cleanup());
+  },
+
+  // Increments total + today counters only ONCE per device per scope
+  // (localStorage flags prevent re-counting on every page reload).
+  // This is intentional — it's meant to answer "how many unique
+  // devices/browsers have visited", not "how many times was the page
+  // loaded". Retries a couple of times on failure (e.g. rules still
+  // propagating right after a fresh publish) instead of giving up.
+  async _recordVisitOnce() {
+    const { doc, getDoc, setDoc, updateDoc, increment } = window.__FB;
+    const db = window.__FB_DB;
+
+    const bumpDoc = async (docId, lsFlag, attempt = 0) => {
+      try { if (localStorage.getItem(lsFlag)) return; } catch(e) {}
+      try {
+        const ref = doc(db, 'siteStats', docId);
+        const snap = await getDoc(ref);
+        if (!snap.exists()) await setDoc(ref, { count: 1 });
+        else await updateDoc(ref, { count: increment(1) });
+        try { localStorage.setItem(lsFlag, '1'); } catch(e) {}
+      } catch(e) {
+        AppLog.error('VisitorStats._recordVisitOnce', e);
+        if (attempt < 2) setTimeout(() => bumpDoc(docId, lsFlag, attempt + 1), 4000);
+      }
+    };
+
+    await bumpDoc('total', 'dl_counted_total');
+    await bumpDoc(this.todayKey(), 'dl_counted_' + this.todayKey());
+  },
+
+  // FIX: NEW — this one is NOT gated by localStorage. It increments on
+  // every single page load/refresh, from every device, every time.
+  // This is the number that answers "kitni real visits hui" — the one
+  // that felt "too low" when the unique-device counters were the only
+  // ones shown (those only count each device once, by design).
+  async _recordPageView(attempt = 0) {
+    const { doc, getDoc, setDoc, updateDoc, increment } = window.__FB;
+    const db = window.__FB_DB;
+    try {
+      const ref = doc(db, 'siteStats', 'pageviews');
+      const snap = await getDoc(ref);
+      if (!snap.exists()) await setDoc(ref, { count: 1 });
+      else await updateDoc(ref, { count: increment(1) });
+    } catch(e) {
+      AppLog.error('VisitorStats._recordPageView', e);
+      if (attempt < 2) setTimeout(() => this._recordPageView(attempt + 1), 4000);
+    }
+  },
+
+  async _startPresenceHeartbeat() {
+    const { doc, setDoc, serverTimestamp } = window.__FB;
+    const db = window.__FB_DB;
+    const beat = async () => {
+      try { await setDoc(doc(db, 'presence', DEVICE_ID), { lastSeen: serverTimestamp() }, { merge: true }); }
+      catch(e) { AppLog.error('VisitorStats.heartbeat', e); }
+    };
+    await beat();
+    this._liveInterval = setInterval(beat, this.HEARTBEAT_MS);
+  },
+
+  _listenLive() {
+    const { collection, onSnapshot } = window.__FB;
+    try {
+      this._presenceUnsub = onSnapshot(collection(window.__FB_DB, 'presence'), snap => {
+        this._latestPresenceDocs = snap.docs.map(d => d.data());
+        this._recalcLiveCount();
+      }, e => AppLog.error('VisitorStats._listenLive', e));
+    } catch(e) { AppLog.error('VisitorStats._listenLive', e); }
+    // Recompute every 15s too — a doc can "age out" of the live window
+    // purely due to time passing, with no new snapshot event firing.
+    setInterval(() => this._recalcLiveCount(), 15000);
+  },
+
+  _recalcLiveCount() {
+    const now = Date.now();
+    const liveCount = this._latestPresenceDocs.filter(d => {
+      const ts = d.lastSeen && typeof d.lastSeen.toMillis === 'function' ? d.lastSeen.toMillis() : 0;
+      return ts && (now - ts) < this.LIVE_WINDOW_MS;
+    }).length;
+    const el = document.getElementById('vs-live');
+    if (el) el.textContent = liveCount;
+  },
+
+  // Retries with exponential backoff on permission errors (2s, 4s, 8s,
+  // 16s, 30s — capped, up to 5 tries) instead of dying permanently —
+  // covers the case where rules were still propagating.
+  _listenCounter(docId, elId, retryCount = 0) {
+    const { doc, onSnapshot } = window.__FB;
+    try {
+      const unsub = onSnapshot(doc(window.__FB_DB, 'siteStats', docId), snap => {
+        const el = document.getElementById(elId);
+        if (el) el.textContent = snap.exists() ? (snap.data().count || 0) : 0;
+      }, e => {
+        AppLog.error('VisitorStats._listenCounter', e);
+        if (retryCount < 5) {
+          const delay = Math.min(30000, 2000 * Math.pow(2, retryCount));
+          setTimeout(() => this._listenCounter(docId, elId, retryCount + 1), delay);
+        }
+      });
+      if (docId === 'total') this._totalUnsub = unsub;
+      else if (docId === 'pageviews') this._pageviewsUnsub = unsub;
+      else this._todayUnsub = unsub;
+    } catch(e) {
+      AppLog.error('VisitorStats._listenCounter', e);
+      if (retryCount < 5) {
+        const delay = Math.min(30000, 2000 * Math.pow(2, retryCount));
+        setTimeout(() => this._listenCounter(docId, elId, retryCount + 1), delay);
+      }
+    }
+  },
+
+  _cleanup() {
+    if (this._liveInterval) clearInterval(this._liveInterval);
+    if (this._presenceUnsub) this._presenceUnsub();
+    if (this._totalUnsub) this._totalUnsub();
+    if (this._todayUnsub) this._todayUnsub();
+    if (this._pageviewsUnsub) this._pageviewsUnsub();
+  }
+};
+
+function toggleVisitorPanel() {
+  document.getElementById('visitor-stats-panel').classList.toggle('visible');
+}
+document.addEventListener('click', (e) => {
+  const panel = document.getElementById('visitor-stats-panel');
+  const btn = document.getElementById('visitor-eye-btn');
+  if (panel && panel.classList.contains('visible') && !panel.contains(e.target) && !btn.contains(e.target)) {
+    panel.classList.remove('visible');
+  }
+});
+
+// Fire after Firebase + fb-ready event, staggered like other non-critical work.
+window.addEventListener('fb-ready', () => _idle(() => VisitorStats.init()));
 </script>
 </body>
 </html>
