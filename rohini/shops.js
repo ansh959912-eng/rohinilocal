@@ -77,6 +77,7 @@ const SHOPS_BASE = [
      "id": 3,
   "name": "ICCS Computer Academy",
   "category": "Computer Training",
+  detailPage: "/shop/3-iccs-computer-academy.html",
   "owner": "",
   "phone": "+919625878007",
   "whatsapp": "919625878007",
