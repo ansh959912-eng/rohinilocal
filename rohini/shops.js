@@ -21,7 +21,7 @@ const SHOPS_BASE = [
   {
     id: 1,
     name: "Gupta Stationery",
-     detailPage: "/shop/1-gupta-stationery.html",
+     
     category: "Stationery",
     owner: "Mr. Ramesh Gupta",
     phone: "+919876500001",
