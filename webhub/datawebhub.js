@@ -6,7 +6,9 @@
 
 const CATEGORIES = [
   { id: "government", label: "Government", icon: "landmark" },
-  { id: "finance", label: "Banking & Finance", icon: "banknote" },
+{ id: "finance", label: "Banking & Finance", icon: "banknote", subCategories: [
+  "Banking", "Finance", "Payments", "Investments", "Insurance", "Tax Services"
+]},
   { id: "shopping", label: "Shopping", icon: "shopping-bag" },
   { id: "education", label: "Education", icon: "graduation-cap" },
   { id: "jobs", label: "Jobs & Careers", icon: "briefcase" },
@@ -44,9 +46,9 @@ const WEBSITES = [
   { id:18, name:"PM India", url:"https://www.pmindia.gov.in", category:"government", desc:"Official website of the Prime Minister's Office of India.", tags:["pmo","official"], verified:true },
   { id:19, name:"data.gov.in", url:"https://data.gov.in", category:"government", desc:"Open Government Data Platform with public datasets across sectors.", tags:["open data","datasets"], verified:true },
   { id:20, name:"e-Courts Services", url:"https://ecourts.gov.in", category:"government", desc:"Case status, cause lists and court orders from district and high courts.", tags:["legal","courts"], verified:true },
-
+  
   // ---------------- FINANCE ----------------
-  { id:21, name:"RBI", url:"https://www.rbi.org.in", category:"finance", desc:"Reserve Bank of India — monetary policy, regulations and financial literacy resources.", tags:["banking","regulator"], verified:true },
+  { id:21, name:"RBI", url:"https://www.rbi.org.in", category:"finance",sub:"Banking", desc:"Reserve Bank of India — monetary policy, regulations and financial literacy resources.", tags:["banking","regulator"], verified:true },
   { id:22, name:"State Bank of India", url:"https://www.onlinesbi.sbi", category:"finance", desc:"Net banking portal for India's largest public sector bank.", tags:["bank","netbanking"], verified:true, popular:true },
   { id:23, name:"HDFC Bank", url:"https://www.hdfcbank.com", category:"finance", desc:"Retail and corporate banking services from one of India's largest private banks.", tags:["bank","netbanking"], verified:true, popular:true },
   { id:24, name:"ICICI Bank", url:"https://www.icicibank.com", category:"finance", desc:"Banking, loans, cards and investment services.", tags:["bank","loans"], verified:true },

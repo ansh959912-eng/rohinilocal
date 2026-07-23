@@ -623,7 +623,169 @@ footer{ border-top:1px solid var(--line); padding:44px 0 30px; margin-top:40px; 
   }
   .infinite-sentinel .lbl{ color:var(--ink-soft,#888); font-size:13px; }
   .infinite-sentinel.done{ display:none; }
+  /* ---------- Subcategory Modal ---------- */
+.subcat-overlay{
+  position:fixed; inset:0; z-index:200;
+  background:rgba(20,21,43,.55);
+  display:none; align-items:flex-end; justify-content:center;
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+}
+.subcat-overlay.open{ display:flex; animation:subcatFadeIn .2s ease; }
+@keyframes subcatFadeIn{ from{ opacity:0; } to{ opacity:1; } }
+
+.subcat-modal{
+  background:var(--surface);
+  width:100%; max-width:600px;
+  border-radius:28px 28px 0 0;
+  max-height:85vh; overflow-y:auto;
+  padding:14px 22px 28px;
+  box-shadow:0 -8px 40px rgba(20,21,43,.25);
+  transform:translateY(100%);
+  transition:transform .32s cubic-bezier(.32,.72,0,1);
+}
+.subcat-overlay.open .subcat-modal{ transform:translateY(0); }
+
+.subcat-modal::-webkit-scrollbar{ width:6px; }
+.subcat-modal::-webkit-scrollbar-thumb{ background:var(--line); border-radius:99px; }
+
+.subcat-modal-handle{
+  width:36px; height:4px; border-radius:99px;
+  background:var(--line);
+  margin:4px auto 20px;
+}
+
+.subcat-modal-head{
+  display:flex; align-items:center; gap:14px;
+  margin-bottom:24px;
+  padding-bottom:18px;
+  border-bottom:1px solid var(--line);
+}
+.subcat-modal-icon{
+  width:52px; height:52px; border-radius:16px; flex-shrink:0;
+  background:linear-gradient(135deg, var(--indigo-soft), var(--saffron-soft));
+  color:var(--indigo);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 12px rgba(58,61,181,.15);
+}
+.subcat-modal-icon svg{ width:24px; height:24px; }
+
+.subcat-modal-head h3{
+  font-family:var(--font-display); font-size:20px; font-weight:700;
+  letter-spacing:-.01em;
+}
+.subcat-modal-head p{
+  font-size:13px; color:var(--ink-soft); margin-top:3px;
+  font-family:var(--font-mono);
+}
+
+.subcat-close-btn{
+  margin-left:auto; width:38px; height:38px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--ink-soft); background:var(--surface-2); flex-shrink:0;
+  transition:background .15s, color .15s, transform .15s;
+}
+.subcat-close-btn:hover{ color:var(--ink); background:var(--line); transform:rotate(90deg); }
+.subcat-close-btn svg{ width:18px; height:18px; }
+
+/* ---- Grid of subcategory cards ---- */
+.subcat-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(118px,1fr));
+  gap:12px;
+}
+
+.subcat-card{
+  position:relative;
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  padding:20px 12px 16px;
+  border-radius:18px;
+  border:1.5px solid var(--line);
+  background:var(--surface);
+  transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+  text-align:center;
+  overflow:hidden;
+}
+.subcat-card::after{
+  /* subtle glow that only appears on hover */
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(120px 80px at 50% -10%, rgba(255,255,255,.5), transparent 70%);
+  opacity:0; transition:opacity .2s ease;
+  pointer-events:none;
+}
+.subcat-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--indigo);
+  box-shadow:0 8px 20px rgba(20,21,43,.08);
+}
+.subcat-card:hover::after{ opacity:1; }
+.subcat-card:active{ transform:translateY(-1px) scale(.98); }
+
+.subcat-card.active{
+  border-color:var(--saffron);
+  background:var(--saffron-soft);
+  box-shadow:0 6px 18px rgba(242,113,28,.18);
+}
+.subcat-card.active::before{
+  /* small checkmark badge on the selected card */
+  content:"✓";
+  position:absolute; top:8px; right:8px;
+  width:18px; height:18px; border-radius:50%;
+  background:var(--saffron); color:#fff;
+  font-size:11px; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 2px 6px rgba(242,113,28,.4);
+}
+
+.subcat-card .ic{
+  width:48px; height:48px; border-radius:14px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px;
+  transition:transform .15s ease;
+}
+.subcat-card:hover .ic{ transform:scale(1.08) rotate(-4deg); }
+
+.subcat-card .name{
+  font-size:13px; font-weight:700;
+  line-height:1.25;
+  color:var(--ink);
+}
+.subcat-card .n{
+  font-family:var(--font-mono); font-size:11px;
+  color:var(--ink-soft);
+  background:var(--surface-2);
+  padding:2px 8px; border-radius:99px;
+}
+.subcat-card.active .n{ background:rgba(242,113,28,.15); color:var(--saffron); }
+
+/* ---- Desktop: centered dialog instead of bottom sheet ---- */
+@media (min-width:640px){
+  .subcat-overlay{ align-items:center; padding:20px; }
+  .subcat-modal{
+    border-radius:24px; max-height:80vh;
+    animation:subcatPopIn .25s cubic-bezier(.2,.9,.3,1.2);
+  }
+  .subcat-modal-handle{ display:none; }
+  .subcat-grid{ grid-template-columns:repeat(auto-fill, minmax(128px,1fr)); }
+}
+@keyframes subcatPopIn{
+  from{ opacity:0; transform:translateY(24px) scale(.96); }
+  to{ opacity:1; transform:translateY(0) scale(1); }
+}
+
+/* Small phones: tighter grid */
+@media (max-width:380px){
+  .subcat-grid{ grid-template-columns:repeat(auto-fill, minmax(96px,1fr)); gap:10px; }
+  .subcat-card{ padding:16px 8px 12px; }
+  .subcat-card .ic{ width:42px; height:42px; font-size:19px; }
+}
+
+/* Dark mode tweaks */
+[data-theme="dark"] .subcat-card:hover{ box-shadow:0 8px 20px rgba(0,0,0,.35); }
+[data-theme="dark"] .subcat-modal-icon{ box-shadow:0 4px 12px rgba(0,0,0,.3); }
   @keyframes whSpin{ to{ transform:rotate(360deg); } }
+
 </style>
 </head>
 <body>
@@ -730,11 +892,14 @@ footer{ border-top:1px solid var(--line); padding:44px 0 30px; margin-top:40px; 
     </div>
     <div class="filter-bar">
       <select id="categorySelect" aria-label="Filter by category"></select>
-      <div class="toggle-group" id="sortToggle">
-        <button data-sort="az" class="active" data-i18n="sortAZ">A–Z</button>
-        <button data-sort="new" data-i18n="sortNew">Newest</button>
-        <button data-sort="oldest" data-i18n="sortOldest">Oldest</button>
-      </div>
+   
+  
+     <div class="toggle-group" id="sortToggle">
+  <button data-sort="default" class="active" data-i18n="sortDefault">Default</button>
+  <button data-sort="az" data-i18n="sortAZ">A–Z</button>
+  <button data-sort="new" data-i18n="sortNew">Newest</button>
+  <button data-sort="oldest" data-i18n="sortOldest">Oldest</button>
+</div>
     </div>
     <div class="site-grid" id="resultsGrid"></div>
     <!-- Infinite scroll sentinel: observed by IntersectionObserver in appwebhub.js.
@@ -942,7 +1107,8 @@ const PAGE_SIZE = 12; // how many cards to reveal per scroll "page"
 const state = {
   query: "",
   activeCategory: "all",
-  sort: "az",
+   activeSub: "all",
+  sort: "default",
   favorites: new Set(),
   history: [],
   theme: (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? "dark" : "light",
@@ -969,10 +1135,19 @@ function init(){
   buildChakra(els.chakraFooter, 30, 3);
   bindEvents();
   setupInfiniteScroll();
+   
   applyLanguage();
 }
 
 function cacheEls(){
+   els.subcatOverlay = document.getElementById("subcatOverlay");
+  els.subcatModal = document.getElementById("subcatModal");
+  els.subcatModalIcon = document.getElementById("subcatModalIcon");
+  els.subcatModalTitle = document.getElementById("subcatModalTitle");
+  els.subcatModalMeta = document.getElementById("subcatModalMeta");
+  els.subcatCloseBtn = document.getElementById("subcatCloseBtn");
+  els.subcatGrid = document.getElementById("subcatGrid");
+  els.subCatToggle = document.getElementById("subCatToggle");
   els.chakraBg = document.getElementById("chakraBg");
   els.chakraMark = document.getElementById("chakraMark");
   els.chakraFooter = document.getElementById("chakraFooter");
@@ -1050,9 +1225,10 @@ function iconSvg(name){
 }
 
 /* ---------------- Filtering ---------------- */
-function filterSites({ q = state.query, cat = state.activeCategory, favOnly = false } = {}){
+function filterSites({ q = state.query, cat = state.activeCategory, sub = state.activeSub, favOnly = false } = {}){
   let list = WEBSITES.slice();
   if(cat && cat !== "all") list = list.filter(w => w.category === cat);
+  if(sub && sub !== "all") list = list.filter(w => w.sub === sub);
   if(favOnly) list = list.filter(w => state.favorites.has(w.id));
   if(q && q.trim()){
     const term = q.trim().toLowerCase();
@@ -1124,6 +1300,32 @@ function renderCategoryGrid(){
   els.categorySelect.innerHTML = `<option value="all">${escapeHtml(t("allCategoriesOpt"))}</option>` +
     CATEGORIES.map(c=>`<option value="${c.id}">${escapeHtml(catLabel(c.id))} (${catCount(c.id)})</option>`).join("");
 }
+function openSubcatModal(){
+  const cat = CATEGORIES.find(c => c.id === state.activeCategory);
+  if(!cat || !cat.subCategories || !cat.subCategories.length) return;
+
+  els.subcatModalIcon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${iconSvg(cat.icon)}</svg>`;
+  els.subcatModalTitle.textContent = catLabel(cat.id);
+  els.subcatModalMeta.textContent = `${catCount(cat.id)} ${t("sitesWord")} · ${cat.subCategories.length} ${state.lang==="hi"?"उप-श्रेणियाँ":"subcategories"}`;
+
+  const subCount = (s) => WEBSITES.filter(w => w.category === cat.id && w.sub === s).length;
+
+  els.subcatGrid.innerHTML =
+    `<button class="subcat-card ${state.activeSub==="all"?"active":""}" data-sub="all">
+       <div class="ic">🗂️</div>
+       <div class="name">All</div>
+       <div class="n">${catCount(cat.id)}</div>
+     </button>` +
+    cat.subCategories.map(s => `
+      <button class="subcat-card ${state.activeSub===s?"active":""}" data-sub="${s}">
+        <div class="ic">📁</div>
+        <div class="name">${escapeHtml(s)}</div>
+        <div class="n">${subCount(s)}</div>
+      </button>`).join("");
+
+  els.subcatOverlay.classList.add("open");
+}
+
 
 function renderRow(container, list){
   container.innerHTML = list.length ? list.map(siteCard).join("") : emptyState(t("tryDifferentCat"));
@@ -1236,7 +1438,7 @@ function bindEvents(){
 
   document.addEventListener("keydown", e=>{
     if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==="k"){ e.preventDefault(); els.searchInput.focus(); els.searchInput.select(); }
-    if(e.key === "Escape"){ closeSuggestions(); els.searchInput.blur(); }
+    if(e.key === "Escape"){ closeSuggestions(); els.searchInput.blur();closeSubcatModal(); }
   });
 
   els.micBtn.addEventListener("click", startVoiceSearch);
@@ -1248,16 +1450,35 @@ function bindEvents(){
     });
   }
 
-  document.body.addEventListener("click", e=>{
-    const catBtn = e.target.closest("[data-cat]");
-    if(catBtn){ setCategory(catBtn.dataset.cat); }
+document.body.addEventListener("click", e=>{
+  const catBtn = e.target.closest("[data-cat]");
+  if(catBtn){ setCategory(catBtn.dataset.cat); }
 
-    const favBtn = e.target.closest("[data-fav]");
-    if(favBtn){ toggleFavorite(Number(favBtn.dataset.fav)); }
+  const subBtn = e.target.closest(".subcat-card[data-sub]");
+  if(subBtn){
+    state.activeSub = subBtn.dataset.sub;
+    els.subcatGrid.querySelectorAll(".subcat-card").forEach(b=> b.classList.remove("active"));
+    subBtn.classList.add("active");
+    if(els.favToggle.classList.contains("active")) els.favToggle.classList.remove("active");
+    renderResults();
+    closeSubcatModal();   // select karte hi modal band, results dikh jaye
+    document.getElementById("results").scrollIntoView({behavior:"smooth", block:"start"});
+  }
 
-    const visit = e.target.closest("[data-visit]");
-    if(visit){ trackVisit(Number(visit.dataset.visit)); }
-  });
+  const favBtn = e.target.closest("[data-fav]");
+  if(favBtn){ toggleFavorite(Number(favBtn.dataset.fav)); }
+
+  const visit = e.target.closest("[data-visit]");
+  if(visit){ trackVisit(Number(visit.dataset.visit)); }
+});
+
+els.subcatCloseBtn.addEventListener("click", closeSubcatModal);
+els.subcatOverlay.addEventListener("click", e=>{
+  if(e.target === els.subcatOverlay) closeSubcatModal();
+});
+document.addEventListener("keydown", e=>{
+  if(e.key === "Escape") closeSubcatModal();
+});
 
   els.categorySelect.addEventListener("change", e=> setCategory(e.target.value, {scroll:false}));
 
@@ -1366,11 +1587,18 @@ function commitSearch(){
 
 function setCategory(catId, opts={scroll:true}){
   state.activeCategory = catId;
+  state.activeSub = "all";
   els.categorySelect.value = catId;
   document.querySelectorAll(".cat-card").forEach(c=> c.classList.toggle("active", c.dataset.cat===catId));
   if(els.favToggle.classList.contains("active")) els.favToggle.classList.remove("active");
   renderResults();
-  if(opts.scroll) document.getElementById("results").scrollIntoView({behavior:"smooth", block:"start"});
+
+  const cat = CATEGORIES.find(c => c.id === catId);
+  if(cat && cat.subCategories && cat.subCategories.length){
+    openSubcatModal();   // 👈 सिर्फ modal खोलो, results scroll मत करो
+  } else if(opts.scroll){
+    document.getElementById("results").scrollIntoView({behavior:"smooth", block:"start"});
+  }
 }
 
 function toggleFavorite(id){
@@ -1500,7 +1728,87 @@ function escapeHtml(str){ return String(str).replace(/[&<>"']/g, c=>({"&":"&amp;
     console.log('[WebHub PWA] App installed ✅');
   });
 })();
-</script>
+function iconSvg(name){
+  const icons = {
+    "landmark": '<path d="M3 21h18M4 10h16M4 10l8-6 8 6M6 10v9m4-9v9m4-9v9m4-9v9"/>',
+    "banknote": '<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/>',
+    "shopping-bag": '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/>',
+    "graduation-cap": '<path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/>',
+    "briefcase": '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>',
+    "plane": '<path d="M17.8 19.2 16 11l3.5-3.5c.8-.8.8-2 0-2.8-.8-.8-2-.8-2.8 0L13.2 8 5 6.2 3.5 7.7l6.3 4.5-2.3 2.3-2.7-.3L3 16l3 1 1 3 1.8-1.8-.3-2.7 2.3-2.3 4.5 6.3Z"/>',
+    "clapperboard": '<path d="M20.2 6 3 11l-.9-3.4 17.2-5Z"/><path d="M2 11h20v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2Z"/>',
+    "newspaper": '<path d="M4 4h13a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M18 8h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4M8 8h5M8 12h5M8 16h5"/>',
+    "heart-pulse": '<path d="M19 14c1.5-1.5 3-3.2 3-5.5A4.5 4.5 0 0 0 13.5 6 4.5 4.5 0 0 0 5 8.5C5 13 12 20 12 20s3-2.8 5-5.2"/><path d="M3.5 12h2l1.5-3 2 5 1.5-2h2.5"/>',
+    "utensils": '<path d="M7 2v8M4 2v8a3 3 0 0 0 3 3v9M20 2v20M17 2c-1.5 0-2 2-2 5s.5 5 2 5"/>',
+    "sparkles": '<path d="M12 2 9.5 8.5 3 11l6.5 2.5L12 20l2.5-6.5L21 11l-6.5-2.5Z"/>',
+    "message-circle": '<path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l2-5.2A8.4 8.4 0 1 1 21 11.5Z"/>',
+    "home": '<path d="m3 10 9-7 9 7v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M9 21V12h6v9"/>',
+    "zap": '<path d="M13 2 3 14h7l-1 8 10-12h-7Z"/>',
+    "layout-grid": '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+  };
+  return icons[name] || icons["sparkles"];
+}
+function openSubcatModal(){
+  const cat = CATEGORIES.find(c => c.id === state.activeCategory);
+  if(!cat || !cat.subCategories || !cat.subCategories.length) return;
 
+  els.subcatModalIcon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${iconSvg(cat.icon)}</svg>`;
+  els.subcatModalTitle.textContent = catLabel(cat.id);
+  els.subcatModalMeta.textContent = `${catCount(cat.id)} ${t("sitesWord")} · ${cat.subCategories.length} ${state.lang==="hi"?"उप-श्रेणियाँ":"subcategories"}`;
+
+  const subCount = (s) => WEBSITES.filter(w => w.category === cat.id && w.sub === s).length;
+
+  els.subcatGrid.innerHTML =
+    `<button class="subcat-card ${state.activeSub==="all"?"active":""}" data-sub="all">
+       <div class="ic" style="background:#14152B22; color:#14152B;">🗂️</div>
+       <div class="name">All</div>
+       <div class="n">${catCount(cat.id)}</div>
+     </button>` +
+    cat.subCategories.map(s => {
+      const icon = subIcon(s);
+      return `
+      <button class="subcat-card ${state.activeSub===s?"active":""}" data-sub="${s}">
+        <div class="ic" style="background:${icon.color}22; color:${icon.color};">${icon.emoji}</div>
+        <div class="name">${escapeHtml(s)}</div>
+        <div class="n">${subCount(s)}</div>
+      </button>`;
+    }).join("");
+
+  els.subcatOverlay.classList.add("open");
+}
+
+function closeSubcatModal(){
+  els.subcatOverlay.classList.remove("open");
+}
+// 👇👇👇 ये नया function यहाँ जोड़ो 👇👇👇
+function subIcon(name){
+  const map = {
+    "Banking":      { emoji:"🏦", color:"#2563EB" },
+    "Finance":      { emoji:"💹", color:"#0E9F6E" },
+    "Payments":     { emoji:"💳", color:"#7C3AED" },
+    "Investments":  { emoji:"📈", color:"#F2711C" },
+    "Insurance":    { emoji:"🛡️", color:"#0891B2" },
+    "Tax Services": { emoji:"🧾", color:"#D64545" },
+  };
+  return map[name] || { emoji:"📁", color:"#5B5C74" };
+}
+</script>
+<!-- ============ SUBCATEGORY MODAL ============ -->
+<div class="subcat-overlay" id="subcatOverlay">
+  <div class="subcat-modal" id="subcatModal">
+    <div class="subcat-modal-handle"></div>
+    <div class="subcat-modal-head">
+      <div class="subcat-modal-icon" id="subcatModalIcon"></div>
+      <div>
+        <h3 id="subcatModalTitle">Category</h3>
+        <p id="subcatModalMeta">0 subcategories</p>
+      </div>
+      <button class="subcat-close-btn" id="subcatCloseBtn" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="subcat-grid" id="subcatGrid"></div>
+  </div>
+</div>
 </body>
 </html>
