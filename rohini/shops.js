@@ -21,7 +21,7 @@ const SHOPS_BASE = [
  {
   "id": 1,
   "name": "Balaji Store",
-  "detailPage": "/shop/1-gupta-stationery.html",
+  "detailPage": "/shop/1-balaji-store.html",
   "category": "Grocery Store",
   "owner": "Mr. Pushpraj Singh",
   "phone": "+918076929062",
