@@ -1111,7 +1111,7 @@ const state = {
   sort: "default",
   favorites: new Set(),
   history: [],
-  theme: (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? "dark" : "light",
+  theme: "light",
   lang: (localStorage.getItem("wh_lang") === "hi") ? "hi" : "en",
 
   // ---- infinite scroll state ----
@@ -1198,6 +1198,10 @@ function catLabel(id){
   const c = CATEGORIES.find(c=>c.id===id);
   if(!c) return id;
   return (state.lang === "hi" && CATEGORY_LABELS_HI[id]) ? CATEGORY_LABELS_HI[id] : c.label;
+}function subLabel(sub){
+  return (state.lang === "hi" && SUBCATEGORY_LABELS_HI[sub]) ? SUBCATEGORY_LABELS_HI[sub] : sub;
+}function tagLabel(tag){
+  return (state.lang === "hi" && TAGS_HI[tag]) ? TAGS_HI[tag] : tag;
 }
 function siteDesc(w){ return (state.lang === "hi" && DESC_HI[w.id]) ? DESC_HI[w.id] : w.desc; }
 function catCount(id){ return WEBSITES.filter(w=>w.category===id).length; }
@@ -1261,7 +1265,7 @@ function siteCard(w){
     <p class="desc">${escapeHtml(siteDesc(w))}</p>
     <div class="tags">
       <span class="tag">${escapeHtml(catLabel(w.category))}</span>
-      ${w.tags.slice(0,2).map(tag=>`<span class="tag">${escapeHtml(tag)}</span>`).join("")}
+      ${w.tags.slice(0,2).map(tag=>`<span class="tag">${escapeHtml(tagLabel(tag))}</span>`).join("")}
     </div>
     <div class="footer-row">
       <a class="visit-btn" href="${w.url}" target="_blank" rel="noopener noreferrer" data-visit="${w.id}">
@@ -1769,7 +1773,7 @@ function openSubcatModal(){
       return `
       <button class="subcat-card ${state.activeSub===s?"active":""}" data-sub="${s}">
         <div class="ic" style="background:${icon.color}22; color:${icon.color};">${icon.emoji}</div>
-        <div class="name">${escapeHtml(s)}</div>
+        <div class="name">${escapeHtml(subLabel(s))}</div>
         <div class="n">${subCount(s)}</div>
       </button>`;
     }).join("");
@@ -1783,12 +1787,109 @@ function closeSubcatModal(){
 // 👇👇👇 ये नया function यहाँ जोड़ो 👇👇👇
 function subIcon(name){
   const map = {
-    "Banking":      { emoji:"🏦", color:"#2563EB" },
-    "Finance":      { emoji:"💹", color:"#0E9F6E" },
-    "Payments":     { emoji:"💳", color:"#7C3AED" },
-    "Investments":  { emoji:"📈", color:"#F2711C" },
-    "Insurance":    { emoji:"🛡️", color:"#0891B2" },
-    "Tax Services": { emoji:"🧾", color:"#D64545" },
+  // Government
+  "Identity & Documents":     { emoji:"🪪", color:"#1D4ED8" },
+  "Taxation":                 { emoji:"🧾", color:"#D64545" },
+  "Transport & Vehicle":      { emoji:"🚗", color:"#EA580C" },
+  "Elections & Civic":        { emoji:"🗳️", color:"#7C3AED" },
+  "Postal & Courier":         { emoji:"📮", color:"#B91C1C" },
+  "Legal & Judiciary":        { emoji:"⚖️", color:"#4B5563" },
+  "Health & Safety":          { emoji:"🚑", color:"#DC2626" },
+  "Employment & Welfare":     { emoji:"🧑‍💼", color:"#0E9F6E" },
+  "Portals & Services":       { emoji:"🏛️", color:"#2563EB" },
+
+  // Finance
+  "Banking":      { emoji:"🏦", color:"#2563EB" },
+  "Payments":     { emoji:"💳", color:"#7C3AED" },
+  "Investments":  { emoji:"📈", color:"#F2711C" },
+  "Insurance":    { emoji:"🛡️", color:"#0891B2" },
+  "Tax Services": { emoji:"🧾", color:"#D64545" },
+  "Cryptocurrency": { emoji:"₿", color:"#F7931A" },
+  "Regulatory": { emoji:"📋", color:"#4B5563" },
+  "Loans & Lending": { emoji:"💰", color:"#059669" },
+
+  // Shopping
+  "Marketplace":              { emoji:"🛒", color:"#F97316" },
+  "Fashion & Lifestyle":       { emoji:"👗", color:"#DB2777" },
+  "Beauty & Personal Care":    { emoji:"💄", color:"#EC4899" },
+  "Grocery & Quick Commerce":  { emoji:"🛍️", color:"#16A34A" },
+  "Home & Furniture":          { emoji:"🛋️", color:"#92400E" },
+
+  // Education
+  "School Learning":       { emoji:"🏫", color:"#2563EB" },
+  "Exam Preparation":      { emoji:"📝", color:"#7C3AED" },
+  "Higher Education":      { emoji:"🎓", color:"#4338CA" },
+  "Free Courses & MOOCs":  { emoji:"📚", color:"#0E9F6E" },
+  "Scholarships":          { emoji:"🎖️", color:"#D97706" },
+
+  // Jobs & Careers
+  "Job Portals":               { emoji:"💼", color:"#2563EB" },
+  "Professional Networking":   { emoji:"🤝", color:"#0A66C2" },
+  "Internships":               { emoji:"🎒", color:"#0891B2" },
+  "Government Jobs":           { emoji:"🏛️", color:"#4B5563" },
+  "Freelancing":               { emoji:"💻", color:"#7C3AED" },
+
+  // Travel & Transport
+  "Flights & Hotels":     { emoji:"✈️", color:"#0284C7" },
+  "Trains & Buses":       { emoji:"🚆", color:"#DC2626" },
+  "Airlines":             { emoji:"🛫", color:"#0369A1" },
+  "Navigation & Maps":    { emoji:"🗺️", color:"#16A34A" },
+  "Local Transit":        { emoji:"🚌", color:"#F59E0B" },
+  "Tourism":              { emoji:"🏝️", color:"#0E9F6E" },
+
+  // Entertainment
+  "Video Streaming":       { emoji:"🎬", color:"#DC2626" },
+  "Music & Podcasts":      { emoji:"🎧", color:"#7C3AED" },
+  "Live Events & Tickets": { emoji:"🎟️", color:"#F97316" },
+  "Video Sharing":         { emoji:"📹", color:"#DB2777" },
+
+  // News & Media
+  "National News":       { emoji:"📰", color:"#374151" },
+  "Business & Markets":  { emoji:"📊", color:"#0E9F6E" },
+  "Sports News":         { emoji:"🏏", color:"#EA580C" },
+
+  // Health
+  "Doctor Consultation":     { emoji:"🩺", color:"#0891B2" },
+  "Pharmacy & Medicine":     { emoji:"💊", color:"#059669" },
+  "Hospitals & Research":    { emoji:"🏥", color:"#DC2626" },
+  "Government Health Info":  { emoji:"🏛️", color:"#4B5563" },
+  "Fitness & Wellness":      { emoji:"🧘", color:"#16A34A" },
+
+  // Food & Grocery
+  "Food Delivery":     { emoji:"🍔", color:"#F97316" },
+  "Grocery Delivery":  { emoji:"🥦", color:"#16A34A" },
+  "Specialty Food":    { emoji:"🍰", color:"#D97706" },
+
+  // AI Tools
+  "AI Assistants":       { emoji:"🤖", color:"#7C3AED" },
+  "AI Search":           { emoji:"🔍", color:"#2563EB" },
+  "Indian AI":           { emoji:"🇮🇳", color:"#EA580C" },
+  "AI Creative Tools":   { emoji:"🎨", color:"#DB2777" },
+  "AI Developer Tools":  { emoji:"👨‍💻", color:"#0891B2" },
+
+  // Social & Messaging
+  "Messaging":          { emoji:"💬", color:"#22C55E" },
+  "Social Networking":  { emoji:"👥", color:"#2563EB" },
+  "Regional Social":    { emoji:"🗣️", color:"#D97706" },
+
+  // Real Estate
+  "Property Listings":               { emoji:"🏠", color:"#2563EB" },
+  "Brokerage-Free":                  { emoji:"🤝", color:"#0E9F6E" },
+  "Interior Design & Home Services": { emoji:"🛠️", color:"#92400E" },
+
+  // Utilities & Bills
+  "Bill Payments":     { emoji:"🧾", color:"#D64545" },
+  "Telecom Recharge":  { emoji:"📱", color:"#7C3AED" },
+
+  // Productivity & Dev
+  "Code & Dev":            { emoji:"👨‍💻", color:"#4338CA" },
+  "Cloud Storage":         { emoji:"☁️", color:"#0284C7" },
+  "Docs & Notes":          { emoji:"📝", color:"#F59E0B" },
+  "Design Tools":          { emoji:"🎨", color:"#DB2777" },
+  "PDF Tools":             { emoji:"📄", color:"#DC2626" },
+  "Video Conferencing":    { emoji:"📹", color:"#16A34A" },
+  "Hosting & Deployment":  { emoji:"🚀", color:"#7C3AED" },
+  "Team Collaboration":    { emoji:"🤝", color:"#0891B2" },
   };
   return map[name] || { emoji:"📁", color:"#5B5C74" };
 }
