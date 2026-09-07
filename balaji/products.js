@@ -184,7 +184,20 @@
     { id:'drinks_maaza_2l',         name:'Maaza 2L',                           image:CLOUDINARY_BASE+'/image/drink_maaza.jpg',             emoji:'🥭', weight:'2 L',     price:100, mrp:120, category:'drinks', stock:18  },
     { id:'drinks_frooti_2l',        name:'Frooti 2L',                          image:CLOUDINARY_BASE+'/image/drink_frooti2.jpg',           emoji:'🥤', weight:'2 L',     price:100, mrp:120, category:'drinks', stock:20  },
     { id:'drinks_real_250g',        name:'Real Juice 250g',                    image:CLOUDINARY_BASE+'/image/drink_real2.png',             emoji:'🥤', weight:'250 g',   price:100, mrp:120, category:'drinks', stock:15  },
-    { id:'drinks_redbull',          name:'Red Bull',                           image:CLOUDINARY_BASE+'/image/drink_redbull.png',           emoji:'🐂', weight:'250 ml',  price:120, mrp:150, category:'drinks', stock:20  },
+
+{
+  id: 'drinks_redbull',
+  name: 'Red Bull',
+  image: 'https://www.bbassets.com/media/uploads/p/l/100393567_11-red-bull-energy-drink.jpg',
+  emoji: '🐂',
+  weight: '250 ml',
+  price: 120,
+  mrp: 150,
+  category: 'drinks',
+  stock: 20
+},
+
+
     { id:'drinks_amul_kool',        name:'Amul Kool',                          image:CLOUDINARY_BASE+'/image/drink_amul_kool.png',         emoji:'🥛', weight:'180 ml',  price:30,  mrp:35,  category:'drinks', stock:50  },
     { id:'drinks_mogu_mogu',        name:'Mogu Mogu',                          image:CLOUDINARY_BASE+'/image/drink_mogu_mogu.png',         emoji:'🥤', weight:'320 ml',  price:70,  mrp:85,  category:'drinks', stock:30  },
     { id:'drinks_campa_energy',     name:'Campa Energy',                       image:CLOUDINARY_BASE+'/image/drink_campa.png',             emoji:'⚡', weight:'250 ml',  price:35,  mrp:40,  category:'drinks', stock:40  },
