@@ -3,5 +3,9 @@ Disallow: /balaji/indexadmin.html
 Disallow: /balaji/indexledger.html
 Disallow: /balaji/pwa-analytics.html
 Disallow: /balaji/shopadmin.html
+Disallow: /littlelovely-store/admin.html
+Disallow: /littlelovely-store/pages/checkout.html
+Disallow: /littlelovely-store/pages/trackorder.html
+
 
 Sitemap: https://balaji-store.in/sitemap.xml

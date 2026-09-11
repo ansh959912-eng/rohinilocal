@@ -47,6 +47,9 @@ const PRECACHE_ASSETS = [
   '/indexoffer.html',      // ✅ public offers page
   '/policies.html',        // ✅ public policies page
   '/indexwebhub.html',
+  '/index.html',
+  '/contact.html',
+  '/faq.html',
   '/manifest.json',
   /* NOTE: indexadmin.html & shopadmin.html are intentionally excluded */
   /* Google Fonts */

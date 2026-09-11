@@ -3,15 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>little&amp;lovely — Cute Imported Stationery, Custom Hampers &amp; Birthday Return Gifts</title>
-<meta name="description" content="Shop cute imported stationery, keychains, hair accessories &amp; kids' lamps, or build your own custom hamper and birthday return gift kits — packed beautifully, delivered across India.">
+
+<!-- ===== PWA META TAGS ===== -->
+<meta name="theme-color" content="#F6C8D6"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="little&lovely"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="application-name" content="little&lovely"/>
+<meta name="msapplication-TileColor" content="#F6C8D6"/>
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="/manifest.json"/>
+
+<!-- iOS / Home Screen Icons (Apple doesn't read manifest icons) -->
+<link rel="apple-touch-icon" sizes="192x192" href="/icon/icon-192.png"/>
+<link rel="apple-touch-icon" sizes="512x512" href="/icon/icon-512.png"/>
+<link rel="icon" type="image/png" href="/icon/icon-192.png"/>
+
+<!-- ===== PRIMARY SEO TAGS ===== -->
+<title>little&amp;lovely | Cute Imported Stationery, Hampers &amp; Return Gifts</title>
+<meta name="description" content="Shop cute imported stationery, keychains, hair accessories &amp; kids' lamps. Build your own custom hamper or birthday return gift kit — beautifully packed, delivered across India.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="little&lovely">
 <link rel="canonical" href="https://www.littleandlovely.example/index.html">
-<meta property="og:title" content="little&amp;lovely — Create Your Own Gift">
-<meta property="og:description" content="Cute imported finds, personalised hampers & birthday return gifts — made your way.">
+
+<!-- ===== OPEN GRAPH (Facebook / WhatsApp / LinkedIn previews) ===== -->
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="little&lovely">
+<meta property="og:locale" content="en_IN">
+<meta property="og:url" content="https://www.littleandlovely.example/index.html">
+<meta property="og:title" content="little&amp;lovely — Create Your Own Gift">
+<meta property="og:description" content="Cute imported finds, personalised hampers &amp; birthday return gifts — made your way. Delivered across India.">
+<meta property="og:image" content="https://www.littleandlovely.example/images/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="little&lovely cute imported stationery, hampers and birthday return gifts">
+
+<!-- ===== TWITTER / X CARD ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="little&amp;lovely — Create Your Own Gift">
+<meta name="twitter:description" content="Cute imported finds, personalised hampers &amp; birthday return gifts — made your way.">
+<meta name="twitter:image" content="https://www.littleandlovely.example/images/og-cover.jpg">
+
+<!-- ===== PERFORMANCE (only keep the ones you actually use) ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link rel="stylesheet" href="css/style.css">
+
+<!-- ===== STRUCTURED DATA: Organization ===== -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Store","name":"little&lovely","description":"Cute imported stationery, keychains, hair accessories, kids lamps, custom hampers and birthday return gifts.","priceRange":"₹8 - ₹1500"}
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "little&lovely",
+  "url": "https://www.littleandlovely.example/",
+  "logo": "https://www.littleandlovely.example/images/logo.png",
+  "description": "Cute imported stationery, keychains, hair accessories, kids lamps, custom hampers and birthday return gifts, delivered across India.",
+  "sameAs": [
+    "https://www.instagram.com/littleandlovely",
+    "https://www.facebook.com/littleandlovely",
+    "https://wa.me/91XXXXXXXXXX"
+  ]
+}
+</script>
+
+<!-- ===== STRUCTURED DATA: WebSite + Sitelinks Search Box ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "little&lovely",
+  "url": "https://www.littleandlovely.example/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://www.littleandlovely.example/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- ===== STRUCTURED DATA: Store ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "little&lovely",
+  "url": "https://www.littleandlovely.example/",
+  "image": "https://www.littleandlovely.example/images/logo.png",
+  "description": "Cute imported stationery, keychains, hair accessories, kids lamps, custom hampers and birthday return gifts.",
+  "priceRange": "₹8 - ₹1500",
+  "areaServed": {
+    "@type": "Country",
+    "name": "India"
+  },
+  "sameAs": [
+    "https://www.instagram.com/littleandlovely",
+    "https://www.facebook.com/littleandlovely"
+  ]
+}
+</script>
+
+<!-- ===== STRUCTURED DATA: FAQPage (helps both Google rich results and AI answer engines) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does little&lovely deliver across India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, little&lovely ships custom hampers, birthday return gifts and stationery across India."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I build a custom hamper on little&lovely?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You can choose an occasion, set a budget, pick your favourite products and packaging, and personalise the hamper with a name, colour theme and message."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does little&lovely offer birthday return gifts in bulk?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. little&lovely offers birthday return gift kits for any number of guests, with bulk discounts and custom quotes available for schools, parties and corporate gifting."
+      }
+    }
+  ]
+}
 </script>
 </head>
 <body>
@@ -264,14 +389,33 @@
     <div class="occasion-grid" id="occasion-grid"></div>
   </section>
 
+  <!-- FAQ (matches FAQPage structured data above — keep in sync if you edit either) -->
+  <section class="section section-alt" id="faq">
+    <div class="section-heading center"><h2>Frequently Asked Questions</h2></div>
+    <div class="faq-list" style="max-width:720px;margin:0 auto;">
+      <details style="margin-bottom:14px;">
+        <summary style="font-weight:600;cursor:pointer;">Does little&amp;lovely deliver across India?</summary>
+        <p>Yes, little&amp;lovely ships custom hampers, birthday return gifts and stationery across India.</p>
+      </details>
+      <details style="margin-bottom:14px;">
+        <summary style="font-weight:600;cursor:pointer;">Can I build a custom hamper on little&amp;lovely?</summary>
+        <p>Yes. Choose an occasion, set a budget, pick your favourite products and packaging, and personalise the hamper with a name, colour theme and message.</p>
+      </details>
+      <details style="margin-bottom:14px;">
+        <summary style="font-weight:600;cursor:pointer;">Does little&amp;lovely offer birthday return gifts in bulk?</summary>
+        <p>Yes. Birthday return gift kits are available for any number of guests, with bulk discounts and custom quotes for schools, parties and corporate gifting.</p>
+      </details>
+    </div>
+  </section>
+
   <!-- REVIEWS -->
-  <section class="section section-alt">
+  <section class="section">
     <div class="section-heading center"><h2>Loved By Gift Givers ❤️</h2><p>Real Orders. Real Smiles.</p></div>
     <div class="review-grid" id="review-grid"></div>
   </section>
 
   <!-- INSTAGRAM -->
-  <section class="section">
+  <section class="section section-alt">
     <div class="section-heading center"><h2>See What's Trending</h2></div>
     <div class="insta-grid" id="insta-grid"></div>
     <div style="text-align:center;margin-top:26px;">

@@ -27,23 +27,31 @@
   </url>
 
   <url>
-    <loc>https://aapkadomain.com/shop/1-gupta-stationery.html</loc>
+    <loc>https://aapkadomain.com/index.html</loc>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://aapkadomain.com/shop/2-sharma-electricals.html</loc>
+    <loc>https://aapkadomain.com/contact.html</loc>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://aapkadomain.com/shop/3-delhi-medical-store.html</loc>
+    <loc>https://aapkadomain.com/faq.html</loc>
     <priority>0.7</priority>
   </url>
-
-  <url>
-    <loc>https://aapkadomain.com/shop/4-delhi-store.html</loc>
+ <url>
+    <loc>https://aapkadomain.com/product.html</loc>
     <priority>0.7</priority>
   </url>
+   <url>
+    <loc>https://aapkadomain.com/shop.html</loc>
+    <priority>0.7</priority>
+  </url>
+   <url>
+    <loc>https://aapkadomain.com/wishlist.html</loc>
+    <priority>0.7</priority>
+  </url>
+  
 
 </urlset>
