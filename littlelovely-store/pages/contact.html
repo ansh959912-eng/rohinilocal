@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — little&amp;lovely</title>
+<meta name="description" content="Get in touch with little&amp;lovely — WhatsApp, email or send us a message directly.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="app-header"></div>
+
+<main>
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / Contact</div>
+    <h1>We'd Love To Hear From You</h1>
+  </div>
+
+  <div class="contact-grid">
+    <div>
+      <div class="contact-method" id="contact-whatsapp">
+        <div class="ic" style="color:#25D366;">💬</div>
+        <div>
+          <div style="font-weight:600;font-size:14.5px;">Chat on WhatsApp</div>
+          <div style="color:var(--ink-soft);font-size:13px;">Fastest way to reach us — usually replies within minutes.</div>
+        </div>
+      </div>
+      <div class="contact-method" id="contact-email">
+        <div class="ic"></div>
+        <div>
+          <div style="font-weight:600;font-size:14.5px;">Email Us</div>
+          <div style="color:var(--ink-soft);font-size:13px;">hello@littleandlovely.example</div>
+        </div>
+      </div>
+      <div class="contact-method" id="contact-instagram">
+        <div class="ic">📸</div>
+        <div>
+          <div style="font-weight:600;font-size:14.5px;">Follow on Instagram</div>
+          <div style="color:var(--ink-soft);font-size:13px;">See our latest cute finds and customer creations.</div>
+        </div>
+      </div>
+      <div style="margin-top:24px;">
+        <h3 style="font-size:1.2rem;margin-bottom:10px;">Our Story</h3>
+        <p style="color:var(--ink-soft);font-size:14.5px;line-height:1.7;">little&amp;lovely started with a simple idea — that gifting should feel personal, not generic. We curate cute imported stationery, keychains and accessories, then help you turn them into hampers and return gifts that feel made just for the moment.</p>
+      </div>
+    </div>
+    <div class="form-block">
+      <h3>Send Us a Message</h3>
+      <form id="contact-form">
+        <div class="form-grid">
+          <label class="full">Name<input type="text" id="c-name" required></label>
+          <label>Phone<input type="tel" id="c-phone"></label>
+          <label>Email<input type="email" id="c-email" required></label>
+          <label class="full">Message<textarea id="c-message" rows="5" required></textarea></label>
+        </div>
+        <button type="submit" class="btn btn-primary block" style="margin-top:16px;">Send Message</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<div id="app-footer"></div>
+<div id="app-overlays"></div>
+
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/wishlist.js"></script>
+<script src="../js/products.js"></script>
+<script src="../js/layout.js"></script>
+
+<!-- ===== Firebase / Firestore — same project as checkout.html / admin-dashboard.html.
+     Contact form submissions are saved to the "messages" collection so the
+     admin dashboard can show them live. ===== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+  // 👉 Same config as checkout.html and admin-dashboard.html — one Firebase project.
+  const firebaseConfig = {
+    apiKey: "AIzaSyBBUwOl7IQfb_m6YrP0xKnJzX_2XV33uiU",
+    authDomain: "statioanary-58151.firebaseapp.com",
+    projectId: "statioanary-58151",
+    storageBucket: "statioanary-58151.firebasestorage.app",
+    messagingSenderId: "728133963545",
+    appId: "1:728133963545:web:14c69be09ad1329275bf88",
+    measurementId: "G-YQL5Y1TGB5"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.LWLSaveMessageToFirestore = async (msg) => {
+    try {
+      await addDoc(collection(db, "messages"), { ...msg, read: false, createdAt: serverTimestamp() });
+      return true;
+    } catch (err) {
+      console.error("Could not save message to Firestore:", err);
+      return false;
+    }
+  };
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("contact-whatsapp").addEventListener("click", () => LWL.openWhatsapp("Hi! I have a question for little&lovely."));
+  document.getElementById("contact-email").addEventListener("click", () => window.location.href = "mailto:hello@littleandlovely.example");
+  document.getElementById("contact-instagram").addEventListener("click", () => window.open(INSTAGRAM_URL, "_blank", "noopener"));
+
+  document.getElementById("contact-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("c-name").value.trim();
+    const phone = document.getElementById("c-phone").value.trim();
+    const email = document.getElementById("c-email").value.trim();
+    const message = document.getElementById("c-message").value.trim();
+    if (!name || !email || !message) { LWL.toast("Please fill in all required fields"); return; }
+
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+
+    if (window.LWLSaveMessageToFirestore) {
+      await window.LWLSaveMessageToFirestore({ name, phone, email, message });
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Send Message";
+    e.target.reset();
+    LWL.toast("Message sent — we'll get back to you soon!");
+  });
+});
+</script>
+</body>
+</html>

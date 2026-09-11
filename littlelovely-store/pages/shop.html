@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop Cute Finds — little&amp;lovely</title>
+<meta name="description" content="Shop imported stationery, kawaii finds, keychains, hair accessories, kids lamps and mini fans. Filter by category, price and rating.">
+<link rel="canonical" href="https://www.littleandlovely.example/pages/shop.html">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="app-header"></div>
+
+<main>
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / Shop</div>
+    <h1 id="shop-title">Shop Cute Finds</h1>
+  </div>
+
+  <div class="mobile-filter-bar mobile-only">
+    <button type="button" id="mobile-filter-toggle" class="mobile-filter-btn">
+      <span class="filter-icon">☰</span> Filter and sort
+    </button>
+    <span class="mobile-result-count" id="mobile-result-count"></span>
+  </div>
+
+  <div class="filter-overlay" id="filter-overlay"></div>
+
+  <div class="shop-layout">
+    <aside class="filter-panel" id="filter-panel">
+      <div class="filter-panel-head mobile-only">
+        <h3>Filter and sort</h3>
+        <button type="button" id="filter-panel-close" aria-label="Close filters">✕</button>
+      </div>
+      <div class="filter-group">
+        <h4>Category</h4>
+        <div id="filter-categories"></div>
+      </div>
+      <div class="filter-group">
+        <h4>Price</h4>
+        <div class="filter-option"><label><input type="radio" name="price" value=""> Any price</label></div>
+        <div class="filter-option"><label><input type="radio" name="price" value="99"> Under ₹99</label></div>
+        <div class="filter-option"><label><input type="radio" name="price" value="199"> Under ₹199</label></div>
+        <div class="filter-option"><label><input type="radio" name="price" value="299"> Under ₹299</label></div>
+        <div class="filter-option"><label><input type="radio" name="price" value="600"> Under ₹600</label></div>
+      </div>
+      <div class="filter-group">
+        <h4>Sort by</h4>
+        <select id="sort-select">
+          <option value="">Featured</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating">Top Rated</option>
+        </select>
+      </div>
+      <button class="btn btn-soft small block" id="clear-filters-btn">Clear Filters</button>
+      <button class="btn btn-primary block mobile-only" id="mobile-apply-filters-btn" style="margin-top:10px;">Show Results</button>
+    </aside>
+    <div>
+      <div class="result-count desktop-nav" id="result-count"></div>
+      <div class="product-grid" id="shop-grid"></div>
+    </div>
+  </div>
+</main>
+
+<div id="app-footer"></div>
+<div id="app-overlays"></div>
+
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/wishlist.js"></script>
+<script src="../js/products.js"></script>
+<script src="../js/layout.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const CATS = ["Stationery", "Keychains", "Hair Accessories", "Kids", "Fans & Lamps", "Gifts"];
+  const catFilterEl = document.getElementById("filter-categories");
+  catFilterEl.innerHTML = `<div class="filter-option"><label><input type="radio" name="cat" value=""> All categories</label></div>` +
+    CATS.map((c) => `<div class="filter-option"><label><input type="radio" name="cat" value="${c}"> ${c}</label></div>`).join("");
+
+  function readState() {
+    return {
+      cat: LWL.qs("cat") || "",
+      tag: LWL.qs("tag") || "",
+      query: LWL.qs("query") || "",
+      max: LWL.qs("max") || "",
+      sort: LWL.qs("sort") || "",
+    };
+  }
+
+  function applyToUrl(state) {
+    const url = LWL.setQuery(state);
+    history.replaceState(null, "", url);
+  }
+
+  function render() {
+    const state = readState();
+    // sync form controls
+    document.querySelectorAll('input[name="cat"]').forEach((r) => r.checked = r.value === state.cat);
+    document.querySelectorAll('input[name="price"]').forEach((r) => r.checked = r.value === String(state.max));
+    document.getElementById("sort-select").value = state.sort || "";
+
+    const title = document.getElementById("shop-title");
+    title.textContent = state.cat ? state.cat : (state.query ? `Results for "${state.query}"` : "Shop Cute Finds");
+
+    const results = LWLProducts.filter({ cat: state.cat, tag: state.tag, maxPrice: state.max, query: state.query, sort: state.sort });
+    const countText = `${results.length} product${results.length !== 1 ? "s" : ""}`;
+    document.getElementById("result-count").textContent = countText;
+    document.getElementById("mobile-result-count").textContent = countText;
+    LWLProducts.renderGrid(document.getElementById("shop-grid"), results);
+  }
+
+  document.querySelectorAll('input[name="cat"]').forEach((r) => r.addEventListener("change", () => {
+    const state = readState(); state.cat = r.value; applyToUrl(state); render();
+  }));
+  document.querySelectorAll('input[name="price"]').forEach((r) => r.addEventListener("change", () => {
+    const state = readState(); state.max = r.value; applyToUrl(state); render();
+  }));
+  document.getElementById("sort-select").addEventListener("change", (e) => {
+    const state = readState(); state.sort = e.target.value; applyToUrl(state); render();
+  });
+   document.getElementById("clear-filters-btn").addEventListener("click", () => {
+    history.replaceState(null, "", "shop.html"); render();
+  });
+
+  // mobile filter drawer
+  function openFilterPanel() {
+    document.getElementById("filter-panel").classList.add("open");
+    document.getElementById("filter-overlay").classList.add("open");
+    document.body.classList.add("no-scroll");
+  }
+  function closeFilterPanel() {
+    document.getElementById("filter-panel").classList.remove("open");
+    document.getElementById("filter-overlay").classList.remove("open");
+    document.body.classList.remove("no-scroll");
+  }
+  document.getElementById("mobile-filter-toggle").addEventListener("click", openFilterPanel);
+  document.getElementById("filter-panel-close").addEventListener("click", closeFilterPanel);
+  document.getElementById("filter-overlay").addEventListener("click", closeFilterPanel);
+  document.getElementById("mobile-apply-filters-btn").addEventListener("click", closeFilterPanel);
+
+  render();
+});
+</script>
+</body>
+</html>

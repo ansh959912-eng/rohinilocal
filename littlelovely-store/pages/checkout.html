@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — little&amp;lovely</title>
+<meta name="description" content="Complete your order at little&amp;lovely.">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+/* ---- Payment step styling (scoped to checkout page) ---- */
+.upi-app-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:14px 0;}
+.upi-app-btn{border:1.5px solid var(--line);border-radius:14px;padding:16px 10px;text-align:center;background:#fff;font-weight:600;font-size:13px;}
+.upi-app-btn .app-icon{width:34px;height:34px;display:block;margin:0 auto 8px;border-radius:9px;padding:6px;box-sizing:border-box;}
+.upi-app-btn[data-app="gpay"] .app-icon{background:#E8F0FE;}
+.upi-app-btn[data-app="phonepe"] .app-icon{background:#F1E9FA;}
+.upi-app-btn[data-app="paytm"] .app-icon{background:#E5F7FE;}
+.upi-app-btn[data-app="universal"] .app-icon{background:var(--bg-alt,#FBF2EF);font-size:20px;display:flex;align-items:center;justify-content:center;}
+.upi-app-btn:hover{border-color:var(--rose-deep,#E8869F);background:var(--rose,#F6C8D6);}
+.upi-app-btn .emoji{font-size:26px;display:block;margin-bottom:6px;}
+.upi-manual-box{background:var(--bg-alt,#FBF2EF);border-radius:12px;padding:14px 16px;font-size:12.5px;color:var(--ink-soft);margin-top:6px;line-height:1.7;}
+.upi-manual-box b{color:var(--ink);}
+.upi-confirm-box{background:var(--bg-alt,#FBF2EF);border-radius:14px;padding:18px;text-align:center;}
+.upi-confirm-box .amt{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;margin:6px 0;}
+.pay-fineprint{font-size:11.5px;color:var(--ink-soft);margin-top:10px;line-height:1.6;}
+#cod-note{font-size:12.5px;color:var(--ink-soft);margin-top:10px;}
+</style>
+</head>
+<body>
+
+<div id="app-header"></div>
+
+<main>
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / Checkout</div>
+    <h1>Checkout</h1>
+  </div>
+
+  <div id="checkout-empty" style="display:none;text-align:center;padding:70px 20px;">
+    <div style="font-size:52px;margin-bottom:14px;">🛍️</div>
+    <h3 style="font-size:1.3rem;margin-bottom:8px;">Your bag is empty</h3>
+    <p style="color:var(--ink-soft);margin-bottom:20px;">Add a few cute things before checking out.</p>
+    <a class="btn btn-primary" href="shop.html">Shop Cute Finds</a>
+  </div>
+
+  <div class="checkout-layout" id="checkout-layout">
+    <div>
+      <form id="checkout-form" novalidate>
+        <div class="form-block">
+          <h3>Delivery Details</h3>
+          <div class="form-grid">
+            <label>Full Name<input type="text" id="ck-name" required><span class="error-text">Please enter your full name</span></label>
+            <label>Phone<input type="tel" id="ck-phone" required pattern="[0-9]{10}"><span class="error-text">Enter a valid 10-digit phone number</span></label>
+            <label class="full">Email<input type="email" id="ck-email" required><span class="error-text">Enter a valid email address</span></label>
+            <label class="full">Address<input type="text" id="ck-address" required><span class="error-text">Please enter your address</span></label>
+            <label>City<input type="text" id="ck-city" required><span class="error-text">Please enter your city</span></label>
+            <label>State<input type="text" id="ck-state" required><span class="error-text">Please enter your state</span></label>
+            <label>Pincode<input type="text" id="ck-pincode" required pattern="[0-9]{6}"><span class="error-text">Enter a valid 6-digit pincode</span></label>
+          </div>
+        </div>
+
+        <div class="form-block" id="payment-block">
+          <h3>Payment Method</h3>
+
+          <!-- Step A: choose UPI (always) or COD (only if admin has turned it on) -->
+          <div id="payment-choice-step">
+            <label class="pay-option active" id="method-upi" data-method="UPI">
+              <input type="radio" name="paymethod" checked style="width:auto;"> Pay via UPI
+            </label>
+            <label class="pay-option" id="method-cod" data-method="COD" style="display:none;">
+              <input type="radio" name="paymethod" style="width:auto;"> Cash on Delivery
+            </label>
+            <p class="fine" id="cod-hidden-note" style="color:var(--ink-soft);font-size:12.5px;margin-top:6px;">Currently only UPI payments are accepted.</p>
+          </div>
+
+          <!-- Step B1: UPI app picker -->
+          <div id="upi-apps-step" style="display:none;">
+            <div class="upi-app-grid">
+              <button type="button" class="upi-app-btn" data-app="gpay"><img class="app-icon" src="https://cdn.simpleicons.org/googlepay/4285F4" alt="Google Pay">Google Pay</button>
+              <button type="button" class="upi-app-btn" data-app="phonepe"><img class="app-icon" src="https://cdn.simpleicons.org/phonepe/5F259F" alt="PhonePe">PhonePe</button>
+              <button type="button" class="upi-app-btn" data-app="paytm"><img class="app-icon" src="https://cdn.simpleicons.org/paytm/00BAF2" alt="Paytm">Paytm</button>
+              <button type="button" class="upi-app-btn" data-app="universal"><span class="app-icon">🔗</span>Universal Link</button>
+            </div>
+            <div class="upi-manual-box">
+              App apne aap na khule to koi bhi UPI app manually kholkar bhej sakte hain:<br>
+              <b>UPI ID:</b> <span id="upi-vpa-display"></span> &nbsp;·&nbsp; <b>Amount:</b> ₹<span id="upi-amount-display"></span><br>
+              Payment note/remark me likhein: <b id="upi-note-display"></b>
+            </div>
+          </div>
+
+          <!-- Step B2: after an app was opened, self-declare payment done -->
+          <div id="upi-confirm-step" style="display:none;">
+            <div class="upi-confirm-box">
+              <div style="font-size:13px;color:var(--ink-soft);">Amount to pay</div>
+              <div class="amt">₹<span id="upi-confirm-amount">0</span></div>
+              <p style="font-size:13px;">Apne <b id="upi-confirm-app-name">UPI app</b> me payment complete karo, fir neeche confirm karo.</p>
+              <button type="button" class="btn btn-primary block" id="upi-confirm-paid-btn">I've Completed the Payment ✅</button>
+              <button type="button" class="btn btn-soft block" id="upi-change-app-btn" style="margin-top:10px;">Try a Different UPI App</button>
+            </div>
+            <p class="pay-fineprint">Payment place karne ke baad order "Payment Pending Verification" status me jayega. Hum aapka payment verify karke order confirm karenge.</p>
+          </div>
+
+          <!-- Step B (COD): only shown once selected, and only if admin-enabled -->
+          <div id="cod-confirm-step" style="display:none;">
+            <p id="cod-note">Aap delivery ke time cash me payment kar sakte hain.</p>
+          </div>
+
+          <p style="color:var(--ink-soft);font-size:12.5px;margin-top:14px;">🔒 Aapka payment safe hai — order confirm hote hi aapko update mil jayega.</p>
+          <p style="color:var(--ink-soft);font-size:12.5px;margin-top:8px;">📦 Apna <b>Order Number</b> sambhal ke rakh lijiye — checkout me diya gaya phone number aur yahi Order Number daal kar aap <b>Track Order</b> page par kabhi bhi dekh sakte hain ki aapka order kahan tak pahucha hai. Order Number bhool jayein ya koi aur dikkat ho, toh bejhijhak humein <b>WhatsApp</b> par message kar dijiye — hum turant help karenge. 💬</p>
+        </div>
+
+        <button type="button" id="checkout-continue-btn" class="btn btn-primary block" style="padding:15px;">Continue to Payment</button>
+        <button type="button" id="checkout-place-order-btn" class="btn btn-primary block" style="padding:15px;display:none;">Place Order</button>
+      </form>
+    </div>
+
+    <div class="order-summary-box">
+      <h3 style="font-size:1.15rem;margin-bottom:14px;">Order Summary</h3>
+      <div id="ck-items"></div>
+      <div class="summary-divider"></div>
+      <div class="summary-line"><span>Subtotal</span><span id="ck-subtotal">₹0</span></div>
+      <div class="summary-line"><span>Shipping</span><span id="ck-shipping">₹0</span></div>
+      <div class="summary-divider solid"></div>
+      <div class="summary-line bold"><span>Total</span><span id="ck-total">₹0</span></div>
+    </div>
+  </div>
+</main>
+
+<div id="app-footer"></div>
+<div id="app-overlays"></div>
+
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/wishlist.js"></script>
+<script src="../js/products.js"></script>
+<script src="../js/layout.js"></script>
+
+<!-- ===== Firebase / Firestore — same project + same "orders" collection the admin dashboard reads/writes ===== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { getFirestore, doc, setDoc, onSnapshot, serverTimestamp, Timestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+  // 👉 IMPORTANT: same config as admin-dashboard.html and track-order.html — one Firebase project, shared "orders" collection.
+  // Firebase Console → Project Settings → General → "Your apps" → SDK setup and configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBBUwOl7IQfb_m6YrP0xKnJzX_2XV33uiU",
+    authDomain: "statioanary-58151.firebaseapp.com",
+    projectId: "statioanary-58151",
+    storageBucket: "statioanary-58151.firebasestorage.app",
+    messagingSenderId: "728133963545",
+    appId: "1:728133963545:web:14c69be09ad1329275bf88",
+    measurementId: "G-YQL5Y1TGB5"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  window.LWLFirestoreTimestamp = Timestamp;
+
+  // Classic (non-module) script neeche isko call karega.
+  // orderId ko hi document ID banate hain (setDoc) — isse admin dashboard
+  // ke doc(db,"orders",orderId) calls (status change / shipping update)
+  // seedhe isi order document par kaam karte hain, no separate order system.
+  window.LWLSaveOrderToFirestore = async (orderId, orderDoc) => {
+    try {
+      await setDoc(doc(db, "orders", orderId), { ...orderDoc, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
+      console.log("Order saved to Firestore:", orderId);
+      return true;
+    } catch (err) {
+      console.error("Firestore save failed:", err);
+      return false; // fail silently — order still completes via localStorage
+    }
+  };
+
+  // Live-reads settings/general.codEnabled, toggled from admin-dashboard.html.
+  // COD only shows up here as a payment option while the admin has it ON.
+  window.LWLWatchCodEnabled = (callback) => {
+    try {
+      onSnapshot(doc(db, "settings", "general"), (snap) => {
+        callback(!!(snap.exists() && snap.data().codEnabled));
+      }, (err) => {
+        console.error("Could not read COD setting:", err);
+        callback(false); // fail safe: keep COD hidden if we can't confirm it's on
+      });
+    } catch (err) {
+      console.error(err);
+      callback(false);
+    }
+  };
+</script>
+
+<script>
+const ORDERS_KEY = "littlelovely_orders";
+
+// 👉 Replace with your real UPI ID (VPA) before going live — this is a
+// placeholder. Firebase Console does not hold this; it's just a string
+// used to build the upi://pay deep link amount/payee fields.
+const UPI_VPA = "YOUR-UPI-ID@bank";
+const UPI_PAYEE_NAME = "little&lovely";
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (LWLCart.items.length === 0) {
+    document.getElementById("checkout-empty").style.display = "block";
+    document.getElementById("checkout-layout").style.display = "none";
+    return;
+  }
+  const subtotal = LWLCart.subtotal();
+  const shipping = subtotal >= FREE_SHIP_THRESHOLD ? 0 : 49;
+  const total = subtotal + shipping;
+
+  document.getElementById("ck-items").innerHTML = LWLCart.items.map((i) => `
+    <div class="summary-line"><span>${LWL.esc(i.name)} × ${i.qty}</span><span>${LWL.money(i.price * i.qty)}</span></div>`).join("");
+  document.getElementById("ck-subtotal").textContent = LWL.money(subtotal);
+  document.getElementById("ck-shipping").textContent = shipping === 0 ? "Free" : LWL.money(shipping);
+  document.getElementById("ck-total").textContent = LWL.money(total);
+
+  const fields = [
+    { id: "ck-name", validate: (v) => v.trim().length > 1 },
+    { id: "ck-phone", validate: (v) => /^[0-9]{10}$/.test(v.trim()) },
+    { id: "ck-email", validate: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+    { id: "ck-address", validate: (v) => v.trim().length > 4 },
+    { id: "ck-city", validate: (v) => v.trim().length > 1 },
+    { id: "ck-state", validate: (v) => v.trim().length > 1 },
+    { id: "ck-pincode", validate: (v) => /^[0-9]{6}$/.test(v.trim()) },
+  ];
+
+  /* ================= PAYMENT METHOD STATE ================= */
+  let selectedMethod = "UPI"; // "UPI" | "COD"
+  let codEnabled = false;
+  let chosenUpiApp = null; // "gpay" | "phonepe" | "paytm" | "navi" | "other"
+  let deliveryData = null;
+  let currentOrderId = null;
+
+  const appLabels = { gpay: "Google Pay", phonepe: "PhonePe", paytm: "Paytm", universal: "your UPI app" };
+  // Best-effort Android package names so the right app opens directly where possible.
+  // "Universal Link" deliberately has no package restriction — it lets Android's
+  // own UPI app chooser handle it, so it works for any UPI app the customer has
+  // (Navi, BHIM, WhatsApp Pay, etc.) without guessing package names.
+  const androidPackages = { gpay: "com.google.android.apps.nbu.paisa.user", phonepe: "com.phonepe.app", paytm: "net.one97.paytm" };
+
+  function buildUpiNote() { return `Order ${currentOrderId} lovely`; }
+
+  function buildUpiLink(appKey) {
+    const amt = Number(total).toFixed(2);
+    const note = buildUpiNote();
+    const params = `pa=${encodeURIComponent(UPI_VPA)}&pn=${encodeURIComponent(UPI_PAYEE_NAME)}&am=${amt}&cu=INR&tn=${encodeURIComponent(note)}`;
+    const isAndroid = /android/i.test(navigator.userAgent);
+    if (isAndroid) {
+      const pkg = androidPackages[appKey];
+      const fallback = encodeURIComponent("https://play.google.com/store/search?q=upi+payment+app&c=apps");
+      return `intent://pay?${params}#Intent;scheme=upi;${pkg ? `package=${pkg};` : ""}S.browser_fallback_url=${fallback};end`;
+    }
+    // iOS / desktop: plain upi:// deep link — works if a UPI app on the device
+    // has registered that scheme; not guaranteed on iOS, hence the manual
+    // "UPI ID + amount" fallback text shown alongside the app buttons.
+    return `upi://pay?${params}`;
+  }
+
+  // ---- Step 1: choose UPI vs COD ----
+  document.getElementById("method-upi").addEventListener("click", () => setMethod("UPI"));
+  document.getElementById("method-cod").addEventListener("click", () => { if (codEnabled) setMethod("COD"); });
+
+  function setMethod(method) {
+    selectedMethod = method;
+    document.getElementById("method-upi").classList.toggle("active", method === "UPI");
+    document.getElementById("method-cod").classList.toggle("active", method === "COD");
+  }
+
+  window.LWLWatchCodEnabled((enabled) => {
+    codEnabled = enabled;
+    const codCard = document.getElementById("method-cod");
+    const codNote = document.getElementById("cod-hidden-note");
+    codCard.style.display = enabled ? "flex" : "none";
+    codCard.classList.toggle("disabled", !enabled);
+    codNote.style.display = enabled ? "none" : "block";
+    if (!enabled && selectedMethod === "COD") setMethod("UPI");
+  });
+
+  // ---- "Continue to Payment": validate delivery details, then reveal payment step ----
+  document.getElementById("checkout-continue-btn").addEventListener("click", () => {
+    let valid = true;
+    const data = {};
+    fields.forEach((f) => {
+      const input = document.getElementById(f.id);
+      const label = input.closest("label");
+      const ok = f.validate(input.value);
+      LWL.setFieldError(label, !ok);
+      if (!ok) valid = false;
+      data[f.id] = input.value.trim();
+    });
+    if (!valid) { LWL.toast("Please fix the highlighted fields"); return; }
+
+    deliveryData = data;
+    currentOrderId = "LL" + Date.now().toString().slice(-8);
+
+    document.getElementById("checkout-continue-btn").style.display = "none";
+    document.getElementById("payment-choice-step").style.display = "none";
+
+    if (selectedMethod === "COD" && codEnabled) {
+      document.getElementById("cod-confirm-step").style.display = "block";
+      document.getElementById("checkout-place-order-btn").style.display = "block";
+      document.getElementById("checkout-place-order-btn").textContent = "Place Order (Cash on Delivery)";
+    } else {
+      document.getElementById("upi-vpa-display").textContent = UPI_VPA;
+      document.getElementById("upi-amount-display").textContent = Math.round(total).toLocaleString("en-IN");
+      document.getElementById("upi-note-display").textContent = buildUpiNote();
+      document.getElementById("upi-apps-step").style.display = "block";
+    }
+  });
+
+  // ---- Step 2 (UPI): pick an app, open its deep link, then show confirm step ----
+  document.querySelectorAll(".upi-app-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      chosenUpiApp = btn.dataset.app;
+      window.location.href = buildUpiLink(chosenUpiApp);
+
+      document.getElementById("upi-apps-step").style.display = "none";
+      document.getElementById("upi-confirm-step").style.display = "block";
+      document.getElementById("upi-confirm-amount").textContent = Math.round(total).toLocaleString("en-IN");
+      document.getElementById("upi-confirm-app-name").textContent = appLabels[chosenUpiApp] || "your UPI app";
+    });
+  });
+
+  document.getElementById("upi-change-app-btn").addEventListener("click", () => {
+    document.getElementById("upi-confirm-step").style.display = "none";
+    document.getElementById("upi-apps-step").style.display = "block";
+  });
+
+  document.getElementById("upi-confirm-paid-btn").addEventListener("click", () => {
+    placeOrder({
+      method: `UPI - ${appLabels[chosenUpiApp] || "Other"}`,
+      status: "Pending Verification",
+    });
+  });
+
+  // ---- Step 2 (COD): place order straight away ----
+  document.getElementById("checkout-place-order-btn").addEventListener("click", () => {
+    if (selectedMethod === "COD" && codEnabled) {
+      placeOrder({ method: "Cash on Delivery", status: "Pending" });
+    }
+  });
+
+  /* ================= PLACE ORDER ================= */
+  async function placeOrder({ method, status }) {
+    const data = deliveryData;
+    const orderId = currentOrderId;
+    const btn = selectedMethod === "COD" ? document.getElementById("checkout-place-order-btn") : document.getElementById("upi-confirm-paid-btn");
+    if (btn) { btn.disabled = true; btn.textContent = "Placing Order..."; }
+
+    // Shape matches exactly what admin-dashboard.html reads/writes on the
+    // same "orders" collection — see the ORDERS COLLECTION SHAPE comment
+    // inside admin-dashboard.html for field-by-field reference.
+    const firestoreOrder = {
+      orderId,
+      customer: { name: data["ck-name"], email: data["ck-email"], phone: data["ck-phone"] },
+      shippingAddress: {
+        name: data["ck-name"], phone: data["ck-phone"],
+        addressLine1: data["ck-address"], addressLine2: "",
+        city: data["ck-city"], state: data["ck-state"], pincode: data["ck-pincode"], country: "India",
+      },
+      items: LWLCart.items.map((i) => ({
+        productId: i.id, name: i.name, price: i.price, quantity: i.qty,
+        image: i.image || "", subtotal: i.price * i.qty,
+        type: i.type || "product",
+        meta: i.meta || null,
+      })),
+      pricing: { subtotal, discount: 0, shipping, tax: 0, total },
+      payment: { method, status, transactionId: "" },
+      shipping: { courier: "", trackingNumber: "", trackingUrl: "" },
+      status: "Pending", // matches admin dashboard's ALL_STATUSES[0]; admin updates this going forward
+      statusHistory: [{ status: "Pending", timestamp: window.LWLFirestoreTimestamp ? window.LWLFirestoreTimestamp.now() : new Date(), updatedBy: "customer" }],
+    };
+
+    if (window.LWLSaveOrderToFirestore) {
+      await window.LWLSaveOrderToFirestore(orderId, firestoreOrder);
+    }
+
+    // Kept as an offline-friendly local backup only (not read by track-order.html anymore).
+    const order = { orderId, name: data["ck-name"], phone: data["ck-phone"], email: data["ck-email"], items: LWLCart.items, subtotal, shipping, total, status: "Pending", date: new Date().toISOString() };
+    const orders = LWL.store.get(ORDERS_KEY, []);
+    orders.push(order);
+    LWL.store.set(ORDERS_KEY, orders);
+    LWLCart.clear();
+
+    if (btn) { btn.disabled = false; }
+
+    const verifyNote = status === "Pending Verification"
+      ? `<p style="color:var(--ink-soft);font-size:13px;">We'll verify your UPI payment shortly and confirm your order.</p>`
+      : "";
+
+    document.getElementById("order-success-body").innerHTML = `
+      <p style="color:var(--ink-soft);font-size:14px;">Thank you, ${LWL.esc(order.name)}! Your order has been placed.</p>
+      ${verifyNote}
+      <div style="background:var(--bg-alt);border-radius:14px;padding:16px;margin:16px 0;text-align:center;">
+        <div style="font-size:12.5px;color:var(--ink-soft);">Order Number</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:2px;">
+          <div style="font-family:'Fraunces',serif;font-size:1.4rem;">${orderId}</div>
+          <button type="button" id="copy-order-id-btn" data-order-id="${orderId}" title="Copy Order Number" style="border:1.5px solid var(--line);background:#fff;border-radius:9px;padding:6px 8px;cursor:pointer;font-size:14px;line-height:1;">📋</button>
+        </div>
+        <div id="copy-order-id-msg" style="font-size:11.5px;color:var(--ok,#4CA37A);height:16px;margin-top:4px;font-weight:600;"></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="btn btn-primary" href="track-order.html?order=${orderId}">Track Order</a>
+        <a class="btn btn-soft" href="../index.html">Continue Shopping</a>
+      </div>`;
+    LWL.openModal("order-success-overlay");
+    document.getElementById("checkout-layout").style.display = "none";
+
+    const copyBtn = document.getElementById("copy-order-id-btn");
+    if (copyBtn) {
+      copyBtn.addEventListener("click", async () => {
+        const msg = document.getElementById("copy-order-id-msg");
+        const idToCopy = copyBtn.dataset.orderId;
+        try {
+          await navigator.clipboard.writeText(idToCopy);
+        } catch (err) {
+          // Fallback for browsers/contexts without Clipboard API access
+          const tmp = document.createElement("textarea");
+          tmp.value = idToCopy;
+          tmp.style.position = "fixed";
+          tmp.style.opacity = "0";
+          document.body.appendChild(tmp);
+          tmp.select();
+          document.execCommand("copy");
+          document.body.removeChild(tmp);
+        }
+        if (msg) {
+          msg.textContent = "Copied ✓";
+          setTimeout(() => { msg.textContent = ""; }, 2000);
+        }
+      });
+    }
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Your Order — little&amp;lovely</title>
+<meta name="description" content="Track your little&amp;lovely order status using your Order ID and phone number.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="app-header"></div>
+
+<main>
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / Track Order</div>
+    <h1>Track Your Order</h1>
+  </div>
+
+  <div class="section" style="padding-top:20px;">
+    <div class="track-form">
+      <form id="track-form">
+        <div class="form-grid">
+          <label class="full">Order ID<input type="text" id="track-order-id" placeholder="e.g. LL12345678" required></label>
+          <label class="full">Phone Number<input type="tel" id="track-phone" placeholder="10-digit phone number" required></label>
+        </div>
+        <button type="submit" class="btn btn-primary block" style="margin-top:16px;" id="track-submit-btn">Track Order</button>
+      </form>
+      <div id="track-result" style="margin-top:24px;"></div>
+    </div>
+  </div>
+</main>
+
+<div id="app-footer"></div>
+<div id="app-overlays"></div>
+
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/wishlist.js"></script>
+<script src="../js/products.js"></script>
+<script src="../js/layout.js"></script>
+
+<!-- ===== Firebase / Firestore — same project + same "orders" collection the admin dashboard reads/writes ===== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import {
+    getFirestore, doc, getDoc, onSnapshot, Timestamp,
+  } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+  // 👉 IMPORTANT: same config as checkout.html and admin-dashboard.html — one Firebase project, shared "orders" collection.
+ const firebaseConfig = {
+    apiKey: "AIzaSyBBUwOl7IQfb_m6YrP0xKnJzX_2XV33uiU",
+    authDomain: "statioanary-58151.firebaseapp.com",
+    projectId: "statioanary-58151",
+    storageBucket: "statioanary-58151.firebasestorage.app",
+    messagingSenderId: "728133963545",
+    appId: "1:728133963545:web:14c69be09ad1329275bf88",
+    measurementId: "G-YQL5Y1TGB5"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const TIMELINE_STATUSES = ["Pending", "Confirmed", "Processing", "Packed", "Shipped", "Out for Delivery", "Delivered"];
+  const TERMINAL_OTHER = ["Cancelled", "Returned", "Refunded"];
+
+  const resultEl = document.getElementById("track-result");
+  const form = document.getElementById("track-form");
+  const submitBtn = document.getElementById("track-submit-btn");
+  let liveUnsubscribe = null; // avoid stacking listeners across repeated searches
+
+  function toJsDate(v) {
+    if (!v) return null;
+    if (v instanceof Timestamp) return v.toDate();
+    if (v.toDate) return v.toDate();
+    if (v.seconds) return new Date(v.seconds * 1000);
+    return new Date(v);
+  }
+  function fmtDate(v) {
+    const d = toJsDate(v);
+    if (!d || isNaN(d.getTime())) return "—";
+    return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+  }
+
+  function renderNotFound() {
+    if (liveUnsubscribe) { liveUnsubscribe(); liveUnsubscribe = null; }
+    resultEl.innerHTML = `<p style="text-align:center;color:var(--ink-soft);font-size:14.5px;">No order found. Please check your Order ID and phone number and try again.</p>`;
+  }
+
+  function renderOrder(o) {
+    const status = o.status || "Pending";
+    const isTerminalOther = TERMINAL_OTHER.includes(status);
+    const currentIdx = TIMELINE_STATUSES.indexOf(status);
+
+    const trackerHtml = isTerminalOther
+      ? `<div style="background:var(--rose-soft);border-radius:14px;padding:16px;text-align:center;margin:20px 0;">
+           <div style="font-weight:700;color:var(--rose-deep);">This order is marked ${LWL.esc(status)}</div>
+           <div style="font-size:12.5px;color:var(--ink-soft);margin-top:4px;">It's outside the normal delivery timeline. Contact us on WhatsApp if you have questions.</div>
+         </div>`
+      : `<div class="order-status-track">
+          ${TIMELINE_STATUSES.map((s, i) => `
+            <div class="step ${i <= currentIdx ? "done" : ""}">
+              <div class="dot"></div>
+              <div class="label">${s}</div>
+            </div>`).join("")}
+        </div>`;
+
+    const shipping = o.shipping || {};
+    const shippingHtml = (shipping.courier || shipping.trackingNumber)
+      ? `<div style="border-top:1px solid var(--line);padding-top:14px;margin-top:14px;">
+          <div class="summary-line"><span>Courier</span><span>${LWL.esc(shipping.courier || "Not assigned")}</span></div>
+          <div class="summary-line"><span>Tracking #</span><span>${LWL.esc(shipping.trackingNumber || "—")}</span></div>
+          ${shipping.trackingUrl ? `<a href="${LWL.esc(shipping.trackingUrl)}" target="_blank" rel="noopener" class="btn btn-soft small block" style="margin-top:10px;">Track Shipment</a>` : ""}
+        </div>`
+      : "";
+
+    const items = o.items || [];
+    const pricing = o.pricing || {};
+
+    resultEl.innerHTML = `
+      ${trackerHtml}
+      <div style="border-top:1px solid var(--line);padding-top:16px;">
+        <div class="summary-line"><span>Order ID</span><span>${LWL.esc(o.orderId || "")}</span></div>
+        <div class="summary-line"><span>Placed on</span><span>${fmtDate(o.createdAt)}</span></div>
+        ${items.map((i) => `<div class="summary-line"><span>${LWL.esc(i.name)} × ${i.quantity}</span><span>${LWL.money(i.subtotal ?? (i.price * i.quantity))}</span></div>`).join("")}
+        <div class="summary-divider"></div>
+        <div class="summary-line"><span>Subtotal</span><span>${LWL.money(pricing.subtotal)}</span></div>
+        <div class="summary-line"><span>Shipping</span><span>${pricing.shipping ? LWL.money(pricing.shipping) : "Free"}</span></div>
+        <div class="summary-divider solid"></div>
+        <div class="summary-line bold"><span>Total</span><span>${LWL.money(pricing.total)}</span></div>
+        <div class="summary-line" style="margin-top:8px;"><span>Payment</span><span>${LWL.esc(o.payment?.method || "—")} · ${LWL.esc(o.payment?.status || "—")}</span></div>
+      </div>
+      ${shippingHtml}
+    `;
+  }
+
+  async function trackOrder(orderId, phone) {
+    if (liveUnsubscribe) { liveUnsubscribe(); liveUnsubscribe = null; }
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Searching...";
+    resultEl.innerHTML = "";
+
+    try {
+      const ref = doc(db, "orders", orderId);
+      const snap = await getDoc(ref);
+
+      if (!snap.exists() || (snap.data().customer?.phone || "").trim() !== phone.trim()) {
+        renderNotFound();
+        return;
+      }
+
+      // live-update the page the instant the admin dashboard changes this order's status/shipping
+      liveUnsubscribe = onSnapshot(ref, (liveSnap) => {
+        if (!liveSnap.exists()) { renderNotFound(); return; }
+        renderOrder({ orderId, ...liveSnap.data() });
+      });
+    } catch (err) {
+      console.error("Track order failed:", err);
+      resultEl.innerHTML = `<p style="text-align:center;color:var(--ink-soft);font-size:14.5px;">Something went wrong while looking up your order. Please try again in a moment.</p>`;
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Track Order";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const prefillId = LWL.qs("order");
+    if (prefillId) document.getElementById("track-order-id").value = prefillId;
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const orderId = document.getElementById("track-order-id").value.trim();
+      const phone = document.getElementById("track-phone").value.trim();
+      if (!orderId || !phone) return;
+      trackOrder(orderId, phone);
+    });
+  });
+</script>
+</body>
+</html> 

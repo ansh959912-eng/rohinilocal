@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>little&amp;lovely — Cute Imported Stationery, Custom Hampers &amp; Birthday Return Gifts</title>
+<meta name="description" content="Shop cute imported stationery, keychains, hair accessories &amp; kids' lamps, or build your own custom hamper and birthday return gift kits — packed beautifully, delivered across India.">
+<link rel="canonical" href="https://www.littleandlovely.example/index.html">
+<meta property="og:title" content="little&amp;lovely — Create Your Own Gift">
+<meta property="og:description" content="Cute imported finds, personalised hampers & birthday return gifts — made your way.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Store","name":"little&lovely","description":"Cute imported stationery, keychains, hair accessories, kids lamps, custom hampers and birthday return gifts.","priceRange":"₹8 - ₹1500"}
+</script>
+</head>
+<body>
+
+<div id="app-header"></div>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <span class="float-deco" style="top:18%; left:8%;">✨</span>
+    <span class="float-deco" style="top:60%; left:14%;">🎀</span>
+    <span class="float-deco" style="top:22%; right:10%;">🧸</span>
+    <span class="float-deco" style="top:64%; right:14%;">🎁</span>
+    <h1>Little Things.<br>Big Smiles.</h1>
+    <p class="sub">Cute imported finds, personalised hampers &amp; birthday return gifts — made your way.</p>
+    <div class="cta-row">
+      <button class="btn btn-primary" id="hero-create-btn">Create Your Gift 🎁</button>
+      <button class="btn btn-outline" id="hero-shop-btn">Shop Cute Finds</button>
+    </div>
+    <p class="fine">Perfect for birthdays · return gifts · gifting · everyday joy</p>
+  </section>
+
+  <!-- SHOP BY MOOD -->
+  <section class="section" style="padding-top:8px;">
+    <div class="section-heading center"><h2>Shop By Mood</h2></div>
+    <div class="mood-grid" id="mood-grid"></div>
+  </section>
+
+  <!-- USP -->
+  <section class="section section-alt">
+    <div class="section-heading center">
+      <div class="eyebrow">Your Gift, Your Way</div>
+      <h2>Discover, mix, and make it yours</h2>
+    </div>
+    <div class="usp-grid">
+      <div class="usp-card">
+        <div class="product-art tone-rose"><div class="glow"></div><span class="emoji">🧸</span></div>
+        <div class="step-label">PICK</div>
+        <h3>Pick Your Favourites</h3>
+        <p>Choose from our cute imported products.</p>
+      </div>
+      <div class="usp-card">
+        <div class="product-art tone-lavender"><div class="glow"></div><span class="emoji">🎀</span></div>
+        <div class="step-label">CUSTOMIZE</div>
+        <h3>Mix &amp; Match</h3>
+        <p>Combine stationery, keychains, accessories and kids products.</p>
+      </div>
+      <div class="usp-card">
+        <div class="product-art tone-peach"><div class="glow"></div><span class="emoji">🎁</span></div>
+        <div class="step-label">GIFT</div>
+        <h3>We Pack It Beautifully</h3>
+        <p>Turn your selection into a personalised hamper or return-gift kit.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <button class="btn btn-dark" id="usp-start-btn">Start Creating <span aria-hidden="true">→</span></button>
+    </div>
+  </section>
+
+  <!-- FRESH FINDS RAIL -->
+  <section class="section" data-rail-source="fresh">
+    <div class="rail-head">
+      <div><h3>Fresh Finds ✨</h3><p class="sub">New &amp; Trending</p></div>
+      <div class="rail-nav"><button data-rail="prev" aria-label="Scroll left"></button><button data-rail="next" aria-label="Scroll right"></button></div>
+    </div>
+    <div class="rail"></div>
+    <div class="view-all-wrap"><button class="btn btn-soft small" data-view-all="">View All</button></div>
+  </section>
+
+  <!-- HAMPER BUILDER -->
+  <section class="section" id="hamper-builder" style="background:linear-gradient(180deg, rgba(246,200,214,0.13), transparent);">
+    <div class="section-heading center">
+      <div class="eyebrow">Build Your Own Hamper</div>
+      <h2>Your gift. Your way.</h2>
+      <p>Pick an occasion, set a budget, choose your favourites — we'll pack it beautifully.</p>
+    </div>
+    <div class="builder-grid">
+      <div class="builder-panel">
+        <div class="step-label"><span class="step-num">1</span><span class="step-title">Choose occasion</span></div>
+        <div class="chip-row" id="hamper-occasion-chips"></div>
+
+        <div class="step-label"><span class="step-num">2</span><span class="step-title">Choose budget</span></div>
+        <div class="chip-row" id="hamper-budget-chips"></div>
+        <div id="hamper-custom-budget-wrap" style="display:none;margin:-14px 0 26px;">
+          <input type="number" id="hamper-custom-budget" placeholder="Enter your budget in ₹" style="max-width:220px;">
+        </div>
+
+        <div class="step-label"><span class="step-num">3</span><span class="step-title">Choose products</span></div>
+        <div class="builder-product-grid" id="hamper-product-grid"></div>
+
+        <div class="step-label"><span class="step-num">4</span><span class="step-title">Choose packaging</span></div>
+        <div class="chip-row" id="hamper-packaging-chips"></div>
+
+        <div class="step-label"><span class="step-num">5</span><span class="step-title">Personalise it</span></div>
+        <div class="field-grid">
+          <input type="text" id="hamper-recipient" placeholder="Recipient name">
+          <input type="text" id="hamper-theme-color" placeholder="Colour / theme preference">
+        </div>
+        <textarea id="hamper-message" placeholder="Birthday message / special instructions" style="margin-top:12px;width:100%;min-height:70px;resize:vertical;"></textarea>
+      </div>
+
+      <div class="builder-summary">
+        <h3 style="font-size:1.15rem;margin-bottom:14px;">Your Hamper Summary</h3>
+        <div id="hamper-summary-items"></div>
+        <div class="summary-divider"></div>
+        <div class="summary-line"><span>Subtotal</span><span id="hamper-subtotal-val">₹0</span></div>
+        <div class="summary-line"><span id="hamper-packaging-label">Packaging</span><span id="hamper-packaging-val">₹0</span></div>
+        <div class="summary-divider solid"></div>
+        <div class="summary-line bold"><span>Total</span><span id="hamper-total-val">₹0</span></div>
+        <div class="budget-note" id="hamper-budget-note" style="display:none;"></div>
+        <button class="btn btn-primary block" id="hamper-create-btn" style="margin-top:18px;">Create My Hamper 🎁</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICE STRIP -->
+  <section class="section" style="padding-top:16px;padding-bottom:40px;">
+    <div class="price-strip" id="price-strip"></div>
+  </section>
+
+  <!-- RETURN GIFTS -->
+  <section class="section section-alt" id="return-gifts">
+    <div class="section-heading center">
+      <div class="eyebrow">Birthday Return Gifts</div>
+      <h2>Make every birthday guest smile 🎉</h2>
+      <p>Cute, useful and affordable return gifts for kids.</p>
+    </div>
+    <div id="return-gift-builder">
+      <div class="chip-row" id="return-kit-tiles" style="justify-content:center;margin-bottom:30px;"></div>
+      <div style="max-width:560px;margin:0 auto;background:var(--card);border-radius:22px;border:1px solid var(--line);padding:24px;">
+        <div style="font-weight:600;font-size:15px;margin-bottom:12px;text-align:center;">How many guests?</div>
+        <div class="chip-row" id="return-guest-chips" style="justify-content:center;"></div>
+        <div id="return-custom-guests-wrap" style="display:none;text-align:center;margin:-10px 0 18px;">
+          <input type="number" id="return-custom-guests" placeholder="Enter number of guests" style="max-width:220px;">
+        </div>
+        <div style="font-weight:600;font-size:14px;margin:18px 0 10px;text-align:center;">Theme</div>
+        <div class="chip-row" id="return-theme-chips" style="justify-content:center;margin-bottom:18px;"></div>
+        <div class="field-grid" style="margin-bottom:12px;">
+          <input type="text" id="return-child-name" placeholder="Birthday child's name">
+          <input type="date" id="return-event-date">
+        </div>
+        <textarea id="return-message" placeholder="Message for the guests (optional)" style="width:100%;min-height:60px;resize:vertical;margin-bottom:16px;"></textarea>
+
+        <div class="summary-line"><span>Price per kit</span><span id="return-price-each">₹0</span></div>
+        <div class="summary-line"><span>Quantity</span><span id="return-guest-count">0</span></div>
+        <div class="summary-line"><span>Subtotal</span><span id="return-raw-total">₹0</span></div>
+        <div class="summary-line" id="return-discount-row" style="display:none;"><span>Bulk discount (<span id="return-discount-pct">0%</span>)</span><span id="return-discount-amt">₹0</span></div>
+        <div class="summary-divider solid"></div>
+        <div style="text-align:center;">
+          <div style="font-size:13px;color:var(--ink-soft);">Estimated total</div>
+          <div style="font-family:'Fraunces',serif;font-size:2rem;margin:4px 0 4px;" id="return-final-total">₹0</div>
+          <div id="return-save-note" style="display:none;color:var(--rose-deep);font-weight:600;font-size:13px;margin-bottom:14px;"></div>
+        </div>
+        <button class="btn btn-primary block" id="return-add-cart-btn" style="margin-top:10px;">Add Return Gifts to Cart</button>
+        <button class="btn btn-soft block" id="return-quote-btn" style="margin-top:10px;">Request Custom Quote</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATIONERY KIT BUILDER -->
+  <section class="section" id="stationery-kit-builder">
+    <div class="section-heading center">
+      <div class="eyebrow">Custom Stationery Kits</div>
+      <h2>Build identical kits, your way</h2>
+      <p>Perfect for classroom gifting, return gifts and events.</p>
+    </div>
+    <div class="builder-grid">
+      <div class="builder-panel">
+        <div class="step-label"><span class="step-num">1</span><span class="step-title">Choose items for one kit</span></div>
+        <div class="builder-product-grid" id="kit-items-grid"></div>
+      </div>
+      <div class="builder-summary">
+        <h3 style="font-size:1.15rem;margin-bottom:14px;">Kit Summary</h3>
+        <div id="kit-summary-items"></div>
+        <div class="summary-divider"></div>
+        <div class="summary-line bold"><span>Price per kit</span><span id="kit-per-kit-total">₹0</span></div>
+        <div style="margin-top:16px;font-size:13px;font-weight:600;">Number of identical kits</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
+          <button type="button" class="stepper-btn" id="kit-qty-dec">−</button>
+          <input type="number" id="kit-qty-input" style="width:70px;text-align:center;">
+          <button type="button" class="stepper-btn" id="kit-qty-inc">+</button>
+          <span style="font-size:12.5px;color:var(--ink-soft);">kits</span>
+        </div>
+        <div class="summary-divider" style="margin-top:16px;"></div>
+        <div class="summary-line"><span>Kits (<span id="kit-count-label">10</span>)</span><span id="kit-grand-raw">₹0</span></div>
+        <div class="summary-line" id="kit-discount-row" style="display:none;"><span>Bulk discount (<span id="kit-discount-pct">0%</span>)</span><span id="kit-discount-amt">₹0</span></div>
+        <div class="summary-divider solid"></div>
+        <div class="summary-line bold"><span>Total</span><span id="kit-grand-total">₹0</span></div>
+        <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;">
+          <button class="btn btn-soft small" id="kit-save-btn">Save Kit</button>
+          <button class="btn btn-soft small" id="kit-clear-btn">Clear Kit</button>
+        </div>
+        <button class="btn btn-primary block" id="kit-add-cart-btn" style="margin-top:10px;">Add Kit to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEST SELLERS -->
+  <section class="section" data-rail-source="bestsellers">
+    <div class="rail-head">
+      <div><h3>Everyone's Favourites</h3><p class="sub">Best Sellers</p></div>
+      <div class="rail-nav"><button data-rail="prev" aria-label="Scroll left"></button><button data-rail="next" aria-label="Scroll right"></button></div>
+    </div>
+    <div class="rail"></div>
+  </section>
+
+  <!-- KEYCHAINS -->
+  <section class="section" data-rail-source="Keychains">
+    <div class="rail-head">
+      <div><h3>Small Things, Big Personality</h3><p class="sub">Keychains</p></div>
+      <div class="rail-nav"><button data-rail="prev" aria-label="Scroll left"></button><button data-rail="next" aria-label="Scroll right"></button></div>
+    </div>
+    <div class="rail"></div>
+    <div class="view-all-wrap"><button class="btn btn-soft small" data-view-all="Keychains">View All</button></div>
+  </section>
+
+  <!-- HAIR ACCESSORIES -->
+  <section class="section section-alt" data-rail-source="Hair Accessories">
+    <div class="rail-head">
+      <div><h3>Pretty Little Details</h3><p class="sub">Hair Accessories</p></div>
+      <div class="rail-nav"><button data-rail="prev" aria-label="Scroll left"></button><button data-rail="next" aria-label="Scroll right"></button></div>
+    </div>
+    <div class="rail"></div>
+    <div class="view-all-wrap"><button class="btn btn-soft small" data-view-all="Hair Accessories">View All</button></div>
+  </section>
+
+  <!-- KIDS -->
+  <section class="section" data-rail-source="Kids">
+    <div class="rail-head">
+      <div><h3>Little Gifts For Little Smiles</h3><p class="sub">Kids</p></div>
+      <div class="rail-nav"><button data-rail="prev" aria-label="Scroll left"></button><button data-rail="next" aria-label="Scroll right"></button></div>
+    </div>
+    <div class="rail"></div>
+    <div class="view-all-wrap"><button class="btn btn-soft small" data-view-all="Kids">View All</button></div>
+  </section>
+
+  <!-- FANS & LAMPS -->
+  <section class="section section-alt" data-rail-source="Fans &amp; Lamps">
+    <div class="rail-head">
+      <div><h3>Cute Meets Useful</h3><p class="sub">Fans &amp; Lamps</p></div>
+      <div class="rail-nav"><button data-rail="prev" aria-label="Scroll left"></button><button data-rail="next" aria-label="Scroll right"></button></div>
+    </div>
+    <div class="rail"></div>
+    <div class="view-all-wrap"><button class="btn btn-soft small" data-view-all="Fans &amp; Lamps">View All</button></div>
+  </section>
+
+  <!-- OCCASION SHOPPING -->
+  <section class="section">
+    <div class="section-heading center"><h2>Shop by Occasion</h2></div>
+    <div class="occasion-grid" id="occasion-grid"></div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section section-alt">
+    <div class="section-heading center"><h2>Loved By Gift Givers ❤️</h2><p>Real Orders. Real Smiles.</p></div>
+    <div class="review-grid" id="review-grid"></div>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section class="section">
+    <div class="section-heading center"><h2>See What's Trending</h2></div>
+    <div class="insta-grid" id="insta-grid"></div>
+    <div style="text-align:center;margin-top:26px;">
+      <button class="btn btn-outline" id="insta-follow-btn">Follow Our Cute Corner</button>
+    </div>
+  </section>
+
+  <!-- BULK ORDERS -->
+  <section class="section bulk-band">
+    <div class="inner">
+      <h2>Planning gifts for 20, 50 or 100+ guests?</h2>
+      <p>Create customised kits according to your budget — for schools, birthday parties, events and corporate gifting.</p>
+      <button class="btn btn-dark" id="bulk-cta-btn">Get Bulk Quote</button>
+    </div>
+  </section>
+
+  <!-- CUSTOM ORDER CTA -->
+  <section class="section">
+    <div class="custom-band">
+      <h2>Can't find exactly what you're imagining?</h2>
+      <p>Tell us your budget, theme and occasion. We'll help you create it.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" id="custom-gift-btn">Customise a Gift</button>
+        <button class="btn btn-soft" id="custom-whatsapp-btn">💬 WhatsApp Us</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="app-footer"></div>
+<div id="app-overlays"></div>
+
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/wishlist.js"></script>
+<script src="js/products.js"></script>
+<script src="js/builders.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/app.js"></script>
+<script>
+  // fill rail nav arrow icons (placed after ICONS is loaded)
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('[data-rail="prev"]').forEach(b => b.innerHTML = ICONS.chevronLeft);
+    document.querySelectorAll('[data-rail="next"]').forEach(b => b.innerHTML = ICONS.chevronRight);
+  });
+</script>
+</body>
+</html>

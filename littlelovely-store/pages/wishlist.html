@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Wishlist — little&amp;lovely</title>
+<meta name="description" content="View and manage the products you've saved to your little&amp;lovely wishlist.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="app-header"></div>
+
+<main>
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / Wishlist</div>
+    <h1>Your Wishlist</h1>
+  </div>
+  <div class="section" id="wishlist-root"></div>
+</main>
+
+<div id="app-footer"></div>
+<div id="app-overlays"></div>
+
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/wishlist.js"></script>
+<script src="../js/products.js"></script>
+<script src="../js/layout.js"></script>
+<script>
+function renderWishlistPage() {
+  const root = document.getElementById("wishlist-root");
+  const items = Array.from(LWLWishlist.ids).map((id) => LWLProducts.byId(id)).filter(Boolean);
+  if (items.length === 0) {
+    root.innerHTML = `<div class="wishlist-empty">
+      <div class="emoji">💗</div>
+      <h3 style="font-size:1.3rem;margin-bottom:8px;">Your wishlist is empty</h3>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-bottom:20px;">Tap the heart on any product to save it here for later.</p>
+      <a class="btn btn-primary" href="shop.html">Shop Cute Finds</a>
+    </div>`;
+    return;
+  }
+  root.innerHTML = `<div class="product-grid">${items.map((p) => LWLProducts.cardHtml(p)).join("")}</div>`;
+}
+document.addEventListener("DOMContentLoaded", renderWishlistPage);
+document.addEventListener("click", (e) => {
+  if (e.target.closest('[data-action="toggle-wish"]')) setTimeout(renderWishlistPage, 10);
+});
+</script>
+</body>
+</html>

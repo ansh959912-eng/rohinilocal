@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQs — little&amp;lovely</title>
+<meta name="description" content="Frequently asked questions about shipping, returns, custom hampers, bulk return gifts and more at little&amp;lovely.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="app-header"></div>
+
+<main>
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / FAQs</div>
+    <h1>Frequently Asked Questions</h1>
+  </div>
+
+  <div class="section" style="padding-top:12px;max-width:760px;margin:0 auto;">
+    <div id="faq-accordion"></div>
+  </div>
+
+  <section class="section section-alt" style="text-align:center;">
+    <h2 style="font-size:1.6rem;margin-bottom:12px;">Still have questions?</h2>
+    <p style="color:var(--ink-soft);margin-bottom:20px;">We're happy to help over WhatsApp or email.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-primary" id="faq-whatsapp-btn">💬 Chat on WhatsApp</button>
+      <a class="btn btn-soft" href="contact.html">Contact Us</a>
+    </div>
+  </section>
+</main>
+
+<div id="app-footer"></div>
+<div id="app-overlays"></div>
+
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/wishlist.js"></script>
+<script src="../js/products.js"></script>
+<script src="../js/layout.js"></script>
+<script>
+const FAQ_IDS = ["shipping", "returns", "custom-hampers", "return-gifts", "bulk-orders", "customization", "payment", "order-tracking"];
+
+document.addEventListener("DOMContentLoaded", () => {
+  const wrap = document.getElementById("faq-accordion");
+  const hash = location.hash.replace("#", "");
+  wrap.innerHTML = FAQS.map((f, i) => `
+    <div class="accordion-item ${FAQ_IDS[i] === hash ? "open" : ""}" id="${FAQ_IDS[i]}">
+      <button type="button" class="accordion-btn" data-idx="${i}">
+        <span>${LWL.esc(f.q)}</span><span class="chev">${ICONS.chevronDown}</span>
+      </button>
+      <div class="accordion-panel"><p>${LWL.esc(f.a)}</p></div>
+    </div>`).join("");
+
+  wrap.querySelectorAll(".accordion-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const item = btn.closest(".accordion-item");
+      const wasOpen = item.classList.contains("open");
+      wrap.querySelectorAll(".accordion-item").forEach((i) => i.classList.remove("open"));
+      if (!wasOpen) item.classList.add("open");
+    });
+  });
+
+  if (hash) {
+    const target = document.getElementById(hash);
+    if (target) setTimeout(() => target.scrollIntoView({ behavior: "smooth", block: "center" }), 100);
+  }
+
+  document.getElementById("faq-whatsapp-btn").addEventListener("click", () => LWL.openWhatsapp("Hi! I have a question that's not answered in your FAQ."));
+});
+</script>
+</body>
+</html>

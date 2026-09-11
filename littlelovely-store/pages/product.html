@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">Product — little&amp;lovely</title>
+<meta name="description" id="page-desc" content="Shop cute imported products at little&amp;lovely.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="app-header"></div>
+
+<main id="product-main">
+  <div class="page-hero">
+    <div class="breadcrumb" id="pd-breadcrumb"></div>
+  </div>
+  <div id="product-root"></div>
+
+  <section class="section" id="pairs-section" style="display:none;">
+    <div class="rail-head"><div><h3>Pairs Well With</h3></div></div>
+    <div class="rail" id="pairs-rail"></div>
+  </section>
+
+  <section class="section section-alt" id="related-section" style="display:none;">
+    <div class="rail-head"><div><h3>Related Products</h3></div></div>
+    <div class="rail" id="related-rail"></div>
+  </section>
+
+  <section class="section" id="recent-section" style="display:none;">
+    <div class="rail-head"><div><h3>Recently Viewed</h3></div></div>
+    <div class="rail" id="recent-rail"></div>
+    <div class="view-all-wrap"><button class="btn btn-soft small" id="add-all-recent-btn">Add All To Cart</button></div>
+  </section>
+</main>
+
+<div id="app-footer"></div>
+<div id="app-overlays"></div>
+
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/wishlist.js"></script>
+<script src="../js/products.js"></script>
+<script src="../js/layout.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const id = LWL.qs("id");
+  const p = LWLProducts.byId(id);
+  const root = document.getElementById("product-root");
+
+  if (!p) {
+    root.innerHTML = `<div class="empty-state" style="padding:80px 20px;">
+      <p style="font-size:16px;">We couldn't find that product.</p>
+      <a class="btn btn-primary" href="shop.html" style="margin-top:14px;">Browse Shop</a>
+    </div>`;
+    document.getElementById("pd-breadcrumb").innerHTML = `<a href="../index.html">Home</a> / <a href="shop.html">Shop</a>`;
+    return;
+  }
+
+  document.title = `${p.name} — little&lovely`;
+  document.getElementById("page-title").textContent = `${p.name} — little&lovely`;
+  document.getElementById("page-desc").setAttribute("content", p.description);
+  document.getElementById("pd-breadcrumb").innerHTML = `<a href="../index.html">Home</a> / <a href="shop.html">Shop</a> / <a href="shop.html${LWL.setQuery({cat:p.cat})}">${p.cat}</a> / ${LWL.esc(p.name)}`;
+
+  LWLProducts.addRecentlyViewed(p.id);
+  let qty = 1;
+  let wished = LWLWishlist.has(p.id);
+
+  function renderProduct() {
+        const gallery = (p.images && p.images.length ? p.images : [null]).slice(0, 5);
+    root.innerHTML = `
+      <div class="pd-layout">
+        <div>
+          <div class="pd-gallery-main" id="pd-gallery-main">${LWL.productArt(p.icon, p.tone, "", gallery[0])}</div>
+          <div class="pd-gallery-thumbs">
+            ${gallery.map((img, i) => `<div class="pd-thumb ${i===0?"active":""}" data-idx="${i}">${LWL.productArt(p.icon, p.tone, "", img)}</div>`).join("")}
+          </div>
+        </div>
+        <div class="pd-info">
+          <div class="pd-meta">${p.cat} · ${p.stock > 0 ? `${p.stock} in stock` : "Out of stock"}</div>
+          <h1>${LWL.esc(p.name)}</h1>
+          ${LWL.starsHtml(p.rating, p.reviews)}
+          <div class="pd-price-row" style="margin-top:12px;">
+            <span class="now">${LWL.money(p.price)}</span>
+            <span class="mrp">${LWL.money(p.mrp)}</span>
+            <span class="off">${LWLProducts.discountPct(p)}% off</span>
+          </div>
+          <p class="pd-desc">${LWL.esc(p.description)}</p>
+          <div class="qty-selector">
+            <span style="font-weight:600;font-size:13.5px;">Quantity</span>
+            <button type="button" class="stepper-btn" id="pd-qty-dec">${ICONS.minus}</button>
+            <span class="val" id="pd-qty-val">1</span>
+            <button type="button" class="stepper-btn" id="pd-qty-inc">${ICONS.plus}</button>
+          </div>
+          <div class="pd-btn-row">
+            <button class="btn btn-primary" id="pd-add-cart-btn">${ICONS.plus} Add to Cart</button>
+            <button class="btn btn-dark" id="pd-buy-now-btn">Buy Now</button>
+            <button class="icon-only ${wished ? "active" : ""}" id="pd-wish-btn" aria-label="Toggle wishlist">${ICONS.heart(wished)}</button>
+            <button class="icon-only" id="pd-share-btn" aria-label="Share product">${ICONS.share}</button>
+          </div>
+        </div>
+      </div>
+    `;    root.querySelectorAll(".pd-thumb").forEach((t) => t.addEventListener("click", () => {
+      root.querySelectorAll(".pd-thumb").forEach((x) => x.classList.remove("active"));
+      t.classList.add("active");
+      document.getElementById("pd-gallery-main").innerHTML = LWL.productArt(p.icon, p.tone, "", gallery[t.dataset.idx]);
+    }));
+    document.getElementById("pd-qty-dec").onclick = () => { qty = Math.max(1, qty - 1); document.getElementById("pd-qty-val").textContent = qty; };
+    document.getElementById("pd-qty-inc").onclick = () => { qty = qty + 1; document.getElementById("pd-qty-val").textContent = qty; };
+    document.getElementById("pd-add-cart-btn").onclick = () => LWLCart.add(p, qty);
+    document.getElementById("pd-buy-now-btn").onclick = () => { LWLCart.add(p, qty); window.location.href = "checkout.html"; };
+    document.getElementById("pd-wish-btn").onclick = () => { wished = LWLWishlist.toggle(p.id, p.name); renderProduct(); };
+    document.getElementById("pd-share-btn").onclick = async () => {
+      const shareData = { title: p.name, text: `Check out ${p.name} on little&lovely!`, url: location.href };
+      if (navigator.share) { try { await navigator.share(shareData); } catch(e) {} }
+      else { await navigator.clipboard.writeText(location.href); LWL.toast("Link copied to clipboard"); }
+    };
+  }
+  renderProduct();
+
+  const pairs = LWLProducts.pairsWith(p);
+  if (pairs.length) { document.getElementById("pairs-section").style.display = "block"; document.getElementById("pairs-rail").innerHTML = pairs.map(x => LWLProducts.cardHtml(x)).join(""); }
+  const related = LWLProducts.related(p);
+  if (related.length) { document.getElementById("related-section").style.display = "block"; document.getElementById("related-rail").innerHTML = related.map(x => LWLProducts.cardHtml(x)).join(""); }
+  const recent = LWLProducts.recentlyViewed(p.id);
+  if (recent.length) {
+    document.getElementById("recent-section").style.display = "block";
+    document.getElementById("recent-rail").innerHTML = recent.map(x => LWLProducts.cardHtml(x)).join("");
+    document.getElementById("add-all-recent-btn").onclick = () => { recent.forEach(x => LWLCart.add(x)); LWL.toast("Added recently viewed items to bag"); };
+  }
+});
+</script>
+</body>
+</html>

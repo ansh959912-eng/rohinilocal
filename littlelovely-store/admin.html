@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — little&amp;lovely</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rose:#F6C8D6; --rose-deep:#E8869F; --lavender:#D9CFF0; --peach:#FCD9BE; --blue:#C9E4F6;
+  --ink:#332C3B; --ink-soft:#8A8296; --bg:#FFFBF8; --bg-alt:#FBF2EF; --card:#FFFFFF;
+  --line:#EFE3E4; --primary:#E1567B; --primary-dark:#C43F63; --ok:#4CA37A; --warn:#D19A3D; --err:#D14D4D;
+  --radius:16px;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg-alt);color:var(--ink);}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;margin:0;}
+input,select,button{font-family:inherit;font-size:14px;}
+input{padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;width:100%;outline:none;}
+input:focus{border-color:var(--rose-deep);}
+button{cursor:pointer;border:none;}
+.btn{padding:11px 20px;border-radius:30px;font-weight:600;font-size:14px;}
+.btn-primary{background:var(--primary);color:#fff;}
+.btn-primary:hover{background:var(--primary-dark);}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed;}
+.btn-soft{background:var(--bg-alt);color:var(--ink);border:1px solid var(--line);}
+
+/* login */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.login-box{background:#fff;border-radius:22px;padding:36px 32px;max-width:380px;width:100%;box-shadow:0 20px 50px rgba(180,90,110,.14);text-align:center;}
+.login-box .brand{font-size:1.5rem;margin-bottom:4px;}
+.login-box .brand span{color:var(--rose-deep);}
+.login-box p{color:var(--ink-soft);font-size:13.5px;margin:6px 0 22px;}
+.login-box label{display:block;text-align:left;font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:6px;}
+.login-box .field{margin-bottom:14px;}
+#login-error{color:var(--err);font-size:12.5px;margin-top:10px;min-height:16px;}
+
+/* dashboard */
+#dashboard-screen{display:none;}
+#top-bar{background:#fff;border-bottom:1px solid var(--line);padding:14px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5;gap:8px 14px;}
+#top-bar .brand{font-size:1.2rem;white-space:nowrap;}
+#top-bar .brand span{color:var(--rose-deep);}
+#top-bar .who{font-size:12.5px;color:var(--ink-soft);}
+main{max-width:1180px;margin:0 auto;padding:26px 20px 60px;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:24px;}
+.stat-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;}
+.stat-card .lbl{font-size:11.5px;color:var(--ink-soft);margin-bottom:6px;}
+.stat-card .val{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:600;}
+
+.analytics-wrap{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-bottom:20px;}
+
+/* ---- COD settings toggle (admin-controlled, read by checkout.html) ---- */
+.settings-bar{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+.settings-bar .lbl{font-weight:600;font-size:14px;}
+.settings-bar .desc{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+.switch{position:relative;display:inline-block;width:46px;height:26px;flex-shrink:0;}
+.switch input{opacity:0;width:0;height:0;}
+.switch .slider{position:absolute;cursor:pointer;inset:0;background:var(--line);border-radius:26px;transition:.2s;}
+.switch .slider::before{content:"";position:absolute;height:20px;width:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.25);}
+.switch input:checked + .slider{background:var(--ok);}
+.switch input:checked + .slider::before{transform:translateX(20px);}
+.switch input:disabled + .slider{opacity:.6;cursor:not-allowed;}
+.cod-state-label{font-size:12.5px;font-weight:700;}
+.cod-state-label.on{color:var(--ok);}
+.cod-state-label.off{color:var(--ink-soft);}
+.payment-status-select{padding:5px 8px;border-radius:8px;font-size:11.5px;font-weight:600;border:1.5px solid var(--line);margin-top:4px;background:#fff;}
+.pay-status-pending{color:var(--warn);}
+.pay-status-paid{color:var(--ok);}
+.pay-status-failed{color:var(--err);}
+
+/* ---- Customer messages (from contact.html's "Send Us a Message" form) ---- */
+.unread-badge{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;border-radius:20px;background:var(--primary);color:#fff;font-size:11px;font-weight:700;margin-left:8px;vertical-align:middle;}
+.msg-card{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px;background:#fff;}
+.msg-card.unread{border-color:var(--rose-deep);background:#FFFBFB;}
+.msg-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+.msg-who{font-weight:700;font-size:14px;}
+.msg-contact{font-size:12px;color:var(--ink-soft);}
+.msg-date{font-size:11px;color:var(--ink-soft);white-space:nowrap;}
+.msg-body{font-size:13.5px;color:var(--ink);line-height:1.6;background:var(--bg-alt);border-radius:10px;padding:10px 12px;margin-bottom:10px;white-space:pre-wrap;}
+.msg-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.msg-actions button{font-size:12px;padding:6px 12px;border-radius:20px;border:1.5px solid var(--line);background:#fff;font-weight:600;}
+.msg-actions button:hover{background:var(--bg-alt);}
+.msg-actions .msg-delete-btn:hover{background:#FBE0E0;border-color:#f0b0b0;color:var(--err);}
+.analytics-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.analytics-head h3{font-size:1.05rem;}
+.analytics-presets{display:flex;flex-wrap:wrap;gap:8px;align-items:end;margin-bottom:16px;}
+.chip-btn{background:var(--bg-alt);color:var(--ink);border:1.5px solid var(--line);border-radius:20px;padding:7px 14px;font-size:12.5px;font-weight:600;}
+.chip-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.date-inline{display:flex;flex-direction:column;font-size:10.5px;font-weight:600;color:var(--ink-soft);gap:3px;}
+.date-inline input{padding:6px 9px;font-size:12.5px;width:auto;}
+.analytics-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px;}
+.an-card{background:var(--bg-alt);border-radius:12px;padding:12px 14px;}
+.an-card .lbl{font-size:10.5px;color:var(--ink-soft);margin-bottom:4px;}
+.an-card .val{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:600;}
+.analytics-table-wrap{overflow-x:auto;max-height:340px;overflow-y:auto;border:1px solid var(--line);border-radius:12px;}
+.analytics-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.analytics-table thead th{position:sticky;top:0;background:var(--bg-alt);text-align:left;padding:9px 12px;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);border-bottom:1px solid var(--line);}
+.analytics-table tbody td{padding:8px 12px;border-bottom:1px solid var(--line);white-space:nowrap;}
+.analytics-table tbody tr:last-child td{border-bottom:none;}
+.analytics-table tbody tr:hover{background:var(--bg-alt);}
+.bar-track{background:var(--bg-alt);border-radius:6px;height:16px;width:100%;overflow:hidden;}
+.bar-fill{background:linear-gradient(90deg,var(--rose-deep),var(--primary));height:100%;border-radius:6px;}
+.an-empty{padding:20px;text-align:center;color:var(--ink-soft);font-size:12.5px;}
+
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.toolbar .filters{display:flex;gap:10px;flex-wrap:wrap;flex:1;}
+.toolbar select,.toolbar input{width:auto;min-width:150px;}
+.toolbar input{flex:1;min-width:180px;}
+#result-count-label{white-space:nowrap;font-size:12.5px;color:var(--ink-soft);}
+
+.orders-wrap{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+thead th{text-align:left;background:var(--bg-alt);padding:12px 14px;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);border-bottom:1px solid var(--line);}
+tbody td{padding:14px;border-bottom:1px solid var(--line);vertical-align:top;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--bg-alt);}
+.oid{font-weight:700;font-family:'Fraunces',serif;font-size:14.5px;}
+.small-muted{font-size:11.5px;color:var(--ink-soft);}
+.items-cell{max-width:220px;font-size:12.5px;color:var(--ink-soft);}
+.status-select{padding:7px 10px;border-radius:8px;font-size:12.5px;font-weight:600;border:1.5px solid var(--line);width:100%;background:#fff;}
+.pill{display:inline-block;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+.pill.pending{background:#FBEBD0;color:var(--warn);}
+.pill.confirmed{background:var(--blue);color:#2E6C93;}
+.pill.processing{background:var(--blue);color:#2E6C93;}
+.pill.packed{background:var(--lavender);color:#6A4FA0;}
+.pill.shipped{background:var(--lavender);color:#6A4FA0;}
+.pill.outfordelivery{background:var(--peach);color:#B4671E;}
+.pill.delivered{background:#DCF0E4;color:var(--ok);}
+.pill.cancelled,.pill.returned,.pill.refunded{background:#FBE0E0;color:var(--err);}
+
+/* shipping editor cell */
+.ship-field{margin-bottom:6px;}
+.ship-field label{display:block;font-size:10px;color:var(--ink-soft);margin-bottom:2px;font-weight:600;}
+.ship-field input{padding:7px 9px;font-size:12.5px;}
+.ship-save-btn{width:100%;padding:7px 8px;font-size:12px;margin-top:2px;}
+.ship-save-btn:disabled{opacity:.6;cursor:not-allowed;}
+
+.item-row{margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed var(--line);}
+.item-row:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.item-row .item-main{display:flex;gap:7px;align-items:center;}
+.item-row img{width:30px;height:30px;border-radius:7px;object-fit:cover;flex-shrink:0;border:1px solid var(--line);}
+.sub-items{margin:3px 0 0 37px;padding-left:8px;border-left:2px solid var(--line);}
+.sub-item-row{display:flex;gap:6px;align-items:center;font-size:11.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:2px;}
+.meta-row{margin:5px 0 0 37px;font-size:11.5px;color:var(--ink-soft);line-height:1.6;}
+.meta-row b{color:var(--ink);}
+.chip-inline{display:inline-flex;align-items:center;gap:5px;background:var(--bg-alt);border-radius:20px;padding:2px 10px 2px 3px;margin-left:2px;}
+.meta-thumb{width:20px;height:20px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid var(--line);}
+.meta-thumb-icon{display:inline-flex;align-items:center;justify-content:center;font-size:12px;background:#fff;}
+.personalise-block{background:var(--bg-alt);border-radius:10px;padding:6px 10px;margin-top:5px;}
+.personalise-block div{margin-top:1px;}
+
+.empty-row td{text-align:center;padding:60px 20px;color:var(--ink-soft);}
+#logout-btn{font-size:12.5px;color:var(--ink-soft);text-decoration:underline;background:none;flex-shrink:0;}
+.setup-note{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;font-size:12.5px;color:var(--ink-soft);margin-bottom:20px;}
+.setup-note code{background:var(--bg-alt);padding:1px 6px;border-radius:5px;}
+
+/* items column: compact one-line-per-item summary + "View Details" button
+   that opens the full breakdown (images, personalisation, etc.) in a modal
+   instead of cramming it all into the table cell. */
+.items-compact-line{font-size:12.5px;color:var(--ink);margin-bottom:4px;line-height:1.4;}
+.btn-view-items{display:inline-block;margin-top:4px;background:var(--bg-alt);color:var(--primary-dark);border:1px solid var(--line);border-radius:20px;padding:5px 13px;font-size:11.5px;font-weight:600;white-space:nowrap;}
+.btn-view-items:hover{background:var(--rose);}
+
+body.no-scroll{overflow:hidden;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(51,44,59,.55);z-index:50;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#fff;border-radius:20px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto;padding:22px 22px 26px;position:relative;box-shadow:0 24px 60px rgba(60,30,45,.25);}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line);position:sticky;top:-22px;background:#fff;padding-top:2px;}
+.modal-head h3{font-size:1.05rem;}
+.modal-close{background:none;border:none;font-size:24px;line-height:1;color:var(--ink-soft);cursor:pointer;padding:0 2px;}
+.modal-close:hover{color:var(--ink);}
+
+/* ---- phone layout: table becomes a stack of order cards ---- */
+@media(max-width:860px){
+  #top-bar{padding:12px 16px;}
+  #top-bar .brand{font-size:1.05rem;}
+  main{padding:18px 14px 50px;}
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .stat-card{padding:14px 15px;}
+  .stat-card .val{font-size:1.25rem;}
+  .analytics-wrap{padding:14px 15px;}
+  .analytics-presets{flex-direction:column;align-items:stretch;}
+  .analytics-presets .chip-btn{width:100%;}
+  .date-inline input{width:100%;}
+  .analytics-summary{grid-template-columns:repeat(2,1fr);}
+  .toolbar{flex-direction:column;align-items:stretch;}
+  .toolbar .filters{flex-direction:column;}
+  .toolbar select,.toolbar input{min-width:0;width:100%;}
+  #result-count-label{text-align:right;}
+
+  .orders-wrap{background:none;border:none;overflow:visible;}
+  table,thead,tbody,tr{display:block;width:100%;}
+  thead{display:none;}
+  tbody tr{background:#fff;border:1px solid var(--line);border-radius:var(--radius);margin-bottom:14px;padding:6px 16px;}
+  tbody tr:hover{background:#fff;}
+  tbody td{display:block;border-bottom:1px solid var(--line);padding:12px 0;}
+  tbody tr td:last-child{border-bottom:none;}
+  tbody td::before{content:attr(data-label);display:block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--rose-deep);margin-bottom:6px;}
+  .items-cell{max-width:none;}
+}
+
+</style>
+</head>
+<body>
+
+<div id="login-screen">
+  <div class="login-box">
+    <div class="brand">little<span>&amp;</span>lovely</div>
+    <p>Admin Dashboard — sign in to view orders</p>
+    <form id="login-form">
+      <div class="field"><label>Email</label><input type="email" id="login-email" required autocomplete="username"></div>
+      <div class="field"><label>Password</label><input type="password" id="login-password" required autocomplete="current-password"></div>
+      <button type="submit" class="btn btn-primary" style="width:100%;" id="login-btn">Sign In</button>
+      <div id="login-error"></div>
+    </form>
+  </div>
+</div>
+
+<div id="dashboard-screen">
+  <div id="top-bar">
+    <div class="brand">little<span>&amp;</span>lovely <span style="font-family:'Poppins',sans-serif;font-size:.7rem;color:var(--ink-soft);font-weight:600;">ADMIN</span></div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <span class="who" id="who-label"></span>
+      <button id="logout-btn">Sign Out</button>
+    </div>
+  </div>
+  <main>
+    <div class="setup-note" id="setup-note" style="display:none;"></div>
+
+    <div class="settings-bar">
+      <div>
+        <div class="lbl">💵 Cash on Delivery</div>
+        <div class="desc">Jab ON ho, tabhi customer checkout par COD select kar sakta hai. Default OFF — sirf UPI accept hota hai.</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="cod-state-label off" id="cod-state-label">OFF</span>
+        <label class="switch">
+          <input type="checkbox" id="cod-toggle" disabled>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="lbl">Total Orders</div><div class="val" id="stat-total">0</div></div>
+      <div class="stat-card"><div class="lbl">Pending Orders</div><div class="val" id="stat-pending">0</div></div>
+      <div class="stat-card"><div class="lbl">Delivered</div><div class="val" id="stat-delivered">0</div></div>
+      <div class="stat-card"><div class="lbl">Total Revenue</div><div class="val" id="stat-revenue">₹0</div></div>
+    </div>
+
+    <div class="analytics-wrap">
+      <div class="analytics-head">
+        <h3>📊 Order Analytics</h3>
+        <button type="button" id="analytics-toggle" class="btn-view-items">Hide</button>
+      </div>
+      <div id="analytics-body">
+        <div class="analytics-presets">
+          <button type="button" class="chip-btn active" data-range="all">All Time</button>
+          <button type="button" class="chip-btn" data-range="today">Today</button>
+          <button type="button" class="chip-btn" data-range="7">Last 7 Days</button>
+          <button type="button" class="chip-btn" data-range="30">Last 30 Days</button>
+          <button type="button" class="chip-btn" data-range="month">This Month</button>
+          <label class="date-inline">From<input type="date" id="date-from"></label>
+          <label class="date-inline">To<input type="date" id="date-to"></label>
+          <button type="button" id="date-clear-btn" class="btn-view-items">Clear</button>
+        </div>
+
+        <div class="analytics-summary">
+          <div class="an-card"><div class="lbl">Orders in range</div><div class="val" id="an-orders">0</div></div>
+          <div class="an-card"><div class="lbl">Revenue in range</div><div class="val" id="an-revenue">₹0</div></div>
+          <div class="an-card"><div class="lbl">Avg. order value</div><div class="val" id="an-avg">₹0</div></div>
+          <div class="an-card"><div class="lbl">Days with orders</div><div class="val" id="an-days">0</div></div>
+        </div>
+
+        <div class="analytics-table-wrap">
+          <table class="analytics-table">
+            <thead><tr><th>Date</th><th>Orders</th><th>Revenue</th><th style="width:40%;">Orders (relative)</th></tr></thead>
+            <tbody id="analytics-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="analytics-wrap" id="messages-wrap">
+      <div class="analytics-head">
+        <h3>📩 Customer Messages<span class="unread-badge" id="messages-unread-badge" style="display:none;">0</span></h3>
+        <button type="button" id="messages-toggle" class="btn-view-items">Hide</button>
+      </div>
+      <div id="messages-body">
+        <div id="messages-list"><p class="an-empty">Loading messages…</p></div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="filters">
+        <select id="status-filter">
+          <option value="">All Statuses</option>
+          <option value="Pending">Pending</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="Processing">Processing</option>
+          <option value="Packed">Packed</option>
+          <option value="Shipped">Shipped</option>
+          <option value="Out for Delivery">Out for Delivery</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="Returned">Returned</option>
+          <option value="Refunded">Refunded</option>
+        </select>
+        <input type="text" id="search-filter" placeholder="Search order ID, name or phone...">
+      </div>
+      <div class="small-muted" id="result-count-label"></div>
+    </div>
+
+
+    <div class="orders-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Order</th><th>Customer</th><th>Items</th><th>Payment</th><th>Total</th><th>Status</th><th>Shipping</th><th>Placed On</th>
+          </tr>
+        </thead>
+        <tbody id="orders-tbody">
+          <tr class="empty-row"><td colspan="8">Loading orders…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<!-- Order items detail modal — opened by the "View Details" button in the
+     Items column. Shows the full hamper/return-gift/stationery-kit
+     breakdown (images, packaging, personalisation) instead of cramming
+     it into the table cell. -->
+<div id="items-modal-overlay" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="items-modal-title">Order Items</h3>
+      <button type="button" id="items-modal-close" class="modal-close">&times;</button>
+    </div>
+    <div id="items-modal-body"></div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+import { getFirestore, collection, onSnapshot, doc, updateDoc, setDoc, deleteDoc, query, orderBy, arrayUnion, serverTimestamp, Timestamp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBBUwOl7IQfb_m6YrP0xKnJzX_2XV33uiU",
+  authDomain: "statioanary-58151.firebaseapp.com",
+  projectId: "statioanary-58151",
+  storageBucket: "statioanary-58151.firebasestorage.app",
+  messagingSenderId: "728133963545",
+  appId: "1:728133963545:web:14c69be09ad1329275bf88",
+  measurementId: "G-YQL5Y1TGB5"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const money = (n) => "₹" + Math.round(Number(n) || 0).toLocaleString("en-IN");
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+// Small thumbnail used for hamper products, packaging, return-gift kits/themes,
+// and stationery-kit items. Falls back to the emoji icon when there's no
+// real image URL (several catalog items, e.g. KIT_ITEMS, ship with image:"").
+const thumb = (imgUrl, icon) => imgUrl
+  ? `<img class="meta-thumb" src="${esc(imgUrl)}" alt="">`
+  : `<span class="meta-thumb meta-thumb-icon">${icon || "🎁"}</span>`;
+
+// Must match TIMELINE_STATUSES + TERMINAL_OTHER in track-order.html exactly,
+// since that's what the customer-facing tracker understands.
+const ALL_STATUSES = ["Pending", "Confirmed", "Processing", "Packed", "Shipped", "Out for Delivery", "Delivered", "Cancelled", "Returned", "Refunded"];
+
+function toJsDate(v) {
+  if (!v) return null;
+  if (v instanceof Timestamp) return v.toDate();
+  if (typeof v.toDate === "function") return v.toDate();
+  if (v.seconds) return new Date(v.seconds * 1000);
+  return new Date(v);
+}
+function fmtDate(v) {
+  const d = toJsDate(v);
+  if (!d || isNaN(d.getTime())) return "—";
+  return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+}
+
+let allOrders = [];
+let unsubscribeOrders = null;
+let unsubscribeSettings = null;
+let allMessages = [];
+let unsubscribeMessages = null;
+
+/* ---------- LOGIN ---------- */
+document.getElementById("login-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = document.getElementById("login-email").value.trim();
+  const password = document.getElementById("login-password").value;
+  const btn = document.getElementById("login-btn");
+  const errEl = document.getElementById("login-error");
+  errEl.textContent = "";
+  btn.disabled = true; btn.textContent = "Signing in...";
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    console.error(err);
+    const map = {
+      "auth/invalid-credential": "Incorrect email or password.",
+      "auth/user-not-found": "No admin account found with that email.",
+      "auth/wrong-password": "Incorrect password.",
+      "auth/invalid-email": "That doesn't look like a valid email.",
+      "auth/too-many-requests": "Too many attempts. Please wait and try again.",
+    };
+    errEl.textContent = map[err.code] || "Couldn't sign in. Please check your details.";
+  } finally {
+    btn.disabled = false; btn.textContent = "Sign In";
+  }
+});
+
+document.getElementById("logout-btn").addEventListener("click", () => signOut(auth));
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("dashboard-screen").style.display = "block";
+    document.getElementById("who-label").textContent = user.email;
+    startOrdersListener();
+    startSettingsListener();
+    startMessagesListener();
+  } else {
+    document.getElementById("dashboard-screen").style.display = "none";
+    document.getElementById("login-screen").style.display = "flex";
+    if (unsubscribeOrders) { unsubscribeOrders(); unsubscribeOrders = null; }
+    if (unsubscribeSettings) { unsubscribeSettings(); unsubscribeSettings = null; }
+    if (unsubscribeMessages) { unsubscribeMessages(); unsubscribeMessages = null; }
+  }
+});
+
+/* ---------- COD TOGGLE (settings/general.codEnabled) ---------- */
+// checkout.html reads this same doc/field to decide whether to show COD
+// as a payment option. UPI is always available; COD is opt-in per admin.
+function startSettingsListener() {
+  const toggle = document.getElementById("cod-toggle");
+  const label = document.getElementById("cod-state-label");
+  unsubscribeSettings = onSnapshot(doc(db, "settings", "general"), (snap) => {
+    const enabled = !!(snap.exists() && snap.data().codEnabled);
+    toggle.checked = enabled;
+    toggle.disabled = false;
+    label.textContent = enabled ? "ON" : "OFF";
+    label.className = "cod-state-label " + (enabled ? "on" : "off");
+  }, (err) => {
+    console.error("Settings listener error:", err);
+  });
+}
+
+document.getElementById("cod-toggle").addEventListener("change", async (e) => {
+  const enabled = e.target.checked;
+  e.target.disabled = true;
+  try {
+    await setDoc(doc(db, "settings", "general"), {
+      codEnabled: enabled,
+      updatedAt: serverTimestamp(),
+      updatedBy: auth.currentUser?.email || "admin",
+    }, { merge: true });
+  } catch (err) {
+    console.error("Could not update COD setting:", err);
+    alert("Couldn't update Cash on Delivery setting: " + err.message);
+    e.target.checked = !enabled; // revert UI on failure
+  } finally {
+    e.target.disabled = false;
+  }
+});
+
+/* ---------- CUSTOMER MESSAGES (contact.html "Send Us a Message") ---------- */
+function startMessagesListener() {
+  try {
+    const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
+    unsubscribeMessages = onSnapshot(q, (snap) => {
+      allMessages = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+      renderMessages();
+    }, (err) => {
+      console.error("Messages listener error:", err);
+      document.getElementById("messages-list").innerHTML = `<p class="an-empty">Couldn't load messages (${esc(err.message)}). Check Firestore rules for the <code>messages</code> collection.</p>`;
+    });
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function renderMessages() {
+  const listEl = document.getElementById("messages-list");
+  const badge = document.getElementById("messages-unread-badge");
+  const unreadCount = allMessages.filter(m => !m.read).length;
+
+  badge.textContent = unreadCount;
+  badge.style.display = unreadCount > 0 ? "inline-flex" : "none";
+
+  if (allMessages.length === 0) {
+    listEl.innerHTML = `<p class="an-empty">No messages yet.</p>`;
+    return;
+  }
+
+  listEl.innerHTML = allMessages.map(m => `
+    <div class="msg-card ${m.read ? "" : "unread"}">
+      <div class="msg-head">
+        <div>
+          <div class="msg-who">${esc(m.name || "—")}</div>
+          <div class="msg-contact">${esc(m.phone || "")}${m.phone && m.email ? " · " : ""}${esc(m.email || "")}</div>
+        </div>
+        <div class="msg-date">${fmtDate(m.createdAt)}</div>
+      </div>
+      <div class="msg-body">${esc(m.message || "")}</div>
+      <div class="msg-actions">
+        <button type="button" data-mark="${m._id}" data-read="${!m.read}">${m.read ? "Mark as Unread" : "✓ Mark as Read"}</button>
+        ${m.phone ? `<button type="button" data-whatsapp="${esc(m.phone)}">💬 Reply on WhatsApp</button>` : ""}
+        ${m.email ? `<button type="button" data-mailto="${esc(m.email)}">✉️ Reply by Email</button>` : ""}
+        <button type="button" class="msg-delete-btn" data-delete="${m._id}">🗑 Delete</button>
+      </div>
+    </div>`).join("");
+
+  listEl.querySelectorAll("[data-mark]").forEach(btn => {
+    btn.onclick = () => window.setMessageRead(btn.dataset.mark, btn.dataset.read === "true");
+  });
+  listEl.querySelectorAll("[data-whatsapp]").forEach(btn => {
+    btn.onclick = () => window.open(`https://wa.me/${btn.dataset.whatsapp.replace(/\D/g, "")}`, "_blank", "noopener");
+  });
+  listEl.querySelectorAll("[data-mailto]").forEach(btn => {
+    btn.onclick = () => window.location.href = `mailto:${btn.dataset.mailto}`;
+  });
+  listEl.querySelectorAll("[data-delete]").forEach(btn => {
+    btn.onclick = () => window.deleteMessage(btn.dataset.delete);
+  });
+}
+
+window.setMessageRead = async (docId, readValue) => {
+  try {
+    await updateDoc(doc(db, "messages", docId), { read: readValue });
+  } catch (err) {
+    console.error("Could not update message:", err);
+    alert("Couldn't update message: " + err.message);
+  }
+};
+
+window.deleteMessage = async (docId) => {
+  if (!confirm("Delete this message? This can't be undone.")) return;
+  try {
+    await deleteDoc(doc(db, "messages", docId));
+  } catch (err) {
+    console.error("Could not delete message:", err);
+    alert("Couldn't delete message: " + err.message);
+  }
+};
+
+document.getElementById("messages-toggle").addEventListener("click", (e) => {
+  const body = document.getElementById("messages-body");
+  const hidden = body.style.display === "none";
+  body.style.display = hidden ? "" : "none";
+  e.target.textContent = hidden ? "Hide" : "Show";
+});
+
+/* ---------- ORDERS LISTENER ---------- */
+function startOrdersListener() {
+  const setupNote = document.getElementById("setup-note");
+  try {
+    const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+    unsubscribeOrders = onSnapshot(q, (snap) => {
+      setupNote.style.display = "none";
+      allOrders = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+      renderOrders();
+      renderAnalytics();
+    }, (err) => {
+      console.error("Orders listener error:", err);
+      setupNote.style.display = "block";
+      setupNote.innerHTML = `Couldn't load orders (${esc(err.message)}). Make sure Firestore is enabled and your security rules allow reads for signed-in users on the <code>orders</code> collection.`;
+    });
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+/* ---------- STATUS UPDATE ---------- */
+window.updateOrderStatus = async (docId, newStatus) => {
+  try {
+    await updateDoc(doc(db, "orders", docId), {
+      status: newStatus,
+      updatedAt: serverTimestamp(),
+      // track-order.html doesn't read statusHistory yet, but keeping it populated
+      // costs nothing and makes a future "order timeline" easy to add.
+      statusHistory: arrayUnion({ status: newStatus, timestamp: Timestamp.now(), updatedBy: auth.currentUser?.email || "admin" }),
+    });
+  } catch (err) {
+    console.error("Could not update status:", err);
+    alert("Couldn't update status: " + err.message);
+  }
+};
+
+/* ---------- PAYMENT STATUS UPDATE ---------- */
+// UPI payments on a static site can't be auto-verified (no payment gateway/
+// webhook) — the customer self-declares "I've paid" at checkout, and the
+// admin confirms it here after checking their bank/UPI app before shipping.
+window.updatePaymentStatus = async (docId, newStatus) => {
+  try {
+    await updateDoc(doc(db, "orders", docId), {
+      "payment.status": newStatus,
+      updatedAt: serverTimestamp(),
+    });
+  } catch (err) {
+    console.error("Could not update payment status:", err);
+    alert("Couldn't update payment status: " + err.message);
+  }
+};
+
+/* ---------- SHIPPING INFO UPDATE ---------- */
+// track-order.html reads shipping.courier / shipping.trackingNumber / shipping.trackingUrl
+// live, so anything saved here shows up on the customer's tracking page instantly.
+window.saveShippingInfo = async (docId) => {
+  const row = document.querySelector(`tr[data-row-id="${docId}"]`);
+  if (!row) return;
+  const courier = row.querySelector(".ship-courier").value.trim();
+  const trackingNumber = row.querySelector(".ship-tracking").value.trim();
+  const trackingUrl = row.querySelector(".ship-url").value.trim();
+  const btn = row.querySelector(".ship-save-btn");
+  btn.disabled = true; btn.textContent = "Saving...";
+  try {
+    await updateDoc(doc(db, "orders", docId), {
+      shipping: { courier, trackingNumber, trackingUrl },
+      updatedAt: serverTimestamp(),
+    });
+    btn.textContent = "Saved ✓";
+    setTimeout(() => { btn.textContent = "Save"; btn.disabled = false; }, 1200);
+  } catch (err) {
+    console.error("Could not update shipping info:", err);
+    alert("Couldn't update shipping info: " + err.message);
+    btn.disabled = false; btn.textContent = "Save";
+  }
+};
+
+/* ---------- ANALYTICS: date range + daily orders/revenue breakdown ---------- */
+// Local (not UTC) YYYY-MM-DD key so "a day" matches what the admin sees on
+// their clock, and orders placed late at night don't leak into the next day.
+function dateKey(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+function startOfDay(d) { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; }
+function endOfDay(d) { const x = new Date(d); x.setHours(23, 59, 59, 999); return x; }
+function toISODate(d) { return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; }
+
+function applyDatePreset(range) {
+  document.querySelectorAll(".chip-btn").forEach(b => b.classList.toggle("active", b.dataset.range === range));
+  const today = new Date();
+  const fromInput = document.getElementById("date-from");
+  const toInput = document.getElementById("date-to");
+  if (range === "all") {
+    fromInput.value = ""; toInput.value = "";
+  } else if (range === "today") {
+    fromInput.value = toISODate(today); toInput.value = toISODate(today);
+  } else if (range === "7" || range === "30") {
+    const from = new Date(today); from.setDate(from.getDate() - (Number(range) - 1));
+    fromInput.value = toISODate(from); toInput.value = toISODate(today);
+  } else if (range === "month") {
+    const from = new Date(today.getFullYear(), today.getMonth(), 1);
+    fromInput.value = toISODate(from); toInput.value = toISODate(today);
+  }
+  renderAnalytics();
+}
+
+// Daily breakdown is driven only by the date-range controls (not the
+// status/search filters below) — it's meant as an at-a-glance "how many
+// orders came in, and on which day" view across the whole order history.
+function renderAnalytics() {
+  const fromVal = document.getElementById("date-from").value;
+  const toVal = document.getElementById("date-to").value;
+  const fromDate = fromVal ? startOfDay(new Date(fromVal + "T00:00:00")) : null;
+  const toDate = toVal ? endOfDay(new Date(toVal + "T00:00:00")) : null;
+
+  const filtered = allOrders.filter(o => {
+    const d = toJsDate(o.createdAt);
+    if (!d || isNaN(d.getTime())) return false;
+    if (fromDate && d < fromDate) return false;
+    if (toDate && d > toDate) return false;
+    return true;
+  });
+
+  const byDay = {};
+  filtered.forEach(o => {
+    const d = toJsDate(o.createdAt);
+    const key = dateKey(d);
+    if (!byDay[key]) byDay[key] = { date: d, orders: 0, revenue: 0 };
+    byDay[key].orders += 1;
+    byDay[key].revenue += Number(o.pricing?.total) || 0;
+  });
+  const days = Object.values(byDay).sort((a, b) => b.date - a.date);
+
+  const totalOrders = filtered.length;
+  const totalRevenue = filtered.reduce((s, o) => s + (Number(o.pricing?.total) || 0), 0);
+  document.getElementById("an-orders").textContent = totalOrders;
+  document.getElementById("an-revenue").textContent = money(totalRevenue);
+  document.getElementById("an-avg").textContent = money(totalOrders ? totalRevenue / totalOrders : 0);
+  document.getElementById("an-days").textContent = days.length;
+
+  const maxOrders = Math.max(1, ...days.map(d => d.orders));
+  const tbody = document.getElementById("analytics-tbody");
+  tbody.innerHTML = days.length === 0
+    ? `<tr><td colspan="4" class="an-empty">No orders in this range.</td></tr>`
+    : days.map(d => `
+      <tr>
+        <td>${d.date.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}</td>
+        <td>${d.orders}</td>
+        <td>${money(d.revenue)}</td>
+        <td><div class="bar-track"><div class="bar-fill" style="width:${Math.round(d.orders / maxOrders * 100)}%"></div></div></td>
+      </tr>`).join("");
+}
+
+document.querySelectorAll(".chip-btn").forEach(b => b.addEventListener("click", () => applyDatePreset(b.dataset.range)));
+document.getElementById("date-from").addEventListener("change", () => {
+  document.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+  renderAnalytics();
+});
+document.getElementById("date-to").addEventListener("change", () => {
+  document.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+  renderAnalytics();
+});
+document.getElementById("date-clear-btn").addEventListener("click", () => applyDatePreset("all"));
+document.getElementById("analytics-toggle").addEventListener("click", (e) => {
+  const body = document.getElementById("analytics-body");
+  const hidden = body.style.display === "none";
+  body.style.display = hidden ? "" : "none";
+  e.target.textContent = hidden ? "Hide" : "Show";
+});
+// Full, richly-detailed breakdown of an order's items — one block per item
+// with its image and, for hamper / return-gift / stationery-kit "container"
+// items, everything the customer picked inside it (products, packaging,
+// personalisation, kit, theme, guest count, etc.). Used inside the
+// "View Details" modal, not inline in the table (that stays compact).
+function buildItemsDetailHtml(items) {
+  return items.map(i => {
+    const meta = i.meta || null;
+    let detailsHtml = "";
+
+    if (i.type === "hamper" && meta) {
+      // Build Your Own Hamper — occasion, each picked product (with
+      // image), chosen packaging (with image), and personalisation.
+      const products = Array.isArray(meta.products) ? meta.products : [];
+      const pack = meta.packaging || null;
+      detailsHtml = `
+        ${meta.occasion ? `<div class="meta-row"><b>Occasion:</b> ${esc(meta.occasion)}</div>` : ""}
+        ${products.length ? `
+          <div class="meta-row"><b>Products picked:</b></div>
+          <div class="sub-items">
+            ${products.map(p => `
+              <div class="sub-item-row">
+                ${thumb(p.image || (p.images && p.images[0]), p.icon)}
+                <span>${esc(p.name)} × ${p.qty ?? 1} <span class="small-muted">(${money(p.price)})</span></span>
+              </div>`).join("")}
+          </div>` : ""}
+        ${pack ? `
+          <div class="meta-row"><b>Packaging:</b>
+            <span class="chip-inline">${thumb(pack.image, pack.icon)} ${esc(pack.name)} <span class="small-muted">(${money(pack.price)})</span></span>
+          </div>` : ""}
+        ${(meta.recipient || meta.theme || meta.message) ? `
+          <div class="meta-row personalise-block">
+            <b>Personalisation:</b>
+            ${meta.recipient ? `<div>For: ${esc(meta.recipient)}</div>` : ""}
+            ${meta.theme ? `<div>Theme / colour: ${esc(meta.theme)}</div>` : ""}
+            ${meta.message ? `<div>Message: “${esc(meta.message)}”</div>` : ""}
+          </div>` : ""}`;
+    } else if (i.type === "return-gift" && meta) {
+      // Birthday Return Gifts — selected kit (image+price), guest count,
+      // selected theme (image), and event/child details.
+      const kit = meta.kitDetails || null;
+      const theme = meta.themeDetails || null;
+      detailsHtml = `
+        ${kit ? `
+          <div class="meta-row"><b>Kit:</b>
+            <span class="chip-inline">${thumb(kit.image, kit.icon)} ${esc(kit.name)} <span class="small-muted">(${money(kit.price)} each)</span></span>
+          </div>` : ""}
+        <div class="meta-row"><b>Guests:</b> ${esc(meta.guests ?? "—")}</div>
+        ${theme ? `
+          <div class="meta-row"><b>Theme:</b>
+            <span class="chip-inline">${thumb(theme.image, theme.icon)} ${esc(theme.name)}</span>
+          </div>` : (meta.theme ? `<div class="meta-row"><b>Theme:</b> ${esc(meta.theme)}</div>` : "")}
+        ${(meta.childName || meta.eventDate || meta.message) ? `
+          <div class="meta-row personalise-block">
+            ${meta.childName ? `<div>Child's Name: ${esc(meta.childName)}</div>` : ""}
+            ${meta.eventDate ? `<div>Event Date: ${esc(meta.eventDate)}</div>` : ""}
+            ${meta.message ? `<div>Message: “${esc(meta.message)}”</div>` : ""}
+          </div>` : ""}`;
+    } else if (i.type === "stationery-kit" && meta) {
+      // Custom Stationery Kits — kit summary (each item, with image/icon)
+      // and how many identical kits were ordered.
+      const subItems = Array.isArray(meta.items) ? meta.items : [];
+      detailsHtml = `
+        ${meta.kits ? `<div class="meta-row"><b>Identical Kits:</b> × ${esc(meta.kits)}</div>` : ""}
+        ${subItems.length ? `
+          <div class="meta-row"><b>Kit contains:</b></div>
+          <div class="sub-items">
+            ${subItems.map(s => `
+              <div class="sub-item-row">
+                ${thumb(s.image, s.icon)}
+                <span>${esc(s.name)} × ${s.qty ?? s.quantity ?? 1} <span class="small-muted">(${money(s.price)})</span></span>
+              </div>`).join("")}
+          </div>` : ""}`;
+    }
+
+    return `
+    <div class="item-row">
+      <div class="item-main">
+        ${i.image ? `<img src="${esc(i.image)}" alt="">` : ""}
+        <span>${esc(i.name)} × ${i.quantity} <span class="small-muted">(${money(i.subtotal ?? (i.price * i.quantity))})</span></span>
+      </div>
+      ${detailsHtml}
+    </div>`;
+  }).join("");
+}
+
+// Compact one-line-per-item summary shown directly in the table's Items
+// column, so the table stays scannable. Full picks/personalisation live
+// behind the "View Details" button (buildItemsDetailHtml, in the modal).
+function buildItemsCompactHtml(items) {
+  return items.map(i => `
+    <div class="items-compact-line">${esc(i.name)} × ${i.quantity} <span class="small-muted">(${money(i.subtotal ?? (i.price * i.quantity))})</span></div>`).join("");
+}
+
+/* ---------- ITEMS DETAIL MODAL ---------- */
+window.openItemsModal = (orderId) => {
+  const order = allOrders.find(o => o._id === orderId);
+  if (!order) return;
+  const items = Array.isArray(order.items) ? order.items : [];
+  document.getElementById("items-modal-title").textContent = `${order.orderId || orderId} — Items`;
+  document.getElementById("items-modal-body").innerHTML = buildItemsDetailHtml(items) || "<p class=\"small-muted\">No items.</p>";
+  document.getElementById("items-modal-overlay").classList.add("open");
+  document.body.classList.add("no-scroll");
+};
+function closeItemsModal() {
+  document.getElementById("items-modal-overlay").classList.remove("open");
+  document.body.classList.remove("no-scroll");
+}
+document.getElementById("items-modal-close").addEventListener("click", closeItemsModal);
+document.getElementById("items-modal-overlay").addEventListener("click", (e) => {
+  if (e.target.id === "items-modal-overlay") closeItemsModal();
+});
+
+/* ---------- RENDER ---------- */
+function statusPillClass(s) {
+  return String(s || "Pending").toLowerCase().replace(/[^a-z]/g, "");
+}
+
+function renderOrders() {
+  const statusFilter = document.getElementById("status-filter").value;
+  const searchTerm = document.getElementById("search-filter").value.trim().toLowerCase();
+
+  let list = [...allOrders];
+  if (statusFilter) list = list.filter(o => o.status === statusFilter);
+  if (searchTerm) {
+    list = list.filter(o => {
+      const customer = o.customer || {};
+      return (o.orderId || "").toLowerCase().includes(searchTerm) ||
+        (customer.name || "").toLowerCase().includes(searchTerm) ||
+        (customer.phone || "").includes(searchTerm);
+    });
+  }
+
+  document.getElementById("result-count-label").textContent = `${list.length} order${list.length !== 1 ? "s" : ""}`;
+
+  const tbody = document.getElementById("orders-tbody");
+  if (list.length === 0) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="8">No orders found.</td></tr>`;
+  } else {
+    tbody.innerHTML = list.map(o => {
+      const customer = o.customer || {};
+      const addr = o.shippingAddress || {};
+      const pricing = o.pricing || {};
+      const payment = o.payment || {};
+      const shipping = o.shipping || {};
+      const items = Array.isArray(o.items) ? o.items : [];
+      const itemsHtml = items.length
+        ? buildItemsCompactHtml(items) + `<button type="button" class="btn-view-items" data-order-id="${o._id}">🔍 View Details</button>`
+        : "—";
+      const dateStr = fmtDate(o.createdAt);
+      const status = o.status || "Pending";
+
+      return `<tr data-row-id="${o._id}">
+        <td data-label="Order"><div class="oid">${esc(o.orderId || o._id)}</div></td>
+        <td data-label="Customer">
+          <div style="font-weight:600;">${esc(customer.name || "—")}</div>
+          <div class="small-muted">${esc(customer.phone || "")}</div>
+          <div class="small-muted">${esc(customer.email || "")}</div>
+          <div class="small-muted">${esc(addr.addressLine1 || "")}${addr.addressLine1 ? ", " : ""}${esc(addr.city || "")}${addr.city && addr.state ? ", " : ""}${esc(addr.state || "")} ${esc(addr.pincode || "")}</div>
+        </td>
+        <td data-label="Items" class="items-cell">${itemsHtml}</td>
+        <td data-label="Payment">
+          ${esc(payment.method || "—")}<br>
+          <select class="payment-status-select pay-status-${String(payment.status || "Pending").toLowerCase()}" data-doc-id="${o._id}" data-role="payment-status">
+            ${["Pending", "Paid", "Failed"].map(s => `<option value="${s}" ${(payment.status || "Pending") === s ? "selected" : ""}>${s}</option>`).join("")}
+          </select>
+        </td>
+        <td data-label="Total" style="font-weight:700;">${money(pricing.total)}</td>
+        <td data-label="Status">
+          <span class="pill ${statusPillClass(status)}" style="margin-bottom:6px;display:inline-block;">${esc(status)}</span><br>
+          <select class="status-select" data-doc-id="${o._id}">
+            ${ALL_STATUSES.map(s => `<option value="${s}" ${s === status ? "selected" : ""}>${s}</option>`).join("")}
+          </select>
+        </td>
+        <td data-label="Shipping" style="min-width:170px;">
+          <div class="ship-field"><label>Courier</label><input type="text" class="ship-courier" placeholder="e.g. Delhivery" value="${esc(shipping.courier || "")}"></div>
+          <div class="ship-field"><label>Tracking #</label><input type="text" class="ship-tracking" placeholder="Tracking number" value="${esc(shipping.trackingNumber || "")}"></div>
+          <div class="ship-field"><label>Tracking URL</label><input type="text" class="ship-url" placeholder="https://…" value="${esc(shipping.trackingUrl || "")}"></div>
+          <button class="btn btn-soft ship-save-btn">Save</button>
+        </td>
+        <td data-label="Placed On" class="small-muted">${dateStr}</td>
+      </tr>`;
+    }).join("");
+  }
+
+  document.querySelectorAll(".status-select").forEach(sel => {
+    sel.onchange = () => window.updateOrderStatus(sel.dataset.docId, sel.value);
+  });
+  document.querySelectorAll('[data-role="payment-status"]').forEach(sel => {
+    sel.onchange = () => {
+      sel.className = "payment-status-select pay-status-" + sel.value.toLowerCase();
+      window.updatePaymentStatus(sel.dataset.docId, sel.value);
+    };
+  });
+  document.querySelectorAll(".ship-save-btn").forEach(btn => {
+    btn.onclick = () => window.saveShippingInfo(btn.closest("tr").dataset.rowId);
+  });
+  document.querySelectorAll(".btn-view-items").forEach(btn => {
+    btn.onclick = () => window.openItemsModal(btn.dataset.orderId);
+  });
+
+  // stats (based on full unfiltered order set)
+  const total = allOrders.length;
+  const pending = allOrders.filter(o => o.status === "Pending").length;
+  const delivered = allOrders.filter(o => o.status === "Delivered").length;
+  const revenue = allOrders.reduce((s, o) => s + (Number(o.pricing?.total) || 0), 0);
+  document.getElementById("stat-total").textContent = total;
+  document.getElementById("stat-pending").textContent = pending;
+  document.getElementById("stat-delivered").textContent = delivered;
+  document.getElementById("stat-revenue").textContent = money(revenue);
+}
+
+document.getElementById("status-filter").addEventListener("change", renderOrders);
+document.getElementById("search-filter").addEventListener("input", renderOrders);
+</script>
+</body>
+</html>
