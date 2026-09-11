@@ -343,6 +343,12 @@ header.site-header{
 .step-title{ font-weight:600; font-size:15px; }
 .chip-row{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:26px; }
 .builder-product-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-bottom:26px; }
+@media (max-width:600px){ 
+  .builder-product-grid{ grid-template-columns:repeat(3,1fr); gap:8px; } 
+}
+@media (max-width:380px){ 
+  .builder-product-grid{ gap:6px; } 
+}
 .bp-card{ border:1px solid var(--line); border-radius:16px; padding:12px; text-align:center; }
 .bp-card .emoji{ font-size:26px; }
 .bp-card .name{ font-size:12.5px; font-weight:600; margin:6px 0 2px; }
