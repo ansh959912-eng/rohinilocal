@@ -526,18 +526,18 @@
       { id:'dairy_swiss10', name:'Anmol Swiss Roll Strawberry',                     image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDJLI0gRhbEz0umbqkxChMtHxU2wr-QjRv97FMSkoTrAq8s7iZPRVGtvc1&s=10',     emoji:'🥛',                   price:10,  mrp:10,  category:'dairy', stock:20 },
       { id:'dairy_swisschoco', name:'Anmol Swiss Roll Chocolate',                     image:'https://dukaan.b-cdn.net/700x700/webp/media/96f9c76c-9e41-409d-9666-3a24cedf5589.jpg',     emoji:'🥛',                   price:10,  mrp:10,  category:'dairy', stock:20 },
     
-   {id:'nestle-everyday-powder-10',name:'Nestle Everyday Powder',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165518/nestle_everyday_10.webp',emoji:'🥛',weight:'1pcs',price:10,mrp:10,category:'dairy',stock:20},
-   {id:'nestle-everyday-powder-5',name:'Nestle Everyday Powder',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165518/nestle_everyday_10.webp',emoji:'🥛',weight:'1pcs',price:5,mrp:5,category:'dairy',stock:20},
-    {id:'nestle-everyday-powder-2',name:'Nestle Everyday Powder',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165518/nestle_everyday_10.webp',emoji:'🥛',weight:'1pcs',price:2,mrp:2,category:'dairy',stock:20},
+   {id:'nestle-everyday-powder-10',name:'Nestle Everyday Powder',image:'https://img.clevup.in/414021/SKU-1707_0-1767026644148.jpg?width=600&format=webp',emoji:'🥛',weight:'1pcs',price:10,mrp:10,category:'dairy',stock:20},
+   {id:'nestle-everyday-powder-5',name:'Nestle Everyday Powder',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJgr2KQzosBBZmFmu0NqC-58JKeG_iiqCTe77EBPyI7mLjhfh79ElNuG4&s=10',emoji:'🥛',weight:'1pcs',price:5,mrp:5,category:'dairy',stock:20},
+    {id:'nestle-everyday-powder-2',name:'Nestle Everyday Powder',image:'https://images.jdmagicbox.com/quickquotes/images_main/nestle-everyday-dairy-creamer-450g-2220128933-cyw3em2i.jpg',emoji:'🥛',weight:'1pcs',price:2,mrp:2,category:'dairy',stock:20},
 
-   {id:'bournvita_30',name:'Bourn Vita',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781537278/510f6445-1298-4617-a324-a98737846922_1_b0de879f-80ed-4f7f-9036-60e4e5b1e322.png',emoji:'🍫',weight:'1pcs',price:30,mrp:30,category:'dairy',stock:20},
-{id:'bournvita_5',name:'Bourn Vita',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781537278/510f6445-1298-4617-a324-a98737846922_1_b0de879f-80ed-4f7f-9036-60e4e5b1e322.png',emoji:'🍫',weight:'1pcs',price:5,mrp:5,category:'dairy',stock:20},
+   {id:'bournvita_30',name:'Bourn Vita',image:'https://5.imimg.com/data5/SELLER/Default/2023/2/PP/UG/EB/144328445/parle-biscuit.jpg',emoji:'🍫',weight:'1pcs',price:30,mrp:30,category:'dairy',stock:20},
+{id:'bournvita_5',name:'Bourn Vita',image:'https://dukaan.b-cdn.net/1000x1000/webp/media/40ef3394-ec2e-4721-a4f8-6503fa969399.png',emoji:'🍫',weight:'1pcs',price:5,mrp:5,category:'dairy',stock:20},
 
-{id:'coffee_nescafe_100gm',name:'Nescafe Coffee',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421779/image/coffee.jpg',emoji:'☕',weight:'100gm',price:100,mrp:100,category:'dairy',stock:20},
-{id:'coffee_nescafe_10',name:'Nescafe Coffee',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421779/image/coffee0.png',emoji:'☕',weight:'1 pcs',price:10,mrp:10,category:'dairy',stock:20},
-{id:'coffee_nescafe_2',name:'Nescafe Coffee',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421784/image/custarpng',emoji:'☕',weight:'1 pcs',price:2,mrp:2,category:'dairy',stock:20},
+{id:'coffee_nescafe_100gm',name:'Nescafe Coffee',image:'https://www.bbassets.com/media/uploads/p/l/40208513_1-nescafe-classic-pure-soluble-coffee.jpg',emoji:'☕',weight:'100gm',price:100,mrp:100,category:'dairy',stock:20},
+{id:'coffee_nescafe_10',name:'Nescafe Coffee',image:'https://objectstorage.ap-hyderabad-1.oraclecloud.com/n/axg29whcmhb3/b/tbn-prod-assets/o/PRODUCT_NEW/PRODUCT_104578945.jpeg',emoji:'☕',weight:'1 pcs',price:10,mrp:10,category:'dairy',stock:20},
+{id:'coffee_nescafe_2',name:'Nescafe Coffee',image:'https://5.imimg.com/data5/SELLER/Default/2021/11/BL/VT/NN/3793336/nescafe-classic-instant-coffee-sachet.jpg',emoji:'☕',weight:'1 pcs',price:2,mrp:2,category:'dairy',stock:20},
 
-{id:'coffee_nescafe_2pack',name:'Nescafe Coffee Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421784/image/custarpng',emoji:'☕',weight:'1 pcs',price:2,mrp:2,category:'pack',stock:20},
+{id:'coffee_nescafe_2pack',name:'Nescafe Coffee Pack',image:'https://www.bbassets.com/media/uploads/p/xl/40111432-7_6-nescafe-classic-coffee.jpg',emoji:'☕',weight:'1 pcs',price:2,mrp:2,category:'pack',stock:20},
 
 
     // ══ TOOTHPASTE & PERSONAL ══
