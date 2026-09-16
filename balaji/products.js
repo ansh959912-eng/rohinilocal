@@ -849,7 +849,7 @@
     {id:'himgange-oil-1pack',name:'Himgange Oil Pack',image:'https://pbs.twimg.com/media/Ec9eN9AUYAEeXng.jpg',emoji:'🧴',price:1,mrp:1,category:'pack',stock:15},
 
 
-{id:'personal_ezee_liquid_pack',name:'Ezee Liquid Pack',image:'https://5.imimg.com/data5/ECOM/Default/2023/8/334165424/HL/TJ/NA/133894414/1667884898690-sku-0853-0.jpeg',emoji:'🧺',weight:'1pcs',price:5,mrp:5,category:'pack',stock:20},
+{id:'personal_ezee_liquid_pack',name:'Ezee Liquid Pack',image:'https://rukminim3.flixcart.com/image/480/480/ktvucnk0/liquid-detergent/o/0/n/240-ezee-liquid-detergent-pouch-godrej-original-imag74puuyffzkcx.jpeg?q=90',emoji:'🧺',weight:'1pcs',price:5,mrp:5,category:'pack',stock:20},
 
 {id:'mediker-pack',name:'Mediker Pack',image:'https://storage.googleapis.com/shy-pub/394829/SKU-0463_0-1728192877198.jpg',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
 {id:'dove-shampoo-conditioner-pack',name:'Dove Shampoo & Conditioner Pack',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUjr9-hcSwW6aoZgl2L1e9KBt75rd1NHSp-JTEmJdQBxMJhKoUg2LXvHg&s=10',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
@@ -903,146 +903,147 @@
 
   // ══ Amul Ice Creams ══
 
-{ id:'amul_vanilla_royale_pack', name:'Amul Vanilla Royale Pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251165/amul_icecream_Vanilla_Royale_pack.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_vanilla_royale_pack', name:'Amul Vanilla Royale Pack', image:'https://assets.amul.com/public/productImage/1-Vanilla-Royale-750ml.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_rajbhog_pack', name:'Amul Rajbhog Pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251165/amul_icecream_Super_Saver_Packs_-_Rajbhog.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_rajbhog_pack', name:'Amul Rajbhog Pack', image:'https://assets.amul.com/public/productImage/1-Rajbhog-750ml.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_strawberry_pack', name:'Amul Strawberry Pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251166/amul_icecream_Super_Saver_Packs_-_Strawberry.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_strawberry_pack', name:'Amul Strawberry Pack', image:'https://assets.amul.com/public/productImage/1-Strawberry-750ml.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_butterscotch_pack', name:'Amul Butterscotch Pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251165/amul_Super_Saver_Packs_-_Butterscotch.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_butterscotch_pack', name:'Amul Butterscotch Pack', image:'https://assets.amul.com/public/productImage/1-Butterscotch-750ml.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_butterscotch_bliss_pack', name:'Amul Butterscotch Bliss Pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251168/amul_icecream_Butterscotch_Bliss_pack.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_butterscotch_bliss_pack', name:'Amul Butterscotch Bliss Pack', image:'https://assets.amul.com/public/productImage/Butterscotch-Bliss-1.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_tutti_frutti_pack', name:'Amul Tutti Frutti Pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251165/amul_Super_Saver_Packs_-_Tutti_Frutti.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_tutti_frutti_pack', name:'Amul Tutti Frutti Pack', image:'https://assets.amul.com/public/productImage/1-Tutti-Fruity-750ml.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_fruit_n_nut_fantasy_pack', name:'Amul Fruit n Nut Fantasy Pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251167/amul_icecream_Fruit_n_nut_fantasy_pack.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_fruit_n_nut_fantasy_pack', name:'Amul Fruit n Nut Fantasy Pack', image:'https://assets.amul.com/public/productImage/2-Fruit-n-Nut-Fantasy-Carton-2L.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_kesar_pista_pack_royale', name:'Amul Kesar Pista Pack Royale', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251165/amul_Super_Saver_Packs_-_Kesar_Pista_Royale.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_kesar_pista_pack_royale', name:'Amul Kesar Pista Pack Royale', image:'https://assets.amul.com/public/productImage/1-Kesar-Pista-750ml.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_cups_vanilla_royale_1', name:'Amul Cups - Vanilla Royale', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251165/amul_Super_Saver_Packs_-_Kesar_Pista_Royale.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_cups_vanilla_royale_1', name:'Amul Cups - Vanilla Royale', image:'https://assets.amul.com/public/productImage/02%20FoP_Amul%20Ice%20Cream%20Vanilla%20Royale%20125ml.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_shahi_kulfi_rajbhog_single_pack', name:'Amul Shahi Kulfi Rajbhog Single Pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251166/amul_icecream_Shahi_Kulfi_Rajbhog_Single_Pack.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_shahi_kulfi_rajbhog_single_pack', name:'Amul Shahi Kulfi Rajbhog Single Pack', image:'https://assets.amul.com/public/productImage/02_FoP_Amul_Shahi_Kulfi_Rajbhog_100mL.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_shahi_kulfi_kesar_pista_single_pack', name:'Amul Shahi Kulfi Kesar Pista Single Pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251166/amul_icecream_Shahi_Kulfi_Kesar_Pista_Single_Pack.jpg', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
-{ id:'amul_jumbo_cups_fruit_n_nut_fantasy', name:'Amul Jumbo Cups - Fruit N Nut Fantasy', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251167/amul_icecream_Fruit_n_nut_fantasy_cup.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_shahi_kulfi_kesar_pista_single_pack', name:'Amul Shahi Kulfi Kesar Pista Single Pack', image:'https://assets.amul.com/public/productImage/02_FoP_Amul_Shahi_Kulfi_Kesar_Pista_100mL.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_jumbo_cups_fruit_n_nut_fantasy', name:'Amul Jumbo Cups - Fruit N Nut Fantasy', image:'https://assets.amul.com/public/productImage/02%20FoP_Amul%20Ice%20Cream%20Fruit%20N%20Nut%20Fantasy%20125mL.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
 
-{ id:'amul_jumbo_cups_rajbhog', name:'Amul Jumbo Cups - Rajbhog', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251166/amul_icecream_Rajbhog_cup.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_jumbo_cups_rajbhog', name:'Amul Jumbo Cups - Rajbhog', image:'https://assets.amul.com/public/productImage/02%20FoP_Amul%20Ice%20Cream%20Rajbhog%20125ml.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_tricone_butterscotch_gold', name:'Amul Tricone - Butterscotch Gold', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251168/amul_icecream_butterscotch_gold_cone..avif', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_tricone_butterscotch_gold', name:'Amul Tricone - Butterscotch Gold', image:'https://www.bbassets.com/media/uploads/p/l/40236561-2_1-amul-tricone-butterscotch-gold-ice-cream-sprinkled-with-cashew-praline.jpg', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_tricone_butterscotch', name:'Amul Tricone - Butterscotch', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251168/amul_icecream_butterscotch_cone.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_tricone_butterscotch', name:'Amul Tricone - Butterscotch', image:'https://assets.amul.com/public/productImage/Butter-Scotch-Tricone-120mL-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_tricone_choco_crunch', name:'Amul Tricone - Choco Crunch', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251168/amul_icecream_chococrunch_cone.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_tricone_choco_crunch', name:'Amul Tricone - Choco Crunch', image:'https://assets.amul.com/public/productImage/Choco-Crunch-Tricone-120mL-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_tricone_choco_vanilla', name:'Amul Tricone - Choco Vanilla', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251165/amul_icecream_vanilla_cone.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_tricone_choco_vanilla', name:'Amul Tricone - Choco Vanilla', image:'https://assets.amul.com/public/productImage/Choco-Vanilla-Tricone-120mL-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_tricone_black_currant', name:'Amul Tricone - Black Currant', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251168/amul_icecream_black_currant_cone.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_tricone_black_currant', name:'Amul Tricone - Black Currant', image:'https://assets.amul.com/public/productImage/Black-Currant-Tricone-120mL-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_tricone_chocolate_gold', name:'Amul Tricone - Chocolate Gold', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251168/amul_icecream_chocolate_Gold_cone.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_tricone_chocolate_gold', name:'Amul Tricone - Chocolate Gold', image:'https://assets.amul.com/public/productImage/GC_Amul_Chocolate_Gold_Tri_Cone_MERGED.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_cups_alphonso_mango', name:'Amul Cups - Alphonso Mango', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251171/amul_icecream_Alphonso_mango_cup20.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_cups_alphonso_mango', name:'Amul Cups - Alphonso Mango', image:'https://assets.amul.com/public/productImage/03%20ToP_Amul%20Alphonso%20Mango%20Cup%20100mL%20(2).png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_cups_afghan_dry_fruit', name:'Amul Cups - Afghan Dry Fruit', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781253194/amul_afghan_dry_fruit.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_cups_afghan_dry_fruit', name:'Amul Cups - Afghan Dry Fruit', image:'https://assets.amul.com/public/productImage/03%20ToP_Amul%20Afghan%20Dry%20Fuit%20Cup%20100mL%20(1).png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_cups_two_in_one', name:'Amul Cups - Two-in-one', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251166/amul_icecream_two_in_one_cup20.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_cups_two_in_one', name:'Amul Cups - Two-in-one', image:'https://assets.amul.com/public/productImage/03%20ToP_Amul%20Two%20in%20One%20Cup%20100mL%20(1).png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_cups_butterscotch', name:'Amul Cups - Butterscotch', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251168/amul_icecream_butterscotch_cup20.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_cups_butterscotch', name:'Amul Cups - Butterscotch', image:'https://assets.amul.com/public/productImage/03%20ToP_Amul%20Butterscotch%20Cup%20100mL%20(1).png', emoji:'🧁', price:20, mrp:20, category:'chocolates', stock:20 },
 
-{ id:'amul_cups_vanilla_royale_2', name:'Amul Cups - Vanilla Royale', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781253118/amul_vanilla_cup10.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
-{ id:'amul_cups_strawberry', name:'Amul Cups - Strawberry', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781253118/amul-strawberry-cup.jpg', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_cups_vanilla_royale_2', name:'Amul Cups - Vanilla Royale', image:'https://5.imimg.com/data5/SELLER/Default/2025/11/556898400/HX/KJ/BP/26315390/wpc-door-frame-500x500.jpeg', emoji:'🧁', price:10, mrp:10, category:'chocolates', stock:20 },
+{ id:'amul_cups_strawberry', name:'Amul Cups - Strawberry', image:'https://nileshdryfruits.com/wp-content/uploads/2023/07/amul-strawberry-cup.jpg', emoji:'🧁', price:10, mrp:10, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_frostik_gold', name:'Amul Stick - Frostik Gold', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251250/amul_icecream_Frostik_Gold.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_frostik_gold', name:'Amul Stick - Frostik Gold', image:'https://assets.amul.com/public/productImage/SP_Amul_Frostik_Gold_Kulfi_Front.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_asli_aam_gold', name:'Amul Stick - Asli Aam Gold', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251169/amul_icecream_Asli_Aam_Gold.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_asli_aam_gold', name:'Amul Stick - Asli Aam Gold', image:'https://assets.amul.com/public/productImage/Asli-Aam-Gold-Pouch-80mL-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_mango_duetz_gold', name:'Amul Stick - Mango Duetz Gold', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251167/amul_icecream_Mango_Duetz_Gold.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_mango_duetz_gold', name:'Amul Stick - Mango Duetz Gold', image:'https://assets.amul.com/public/productImage/Gold-Mango-Duetz-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_coffee_bar', name:'Amul Stick - Coffee Bar', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251167/amul_icecream_Coffee_Bar.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_coffee_bar', name:'Amul Stick - Coffee Bar', image:'https://assets.amul.com/public/productImage/Coffee-Bar-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_asli_aam', name:'Amul Stick - Asli Aam', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251169/amul_icecream_Asli_Aam.jpg', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_asli_aam', name:'Amul Stick - Asli Aam', image:'https://assets.amul.com/public/productImage/Asli-Aam-80mL-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_mango_duetz', name:'Amul Stick - Mango Duetz', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251167/amul_icecream_Mango_Duetz.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_mango_duetz', name:'Amul Stick - Mango Duetz', image:'https://assets.amul.com/public/productImage/Mango-Duetz-60-ml-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_probiotic_chocobar', name:'Amul Stick - Probiotic Chocobar', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251166/amul_icecream_Probiotic_Chocobar.jpg', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_probiotic_chocobar', name:'Amul Stick - Probiotic Chocobar', image:'https://assets.amul.com/public/productImage/Chocobar-Probiotic-60ml-fop.png', emoji:'🧁', price:20, mrp:20, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_probiotic_chocobar_2', name:'Amul Stick - Probiotic Chocobar', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251166/amul_icecream_Probiotic_Chocobar.jpg', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_probiotic_chocobar_2', name:'Amul Stick - Probiotic Chocobar', image:'https://assets.amul.com/public/productImage/Chocobar-Probiotic-60ml-fop.png', emoji:'🧁', price:10, mrp:10, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_mango_fundoo', name:'Amul Stick -  Mango Fundoo', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251166/amul_icecream_Mango_Fundoo.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_mango_fundoo', name:'Amul Stick -  Mango Fundoo', image:'https://assets.amul.com/public/productImage/Mango-dolly-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_curly_fundoo', name:'Amul Stick - Curly Fundoo', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251167/amul_icecream_Curly_Fundoo.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_curly_fundoo', name:'Amul Stick - Curly Fundoo', image:'https://assets.amul.com/public/productImage/Fundoo-Curly-60mL-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_super_fundoo', name:'Amul Stick - Super Fundoo', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251165/amul_icecream_Super_Fundoo.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_super_fundoo', name:'Amul Stick - Super Fundoo', image:'https://assets.amul.com/public/productImage/Fundoo-Super-60mL-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_chakri_fundoo', name:'Amul Stick - Chakri Fundoo', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251168/amul_icecream_Chakri_Fundoo.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_chakri_fundoo', name:'Amul Stick - Chakri Fundoo', image:'https://assets.amul.com/public/productImage/Fundoo-Chakri-60mL-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_badshahi_kulfi', name:'Amul Stick - Badshahi Kulfi ', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251169/amul_icecream_Badshahi_Kulfi.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_badshahi_kulfi', name:'Amul Stick - Badshahi Kulfi ', image:'https://assets.amul.com/public/productImage/Badshahi-Kulfi-Elements-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_aamras_kulfi', name:'Amul Stick - Aamras Kulfi', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251170/amul_icecream_Aamras_Kulfi.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_aamras_kulfi', name:'Amul Stick - Aamras Kulfi', image:'https://assets.amul.com/public/productImage/Aamras-Kulfi-60mL-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_rabdi_kulfi', name:'Amul Stick - Rabdi Kulfi', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781257981/amul_rabdi_kulfi.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_rabdi_kulfi', name:'Amul Stick - Rabdi Kulfi', image:'https://assets.amul.com/public/productImage/Rabdi-Kulfi-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_rajwadi_kulfi', name:'Amul Stick - Rajwadi Kulfi', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781257981/amul_rajwadi_kulfi.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_rajwadi_kulfi', name:'Amul Stick - Rajwadi Kulfi', image:'https://assets.amul.com/public/productImage/Rajwadi-Kulfi-40mL-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_rajbhog_kulfi', name:'Amul Stick - Rajbhog Kulfi', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251166/amul_icecream_Rajbhog_Kulfi.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_rajbhog_kulfi', name:'Amul Stick - Rajbhog Kulfi', image:'https://assets.amul.com/public/productImage/Rajbhog-Kulfi-60mL-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_kashmiri_kulfi', name:'Amul Stick -  Kashmiri Kulfi', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781257981/amul_kashmiri_kulfi.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_kashmiri_kulfi', name:'Amul Stick -  Kashmiri Kulfi', image:'https://assets.amul.com/public/productImage/Kashmiri-Kulfi-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
-{ id:'amul_stick_pista_malai_kulfi', name:'Amul Stick - Pista Malai Kulfi', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781251170/amul_icecream_Pista_Malai_Kulfi.webp', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
+{ id:'amul_stick_pista_malai_kulfi', name:'Amul Stick - Pista Malai Kulfi', image:'https://assets.amul.com/public/productImage/Pista-Malai-Kulfi-60mL-fop.png', emoji:'🧁', price:107, mrp:107, category:'chocolates', stock:20 },
 
   // ══ home care ══
 
-{ id:'personal_scotch_brite_20',      name:'Scotch Brite',             image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332661/scotch_brite_10.webp',      emoji:'🧽', weight:'1pcs', price:20, mrp:20, category:'personal', stock:20 },
-{ id:'personal_scotch_brite_10',      name:'Scotch Brite',             image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332661/scotch_brite_10.webp',      emoji:'🧽', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
+{ id:'personal_scotch_brite_20',      name:'Scotch Brite',             image:'https://www.bbassets.com/media/uploads/p/l/40207048_3-scotch-brite-silver-sparks-scrub-pad.jpg',      emoji:'🧽', weight:'1pcs', price:20, mrp:20, category:'personal', stock:20 },
+{ id:'personal_scotch_brite_10',      name:'Scotch Brite',             image:'https://www.bbassets.com/media/uploads/p/l/40008470_8-scotch-brite-scrub-pad-small.jpg',      emoji:'🧽', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
 
-{ id:'personal_dettol_soap_150gm',              name:'Dettol Sabun',                         image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332638/dettol_sabun_150gm.webp',                     emoji:'🧼', weight:'150gm', price:35, mrp:35, category:'personal', stock:20 },
-{ id:'personal_lux_rose_soap_150gm',            name:'Lux Rose Sabun',                       image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332640/lux_rose_sabun_150g.webp',                    emoji:'🧼', weight:'150gm', price:35, mrp:35, category:'personal', stock:20 },
-{ id:'personal_lux_jasmine_soap_150gm',         name:'Lux Jasmine Sabun',                    image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332639/lux_jasmine_soap_150.webp',                  emoji:'🧼', weight:'150gm', price:35, mrp:35, category:'personal', stock:20 },
-{ id:'personal_savlon_glycerin_soap_125gm',     name:'Savlon Glycerin Sabun',                image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332637/savlon_glycerin_125g.jpg',                  emoji:'🧼', weight:'125gm', price:35, mrp:35, category:'personal', stock:20 },
-{ id:'personal_lifebuoy_soap_125gm',            name:'Lifebuoy Sabun',                        image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332641/lifebuoy_sabun_125g.webp',                  emoji:'🧼', weight:'125gm', price:35, mrp:35, category:'personal', stock:20 },
-{ id:'personal_cinthol_cool_soap_100gm',        name:'Cinthol Cool Sabun',                    image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332642/cinthol_cool_100gm.webp',                  emoji:'🧼', weight:'100gm', price:35, mrp:35, category:'personal', stock:20 },
-{ id:'personal_santoor_sandal_turmeric_100gm',  name:'Santoor Sandal & Turmeric Sabun',       image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332640/santoor_sandal_and_turmeric_100g.webp',      emoji:'🧼', weight:'100gm', price:35, mrp:35, category:'personal', stock:20 },
-{ id:'personal_godrej_no1_jasmine_100gm',       name:'Godrej No.1 Jasmine Sabun',             image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332642/np.1_jasmine_sabun_100g.webp',              emoji:'🧼', weight:'100gm', price:35, mrp:35, category:'personal', stock:20 },
-{ id:'personal_godrej_no1_sandal_100gm',        name:'Godrej No.1 Sandal & Turmeric Sabun',   image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781336604/no.1_sandal_100gm.webp',                    emoji:'🧼', weight:'100gm', price:35, mrp:35, category:'personal', stock:20 },
+{ id:'personal_dettol_soap_150gm',              name:'Dettol Sabun',                         image:'https://gdn.pixelbin.io/v2/plain-cake-860195/netmed/wrkr/products/assets/item/free/original/6KtkFNqlET-dettol_soap_original_150_g_781369_0_0.jpg',                     emoji:'🧼', weight:'150gm', price:35, mrp:35, category:'personal', stock:20 },
+{ id:'personal_lux_rose_soap_150gm',            name:'Lux Rose Sabun',                       image:'https://www.bbassets.com/media/uploads/p/xl/306142_11-lux-beauty-soap-for-glowing-skin-soap-rose-vitamin-e.jpg',                    emoji:'🧼', weight:'150gm', price:35, mrp:35, category:'personal', stock:20 },
+{ id:'personal_lux_jasmine_soap_150gm',         name:'Lux Jasmine Sabun',                    image:'https://m.media-amazon.com/images/I/51zn8g-2APL.jpg',                  emoji:'🧼', weight:'150gm', price:35, mrp:35, category:'personal', stock:20 },
+{ id:'personal_savlon_glycerin_soap_125gm',     name:'Savlon Glycerin Sabun',                image:'https://www.bbassets.com/media/uploads/p/l/20004203_4-savlon-baby-soap-with-glycercin-gentle-moisturising.jpg',                  emoji:'🧼', weight:'125gm', price:35, mrp:35, category:'personal', stock:20 },
+{ id:'personal_lifebuoy_soap_125gm',            name:'Lifebuoy Sabun',                        image:'https://m.media-amazon.com/images/I/61TzCC94qhL.jpg',                  emoji:'🧼', weight:'125gm', price:35, mrp:35, category:'personal', stock:20 },
+{ id:'personal_cinthol_cool_soap_100gm',        name:'Cinthol Cool Sabun',                    image:'https://m.media-amazon.com/images/I/61JKg6opxGL.jpg',                  emoji:'🧼', weight:'100gm', price:35, mrp:35, category:'personal', stock:20 },
+{ id:'personal_santoor_sandal_turmeric_100gm',  name:'Santoor Sandal & Turmeric Sabun',       image:'https://m.media-amazon.com/images/S/aplus-media-library-service-media/3640d446-4040-499b-bf10-c1ba4e442921.__CR0,0,970,600_PT0_SX970_V1___.jpg',      emoji:'🧼', weight:'100gm', price:35, mrp:35, category:'personal', stock:20 },
+{ id:'personal_godrej_no1_jasmine_100gm',       name:'Godrej No.1 Jasmine Sabun',             image:'https://www.quickpantry.in/cdn/shop/files/Godrej_No.1_Jasmine_Milk_Cream_Soap_Quick_Pantry.webp?v=1740343321',              emoji:'🧼', weight:'100gm', price:35, mrp:35, category:'personal', stock:20 },
+{ id:'personal_godrej_no1_sandal_100gm',        name:'Godrej No.1 Sandal & Turmeric Sabun',   image:'https://www.quickpantry.in/cdn/shop/files/GodrejNo.1Sandal_TurmericSoapQuickPantry.png?v=1746531711&width=1000',                    emoji:'🧼', weight:'100gm', price:35, mrp:35, category:'personal', stock:20 },
 
   // ══ home care Pack ══
-{ id:'pack_dettol_sabun', name:'Dettol Sabun pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332634/Dettol_sabun_10.jpg', emoji:'🧼', weight:'5pcs', price:10, mrp:10, category:'pack', stock:20 },
-{ id:'pack_lux_sabun', name:'Lux Sabun pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332640/lux_sabun_10.webp', emoji:'🧼', weight:'5pcs', price:10, mrp:10, category:'pack', stock:20 },
-{ id:'pack_godrej_no1_sabun', name:'Godrej No.1 Sabun pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332638/no.1_sabun_10.webp', emoji:'🧼', weight:'5pcs', price:10, mrp:10, category:'pack', stock:20 },
-{ id:'pack_lifebuoy_sabun', name:'Lifebuoy Sabun pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332638/lifebuoy_sabun_10.webp', emoji:'🧼', weight:'5pcs', price:10, mrp:10, category:'pack', stock:20 },
+{ id:'pack_dettol_sabun', name:'Dettol Sabun pack', image:'https://www.bbassets.com/media/uploads/p/l/40322060_9-dettol-original-germ-protection-bathing-soap-bar.jpg', emoji:'🧼', weight:'5pcs', price:10, mrp:10, category:'pack', stock:20 },
+{ id:'pack_lux_sabun', name:'Lux Sabun pack', image:'https://5.imimg.com/data5/SELLER/Default/2023/1/SJ/VB/OG/8032410/lux-soft-glow-soap-5x100-500x500.jpg', emoji:'🧼', weight:'5pcs', price:10, mrp:10, category:'pack', stock:20 },
+{ id:'pack_godrej_no1_sabun', name:'Godrej No.1 Sabun pack', image:'https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/NI_CATALOG/IMAGES/ciw/2026/7/15/497b42de-7fd3-44c5-ad4c-32efc915be34_ZFVVHT3HWN_2_AL2_8899e472-61d9-42a7-81a2-421d7d01ed83.jpg', emoji:'🧼', weight:'5pcs', price:10, mrp:10, category:'pack', stock:20 },
+{ id:'pack_lifebuoy_sabun', name:'Lifebuoy Sabun pack', image:'https://m.media-amazon.com/images/I/41R6Wqc1dNS.jpg', emoji:'🧼', weight:'5pcs', price:10, mrp:10, category:'pack', stock:20 },
 
-{ id:'personal_dettol_soap_10',       name:'Dettol Sabun',             image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332634/Dettol_sabun_10.jpg',      emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
-{ id:'personal_lux_soap_10',          name:'Lux Sabun',                image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332640/lux_sabun_10.webp',         emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
-{ id:'personal_godrej_no1_soap_10',   name:'Godrej No.1 Sabun',        image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332638/no.1_sabun_10.webp',       emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
-{ id:'personal_lifebuoy_soap_10',     name:'Lifebuoy Sabun',           image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332638/lifebuoy_sabun_10.webp',   emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
-{ id:'personal_dove_soap_25',         name:'Dove Sabun',               image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332639/dove-soap_25.jpg',         emoji:'🧼', weight:'1pcs', price:25, mrp:25, category:'personal', stock:20 },
-{ id:'personal_pears_soap_20',        name:'Pears Sabun',              image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332639/pears_sabun_20.webp',      emoji:'🧼', weight:'1pcs', price:20, mrp:20, category:'personal', stock:20 },
-{ id:'personal_ghadi_soap_10',        name:'Ghadi Sabun',              image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332637/ghadi_sabun_10.webp',      emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
-{ id:'personal_surfexcel_sabun_10', name:'Surfexcel Sabun', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781521399/1000406332-600x600.png', emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
-{ id:'personal_tide_soap_10',         name:'Tide Sabun',               image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332638/tide_sabun_5.jpg',         emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
-{ id:'personal_patanjali_soap_10',    name:'Patanjali Super Sabun',    image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332638/patanjali_super_sabun_10.webp', emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
+{ id:'personal_dettol_soap_10',       name:'Dettol Sabun',             image:'https://www.bbassets.com/media/uploads/p/l/407516_1-dettol-soap-bar-original.jpg',      emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
+{ id:'personal_lux_soap_10',          name:'Lux Sabun',                image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHZLuHNnrkfwWBwiqobucrWO4w2p8vzBUnVN1tTsQrl6YTawZXsURlHZMN&s=10',         emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
+{ id:'personal_godrej_no1_soap_10',   name:'Godrej No.1 Sabun',        image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgEBLDss-Kb8go71nX7RX2y5QOIYNhUJvLyTyMcvQ0dWZPRZH-xYfmAZM&s=10',       emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
+{ id:'personal_lifebuoy_soap_10',     name:'Lifebuoy Sabun',           image:'https://m.media-amazon.com/images/I/610iLJ88d-L._AC_UF350,350_QL80_.jpg',   emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
+{ id:'personal_dove_soap_25',         name:'Dove Sabun',               image:'https://5.imimg.com/data5/SELLER/Default/2023/4/300282613/VT/IS/YA/3803435/jaya.jpeg',         emoji:'🧼', weight:'1pcs', price:25, mrp:25, category:'personal', stock:20 },
+{ id:'personal_pears_soap_20',        name:'Pears Sabun',              image:'https://gharstuff.com/wp-content/uploads/2020/04/Pears-Pure-Gentle-Soap-65g-2.jpg',      emoji:'🧼', weight:'1pcs', price:20, mrp:20, category:'personal', stock:20 },
+{ id:'personal_ghadi_soap_10',        name:'Ghadi Sabun',              image:'https://gharstuff.com/wp-content/uploads/2018/11/Ghadi-Detergent-Bar-100g-2.jpg',      emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
+{ id:'personal_surfexcel_sabun_10', name:'Surfexcel Sabun', image:'https://andamangreengrocers.com/wp-content/uploads/2022/01/SURF-EXCEL-10RS.jpg', emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
+{ id:'personal_tide_soap_10',         name:'Tide Sabun',               image:'https://www.bbassets.com/media/uploads/p/l/40019196_2-tide-detergent-bar-soap.jpg',         emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
+{ id:'personal_patanjali_soap_10',    name:'Patanjali Super Sabun',    image:'https://dukaan.b-cdn.net/1000x1000/webp/510778/6c01b6cf-a1aa-4b22-ba4f-cf82f51104d6/whatsapp-image-2021-03-01-at-4-8c37a19b-23d9-4609-8369-e8173a887214.png', emoji:'🧼', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
 
-{ id:'personal_oswal_soap_10',    name:'Oswaal Soap (Batti)',    image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332637/oswal_soap_batti.webp', emoji:'🧼', weight:'1pcs', price:50, mrp:50, category:'personal', stock:20 },
+{ id:'personal_oswal_soap_10',    name:'Oswaal Soap (Batti)',    image:'https://rukmini1.flixcart.com/image/1500/1500/kp1imq80/washing-bar/s/h/t/4-piece-pack-1-1000-oswal-original-imag3d4xryuftwwa.jpeg?q=70', emoji:'🧼', weight:'1pcs', price:50, mrp:50, category:'personal', stock:20 },
 
-{ id:'personal_vim_bar_10',           name:'Vim Sabun',                image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332640/vim_10.webp',               emoji:'🧽', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
-{ id:'personal_vim_set_35',           name:'Vim Set Sabun',            image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332634/vim_set_35.jpg',           emoji:'🧽', weight:'6pcs', price:35, mrp:35, category:'personal', stock:20 },
-{ id:'personal_exo_bar_52',           name:'Exo Bar Sabun',            image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332642/exo_bar_52.avif',          emoji:'🧽', weight:'1pcs', price:52, mrp:52, category:'personal', stock:20 },
+{ id:'personal_vim_bar_5',           name:'Vim Sabun',                image:'https://myawse-commerceapp.s3.ap-south-1.amazonaws.com/ProductImages/1752044167222-vim.jpg',               emoji:'🧽', weight:'1pcs', price:5, mrp:5, category:'personal', stock:20 },
+{ id:'personal_vim_bar_10',           name:'Vim Sabun',                image:'https://rukminim2.flixcart.com/fk-p-thumbnail/720/1280/images/minivet/MINIVET_CATALOG/CN_m1wYyTxSp2gfXnZqFxzCg/manifest.jpg?q=90',               emoji:'🧽', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
+{ id:'personal_vim_set_35',           name:'Vim Set Sabun',            image:'https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/NI_CATALOG/IMAGES/CIW/2026/6/19/13a2e6bf-86ad-470c-9234-5f56ee8ec88f_40883_4.png',           emoji:'🧽', weight:'6pcs', price:35, mrp:35, category:'personal', stock:20 },
+{ id:'personal_exo_bar_52',           name:'Exo Bar Sabun',            image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6Ayp4rl8QkkRhwURD8f-P0hrQXWxyb9vqRJltKRvrn5MkC29d37mjpYY&s=10',          emoji:'🧽', weight:'1pcs', price:52, mrp:52, category:'personal', stock:20 },
 
  // ══ Surf ══
-{ id:'personal_tide_surf_1kg',          name:'Tide Surf',         image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332637/tide_surf_1kg.webp',          emoji:'🧺', weight:'1kg',   price:100, mrp:52, category:'personal', stock:20 },
-{ id:'personal_tide_surf_500gm',        name:'Tide Surf',         image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332641/tide_surf_halfkg.jpg',        emoji:'🧺', weight:'500gm', price:100, mrp:52, category:'personal', stock:20 },
+{ id:'personal_tide_surf_1kg',          name:'Tide Surf',         image:'https://www.bbassets.com/media/uploads/p/l/263838_27-tide-plus-detergent-washing-powder-extra-power-lemon-mint.jpg',          emoji:'🧺', weight:'1kg',   price:100, mrp:52, category:'personal', stock:20 },
+{ id:'personal_tide_surf_500gm',        name:'Tide Surf',         image:'https://www.princeofficesolutions.com/media/catalog/product/cache/bfd136ef890b09dfcd853feb466b1a68/p/o/pos914_1.png',        emoji:'🧺', weight:'500gm', price:100, mrp:52, category:'personal', stock:20 },
 
-{ id:'personal_surf_excel_1kg',         name:'Surf Excel Surf',   image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332641/surf_excel_surf_1_kg.webp',   emoji:'🧺', weight:'1kg',   price:100, mrp:52, category:'personal', stock:20 },
-{ id:'personal_surf_excel_500gm',       name:'Surf Excel Surf',   image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332636/surf_excel_surf_half_kg.jpg', emoji:'🧺', weight:'500gm', price:100, mrp:52, category:'personal', stock:20 },
+{ id:'personal_surf_excel_1kg',         name:'Surf Excel Surf',   image:'https://www.bbassets.com/media/uploads/p/l/40101707_13-surf-excel-easy-wash-detergent-powder.jpg',   emoji:'🧺', weight:'1kg',   price:100, mrp:52, category:'personal', stock:20 },
+{ id:'personal_surf_excel_500gm',       name:'Surf Excel Surf',   image:'https://www.bbassets.com/media/uploads/p/l/299464_23-surf-excel-easy-wash-detergent-powder.jpg', emoji:'🧺', weight:'500gm', price:100, mrp:52, category:'personal', stock:20 },
 
-{ id:'personal_ghadi_surf_1kg',         name:'Ghadi Surf',        image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332640/ghadi-surf_1kg.webp',         emoji:'🧺', weight:'1kg',   price:100, mrp:52, category:'personal', stock:20 },
-{ id:'personal_ghadi_surf_500gm',       name:'Ghadi Surf',        image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332637/ghadi_surf_half_kg.png',      emoji:'🧺', weight:'500gm', price:100, mrp:52, category:'personal', stock:20 },
+{ id:'personal_ghadi_surf_1kg',         name:'Ghadi Surf',        image:'https://rukmini1.flixcart.com/image/1500/1500/xif0q/washing-powder/j/d/j/1-detergent-powder-1kg-ghadi-original-imagnx5bshndj5cy.jpeg?q=70',         emoji:'🧺', weight:'1kg',   price:100, mrp:52, category:'personal', stock:20 },
+{ id:'personal_ghadi_surf_500gm',       name:'Ghadi Surf',        image:'https://www.bbassets.com/media/uploads/p/l/40080103_10-ghadi-detergent-powder.jpg',      emoji:'🧺', weight:'500gm', price:100, mrp:52, category:'personal', stock:20 },
 
-{id:'personal_ezee_liquid_5',name:'Ezee Liquid',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781632319/IMG_20260616_204416-Photoroom.png',emoji:'🧺',weight:'1pcs',price:5,mrp:5,category:'personal',stock:20},
-{id:'personal_vanish_oxi_action_15',name:'Vanish Oxi Action All In One',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332636/vanish_all_in_one_15.jpg',emoji:'🧺',weight:'1pcs',price:15,mrp:15,category:'personal',stock:20},
-{ id:'personal_surfexcel_surf_10', name:'Surfexcel Surf', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781521354/616rE8iiXsL._SL1000.webp', emoji:'🧺', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
-{ id:'personal_cherry_black_shoe_polish', name:'Cherry Black Shoe Polish', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781515009/cherry_black_polish.webp', emoji:'🧺', weight:'1pcs', price:15, mrp:15, category:'personal', stock:20 },
-{ id:'personal_cherry_dark_tan_shoe_polish', name:'Cherry Dark Tan Shoe Polish', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781515010/cherry_dark_tan_polish.webp', emoji:'🧺', weight:'1pcs', price:15, mrp:15, category:'personal', stock:20 },
+{id:'personal_ezee_liquid_5',name:'Ezee Liquid',image:'https://quickcartapp.in/uploads/media/2025/QuickCart-ezee-liquid-10rs.jpeg',emoji:'🧺',weight:'1pcs',price:5,mrp:5,category:'personal',stock:20},
+{id:'personal_vanish_oxi_action_15',name:'Vanish Oxi Action All In One',image:'https://m.media-amazon.com/images/I/61uBsKXSPxL.jpg',emoji:'🧺',weight:'1pcs',price:15,mrp:15,category:'personal',stock:20},
+{ id:'personal_surfexcel_surf_10', name:'Surfexcel Surf', image:'https://epeedikaonline.com/assets/products/original/products_qcsg4p.jpg', emoji:'🧺', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
+{ id:'personal_cherry_black_shoe_polish', name:'Cherry Black Shoe Polish', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAGlXVIJK5TX6tNo_GA6Y2nswjJ9X18ZrSWaWPpf6D-TVyJioRcd2OSZw&s=10', emoji:'🧺', weight:'1pcs', price:15, mrp:15, category:'personal', stock:20 },
+{ id:'personal_cherry_dark_tan_shoe_polish', name:'Cherry Dark Tan Shoe Polish', image:'https://aapkabazar.co/_next/image?url=https%3A%2F%2Fimage.aapkabazar.co%2Fproduct%2F187%2F1696409525957.png%3Ftype%3Dwebp%26width%3D600&w=3840&q=75', emoji:'🧺', weight:'1pcs', price:15, mrp:15, category:'personal', stock:20 },
 
 {id:'personal_aluminium_foil',name:'Aluminium Foil',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781543669/IMG_20260615_224211.png',emoji:'🍽️',weight:'1kg',price:15,mrp:15,category:'personal',stock:20},
 {id:'personal_brb_food_wrapping',name:'Brb Food Wrapping',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781543667/IMG_20260615_224138.png',emoji:'🍽️',weight:'1kg',price:15,mrp:15,category:'personal',stock:20},
@@ -1050,17 +1051,17 @@
 {id:'personal_aluminium_foil_9_3',name:'Aluminium Foil(9+3)',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781543666/IMG_20260615_224159.png',emoji:'🍽️',weight:'1kg',price:15,mrp:15,category:'personal',stock:20},
 
 
-{id:'personal_gebi_plastic_broom',name:'Gebi Plastic Jhaadu',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781537277/40250836_6-gebi-sweepy-dust-free-broom-washable-xl.jpg',emoji:'🧹',weight:'1pcs',price:15,mrp:15,category:'personal',stock:20},
+{id:'personal_gebi_plastic_broom',name:'Gebi Plastic Jhaadu',image:'https://www.bbassets.com/media/uploads/p/l/40250836_6-gebi-sweepy-dust-free-broom-washable-xl.jpg',emoji:'🧹',weight:'1pcs',price:150,mrp:150,category:'personal',stock:20},
 {id:'personal_royal_broom',name:'Royal Jhaadu',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781537278/1000339763-removebg-preview.png',emoji:'🧹',weight:'1pcs',price:15,mrp:15,category:'personal',stock:20},
 {id:'personal_laxmi_broom',name:'Laxmi Jhaadu',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781537278/1000339770-removebg-preview.png',emoji:'🧹',weight:'1pcs',price:15,mrp:15,category:'personal',stock:20},
 
  // ══ Other ══
 
-{id:'other_dkc_tabasir_banslochan_250gm',name:'Dkc Tabasir Banslochan',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332636/vanslochan.jpg',emoji:'🌿',weight:'250gm',price:200,mrp:200,category:'other',stock:20},
+{id:'other_dkc_tabasir_banslochan_250gm',name:'Dkc Tabasir Banslochan',image:'https://rukminim3.flixcart.com/image/480/640/xif0q/plant-seed/j/v/k/250-tabashir-vanslochan-banslochan-tiger-brand-organic-bites-enriched-0-original-imaguf5qqgxrs4pg.jpeg?q=20',emoji:'🌿',weight:'250gm',price:200,mrp:200,category:'other',stock:20},
 {id:'other_gul_manjan_1pcs',name:'Gul Manjan',image:'https://res.clinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332636/vanslochan.jpg',emoji:'🦷',weight:'1pcs',price:20,mrp:20,category:'other',stock:20},
-{id:'other_tulsi_sat_isabgol_10',name:'Tulsi Sat Isabgol',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332639/tulsi_sat_isabgol.jpg',emoji:'🌿',weight:'1pcs',price:10,mrp:10,category:'other',stock:0},
+{id:'other_tulsi_sat_isabgol_10',name:'Tulsi Sat Isabgol',image:'https://i0.wp.com/sat-isabgol.com/wp-content/uploads/2023/09/POUCH-5G-Front.png?fit=354%2C418&ssl=1',emoji:'🌿',weight:'1pcs',price:10,mrp:10,category:'other',stock:0},
 {id:'other_playing_cards_10',name:'Playing Card (Tash)',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781543671/1000339867-Photoroom.png',emoji:'🃏',weight:'1pcs',price:10,mrp:10,category:'other',stock:10},
-{id:'other_toothpicks_10',name:'Toothpicks',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781543670/1000339866-Photoroom.png',emoji:'🪥',weight:'1pcs',price:10,mrp:10,category:'other',stock:10},
+{id:'other_toothpicks_10',name:'Toothpicks',image:'https://m.media-amazon.com/images/I/713cOZA6RdL.jpg',emoji:'🪥',weight:'1pcs',price:10,mrp:10,category:'other',stock:10},
 
 
  // ══ Dry Fruits ══
@@ -1076,50 +1077,50 @@
 
 
  // ══ Dal and Pulses ══
-{id:'dal_arhar_1kg',name:'Arhar Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421787/image/dal_arhar.png',emoji:'🥜',weight:'1kg',price:140,mrp:140,category:'dal',stock:10},
-{id:'dal_arhar_500gm',name:'Arhar Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782471164/Arhar-Daal.jpg',emoji:'🥜',weight:'500gm',price:140,mrp:140,category:'dal',stock:10},
+{id:'dal_arhar_1kg',name:'Arhar Dal',image:'https://i0.wp.com/shudhmarwadi.com/wp-content/uploads/2023/06/arhar-dal.jpg?fit=500%2C500&ssl=1',emoji:'🥜',weight:'1kg',price:140,mrp:140,category:'dal',stock:10},
+{id:'dal_arhar_500gm',name:'Arhar Dal',image:'https://tiimg.tistatic.com/fp/1/005/351/high-grade-organic-arhar-dal-224.jpg',emoji:'🥜',weight:'500gm',price:140,mrp:140,category:'dal',stock:10},
 
-{id:'dal_chana_1kg',name:'Chana Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421796/image/dal_chana.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
-{id:'dal_chana_500gm',name:'Chana Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782471166/ChanaDal.webp',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_chana_1kg',name:'Chana Dal',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmAC8Fwdzws767ZIurXQKxpyCV8TiVrREAVMg1GVTUsqU51HJOjObmimw9&s=10',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_chana_500gm',name:'Chana Dal',image:'https://tiimg.tistatic.com/fp/1/008/329/commonly-cultivated-pure-and-dried-splited-raw-chana-dal-832.jpg',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
 
-{id:'dal_urad_chilka_1kg',name:'Urad Chilka Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421795/image/dal_uradchilka.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
-{id:'dal_urad_chilka_500gm',name:'Urad Chilka Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782471221/Urad-Dal-Chilka-500g-WHY-Nutrition-37099676401916.webp',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_urad_chilka_1kg',name:'Urad Chilka Dal',image:'https://5.imimg.com/data5/SELLER/Default/2022/9/LI/CO/UR/101792284/urad-chilka-dal.jpg',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_urad_chilka_500gm',name:'Urad Chilka Dal',image:'https://freshfarmse.com/wp-content/uploads/2025/04/urad-dal-chilka-1kg-1000x1000-1.webp',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
 
-{id:'dal_urad_saboot_1kg',name:'Urad Saboot Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421791/image/dal_uradsaboot.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
-{id:'dal_urad_saboot_500gm',name:'Urad Saboot Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782471243/81FYE5szMrS.jpg',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_urad_saboot_1kg',name:'Urad Saboot Dal',image:'https://m.media-amazon.com/images/I/81FYE5szMrS.jpg',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_urad_saboot_500gm',name:'Urad Saboot Dal',image:'https://assets.hyperpure.com/data/images/products/329ae63fca404aac5eec516f4ea46957.png',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
 
-{id:'dal_moong_chilka_1kg',name:'Moong Chilka Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421789/image/dal_moongchilka.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
-{id:'dal_moong_chilka_500gm',name:'Moong Chilka Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782471313/CHHILKA-MOONG-DAL.jpg',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_moong_chilka_1kg',name:'Moong Chilka Dal',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpju2PbXupii5Xc6senNQe3aAOEmc08CNNR-gMaRh5YpGEQfMAKWhPgPo&s=10',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_moong_chilka_500gm',name:'Moong Chilka Dal',image:'https://assets.hyperpure.com/data/images/products/574728a54c8f41f6c3de96e48f0724a2.png',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
 
-{id:'dal_moong_saboot_1kg',name:'Moong saboot Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421791/image/dal_moongsabut.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
-{id:'dal_moong_saboot_500gm',name:'Moong saboot Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782472498/sabut-green-moong-dal.jpg',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_moong_saboot_1kg',name:'Moong saboot Dal',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk7GwKR9WQgoeeBxG9NhFIZvl7s0xE-eDb58246Y1oJQmKGLUyijeSO5A&s=10',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_moong_saboot_500gm',name:'Moong saboot Dal',image:'https://5.imimg.com/data5/SELLER/Default/2023/6/317402168/VV/MZ/EU/96558411/moong-whole-500x500.jpeg',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
 
-{id:'dal_moong_dhuli_1kg',name:'Moong dhuli Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421788/image/dal_moongdhuli.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
-{id:'dal_moong_dhuli_500gm',name:'Moong dhuli Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782471435/Moong_dhuliPulse.webp',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_moong_dhuli_1kg',name:'Moong dhuli Dal',image:'https://assets.hyperpure.com/data/images/products/1583cffb33e62a1bdd015a4b2f8ff0ac.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_moong_dhuli_500gm',name:'Moong dhuli Dal',image:'https://tiimg.tistatic.com/fp/1/007/776/hygienically-prepared-no-added-preservatives-dhuli-moong-dal-and-yellow-colour--375.jpg',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
 
-{id:'dal_lal_malka_1kg',name:'Lal malka Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421790/image/dal_lalmalka.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
-{id:'dal_lal_malka_500gm',name:'Lal malka Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782472541/619OMrvjS-L._AC_UF350_350_QL80_.jpg',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_lal_malka_1kg',name:'Lal malka Dal',image:'https://m.media-amazon.com/images/I/619OMrvjS-L.jpg',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_lal_malka_500gm',name:'Lal malka Dal',image:'https://prodondcdoc.easypay.co.in/ondc_seller_product/EP_SELLER_EDRBYA5O4L/EP_SELLER_EDRBYA5O4L_IMG_1773130395454.png',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
 
-{id:'dal_kaali_malka_1kg',name:'Kaali malka Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421788/image/dal_kaalimalka.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
-{id:'dal_kaali_malka_500gm',name:'Kaali malka Dal',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782471576/513w_q87X1L._AC_UF894_1000_QL80_.jpg',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_kaali_malka_1kg',name:'Kaali malka Dal',image:'https://aapkabazar.co/_next/image?url=https%3A%2F%2Fimage.aapkabazar.co%2Fproduct%2F1270%2F1696941477133.png%3Ftype%3Dwebp%26width%3D600&w=3840&q=75',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_kaali_malka_500gm',name:'Kaali malka Dal',image:'https://5.imimg.com/data5/ECOM/Default/2024/2/386022177/GU/RD/UI/183483046/1705335739457-malkakali-500x500.jpeg',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
 
-{id:'dal_rajma_1kg',name:'Rajma',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421794/image/dal_rajma.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
-{id:'dal_rajma_500gm',name:'Rajma',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421794/image/dal_rajma.png',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_rajma_1kg',name:'Rajma',image:'https://organicmandya.com/cdn/shop/files/RajmaChitra_2_0c3d82b0-4b1c-4a7d-9f05-e9d9e7c8df9f.jpg?v=1757083705&width=1200',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_rajma_500gm',name:'Rajma',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIcftpYysSMt93uW8ATRu7APKOzMLgjZUAdhLZH3d4_MmSu5gAgSq5G2g&s=10',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
 
-{id:'dal_redrajma_1kg',name:' Red Rajma',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782472568/rajma-red-819160_l.jpg',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
-{id:'dal_redrajma_500gm',name:' Red Rajma',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782472607/image_a17ffd00-73ea-495a-bd90-f3b09829eabc_1024x1024_2x.webp',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_redrajma_1kg',name:' Red Rajma',image:'https://5.imimg.com/data5/SELLER/Default/2024/9/450301258/KZ/ZU/QJ/101217127/organic-dried-red-rajma.jpg',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_redrajma_500gm',name:' Red Rajma',image:'https://organicmandya.com/cdn/shop/articles/Rajma_Red_Red_Kidney_Beans___Your_Complete_Guide_to_Benefits_Uses_Why_It_Is_Different_4227e6a0-829c-4a2f-8622-384c4c2d9289.png?v=1785322704&width=1200',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
 
-{id:'dal_chhola_1kg',name:'Chhola',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421744/image/chhola.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
-{id:'dal_chhola_500gm',name:'Chhola',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782471647/516rD97WU3L._AC_UF894_1000_QL80_.jpg',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_chhola_1kg',name:'Chhola',image:'https://m.media-amazon.com/images/I/91oVaNJNeDL.jpg',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_chhola_500gm',name:'Chhola',image:'https://assets.hyperpure.com/data/images/products/334a0221842508b90f49660ad67dfbb8.png',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
 
-{id:'dal_kalachana_1kg',name:'Kala Chana',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421849/image/kala_chana.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
-{id:'dal_kalachana_500gm',name:'Kala Chana',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782471670/images.jpg',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_kalachana_1kg',name:'Kala Chana',image:'https://assets.hyperpure.com/data/images/products/77c4ee3ad76a47fcfa4c65c872391a32.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_kalachana_500gm',name:'Kala Chana',image:'https://4.imimg.com/data4/MX/TJ/MY-31966354/desi-kala-chana-500x500.jpg',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
 
-{id:'dal_moongfali_1kg',name:'Moongfali',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421881/image/moongfali.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
-{id:'dal_moongfali_500gm',name:'Moongfali',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782471697/61lW-gOAX5L._AC_UF894_1000_QL80_.jpg',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_moongfali_1kg',name:'Moongfali',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX_M4MKDxs8gCJE-nhfXcu3htnTKn3S4GI4iudtRWu2p8BT1YaQm7tbe53&s=10',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_moongfali_500gm',name:'Moongfali',image:'https://m.media-amazon.com/images/I/51uxMTJQ6vS._AC_UF894,1000_QL80_.jpg',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
 
-{id:'dal_gud_1kg',name:'Gud',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421830/image/gud.png',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
-{id:'dal_gud_500gm',name:'Gud',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/v1782471733/prod-20200205-2114466793877129798088620-jpg-500x500.webp',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_gud_1kg',name:'Gud',image:'https://m.media-amazon.com/images/I/714dSsEaVjS._AC_UF894,1000_QL80_.jpg',emoji:'🥜',weight:'1kg',price:100,mrp:100,category:'dal',stock:10},
+{id:'dal_gud_500gm',name:'Gud',image:'https://myawse-commerceapp.s3.ap-south-1.amazonaws.com/ProductImages/1764340279439-bbwhh_512-1737073622239.webp',emoji:'🥜',weight:'500gm',price:100,mrp:100,category:'dal',stock:10},
 
 {id:'dal_mixeddalpkt_500gm',name:'Mixed Dal Pkt',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781680605/1000340511-Photoroom.png',emoji:'🥜',weight:'500gm',price:140,mrp:140,category:'dal',stock:10},
 {id:'dal_arhardalpkt_500gm',name:'Arhar Dal Pkt',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1780421787/image/dal_arhar.png',emoji:'🥜',weight:'500gm',price:140,mrp:140,category:'dal',stock:10},
