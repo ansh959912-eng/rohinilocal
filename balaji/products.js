@@ -866,38 +866,38 @@
 
 
 // ══ Veeba ══
-{ id:'spices_chilli_vinegar_50ml', name:'Chilli Vinegar', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781515009/chilli_vinegar_50.webp', emoji:'🥫', weight:'1pcs', price:50, mrp:50, category:'spices', stock:20 },
-{id:'veeba-mayonnaise-eggless',name:'Mayonnaise Eggless',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165517/veeba_mayonnaise_46.webp',emoji:'🥫',weight:'100 gm',price:45,mrp:46,category:'spices',stock:20},
-{id:'veeba-mayonnaise-burger',name:'Mayonnaise Burger',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165516/veeba_mayonnaise_burger_47.webp',emoji:'🍔',weight:'100 gm',price:47,mrp:47,category:'spices',stock:20},
-{id:'veeba-pizza-pasta-sauce-herby-tomato',name:'Pizza Pasta Sauce Herby Tomato',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165517/veeba_pasta_pizza_sauce_46.webp',emoji:'🍝',weight:'100 gm',price:46,mrp:46,category:'spices',stock:20},
+{ id:'spices_chilli_vinegar_50ml', name:'Chilli Vinegar', image:'https://www.bbassets.com/media/uploads/p/xl/40312479_4-veeba-wok-tok-chilli-vinegar-sauce.jpg', emoji:'🥫', weight:'1pcs', price:50, mrp:50, category:'spices', stock:20 },
+{id:'veeba-mayonnaise-eggless',name:'Mayonnaise Eggless',image:'https://aapkabazar.co/_next/image?url=https%3A%2F%2Fimage.aapkabazar.co%2Fproduct%2F16383%2F1741853280086.png%3Ftype%3Dwebp%26width%3D600&w=3840&q=75',emoji:'🥫',weight:'100 gm',price:45,mrp:46,category:'spices',stock:20},
+{id:'veeba-mayonnaise-burger',name:'Mayonnaise Burger',image:'https://cdn2.clevup.in/22879/SKU-3697_0-1763125435942.webp?format=webp',emoji:'🍔',weight:'100 gm',price:47,mrp:47,category:'spices',stock:20},
+{id:'veeba-pizza-pasta-sauce-herby-tomato',name:'Pizza Pasta Sauce Herby Tomato',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-ARCE1R_cA6n4Q5mM-n06bHZEhHFQVSdKRRLAE5J9aGJsCG5fRArz33U&s=10',emoji:'🍝',weight:'100 gm',price:46,mrp:46,category:'spices',stock:20},
 
-{id:'veeba-red-chilli-sauce',name:'Red Chilli Sauce',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165516/veeba_red_chilli_sauce_25.webp',emoji:'🌶️',weight:'90 gm',price:25,mrp:25,category:'spices',stock:20},
-{id:'veeba-green-chilli-sauce',name:'Green Chilli Sauce',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165517/veeba_green_chilli_sauce_25.jpg',emoji:'🌶️',weight:'90 gm',price:25,mrp:25,category:'spices',stock:20},
-{id:'schezwan-chutney',name:'Schezwan Chutney',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165521/schezwan_chutney_10.jpg',emoji:'🥣',weight:'30 gm',price:10,mrp:10,category:'spices',stock:20},
+{id:'veeba-red-chilli-sauce',name:'Red Chilli Sauce',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwtSWA8G6rmN3jOofe46kpHtfnSoKH7-bBHb19CrG8lIrzJzxBtvxlz1mt&s=10',emoji:'🌶️',weight:'90 gm',price:25,mrp:25,category:'spices',stock:20},
+{id:'veeba-green-chilli-sauce',name:'Green Chilli Sauce',image:'https://veeba.in/cdn/shop/files/Greenchilli_Listing_Banner-01.jpg?v=1750853052&width=1946',emoji:'🌶️',weight:'90 gm',price:25,mrp:25,category:'spices',stock:20},
+{id:'schezwan-chutney',name:'Schezwan Chutney',image:'https://annachy-prod-assets.annachy.com/pims/products-v1/GR00012730G_1.webp?v=1764335519266',emoji:'🥣',weight:'30 gm',price:10,mrp:10,category:'spices',stock:20},
 
-{id:'spice_schezwan_sauce_10',name:'Schezwan Sauce',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332637/schezwan_sauce.jpg',emoji:'🌶️',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
-{id:'spice_pizza_pasta_sauce_10',name:'Pizza Pasta Classic Sauce',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332636/pizza_pasta_classic_sauce.jpg',emoji:'🍝',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
-{id:'spice_mayonnaise_10',name:'Mayonnaise',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332636/mayonnaise_10.jpg',emoji:'🥫',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
-{id:'spice_sandwich_spread_10',name:'Sandwich Spread Mayonnaise',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332635/sandwich_spread.webp',emoji:'🥫',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
-{id:'spice_coriander_mint_mayo_10',name:'Coriander Mint Mayonnaise',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332636/coriander_mint_mayonnaise.jpg',emoji:'🥫',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
+{id:'spice_schezwan_sauce_10',name:'Schezwan Sauce',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm4q503WjYm2_fKKqu7onlbrwx-8WOi89i2s03Wgpbnw&s=10',emoji:'🌶️',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
+{id:'spice_pizza_pasta_sauce_10',name:'Pizza Pasta Classic Sauce',image:'https://storage.googleapis.com/shy-pub/330294/SKU-2188_0-1740761817775.png',emoji:'🍝',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
+{id:'spice_mayonnaise_10',name:'Mayonnaise',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT96ck8-YXMlh6DRHa-JcestzKyCbt2Sdz4qUY13F4F4EgR1OnR2ml3w3M&s=10',emoji:'🥫',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
+{id:'spice_sandwich_spread_10',name:'Sandwich Spread Mayonnaise',image:'https://cdn2.clevup.in/330294/SKU-2405_0-1746636060018.png?format=webp',emoji:'🥫',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
+{id:'spice_coriander_mint_mayo_10',name:'Coriander Mint Mayonnaise',image:'https://storage.googleapis.com/hul-retailer-propics/ondc/1712727886036911601443452038217.jpg.png',emoji:'🥫',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
 
 
-{ id:'puro_salt_1kg',       name:'Puro Healthy Salt', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165521/Puro_salt_99.webp', emoji:'🧂', weight:'1kg',  price:95, mrp:99, category:'spices', stock:20 },
-{ id:'tata_salt_1kg',       name:'Tata Salt',         image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781550888/241600_9-tata-salt-iodized.webp', emoji:'🧂', weight:'1kg',  price:30, mrp:30, category:'spices', stock:20 },
+{ id:'puro_salt_1kg',       name:'Puro Healthy Salt', image:'https://aapkabazar.co/_next/image?url=https%3A%2F%2Fimage.aapkabazar.co%2Fproduct%2F2131%2F1747889175393.png%3Ftype%3Dwebp%26width%3D600&w=3840&q=75', emoji:'🧂', weight:'1kg',  price:95, mrp:99, category:'spices', stock:20 },
+{ id:'tata_salt_1kg',       name:'Tata Salt',         image:'https://www.bbassets.com/media/uploads/p/l/241600_10-tata-salt-iodized.jpg', emoji:'🧂', weight:'1kg',  price:30, mrp:30, category:'spices', stock:20 },
 { id:'Black_salt_1kg',       name:'Black Salt',         image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781543681/1000339887-Photoroom.png', emoji:'🧂', weight:'1kg',  price:30, mrp:30, category:'spices', stock:20 },
 
 { id:'kala_namak_15',       name:'Kala Namak',        image:'https://r.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165521/Puro_salt_99.webp', emoji:'🧂', weight:'1pcs', price:15, mrp:15, category:'spices', stock:20 },
 { id:'sendha_namak_15',     name:'Sendha Namak',      image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332634/sendha_namak_15.jpg', emoji:'🧂', weight:'1pcs', price:15, mrp:15, category:'spices', stock:20 },
 
-{id:'spice_chilli_flakes_10',name:'Chilli Flakes',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332663/chilli_flakes.jpg',emoji:'🌶️',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
-{id:'spice_msg_10',name:'MSG (Monosodium Glutamate)',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332643/Monosodium_Glutamate_MSG.jpg',emoji:'🧂',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
+{id:'spice_chilli_flakes_10',name:'Chilli Flakes',image:'https://m.media-amazon.com/images/I/81G4CYO9qOL.jpg',emoji:'🌶️',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
+{id:'spice_msg_10',name:'MSG (Monosodium Glutamate)',image:'https://rukmini1.flixcart.com/image/1500/1500/xif0q/spice-masala/1/x/w/300-pouch-monosodium-glutamate-box-pouch-20-naturesmith-powder-original-imagswumxgmbbv2k.jpeg?q=70',emoji:'🧂',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
 {id:'spice_oregano_10',name:'Oregano',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781537332/IMG_20260615_205547.png',emoji:'🌿',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
 {id:'spice_oregano_seasoning_10',name:'Oregano Seasoning',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781537330/IMG_20260615_205525.png',emoji:'🌿',weight:'1pcs',price:10,mrp:10,category:'spices',stock:20},
-{id:'spice_dabur_honey_250gm',name:'Dabur Honey',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332639/dabur_honey.webp',emoji:'🍯',weight:'300gm',price:120,mrp:130,category:'oil',stock:20},
-{id:'spice_Amul_honey_250gm',name:'Amul Honey',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781522908/40359558_1-amul-honey.webp',emoji:'🍯',weight:'300gm',price:120,mrp:130,category:'oil',stock:20},
+{id:'spice_dabur_honey_250gm',name:'Dabur Honey',image:'https://m.media-amazon.com/images/I/61R9lbMFoqL.jpg',emoji:'🍯',weight:'300gm',price:120,mrp:130,category:'oil',stock:20},
+{id:'spice_Amul_honey_250gm',name:'Amul Honey',image:'https://www.bbassets.com/media/uploads/p/l/40359558_1-amul-honey.jpg',emoji:'🍯',weight:'300gm',price:120,mrp:130,category:'oil',stock:20},
 { id:'pack_strong_hing', name:'Strong Hing pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332636/mdh_hing.webp', emoji:'🧂', weight:'10gm', price:250, mrp:250, category:'spices', stock:20 },
-{ id:'pack_mdh_hing', name:'MDH Hing pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332636/mdh_hing.webp', emoji:'🧂', weight:'10gm', price:100, mrp:100, category:'spices', stock:20 },
-{ id:'pack_everest_hing', name:'Everest Hing pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332636/mdh_hing.webp', emoji:'🧂', weight:'10gm', price:30, mrp:30, category:'spices', stock:20 },
+{ id:'pack_mdh_hing', name:'MDH Hing pack', image:'https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/NI_CATALOG/IMAGES/ciw/2025/12/18/b55c9434-da3c-4b8c-9f25-4d42e93a1994_GL9DHXNGHT_MN_18122025.png', emoji:'🧂', weight:'10gm', price:100, mrp:100, category:'spices', stock:20 },
+{ id:'pack_everest_hing', name:'Everest Hing pack', image:'https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/NI_CATALOG/IMAGES/ciw/2025/12/18/eeb640e0-e22c-4e2d-bb68-680cd3a67c4a_1R0Y562DKQ_MN_18122025.png', emoji:'🧂', weight:'10gm', price:30, mrp:30, category:'spices', stock:20 },
 { id:'pack_hing', name:'Hing pack', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332636/mdh_hing.webp', emoji:'🧂', weight:'10gm', price:10, mrp:10, category:'spices', stock:20 },
 
 
