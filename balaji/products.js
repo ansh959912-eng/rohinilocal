@@ -772,97 +772,97 @@
 
 
     // ══ STATIONARY ══
-    { id:'stat_apsara_pencil',      name:'Apsara Pencil',                      image:CLOUDINARY_BASE+'/image/stationary_pencil_apsara.png',  emoji:'🖊️', price:50, mrp:50, category:'stationary', stock:20 },
-    { id:'stat_nataraj_pencil',     name:'Nataraj Pencil',                     image:CLOUDINARY_BASE+'/image/stationary_pencil_nataraj.png', emoji:'🖊️', price:50, mrp:50, category:'stationary', stock:20 },
-    { id:'stat_bf_blue_pen',        name:'Butterflow Blue Pen',                image:CLOUDINARY_BASE+'/image/stationary_butterflowb.png',    emoji:'🖊️', price:10, mrp:10, category:'stationary', stock:20 },
-    { id:'stat_bf_black_pen',       name:'Butterflow Black Pen',               image:CLOUDINARY_BASE+'/image/stationary_butterflowbl.png',   emoji:'🖊️', price:10, mrp:10, category:'stationary', stock:20 },
-    { id:'stat_a4_color',           name:'A4 Colourful Sheet',                 image:CLOUDINARY_BASE+'/image/stationary_a4color.png',        emoji:'🖊️', price:40, mrp:40, category:'stationary', stock:20 },
-{ id:'stat_fevikwik_5rs', name:'Fevikwik', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781515010/fevikwik_5.jpg', emoji:'🖊️', weight:'1pcs', price:5, mrp:5, category:'stationary', stock:20 },
-{ id:'stat_fevikwik_onedrop', name:'Fevikwik One Drop', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781515011/fevikwik_one_drop.webp', emoji:'🖊️', weight:'1pcs', price:10, mrp:10, category:'stationary', stock:20 },
-{ id:'stat_fevicol_10rs',        name:'Fevicol',             image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781515011/fevicol.webp',          emoji:'🖊️', weight:'1pcs', price:10, mrp:10, category:'stationary', stock:20 },
+    { id:'stat_apsara_pencil',      name:'Apsara Pencil',                      image:'https://store.1vp.in/wp-content/uploads/2025/06/Apsara-Pencil.jpg',  emoji:'🖊️', price:50, mrp:50, category:'stationary', stock:20 },
+    { id:'stat_nataraj_pencil',     name:'Nataraj Pencil',                     image:'https://m.media-amazon.com/images/I/71x-akW2l5L.jpg', emoji:'🖊️', price:50, mrp:50, category:'stationary', stock:20 },
+    { id:'stat_bf_blue_pen',        name:'Butterflow Blue Pen',                image:'https://5.imimg.com/data5/KH/EL/JC/GLADMIN-69030649/selection-851-500x500-500x500.png',    emoji:'🖊️', price:10, mrp:10, category:'stationary', stock:20 },
+    { id:'stat_bf_black_pen',       name:'Butterflow Black Pen',               image:'https://shop.ourstore.in/wp-content/uploads/2022/11/DSC2597-scaled.jpg',   emoji:'🖊️', price:10, mrp:10, category:'stationary', stock:20 },
+    { id:'stat_a4_color',           name:'A4 Colourful Sheet',                 image:'https://solo.in/cdn/shop/files/a4-coloured-papers-5-sheets-each-color-copy-printingart-and-craft-paper-double-sided-805547_1800x1800.webp?v=1742021714',        emoji:'🖊️', price:40, mrp:40, category:'stationary', stock:20 },
+{ id:'stat_fevikwik_5rs', name:'Fevikwik', image:'https://www.himalayafineart.com/cdn/shop/files/A00013418.jpg?v=1752149907', emoji:'🖊️', weight:'1pcs', price:5, mrp:5, category:'stationary', stock:20 },
+{ id:'stat_fevikwik_onedrop', name:'Fevikwik One Drop', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1ud8jgCZcMvtrDSqQX2fFBTUegt4EDUVRIkuXVpGAntpqBAtJ-PbAm-97&s=10', emoji:'🖊️', weight:'1pcs', price:10, mrp:10, category:'stationary', stock:20 },
+{ id:'stat_fevicol_10rs',        name:'Fevicol',             image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVraTPm0QERGOPxX8v9hJ1bVtnsFqqmRZXZ1oRL09SupbmSobMfujeO6u_&s=10',          emoji:'🖊️', weight:'1pcs', price:10, mrp:10, category:'stationary', stock:20 },
 
 
 
      // ══ Maggie ══
      
- {id:'maggie-6-pack',name:'2 Minutes Maggi',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119351/maggie_6_pack_83.webp',emoji:'🍜',weight:'6 Pack',price:83,mrp:83,category:'snacks',stock:20},
+ {id:'maggie-6-pack',name:'2 Minutes Maggi',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGODnoQFC12meML6xihxdPfqWCh1WAsgESUrI710Ljiayxkz2rGGE4xM_N&s=10',emoji:'🍜',weight:'6 Pack',price:83,mrp:83,category:'snacks',stock:20},
 
-{id:'atta-maggi-4-pack',name:'Atta Maggi',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119360/atta_maggie_4pck_103.webp',emoji:'🍜',weight:'4 Pack',price:103,mrp:103,category:'snacks',stock:20},
+{id:'atta-maggi-4-pack',name:'Atta Maggi',image:'https://image.aapkabazar.co/product/7044/1672837569142.png?type=png',emoji:'🍜',weight:'4 Pack',price:103,mrp:103,category:'snacks',stock:20},
 
-{id:'maggie-4-pack',name:'2 Minutes Maggi',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119351/maggie_4_pack_56.webp',emoji:'🍜',weight:'4 Pack',price:56,mrp:56,category:'snacks',stock:20},
+{id:'maggie-4-pack',name:'2 Minutes Maggi',image:'https://aapkabazar.co/_next/image?url=https%3A%2F%2Fimage.aapkabazar.co%2Fproduct%2F2301%2F1668064976041.png%3Ftype%3Dwebp%26width%3D600&w=3840&q=75',emoji:'🍜',weight:'4 Pack',price:56,mrp:56,category:'snacks',stock:20},
 
-{id:'schezwan-maggi',name:'Schezwan Maggi',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119381/schezwan_maggie_20.avif',emoji:'🍜',weight:'1 Pc',price:20,mrp:20,category:'snacks',stock:20},
+{id:'schezwan-maggi',name:'Schezwan Maggi',image:'https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_600/NI_CATALOG/IMAGES/ciw/2025/12/18/0dab5921-37f7-4d60-a43b-6e7dfebf525b_BYHV4NDQZN_MN_18122025.png',emoji:'🍜',weight:'1 Pc',price:20,mrp:20,category:'snacks',stock:20},
 
-{id:'atta-maggi-single',name:'Atta Maggi',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119359/atta_maggie_30.avif',emoji:'🍜',weight:'1 Pc',price:30,mrp:30,category:'snacks',stock:20},
+{id:'atta-maggi-single',name:'Atta Maggi',image:'https://m.media-amazon.com/images/I/718bT19y+eL.jpg',emoji:'🍜',weight:'1 Pc',price:30,mrp:30,category:'snacks',stock:20},
 
-{id:'masala-atta-maggi',name:'Masala Atta Maggi',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119349/masala_maggie_15.webp',emoji:'🍜',weight:'1 Pc',price:15,mrp:15,category:'snacks',stock:20},
+{id:'masala-atta-maggi',name:'Masala Atta Maggi',image:'https://m.media-amazon.com/images/I/61Ick5R7bRL._AC_UF894,1000_QL80_.jpg',emoji:'🍜',weight:'1 Pc',price:15,mrp:15,category:'snacks',stock:20},
 
-{id:'maggi-single',name:'2 Minutes Maggi',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119350/maggie_15.webp',emoji:'🍜',weight:'1 Pc',price:15,mrp:15,category:'snacks',stock:20},
+{id:'maggi-single',name:'2 Minutes Maggi',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNEgm3idHV2Qxl5VadUSLyTkVVCn5adYAdYm-F_ALdyAC6joPFUcHDPyE&s=10',emoji:'🍜',weight:'1 Pc',price:15,mrp:15,category:'snacks',stock:20},
 
-{id:'yippee-noodles',name:'Yippee Noodles',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119380/yipee_maggie_15.webp',emoji:'🍜',weight:'1 Pc',price:15,mrp:15,category:'snacks',stock:20},
+{id:'yippee-noodles',name:'Yippee Noodles',image:'https://m.media-amazon.com/images/I/81a-joF7g-L._AC_UF894,1000_QL80_.jpg',emoji:'🍜',weight:'1 Pc',price:15,mrp:15,category:'snacks',stock:20},
 
-{id:'mario-tez-tadka',name:'Mario Tez Tadka Noodles',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119350/mario_tez_tadka_maggie.webp',emoji:'🍜',weight:'1 Pc',price:15,mrp:15,category:'snacks',stock:20},
+{id:'mario-tez-tadka',name:'Mario Tez Tadka Noodles',image:'https://m.media-amazon.com/images/I/61hmFyrHNML.jpg',emoji:'🍜',weight:'1 Pc',price:15,mrp:15,category:'snacks',stock:20},
 
-{id:'mario-noodles',name:'Mario Noodles',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119350/mario_maggie_10.jpg',emoji:'🍜',weight:'1 Pc',price:10,mrp:10,category:'snacks',stock:20},
+{id:'mario-noodles',name:'Mario Noodles',image:'https://www.bbassets.com/media/uploads/p/l/40243820_2-mario-instant-noodles-masala-calcium-protein-enriched-with-seasoning-mix.jpg',emoji:'🍜',weight:'1 Pc',price:10,mrp:10,category:'snacks',stock:20},
 
-{id:'snack_bambino_macroni_10',name:'Bambino Macroni',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781633876/shopping_50703422-2491-4ee3-a99d-e49be8e7605d_1920x-Photoroom.png',emoji:'🍜',weight:'1 Pc',price:10,mrp:10,category:'snacks',stock:20},
+{id:'snack_bambino_macroni_10',name:'Bambino Macroni',image:'https://www.allhomeproduct.in/wp-content/uploads/2019/08/Bambino-Pep-Elbow-Macaroni-Pasta-450-g.jpg',emoji:'🍜',weight:'1 Pc',price:10,mrp:10,category:'snacks',stock:20},
 
 {id:'snack_chowmein_10',name:'Chawmein',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781543671/1000339885-Photoroom.png',emoji:'🍜',weight:'1pcs',price:10,mrp:10,category:'snacks',stock:20},      
 
        // ══ Farmley ══
 
- {id:'farmley-date-bites-small',name:'Farmley Date Bites',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119353/farmley_date_bites.webp',emoji:'🍫',weight:'1 Pc',price:40,mrp:40,category:'chocolates',stock:20},
-{id:'farmley-apple-pie-small',name:'Farmley Apple Pie',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119356/farmley_apple_pie.webp',emoji:'🍫',weight:'1 Pc',price:40,mrp:40,category:'chocolates',stock:20},
-{id:'farmley-dark-choco-orange-small',name:'Farmley Dark Choco Orange',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119355/farmley_choco_orange.webp',emoji:'🍫',weight:'1 Pc',price:40,mrp:40,category:'chocolates',stock:20},
-{id:'farmley-apple-pie-big',name:'Farmley Apple Pie',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119357/Farmley_apple_pie_big.webp',emoji:'🍫',weight:'1 Pc',price:200,mrp:200,category:'chocolates',stock:20},
-{id:'farmley-date-bites-big',name:'Farmley Date Bites',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119354/farmley_date_bites_big.avif',emoji:'🍫',weight:'1 Pc',price:200,mrp:200,category:'chocolates',stock:20},
-{id:'farmley-dark-choco-orange-big',name:'Farmley Dark Choco Orange',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781119355/farmley_choco_orange_big.jpg',emoji:'🍫',weight:'1 Pc',price:200,mrp:200,category:'chocolates',stock:20},
-{id:'farmley-panchmeva',name:'Farmley Panchmeva',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165521/farmley_panchmeva.jpg',emoji:'🍫',weight:'1 Pc',price:30,mrp:30,category:'chocolates',stock:20},
+ {id:'farmley-date-bites-small',name:'Farmley Date Bites',image:'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=1080/da/cms-assets/cms/product/c0142005-7d04-4415-b476-3bd9a575ea93.png',emoji:'🍫',weight:'1 Pc',price:40,mrp:40,category:'chocolates',stock:20},
+{id:'farmley-apple-pie-small',name:'Farmley Apple Pie',image:'https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/NI_CATALOG/IMAGES/CIW/2026/8/12/bc53d9bc-d9e3-47d7-b9f5-7de34f08ceed_714091_1.png',emoji:'🍫',weight:'1 Pc',price:40,mrp:40,category:'chocolates',stock:20},
+{id:'farmley-dark-choco-orange-small',name:'Farmley Dark Choco Orange',image:'https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/NI_CATALOG/IMAGES/ciw/2025/2/13/f39532a7-5984-49dc-891d-f65b80aeb985_123435_3_20250213_083347.png',emoji:'🍫',weight:'1 Pc',price:40,mrp:40,category:'chocolates',stock:20},
+{id:'farmley-apple-pie-big',name:'Farmley Apple Pie',image:'https://www.farmley.com/cdn/shop/files/2_1_d892f488-eb35-475a-89af-ab485918e09e.jpg?format=webp&v=1769603038&width=3840',emoji:'🍫',weight:'1 Pc',price:200,mrp:200,category:'chocolates',stock:20},
+{id:'farmley-date-bites-big',name:'Farmley Date Bites',image:'https://www.farmley.com/cdn/shop/files/classic_DB_KV.png?v=1769665648&width=1400',emoji:'🍫',weight:'1 Pc',price:200,mrp:200,category:'chocolates',stock:20},
+{id:'farmley-dark-choco-orange-big',name:'Farmley Dark Choco Orange',image:'https://www.farmley.com/cdn/shop/files/2.jpg?format=webp&v=1769665678&width=3840',emoji:'🍫',weight:'1 Pc',price:200,mrp:200,category:'chocolates',stock:20},
+{id:'farmley-panchmeva',name:'Farmley Panchmeva',image:'https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/NI_CATALOG/IMAGES/CIW/2026/2/18/c35f0deb-4376-44a0-a301-c687ec2e561a_54053_1.png',emoji:'🍫',weight:'1 Pc',price:30,mrp:30,category:'chocolates',stock:20},
          
 // ══ Shampoo ══
-{ id:'personal_dettol_powder_handwash_10', name:'Dettol Handwash Powder', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781634162/DettolPowderToLiquidHandwashRefill1pc.webp', emoji:'🧴', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
-{ id:'personal_godrej_powder_handwash_10', name:'Godrej Handwash Powder', image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781634124/40149067-2_2-godrej-protekt-mr-magic-powder-to-liquid-germ-protection-handwash-refill-makes-200-ml-of-liquid.webp', emoji:'🧴', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
+{ id:'personal_dettol_powder_handwash_10', name:'Dettol Handwash Powder', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuHDSwA-415kkotoXzpG0fkzzlDiK4IEV3_tNkOGux3_R-PvxaObvpryjp&s=10', emoji:'🧴', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
+{ id:'personal_godrej_powder_handwash_10', name:'Godrej Handwash Powder', image:'https://www.bbassets.com/media/uploads/p/l/40149067_2-godrej-protekt-mr-magic-powder-to-liquid-germ-protection-handwash-refill-makes-200-ml-of-liquid.jpg', emoji:'🧴', weight:'1pcs', price:10, mrp:10, category:'personal', stock:20 },
 
- {id:'denver-powder',name:'Denver Powder',        image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781332642/denver_powder10.jpg',emoji:'🧴',weight:'1pcs',price:10,mrp:10,category:'personal',stock:20},
- {id:'himalaya-lip-balm',name:'Himalaya Lip Balm',        image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165519/himalaya_lip_balm_40.webp',emoji:'💄',weight:'1pcs',price:40,mrp:40,category:'personal',stock:20},
-{id:'vaseline',name:'Vaseline',     image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165518/vaseline_10.webp',emoji:'🧴',weight:'1pcs',price:10,mrp:10,category:'personal',stock:20},
-{id:'joy-skin-fruit-cream',name:'Joy Skin Fruit Cream',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165518/joy_skin_fruits_10.webp',emoji:'🧴',weight:'1pcs',price:10,mrp:10,category:'personal',stock:20},
-{id:'joy-honey-almond-cream',name:'Joy Honey & Almond Cream',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165519/joy_honey_and_almond_cream_10.webp',emoji:'🧴',weight:'1pcs',price:10,mrp:10,category:'personal',stock:20},
-{id:'boroplus',name:'Boroplus',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165522/boroplus_10.jpg',emoji:'🧴',weight:'1pcs',price:10,mrp:10,category:'personal',stock:20},
-{id:'boroline',name:'Boroline',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165522/boroline_10.jpg',emoji:'🧴',weight:'1pcs',price:10,mrp:10,category:'personal',stock:20},
-{id:'comfort',name:'Comfort',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165521/comfort_4.jpg',emoji:'🧴',weight:'1pcs',price:5,mrp:5,category:'personal',stock:20},
-{id:'mediker',name:'Mediker',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165520/shampoo_mediker.webp',emoji:'🧴',weight:'1pcs',price:7,mrp:7,category:'personal',stock:20},
-{id:'dove-shampoo-conditioner',name:'Dove Shampoo & Conditioner',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165520/shampoo_dove_5.jpg',emoji:'🧴',weight:'1pcs',price:5,mrp:5,category:'personal',stock:20},
+ {id:'denver-powder',name:'Denver Powder',        image:'https://assets.myntassets.com/h_1440,q_75,w_1080/v1/assets/images/29262814/2025/4/21/c4c9d7aa-0391-404a-9b06-8045bc263c561745216614545-Denver-Men-Black-Code-Cologne-Talc-with-UV-Radiation-Protect-1.jpg',emoji:'🧴',weight:'1pcs',price:10,mrp:10,category:'personal',stock:20},
+ {id:'himalaya-lip-balm',name:'Himalaya Lip Balm',        image:'https://aapkabazar.co/_next/image?url=https%3A%2F%2Fimage.aapkabazar.co%2Fproduct%2F6651%2F1737033581565.png%3Ftype%3Dwebp%26width%3D600&w=3840&q=75',emoji:'💄',weight:'1pcs',price:40,mrp:40,category:'personal',stock:20},
+{id:'vaseline',name:'Vaseline',     image:'https://martssr.com/images/product-images/1703051766362685501.jpg',emoji:'🧴',weight:'1pcs',price:10,mrp:10,category:'personal',stock:20},
+{id:'joy-skin-fruit-cream',name:'Joy Skin Fruit Cream',image:'https://www.quickpantry.in/cdn/shop/products/joy-skin-fruits-fruit-moisturizing-skin-cream-quick-pantry-4.jpg?v=1710538670',emoji:'🧴',weight:'1pcs',price:10,mrp:10,category:'personal',stock:20},
+{id:'joy-honey-almond-cream',name:'Joy Honey & Almond Cream',image:'https://www.samyaksupermart.com/cdn/shop/files/Addasubheading-2025-10-17T173201.989_0df7dbb5-6355-4af1-9f05-2da29d1d11c2.png?v=1760702609',emoji:'🧴',weight:'1pcs',price:10,mrp:10,category:'personal',stock:20},
+{id:'boroplus',name:'Boroplus',image:'https://tiimg.tistatic.com/fp/1/006/338/boroplus-antiseptic-cream-870.jpg',emoji:'🧴',weight:'1pcs',price:10,mrp:10,category:'personal',stock:20},
+{id:'boroline',name:'Boroline',image:'https://tiimg.tistatic.com/fp/1/006/336/boroline-antiseptic-ayurvedic-cream-827.jpg',emoji:'🧴',weight:'1pcs',price:10,mrp:10,category:'personal',stock:20},
+{id:'comfort',name:'Comfort',image:'https://kiranamarket.com/wp-content/uploads/2023/03/8901030865909.jpg',emoji:'🧴',weight:'1pcs',price:5,mrp:5,category:'personal',stock:20},
+{id:'mediker',name:'Mediker',image:'https://www.quickpantry.in/cdn/shop/files/Mediker_Anti-Lice_Treatment_Shampoo_5_ml.webp?v=1721380715',emoji:'🧴',weight:'1pcs',price:7,mrp:7,category:'personal',stock:20},
+{id:'dove-shampoo-conditioner',name:'Dove Shampoo & Conditioner',image:'https://dms.mydukaan.io/original/jpeg/127502/d8f706aa-ade7-44e8-99e8-e169ada138a4.png',emoji:'🧴',weight:'1pcs',price:5,mrp:5,category:'personal',stock:20},
 
-{id:'head_shoulder2in1',name:'Head & Shoulder 2 in 1 ',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165519/shampoo_head_and_shouler_4.jpg',emoji:'🧴',weight:'1pcs',price:4,mrp:4,category:'personal',stock:20},
-{id:'dove-conditioner',name:'Dove Conditioner',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165521/shampoo_dove_4.jpg',emoji:'🧴',weight:'1pcs',price:4,mrp:4,category:'personal',stock:20},
-{id:'dove-shampoo',name:'Dove Shampoo',image:CLOUDINARY_BASE+'/image/home_gainda_1ltr.',emoji:'🧴',weight:'1pcs',price:2,mrp:2,category:'personal',stock:20},
-{id:'tresemme',name:'Tresemme',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165518/shampoo_tresemme_2.webp',emoji:'🧴',weight:'1pcs',price:2,mrp:2,category:'personal',stock:20},
-{id:'head_shoulder2',name:'Head & Shoulder ',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165520/shampoo_head_and_shouler_2.jpg',emoji:'🧴',weight:'1pcs',price:2,mrp:2,category:'personal',stock:20},
-{id:'head_shouldercool',name:'Head & Shoulder Cool ',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165520/shampoo_head_and_shouler_cool_2.webp', emoji:'🧴',weight:'1pcs',price:2,mrp:2,category:'personal',stock:20},
-{id:'sunsilk-black',name:'Sunsilk Black',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165519/shampoo_sunsilkblack.webp',emoji:'🧴',weight:'1pcs',price:1,mrp:1,category:'personal',stock:20},
-{id:'sunsilk-pink',name:'Sunsilk Pink',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165519/shampoo_sunsilkpink.jpg',emoji:'🧴',weight:'1pcs',price:1,mrp:1,category:'personal',stock:20},
-{id:'vatika',name:'Vatika',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165518/shampoo_vatika.webp',emoji:'🧴',weight:'1pcs',price:1,mrp:1,category:'personal',stock:20},
-{id:'clinic-plus',name:'Clinic Plus',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165521/CLINIC-PLUS-SHAMPOO-1.jpg',emoji:'🧴',weight:'1pcs',price:1,mrp:1,category:'personal',stock:20},
+{id:'head_shoulder2in1',name:'Head & Shoulder 2 in 1 ',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTCUgGCtZ-NCfYesMK9BrGA6zulMIYK9hjqBNpUf_th8mOs_CzbkvaJTyp&s=10',emoji:'🧴',weight:'1pcs',price:4,mrp:4,category:'personal',stock:20},
+{id:'dove-conditioner',name:'Dove Conditioner',image:'https://storage.googleapis.com/shy-pub/22879/SKU-2343_0-1771915662040.png',emoji:'🧴',weight:'1pcs',price:4,mrp:4,category:'personal',stock:20},
+{id:'dove-shampoo',name:'Dove Shampoo',image:'https://storage.googleapis.com/shy-pub/22879/SKU-1800_0-1771915463201.png',emoji:'🧴',weight:'1pcs',price:2,mrp:2,category:'personal',stock:20},
+{id:'tresemme',name:'Tresemme',image:'https://cdn.dotpe.in/longtail/store-items/1087846/8zpIaZjc.webp',emoji:'🧴',weight:'1pcs',price:2,mrp:2,category:'personal',stock:20},
+{id:'head_shoulder2',name:'Head & Shoulder ',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQInf1yFjde425FbLrv-EKnZoHDXLK4KUYh6fG2nJdWov2YaS5_fALvgHQ&s=10',emoji:'🧴',weight:'1pcs',price:2,mrp:2,category:'personal',stock:20},
+{id:'head_shouldercool',name:'Head & Shoulder Cool ',image:'https://cdn2.clevup.in/334623/SKU-0592_0-1744442432764.jpg?format=webp', emoji:'🧴',weight:'1pcs',price:2,mrp:2,category:'personal',stock:20},
+{id:'sunsilk-black',name:'Sunsilk Black',image:'https://www.quickcartapp.in/media/image?path=uploads%2Fmedia%2F2025%2FIMG-20250916-WA0005.jpg&width=800&quality=80',emoji:'🧴',weight:'1pcs',price:1,mrp:1,category:'personal',stock:20},
+{id:'sunsilk-pink',name:'Sunsilk Pink',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBdn0nVw6dFEDkPRsO1ckpkxOZk1F5zeOK0Q5d1_F8gOOUUwLCX3CGJYr5&s=10',emoji:'🧴',weight:'1pcs',price:1,mrp:1,category:'personal',stock:20},
+{id:'vatika',name:'Vatika',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAnXvANK732qz3vz53Zim1XGgVF8NzwYPIzASGc4m-Z3f9HLcdY8Azy1gB&s=10',emoji:'🧴',weight:'1pcs',price:1,mrp:1,category:'personal',stock:20},
+{id:'clinic-plus',name:'Clinic Plus',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqweCLHWhahVLNqrez2gVOUAoSQhsGW7v53XkO7UIRHPbGToZD5IWNXfge&s=10',emoji:'🧴',weight:'1pcs',price:1,mrp:1,category:'personal',stock:20},
 
-{id:'navratan-oil-1pack',name:'Navratan Oil Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165517/oil_navratan_1.jpg',emoji:'🧴',price:1,mrp:1,category:'pack',stock:15},
-    {id:'himgange-oil-1pack',name:'Himgange Oil Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165517/oil_himgange_1.webp',emoji:'🧴',price:1,mrp:1,category:'pack',stock:15},
+{id:'navratan-oil-1pack',name:'Navratan Oil Pack',image:'https://i.pinimg.com/736x/87/86/20/878620e6e1125244827d4567b551c7b7.jpg',emoji:'🧴',price:1,mrp:1,category:'pack',stock:15},
+    {id:'himgange-oil-1pack',name:'Himgange Oil Pack',image:'https://pbs.twimg.com/media/Ec9eN9AUYAEeXng.jpg',emoji:'🧴',price:1,mrp:1,category:'pack',stock:15},
 
 
-{id:'personal_ezee_liquid_pack',name:'Ezee Liquid Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781632319/IMG_20260616_204416-Photoroom.png',emoji:'🧺',weight:'1pcs',price:5,mrp:5,category:'pack',stock:20},
+{id:'personal_ezee_liquid_pack',name:'Ezee Liquid Pack',image:'https://5.imimg.com/data5/ECOM/Default/2023/8/334165424/HL/TJ/NA/133894414/1667884898690-sku-0853-0.jpeg',emoji:'🧺',weight:'1pcs',price:5,mrp:5,category:'pack',stock:20},
 
-{id:'mediker-pack',name:'Mediker Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165520/shampoo_mediker.webp',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
-{id:'dove-shampoo-conditioner-pack',name:'Dove Shampoo & Conditioner Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165520/shampoo_dove_5.jpg',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
-{id:'head-shoulder-2-in-1-pack',name:'Head & Shoulder 2 in 1 Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165519/shampoo_head_and_shouler_4.jpg',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
-{id:'dove-conditioner-pack',name:'Dove Conditioner Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165521/shampoo_dove_4.jpg',emoji:'🧴',weight:'16pcs',price:4,mrp:4,category:'pack',stock:20},
-{id:'dove-shampoo-pack',name:'Dove Shampoo Pack',image:CLOUDINARY_BASE+'/image/home_gainda_1ltr.',emoji:'🧴',weight:'16pcs',price:2,mrp:2,category:'pack',stock:20},
-{id:'tresemme-pack',name:'Tresemme Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165518/shampoo_tresemme_2.webp',emoji:'🧴',weight:'16pcs',price:2,mrp:2,category:'pack',stock:20},
-{id:'head-shoulder-pack',name:'Head & Shoulder Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165520/shampoo_head_and_shouler_2.jpg',emoji:'🧴',weight:'16pcs',price:2,mrp:2,category:'pack',stock:20},
-{id:'head-shoulder-cool-pack',name:'Head & Shoulder Cool Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165520/shampoo_head_and_shouler_cool_2.webp',emoji:'🧴',weight:'16pcs',price:2,mrp:2,category:'pack',stock:20},
-{id:'sunsilk-black-pack',name:'Sunsilk Black Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165519/shampoo_sunsilkblack.webp',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
-{id:'sunsilk-pink-pack',name:'Sunsilk Pink Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165519/shampoo_sunsilkpink.jpg',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
-{id:'vatika-pack',name:'Vatika Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165518/shampoo_vatika.webp',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
-{id:'clinic-plus-pack',name:'Clinic Plus Pack',image:'https://res.cloudinary.com/db2tt1cy6/image/upload/q_auto/f_auto/v1781165521/CLINIC-PLUS-SHAMPOO-1.jpg',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
+{id:'mediker-pack',name:'Mediker Pack',image:'https://storage.googleapis.com/shy-pub/394829/SKU-0463_0-1728192877198.jpg',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
+{id:'dove-shampoo-conditioner-pack',name:'Dove Shampoo & Conditioner Pack',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUjr9-hcSwW6aoZgl2L1e9KBt75rd1NHSp-JTEmJdQBxMJhKoUg2LXvHg&s=10',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
+{id:'head-shoulder-2-in-1-pack',name:'Head & Shoulder 2 in 1 Pack',image:'https://i.ebayimg.com/images/g/lDYAAOSw4hRhvYRv/s-l400.jpg',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
+{id:'dove-conditioner-pack',name:'Dove Conditioner Pack',image:'https://5.imimg.com/data5/SELLER/Default/2023/5/305952270/HG/SZ/LL/123467603/new-product-500x500.jpeg',emoji:'🧴',weight:'16pcs',price:4,mrp:4,category:'pack',stock:20},
+{id:'dove-shampoo-pack',name:'Dove Shampoo Pack',image:'https://5.imimg.com/data5/NSDMERP/Default/2024/3/405313683/IX/AO/QQ/191408134/191408134-product-1711708448190.jpeg',emoji:'🧴',weight:'16pcs',price:2,mrp:2,category:'pack',stock:20},
+{id:'tresemme-pack',name:'Tresemme Pack',image:'https://jgkkiranastore.com/resource/products/YcjKlcne4HeQYPUzx512.jpg?f=1',emoji:'🧴',weight:'16pcs',price:2,mrp:2,category:'pack',stock:20},
+{id:'head-shoulder-pack',name:'Head & Shoulder Pack',image:'https://myawse-commerceapp.s3.ap-south-1.amazonaws.com/ProductImages/1756496489362-80-min-5.jpg',emoji:'🧴',weight:'16pcs',price:2,mrp:2,category:'pack',stock:20},
+{id:'head-shoulder-cool-pack',name:'Head & Shoulder Cool Pack',image:'https://i.ebayimg.com/images/g/yVoAAOSwSANknxVf/s-l1200.jpg',emoji:'🧴',weight:'16pcs',price:2,mrp:2,category:'pack',stock:20},
+{id:'sunsilk-black-pack',name:'Sunsilk Black Pack',image:'https://static.wixstatic.com/media/a962c7_2073ecb5c4bb47eeb703213e808cfce0~mv2.jpg/v1/fill/w_496,h_661,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/a962c7_2073ecb5c4bb47eeb703213e808cfce0~mv2.jpg',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
+{id:'sunsilk-pink-pack',name:'Sunsilk Pink Pack',image:'https://static.wixstatic.com/media/a962c7_248eba98d93149dba1fbcca014e7da4d~mv2.jpg/v1/fill/w_544,h_725,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a962c7_248eba98d93149dba1fbcca014e7da4d~mv2.jpg',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
+{id:'vatika-pack',name:'Vatika Pack',image:'https://static.wixstatic.com/media/b13348_7a938b872bec44e0b311a5385a6b5e97~mv2.jpg/v1/fit/w_500,h_500,q_90/file.jpg',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
+{id:'clinic-plus-pack',name:'Clinic Plus Pack',image:'https://epeedikaonline.com/assets/products/original/products_qcouly.jpg',emoji:'🧴',weight:'16pcs',price:15,mrp:16,category:'pack',stock:20},
 
 
 // ══ Veeba ══
