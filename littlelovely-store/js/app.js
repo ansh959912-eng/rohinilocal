@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* hero CTAs */
   const heroShop = document.getElementById("hero-shop-btn");
-  if (heroShop) heroShop.addEventListener("click", () => window.location.href = LWL.pagePath("shop.html"));
+  if (heroShop) heroShop.addEventListener("click", () => window.location.href = LWL.pagePath("shop"));
   const heroCreate = document.getElementById("hero-create-btn");
   if (heroCreate) heroCreate.addEventListener("click", () => document.getElementById("hamper-builder").scrollIntoView({ behavior: "smooth" }));
 
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const params = {};
       if (card.dataset.cat) params.cat = card.dataset.cat;
       if (card.dataset.tag) params.tag = card.dataset.tag;
-      window.location.href = LWL.pagePath("shop.html") + LWL.setQuery(params);
+      window.location.href = LWL.pagePath("shop") + LWL.setQuery(params);
     }));
   }
 
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const viewAllBtn = section.querySelector("[data-view-all]");
     if (viewAllBtn) viewAllBtn.addEventListener("click", () => {
       const cat = viewAllBtn.dataset.viewAll;
-      window.location.href = LWL.pagePath("shop.html") + (cat ? LWL.setQuery({ cat }) : "");
+      window.location.href = LWL.pagePath("shop") + (cat ? LWL.setQuery({ cat }) : "");
     });
   });
 
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     priceStrip.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => {
       const params = { max: b.dataset.max };
       if (b.dataset.cat) params.cat = b.dataset.cat;
-      window.location.href = LWL.pagePath("shop.html") + LWL.setQuery(params);
+      window.location.href = LWL.pagePath("shop") + LWL.setQuery(params);
     }));
   }
 
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </button>`).join("");
     occGrid.querySelectorAll(".occasion-card").forEach((card) => card.addEventListener("click", () => {
       if (card.dataset.link === "return-gifts") { document.getElementById("return-gifts").scrollIntoView({ behavior: "smooth" }); return; }
-      window.location.href = LWL.pagePath("shop.html") + LWL.setQuery({ query: card.dataset.label });
+      window.location.href = LWL.pagePath("shop") + LWL.setQuery({ query: card.dataset.label });
     }));
   }
 
