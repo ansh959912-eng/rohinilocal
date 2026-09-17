@@ -52,13 +52,13 @@ const PRECACHE_ASSETS = [
   '/manifest-little.json',                // ✅ root me hai, ye sahi hai
 
   /* littlelovely-store pages */
-  '/littlelovely-store/pages/shop.html',
-  '/littlelovely-store/pages/checkout.html',
-  '/littlelovely-store/pages/wishlist.html',
-  '/littlelovely-store/pages/track-order.html',
-  '/littlelovely-store/pages/product.html',
-  '/littlelovely-store/pages/contact.html',
-  '/littlelovely-store/pages/faq.html',
+  '/shop.html',
+  '/checkout.html',
+  '/wishlist.html',
+  '/track-order.html',
+  '/product.html',
+  '/contact.html',
+  '/faq.html',
 
 
 
