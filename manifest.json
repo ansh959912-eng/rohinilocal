@@ -1,10 +1,10 @@
 {
-  "id": "/index.html",
+  "id": "/balaji-app",
   "name": "Balaji Store",
   "short_name": "Balaji",
   "description": "Fresh & Daily Essentials – Order on WhatsApp",
   "start_url": "/balaji/index.html",
-  "scope": "/",
+  "scope": "/balaji/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#FF6B00",
@@ -14,42 +14,13 @@
   "categories": ["shopping", "food"],
 
   "icons": [
-    {
-      "src": "/icon/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/icon/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
+    { "src": "/icon/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
 
   "shortcuts": [
-    {
-  "name": "Little Lovely Store",
-  "short_name": "Little Lovely",
-  "description": "Visit Little Lovely Store home",
-  "url": "/littlelovely-store/little.html",
-  "icons": [
-    { "src": "/icon/icon-192.png", "sizes": "192x192", "type": "image/png" }
-  ]
-},
     {
       "name": "WebHub",
       "short_name": "WebHub",
@@ -90,10 +61,7 @@
     }
   ],
 
-  "launch_handler": {
-    "client_mode": "navigate-existing"
-  },
-
+  "launch_handler": { "client_mode": "navigate-existing" },
   "prefer_related_applications": false,
   "related_applications": []
 }

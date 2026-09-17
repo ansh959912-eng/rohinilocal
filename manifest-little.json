@@ -1,0 +1,70 @@
+{
+  "id": "/littlelovely-app",
+  "name": "Little Lovely Store",
+  "short_name": "Little Lovely",
+  "description": "Cute & Cozy Essentials for Little Ones",
+  "start_url": "/littlelovely-store/little.html",
+  "scope": "/littlelovely-store/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFC0CB",
+  "theme_color": "#FF69B4",
+  "lang": "hi",
+  "dir": "ltr",
+  "categories": ["shopping", "kids"],
+
+  "icons": [
+    { "src": "/icon/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+
+  "shortcuts": [
+       {
+      "name": "Track Order",
+      "short_name": "Track",
+      "description": "Track your order status",
+      "url": "/littlelovely-store/pages/track-order.html",
+      "icons": [{ "src": "/icon/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Wishlist",
+      "short_name": "Wishlist",
+      "description": "View your wishlist",
+      "url": "/littlelovely-store/pages/wishlist.html",
+      "icons": [{ "src": "/icon/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+      {
+    "name": "Contact",
+    "short_name": "Contact",
+    "description": "Contact us",
+    "url": "/littlelovely-store/pages/contact.html",
+    "icons": [{ "src": "/icon/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+  },
+    {
+      "name": "Shop",
+      "short_name": "Shop",
+      "description": "Browse all products",
+      "url": "/littlelovely-store/pages/shop.html",
+      "icons": [{ "src": "/icon/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    }
+    
+    
+ 
+  ],
+
+  "screenshots": [
+    {
+      "src": "/icon/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Little Lovely Store Home"
+    }
+  ],
+
+  "launch_handler": { "client_mode": "navigate-existing" },
+  "prefer_related_applications": false,
+  "related_applications": []
+}

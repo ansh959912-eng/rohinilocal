@@ -42,23 +42,25 @@ const NETWORK_TIMEOUT_MS = 5000;
 /* ── Assets to pre-cache on install ── */
 const PRECACHE_ASSETS = [
   '/',
-  
-  '/indexshop.html',       // ✅ public shop page
-  '/indexoffer.html',      // ✅ public offers page
-  '/policies.html',        // ✅ public policies page
-  '/indexwebhub.html',
-  '/little.html',
-  '/manifest.json',
+
+  '/rohini/indexshop.html',        // ✅ actual location: rohini/ folder
+  '/balaji/indexoffer.html',       // ✅ actual location: balaji/ folder
+  '/balaji/policies.html',         // ✅ actual location: balaji/ folder
+  '/webhub/indexwebhub.html',      // ✅ actual location: webhub/ folder
+  '/littlelovely-store/little.html', // ✅ actual location: littlelovely-store/ folder
+  '/manifest.json',                // ✅ root me hai, ye sahi hai
 
   /* littlelovely-store pages */
-  '/pages/shop.html',
-  '/pages/checkout.html',
-  '/pages/wishlist.html',
-  '/pages/track-order.html',
-  '/pages/product.html',
-  '/pages/contact.html',
-  '/pages/faq.html',
-  
+  '/littlelovely-store/pages/shop.html',
+  '/littlelovely-store/pages/checkout.html',
+  '/littlelovely-store/pages/wishlist.html',
+  '/littlelovely-store/pages/track-order.html',
+  '/littlelovely-store/pages/product.html',
+  '/littlelovely-store/pages/contact.html',
+  '/littlelovely-store/pages/faq.html',
+
+
+
   /* NOTE: indexadmin.html & shopadmin.html are intentionally excluded */
   /* Google Fonts */
   'https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Hind:wght@300;400;500;600&display=swap',
