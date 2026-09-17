@@ -13,46 +13,43 @@
   "dir": "ltr",
   "categories": ["shopping", "kids"],
 
-  "icons": [
-    { "src": "/little192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/little512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/little192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "/little512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
-  ],
+"icons": [
+  { "src": "/little-icon-192-any.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+  { "src": "/little-icon-512-any.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+  { "src": "/little-icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+  { "src": "/little-icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+],
 
-  "shortcuts": [
-       {
-      "name": "Track Order",
-      "short_name": "Track",
-      "description": "Track your order status",
-      "url": "/littlelovely-store/pages/track-order",
-      "icons": [{ "src": "/little192.pn", "sizes": "192x192", "type": "image/png" }]
-    },
-    {
-      "name": "Wishlist",
-      "short_name": "Wishlist",
-      "description": "View your wishlist",
-      "url": "/littlelovely-store/pages/wishlist",
-      "icons": [{ "src": "/little192.pn", "sizes": "192x192", "type": "image/png" }]
-    },
-      {
+"shortcuts": [
+  {
+    "name": "Shop",
+    "short_name": "Shop",
+    "description": "Browse all products",
+    "url": "/shop.html",
+    "icons": [{ "src": "/little-icon-192-any.png", "sizes": "192x192", "type": "image/png" }]
+  },
+  {
+    "name": "Track Order",
+    "short_name": "Track",
+    "description": "Track your order status",
+    "url": "/track-order.html",
+    "icons": [{ "src": "/little-icon-192-any.png", "sizes": "192x192", "type": "image/png" }]
+  },
+  {
+    "name": "Wishlist",
+    "short_name": "Wishlist",
+    "description": "View your wishlist",
+    "url": "/wishlist.html",
+    "icons": [{ "src": "/little-icon-192-any.png", "sizes": "192x192", "type": "image/png" }]
+  },
+  {
     "name": "Contact",
     "short_name": "Contact",
     "description": "Contact us",
-    "url": "/littlelovely-store/pages/contact",
-    "icons": [{ "src": "/little192.pn", "sizes": "192x192", "type": "image/png" }]
-  },
-    {
-      "name": "Shop",
-      "short_name": "Shop",
-      "description": "Browse all products",
-      "url": "/littlelovely-store/pages/shop",
-      "icons": [{ "src": "/little192.pn", "sizes": "192x192", "type": "image/png" }]
-    }
-    
-    
- 
-  ],
+    "url": "/contact.html",
+    "icons": [{ "src": "/little-icon-192-any.png", "sizes": "192x192", "type": "image/png" }]
+  }
+],
 
   "screenshots": [
     {
