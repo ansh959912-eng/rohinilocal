@@ -47,10 +47,18 @@ const PRECACHE_ASSETS = [
   '/indexoffer.html',      // ✅ public offers page
   '/policies.html',        // ✅ public policies page
   '/indexwebhub.html',
-  '/index.html',
-  '/contact.html',
-  '/faq.html',
+  '/little.html',
   '/manifest.json',
+
+  /* littlelovely-store pages */
+  '/pages/shop.html',
+  '/pages/checkout.html',
+  '/pages/wishlist.html',
+  '/pages/track-order.html',
+  '/pages/product.html',
+  '/pages/contact.html',
+  '/pages/faq.html',
+  
   /* NOTE: indexadmin.html & shopadmin.html are intentionally excluded */
   /* Google Fonts */
   'https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Hind:wght@300;400;500;600&display=swap',

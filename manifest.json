@@ -42,15 +42,14 @@
 
   "shortcuts": [
     {
-      "name": "Shop Now",
-      "short_name": "Shop",
-      "description": "Browse our products",
-      "url": "/rohini/indexshop.html",
-      "icons": [
-        { "src": "/icon/shop192.png", "sizes": "192x192", "type": "image/png" },
-        { "src": "/icon/shop512.png", "sizes": "512x512", "type": "image/png" }
-      ]
-    },
+  "name": "Little Lovely Store",
+  "short_name": "Little Lovely",
+  "description": "Visit Little Lovely Store home",
+  "url": "/littlelovely-store/little.html",
+  "icons": [
+    { "src": "/icon/icon-192.png", "sizes": "192x192", "type": "image/png" }
+  ]
+},
     {
       "name": "WebHub",
       "short_name": "WebHub",
