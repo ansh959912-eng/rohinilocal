@@ -43,12 +43,13 @@ const NETWORK_TIMEOUT_MS = 5000;
 const PRECACHE_ASSETS = [
   '/',
 
-  '/rohini/indexshop.html',        // ✅ actual location: rohini/ folder
-  '/balaji/indexoffer.html',       // ✅ actual location: balaji/ folder
-  '/balaji/policies.html',         // ✅ actual location: balaji/ folder
-  '/webhub/indexwebhub.html',      // ✅ actual location: webhub/ folder
-  '/littlelovely-store/little.html', // ✅ actual location: littlelovely-store/ folder
-  '/manifest.json',                // ✅ root me hai, ye sahi hai
+  '/indexshop.html',        // ✅ actual location: rohini/ folder
+  '/indexoffer.html',       // ✅ actual location: balaji/ folder
+  '/policies.html',         // ✅ actual location: balaji/ folder
+  '/indexwebhub.html',      // ✅ actual location: webhub/ folder
+  '/little.html', // ✅ actual location: littlelovely-store/ folder
+  '/manifest.json',
+  '/manifest-little.json',                // ✅ root me hai, ye sahi hai
 
   /* littlelovely-store pages */
   '/littlelovely-store/pages/shop.html',
