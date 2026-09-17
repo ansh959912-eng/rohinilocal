@@ -657,6 +657,24 @@ footer#footer::after{content:"";position:absolute;width:500px;height:500px;backg
 @media(max-width:768px){
   .mobile-search-bar .header-search:focus-within{border-color:var(--saffron);box-shadow:0 0 0 3px rgba(255,107,0,.15);}
 }
+.header-search{position:relative;}
+.search-suggestions{
+  position:absolute;top:calc(100% + 6px);left:0;right:0;
+  background:var(--card-bg);border:1.5px solid var(--border);border-radius:14px;
+  box-shadow:0 12px 32px rgba(0,0,0,.15);max-height:360px;overflow-y:auto;
+  z-index:150;display:none;
+}
+.search-suggestions.show{display:block;}
+.sugg-item{display:flex;align-items:center;gap:10px;padding:9px 12px;cursor:pointer;transition:background .15s;border-bottom:1px solid var(--border);}
+.sugg-item:last-child{border-bottom:none;}
+.sugg-item:hover{background:var(--saffron-light);}
+.sugg-img{width:40px;height:40px;border-radius:8px;background:var(--cream);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;}
+.sugg-img img{width:100%;height:100%;object-fit:contain;}
+.sugg-emoji{font-size:22px;}
+.sugg-info{flex:1;min-width:0;}
+.sugg-name{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sugg-price{font-size:12px;color:var(--saffron);font-weight:700;margin-top:1px;}
+.sugg-empty{padding:14px;text-align:center;font-size:13px;color:var(--muted);}
 </style>
 </head>
 
@@ -722,6 +740,7 @@ footer#footer::after{content:"";position:absolute;width:500px;height:500px;backg
   <input type="text" placeholder="Search products..." id="searchInput"
     oninput="filterProducts()" autocomplete="off" aria-label="Search products">
   <button class="mic-btn" id="micBtnDesktop" onclick="startVoiceSearch('desktop')" aria-label="Voice search" title="Bol kar search karein">🎤</button>
+  <div class="search-suggestions" id="searchSuggestions"></div>
 </div>
     <div class="header-actions">
 
@@ -748,6 +767,7 @@ footer#footer::after{content:"";position:absolute;width:500px;height:500px;backg
     <input type="text" placeholder="Search products..." id="mobileSearchInput"
       oninput="filterProductsMobile()" autocomplete="off" aria-label="Search products">
     <button class="mic-btn" id="micBtnMobile" onclick="startVoiceSearch('mobile')" aria-label="Voice search" title="Bol kar search karein">🎤</button>
+    <div class="search-suggestions" id="searchSuggestionsMobile"></div>
   </div>
 </div>
 </header>
@@ -1523,14 +1543,15 @@ function filterCat(cat,el){
   window._renderProducts();
 }
 window.filterCat=filterCat;
-
 function filterProducts(){
-  /* FIX JS-02: debounce search */
   const mob=document.getElementById('mobileSearchInput');
   searchQuery=document.getElementById('searchInput').value;
   if(mob)mob.value=searchQuery;
   clearTimeout(_searchDebounceTimer);
-  _searchDebounceTimer=setTimeout(()=>window._renderProducts(),150);
+  _searchDebounceTimer=setTimeout(()=>{
+    window._renderProducts();
+    renderSuggestions(searchQuery,'searchSuggestions');
+  },150);
 }
 window.filterProducts=filterProducts;
 
@@ -1539,10 +1560,71 @@ function filterProductsMobile(){
   searchQuery=document.getElementById('mobileSearchInput').value;
   if(desk)desk.value=searchQuery;
   clearTimeout(_searchDebounceTimer);
-  _searchDebounceTimer=setTimeout(()=>window._renderProducts(),150);
+  _searchDebounceTimer=setTimeout(()=>{
+    window._renderProducts();
+    renderSuggestions(searchQuery,'searchSuggestionsMobile');
+  },150);
 }
 window.filterProductsMobile=filterProductsMobile;
+/* ── SEARCH SUGGESTIONS (pic + name + price) ── */
+function renderSuggestions(query, boxId){
+  const box=document.getElementById(boxId);
+  if(!box)return;
+  const q=query.trim().toLowerCase();
+  if(!q){box.classList.remove('show');box.innerHTML='';return;}
+  const all=getMergedProducts();
+  const matches=all.filter(p=>p.name.toLowerCase().includes(q)).slice(0,6);
+  if(!matches.length){
+    box.innerHTML=`<div class="sugg-empty">Koi product nahi mila</div>`;
+    box.classList.add('show');
+    return;
+  }
+  box.innerHTML=matches.map(p=>{
+    const safeId=esc(p.id);
+    const media=isValidImageUrl(p.image)
+      ?`<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="sugg-emoji" style="display:none;">${esc(p.emoji||'📦')}</span>`
+      :`<span class="sugg-emoji">${esc(p.emoji||'📦')}</span>`;
+    return `<div class="sugg-item" onclick="goToProduct('${safeId}')">
+      <div class="sugg-img">${media}</div>
+      <div class="sugg-info">
+        <div class="sugg-name">${esc(p.name)}</div>
+        <div class="sugg-price">₹${p.price}${p.weight?' • '+esc(p.weight):''}</div>
+      </div>
+    </div>`;
+  }).join('');
+  box.classList.add('show');
+}
 
+function hideSuggestions(){
+  ['searchSuggestions','searchSuggestionsMobile'].forEach(id=>{
+    const b=document.getElementById(id);
+    if(b)b.classList.remove('show');
+  });
+}
+
+window.goToProduct=function(id){
+  hideSuggestions();
+  currentCat='all';
+  searchQuery='';
+  const d=document.getElementById('searchInput'); if(d)d.value='';
+  const m=document.getElementById('mobileSearchInput'); if(m)m.value='';
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  const allPill=document.querySelector('.cat-pill');
+  if(allPill)allPill.classList.add('active');
+  window._renderProducts();
+  setTimeout(()=>{
+    const card=document.getElementById('pcard_'+id);
+    if(card){
+      card.scrollIntoView({behavior:'smooth',block:'center'});
+      card.classList.add('voice-highlight');
+      setTimeout(()=>card.classList.remove('voice-highlight'),3600);
+    }
+  },200);
+};
+
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.header-search'))hideSuggestions();
+});
 function focusMobileSearch(){
   const mob=document.getElementById('mobileSearchInput');
   if(mob){mob.focus();mob.scrollIntoView({behavior:'smooth',block:'center'});}
@@ -1758,6 +1840,7 @@ window.esc=esc;
 /* ── KEYBOARD ── */
 document.addEventListener('keydown',(e)=>{
   if(e.key==='Escape'){
+   hideSuggestions(); 
     const panel=document.getElementById('cartPanel');
     if(panel.classList.contains('open'))toggleCart();
     const qr=document.getElementById('qr-popup');
