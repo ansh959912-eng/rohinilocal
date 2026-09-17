@@ -8,7 +8,7 @@ const LWL = window.LWL || {};
 LWL.inPages = location.pathname.includes("/pages/");
 LWL.rootPath = LWL.inPages ? "../" : "";
 LWL.pagePath = (file) => (LWL.inPages ? file : "pages/" + file);
-LWL.homePath = () => LWL.rootPath + "little.html";
+LWL.homePath = () => LWL.rootPath + "little";
 LWL.assetPath = (p) => /^https?:\/\//i.test(p) ? p : LWL.rootPath + p;
 
 /* ---------- money ---------- */

@@ -154,7 +154,7 @@ document.addEventListener("click", (e) => {
 }
   if (action === "open-product") {
     LWLProducts.addRecentlyViewed(id);
-    window.location.href = LWL.pagePath("product.html") + "?id=" + encodeURIComponent(id);
+    window.location.href = LWL.pagePath("product") + "?id=" + encodeURIComponent(id);
   }
   if (action === "quick-view") {
     const p = LWLProducts.byId(id);
@@ -167,6 +167,6 @@ document.addEventListener("click", (e) => {
     if (btn.dataset.cat) params.cat = btn.dataset.cat;
     if (btn.dataset.tag) params.tag = btn.dataset.tag;
     if (btn.dataset.max) params.max = btn.dataset.max;
-    window.location.href = LWL.pagePath("shop.html") + LWL.setQuery(params);
+    window.location.href = LWL.pagePath("shop") + LWL.setQuery(params);
   }
 });

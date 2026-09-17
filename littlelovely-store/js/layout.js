@@ -34,7 +34,7 @@ function headerHtml() {
       </div>
       <div class="header-actions">
         <button class="icon-btn desktop-nav" id="header-search-btn" aria-label="Search">${ICONS.search}</button>
-        <a class="icon-btn desktop-nav" href="${LWL.pagePath("wishlist.html")}" aria-label="Wishlist" style="position:relative;">${ICONS.heart(false)}<span class="count wish-count-badge" style="display:none;"></span></a>
+        <a class="icon-btn desktop-nav" href="${LWL.pagePath("wishlist")}" aria-label="Wishlist" style="position:relative;">${ICONS.heart(false)}<span class="count wish-count-badge" style="display:none;"></span></a>
         
         <button class="icon-btn" id="header-cart-btn" aria-label="Cart" style="position:relative;">${ICONS.bag}<span class="count cart-count-badge" style="display:none;"></span></button>
         <button class="btn btn-primary small desktop-cta" id="header-build-gift-btn">Build a Gift 🎁</button>
@@ -52,8 +52,8 @@ function headerHtml() {
           <a href="${LWL.homePath()}#return-gifts">Return Gifts</a>
       <a href="${LWL.homePath()}#hamper-builder">Build Your Gift</a>
       <button type="button" class="mm-link" id="mobile-my-kits-btn">My Kits</button>
-      <a href="${LWL.pagePath("track-order.html")}">Track Order</a>
-      <a href="${LWL.pagePath("wishlist.html")}">Wishlist</a>
+      <a href="${LWL.pagePath("track-order")}">Track Order</a>
+      <a href="${LWL.pagePath("wishlist")}">Wishlist</a>
      
       <button class="btn btn-primary small" style="margin-top:10px;" id="mobile-build-gift-btn">Build a Gift 🎁</button>
     </div>
@@ -286,16 +286,16 @@ function footerHtml() {
       </div>
       <div class="footer-col">
         <h4>Help</h4>
-        <a href="${LWL.pagePath("contact.html")}">Contact</a>
-        <a href="${LWL.pagePath("faq.html")}#shipping">Shipping</a>
-        <a href="${LWL.pagePath("faq.html")}#returns">Returns</a>
-        <a href="${LWL.pagePath("faq.html")}">FAQ</a>
-        <a href="${LWL.pagePath("track-order.html")}">Track Order</a>
+        <a href="${LWL.pagePath("contact")}">Contact</a>
+        <a href="${LWL.pagePath("faq")}#shipping">Shipping</a>
+        <a href="${LWL.pagePath("faq")}#returns">Returns</a>
+        <a href="${LWL.pagePath("faq")}">FAQ</a>
+        <a href="${LWL.pagePath("track-order")}">Track Order</a>
         <a href="${rootPath("admin.html")}">Admin Login</a>
       </div>
       <div class="footer-col">
         <h4>About</h4>
-        <a href="${LWL.pagePath("contact.html")}">Our Story</a>
+        <a href="${LWL.pagePath("contact")}">Our Story</a>
         <a href="${INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a>
         <button type="button" id="footer-whatsapp-btn">WhatsApp</button>
       </div>
@@ -372,7 +372,7 @@ function initLayout() {
   document.getElementById("cart-overlay").addEventListener("click", () => LWLCart.close());
   document.getElementById("cart-checkout-btn").addEventListener("click", () => {
     if (LWLCart.items.length === 0) { LWL.toast("Your bag is empty"); return; }
-    window.location.href = LWL.pagePath("checkout.html");
+    window.location.href = LWL.pagePath("checkout");
   });
   LWLCart.renderDrawer();
   LWLCart.renderBadges();
@@ -403,7 +403,7 @@ function initLayout() {
   if (mobileMyKitsBtn) mobileMyKitsBtn.addEventListener("click", () => { openMyKits(); menu.classList.remove("open"); });
   // bottom nav
   document.getElementById("bn-home").addEventListener("click", () => { window.location.href = LWL.homePath(); });
-  document.getElementById("bn-wishlist").addEventListener("click", () => { window.location.href = LWL.pagePath("wishlist.html"); });
+  document.getElementById("bn-wishlist").addEventListener("click", () => { window.location.href = LWL.pagePath("wishlist"); });
   document.getElementById("bn-cart").addEventListener("click", () => LWLCart.open());
   document.getElementById("bn-create").addEventListener("click", () => openCreateMenu());
 
