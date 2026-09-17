@@ -464,5 +464,396 @@
     document.querySelectorAll('[data-rail="next"]').forEach(b => b.innerHTML = ICONS.chevronRight);
   });
 </script>
+
+<!-- ════════════════════════════════════════════════════════════════
+     little&lovely — PWA INSTALL SYSTEM (so users can "download" the app)
+     Works on: Android (Chrome/Edge/Samsung/Brave/Firefox),
+               iOS/iPadOS (Safari/Chrome/Edge — Share-sheet flow),
+               Desktop (Chrome/Edge/Brave native prompt, Safari 17+ Add to Dock)
+     ════════════════════════════════════════════════════════════════ -->
+<style>
+@keyframes llSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+#ll-pwa-install-banner{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:99999;
+  background:linear-gradient(135deg,#F6C8D6,#F3AFC5);
+  color:#3a2430;padding:14px 16px;
+  box-shadow:0 -4px 24px rgba(243,175,197,.45);
+  font-family:'Fraunces',serif,sans-serif;
+  animation:llSlideUp .4s ease;
+}
+.ll-pwa-banner-inner{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:600px;margin:0 auto}
+.ll-pwa-banner-left{display:flex;align-items:center;gap:10px}
+.ll-pwa-banner-icon{width:42px;height:42px;background:rgba(255,255,255,.5);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.ll-pwa-banner-title{font-weight:700;font-size:15px;line-height:1.2}
+.ll-pwa-banner-sub{font-size:11px;opacity:.8;font-family:sans-serif;}
+.ll-pwa-banner-btns{display:flex;gap:7px;flex-shrink:0}
+.ll-pwa-install-btn{background:#3a2430;color:#fff;border:none;border-radius:50px;padding:9px 18px;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;transition:all .2s;font-family:sans-serif;}
+.ll-pwa-install-btn:hover{background:#241621;transform:scale(1.04)}
+.ll-pwa-dismiss-btn{background:rgba(255,255,255,.4);color:#3a2430;border:1.5px solid rgba(58,36,48,.25);border-radius:50px;padding:8px 13px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:sans-serif;transition:all .2s}
+.ll-pwa-dismiss-btn:hover{background:rgba(255,255,255,.6)}
+@media(max-width:480px){.ll-pwa-banner-sub{display:none}.ll-pwa-install-btn{padding:8px 14px;font-size:12px}}
+
+.ll-pwa-header-btn{
+  display:none;align-items:center;justify-content:center;gap:0;
+  position:fixed;left:16px;bottom:20px;z-index:9998;
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,#F6C8D6,#F3AFC5);color:#3a2430;
+  border:none;font-size:22px;cursor:pointer;
+  box-shadow:0 6px 20px rgba(243,175,197,.55),0 3px 10px rgba(0,0,0,.16);
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s ease;
+  animation:llFabFloat 3s ease-in-out infinite;
+}
+.ll-pwa-header-btn::before{
+  content:'';position:absolute;inset:-7px;border-radius:50%;
+  border:2px solid rgba(243,175,197,.55);
+  animation:llFabPulse 2.2s ease-out infinite;pointer-events:none;
+  z-index:-1;
+}
+@keyframes llFabFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes llFabPulse{0%{transform:scale(.9);opacity:.8}70%{transform:scale(1.3);opacity:0}100%{opacity:0}}
+.ll-pwa-header-btn:hover{transform:translateY(-4px) scale(1.08);animation-play-state:paused;box-shadow:0 10px 28px rgba(243,175,197,.7),0 4px 12px rgba(0,0,0,.2);}
+.ll-pwa-header-tooltip{
+  position:fixed;left:78px;z-index:9998;
+  background:#3a2430;color:#fff;padding:7px 12px;border-radius:10px;
+  font-family:sans-serif;font-size:12px;font-weight:500;
+  opacity:0;visibility:hidden;transition:.3s;white-space:nowrap;
+  box-shadow:0 3px 10px rgba(0,0,0,.15);
+}
+.ll-pwa-header-btn:hover + .ll-pwa-header-tooltip{opacity:1;visibility:visible;}
+@media(max-width:768px){
+  .ll-pwa-header-btn{width:46px;height:46px;font-size:19px;left:14px;}
+  .ll-pwa-header-tooltip{display:none;}
+}
+
+.ll-install-popup-card{background:#3a2430;color:#fff;border-radius:16px;padding:18px;
+  box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:sans-serif;text-align:center;position:relative;}
+.ll-install-popup-title{font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:#F6C8D6;margin-bottom:8px;}
+.ll-install-popup-steps{text-align:left;font-size:13px;line-height:1.9;color:#f1e6ea;}
+.ll-install-popup-step{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.ll-install-popup-close{margin-top:14px;background:rgba(255,255,255,.15);border:none;color:#fff;
+  border-radius:50px;padding:9px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:sans-serif;}
+.ll-install-popup-arrow{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:0;height:0;
+  border-left:10px solid transparent;border-right:10px solid transparent;border-top:10px solid #3a2430;}
+</style>
+
+<!-- Floating install button (stacks above WhatsApp float button) -->
+<button class="ll-pwa-header-btn" id="ll-pwa-header-btn" aria-label="Install App">📲</button>
+<div class="ll-pwa-header-tooltip" id="ll-pwa-header-tooltip">Install App</div>
+
+<!-- Bottom install banner -->
+<div id="ll-pwa-install-banner">
+  <div class="ll-pwa-banner-inner">
+    <div class="ll-pwa-banner-left">
+      <div class="ll-pwa-banner-icon">🎀</div>
+      <div>
+        <div class="ll-pwa-banner-title">Install little&amp;lovely App</div>
+        <div class="ll-pwa-banner-sub">Free • Works offline • No app store needed</div>
+      </div>
+    </div>
+    <div class="ll-pwa-banner-btns">
+      <button class="ll-pwa-install-btn" id="ll-pwa-install-btn">📲 Install</button>
+      <button class="ll-pwa-dismiss-btn" id="ll-pwa-dismiss-btn">✕</button>
+    </div>
+  </div>
+</div>
+
+<!-- Manual install instructions popup (iOS / Firefox / Mac Safari) -->
+<div id="ll-install-instructions-popup" style="display:none;position:fixed;bottom:16px;left:50%;
+  transform:translateX(-50%);z-index:99999;width:calc(100% - 28px);max-width:380px;">
+  <div class="ll-install-popup-card">
+    <div class="ll-install-popup-title" id="ll-install-popup-title">📱 Install karo</div>
+    <div class="ll-install-popup-steps" id="ll-install-popup-steps"></div>
+    <button class="ll-install-popup-close" id="ll-install-popup-close">Got it ✓</button>
+    <div class="ll-install-popup-arrow"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  var ua = navigator.userAgent;
+  function isIOSDevice(){
+    var iOS = /iphone|ipad|ipod/i.test(ua);
+    var iPadOS13Plus = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+    return iOS || iPadOS13Plus;
+  }
+  function isAndroid(){ return /android/i.test(ua); }
+  function isFirefox(){ return /firefox|fxios/i.test(ua); }
+  function isSafariEngine(){
+    return /safari/i.test(ua) && !/chrome|chromium|crios|edg|edgios|opr|opios|samsungbrowser|firefox|fxios/i.test(ua);
+  }
+  function isMacDesktop(){ return /macintosh/i.test(ua) && !isIOSDevice(); }
+  function isStandalone(){
+    return window.navigator.standalone === true ||
+      window.matchMedia('(display-mode: standalone)').matches;
+  }
+
+  var IS_IOS       = isIOSDevice();
+  var IS_ANDROID    = isAndroid();
+  var IS_FIREFOX    = isFirefox();
+  var IS_MAC_SAFARI = isMacDesktop() && isSafariEngine();
+  var IS_STANDALONE = isStandalone();
+
+  /* Register service worker, if one is available at /sw.js */
+  if ('serviceWorker' in navigator &&
+      (location.protocol === 'https:' || location.hostname === 'localhost')) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js', { scope: '/' })
+        .then(function(reg) {
+          console.log('[PWA] Service Worker registered ✅ scope:', reg.scope);
+        })
+        .catch(function(err) {
+          console.warn('[PWA] Service Worker registration failed:', err.message);
+        });
+    });
+  }
+
+  var deferredPrompt = null;
+  var banner     = document.getElementById('ll-pwa-install-banner');
+  var installBtn = document.getElementById('ll-pwa-install-btn');
+  var dismissBtn = document.getElementById('ll-pwa-dismiss-btn');
+  var headerBtn  = document.getElementById('ll-pwa-header-btn');
+  var headerTip  = document.getElementById('ll-pwa-header-tooltip');
+  var DISMISSED_KEY = 'll_pwa_dismissed';
+
+  /* Detect any wide, fixed/sticky bar pinned to the bottom of the screen
+     (a mobile tab-bar, cookie banner, WhatsApp float button, etc.) and
+     keep enough clearance above it so our button never overlaps it. */
+  function getBottomClearance(){
+    var maxH = 0;
+    var all = document.querySelectorAll('body *');
+    for (var i = 0; i < all.length; i++) {
+      var el = all[i];
+      if (el === headerBtn || el === headerTip) continue;
+      if (banner && banner.contains(el)) continue;
+      var cs = getComputedStyle(el);
+      if (cs.position !== 'fixed' && cs.position !== 'sticky') continue;
+      if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+      var r = el.getBoundingClientRect();
+      if (r.height === 0 || r.height > 140) continue;
+      if (r.bottom < window.innerHeight - 6) continue; // must be pinned to bottom
+      // wide bars (tab-bars) OR small circular floats (like WhatsApp) both count
+      if (r.width < 44) continue;
+      if (r.height > maxH) maxH = r.height;
+    }
+    return maxH;
+  }
+
+  function positionAboveWhatsapp(){
+    var clearance = getBottomClearance();
+    var bottom = clearance > 0 ? clearance + 16 : 20;
+    if (headerBtn) headerBtn.style.bottom = bottom + 'px';
+    if (headerTip) headerTip.style.bottom = (bottom + 8) + 'px';
+  }
+  positionAboveWhatsapp();
+  window.addEventListener('resize', positionAboveWhatsapp);
+  setTimeout(positionAboveWhatsapp, 800);
+  setTimeout(positionAboveWhatsapp, 2000);
+
+  function recentlyDismissed(){
+    var last = localStorage.getItem(DISMISSED_KEY);
+    return !!(last && (Date.now() - parseInt(last)) < 1 * 24 * 60 * 60 * 1000);
+  }
+
+  window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (headerBtn) headerBtn.style.display = 'flex';
+    positionAboveWhatsapp();
+    if (recentlyDismissed()) return;
+    setTimeout(function(){ if (banner) banner.style.display = 'block'; }, 2000);
+  });
+
+  function doInstall(){
+    if (banner) banner.style.display = 'none';
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(function(choice) {
+        if (choice.outcome === 'accepted') showLLToast('🎉 App install ho rahi hai!');
+        deferredPrompt = null;
+        if (headerBtn) headerBtn.style.display = 'none';
+      });
+      return;
+    }
+    if (IS_IOS) showInstallInstructionsPopup('ios');
+    else if (IS_ANDROID && IS_FIREFOX) showInstallInstructionsPopup('android-firefox');
+    else if (IS_MAC_SAFARI) showInstallInstructionsPopup('mac-safari');
+    else showInstallInstructionsPopup('generic');
+  }
+
+  if (installBtn) installBtn.addEventListener('click', doInstall);
+  if (headerBtn) headerBtn.addEventListener('click', doInstall);
+
+  if (dismissBtn) {
+    dismissBtn.addEventListener('click', function() {
+      if (banner) banner.style.display = 'none';
+      localStorage.setItem(DISMISSED_KEY, Date.now().toString());
+    });
+  }
+
+  var instructionsPopup = document.getElementById('ll-install-instructions-popup');
+  var instructionsTitle  = document.getElementById('ll-install-popup-title');
+  var instructionsSteps  = document.getElementById('ll-install-popup-steps');
+  var instructionsClose  = document.getElementById('ll-install-popup-close');
+
+  function getInstructionsContent(type){
+    switch(type){
+      case 'ios':
+        return {
+          title: '📱 iPhone/iPad par Install karo',
+          steps: [
+            '1️⃣ &nbsp;Neeche <strong>Share button</strong> tap karo (□↑)',
+            '2️⃣ &nbsp;"<strong>Add to Home Screen</strong>" select karo',
+            '3️⃣ &nbsp;Top-right <strong>Add</strong> tap karo',
+            '✅ &nbsp;App home screen par aa jayegi!'
+          ]
+        };
+      case 'android-firefox':
+        return {
+          title: '📱 Firefox mein Install karo',
+          steps: [
+            '1️⃣ &nbsp;Top-right <strong>⋮ menu</strong> tap karo',
+            '2️⃣ &nbsp;"<strong>Install</strong>" ya "<strong>Add to Home screen</strong>" select karo',
+            '3️⃣ &nbsp;<strong>Add</strong> confirm karo',
+            '✅ &nbsp;App home screen par aa jayegi!'
+          ]
+        };
+      case 'mac-safari':
+        return {
+          title: '💻 Mac Safari mein Install karo',
+          steps: [
+            '1️⃣ &nbsp;Top menu bar mein <strong>File</strong> par click karo',
+            '2️⃣ &nbsp;"<strong>Add to Dock</strong>" select karo (Safari 17+)',
+            '3️⃣ &nbsp;<strong>Add</strong> confirm karo',
+            '✅ &nbsp;App Dock mein aa jayegi!'
+          ]
+        };
+      default:
+        return {
+          title: '🌐 Install karne ke liye',
+          steps: [
+            'Best experience ke liye Chrome ya Edge browser use karo',
+            'Phir address bar ya browser menu mein <strong>Install App</strong> option dhundo'
+          ]
+        };
+    }
+  }
+
+  function showInstallInstructionsPopup(type){
+    if (!instructionsPopup) return;
+    var content = getInstructionsContent(type);
+    instructionsTitle.innerHTML = content.title;
+    instructionsSteps.innerHTML = content.steps
+      .map(function(s){ return '<div class="ll-install-popup-step">' + s + '</div>'; })
+      .join('');
+    instructionsPopup.style.display = 'block';
+  }
+
+  if (instructionsClose) {
+    instructionsClose.addEventListener('click', function(){
+      if (instructionsPopup) instructionsPopup.style.display = 'none';
+    });
+  }
+
+  /* Auto-show manual instructions once for platforms with no native
+     beforeinstallprompt support (iOS, Android Firefox, Mac Safari) */
+  function maybeAutoShowInstructions(){
+    if (IS_STANDALONE) return;
+    var type = null;
+    if (IS_IOS) type = 'ios';
+    else if (IS_ANDROID && IS_FIREFOX) type = 'android-firefox';
+    else if (IS_MAC_SAFARI) type = 'mac-safari';
+    if (!type) return;
+
+    if (headerBtn) { headerBtn.style.display = 'flex'; positionAboveWhatsapp(); }
+
+    var KEY = 'll_instructions_shown_' + type;
+    var lastShown = localStorage.getItem(KEY);
+    if (!lastShown || (Date.now() - parseInt(lastShown)) > 14 * 24 * 60 * 60 * 1000) {
+      setTimeout(function(){
+        showInstallInstructionsPopup(type);
+        localStorage.setItem(KEY, Date.now().toString());
+      }, 3000);
+    }
+  }
+  maybeAutoShowInstructions();
+
+  window.addEventListener('appinstalled', function() {
+    if (banner) banner.style.display = 'none';
+    if (instructionsPopup) instructionsPopup.style.display = 'none';
+    if (headerBtn) headerBtn.style.display = 'none';
+    showLLToast('✅ little&lovely app install ho gayi!');
+    localStorage.setItem('ll_pwa_installed', 'true');
+  });
+
+  if (IS_STANDALONE && headerBtn) headerBtn.style.display = 'none';
+
+  function showLLToast(msg){
+    var t = document.createElement('div');
+    t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#3a2430;color:#fff;padding:10px 20px;border-radius:50px;font-size:14px;font-weight:600;z-index:999999;box-shadow:0 4px 20px rgba(0,0,0,.25);font-family:sans-serif;white-space:nowrap;max-width:90vw;';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(function(){ t.remove(); }, 3000);
+  }
+})();
+</script>
+
+<!-- ══ HEADER: hide on scroll-down, show on scroll-up ══ -->
+<script>
+(function(){
+  'use strict';
+  var header = document.getElementById('app-header');
+  if (!header) return;
+
+  function setupHeader(){
+    var cs = getComputedStyle(header);
+    /* keep header pinned to the top so hiding/showing it is visible;
+       only touch positioning if it isn't already sticky/fixed */
+    if (cs.position === 'static' || cs.position === 'relative') {
+      header.style.position = 'sticky';
+      header.style.top = '0';
+      if (!cs.zIndex || cs.zIndex === 'auto') header.style.zIndex = '80';
+    }
+    header.style.transition = 'transform .35s ease';
+    header.style.willChange = 'transform';
+  }
+  setupHeader();
+  /* re-apply in case layout.js rebuilds the header after we first check */
+  if (window.MutationObserver) {
+    var mo = new MutationObserver(setupHeader);
+    mo.observe(header, { childList: true });
+    setTimeout(function(){ mo.disconnect(); }, 8000);
+  }
+
+  var lastY = window.scrollY || window.pageYOffset;
+  var ticking = false;
+  var hideAfter = 80;   // don't hide until user has scrolled down a bit
+  var ignoreJitter = 6; // ignore tiny scroll wobbles
+
+  function onScroll(){
+    var y = Math.max(window.scrollY || window.pageYOffset, 0);
+    var diff = y - lastY;
+
+    if (Math.abs(diff) > ignoreJitter) {
+      if (diff > 0 && y > hideAfter) {
+        header.style.transform = 'translateY(-100%)'; // scrolling down → hide
+      } else {
+        header.style.transform = 'translateY(0)';      // scrolling up → show
+      }
+      lastY = y;
+    }
+    if (y <= hideAfter) header.style.transform = 'translateY(0)';
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function(){
+    if (!ticking) {
+      requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+</script>
 </body>
 </html>

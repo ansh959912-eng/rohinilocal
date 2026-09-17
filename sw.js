@@ -43,8 +43,8 @@ const NETWORK_TIMEOUT_MS = 5000;
 const PRECACHE_ASSETS = [
   '/',
 
-  '/rohini/indexshop.html',        // ✅ actual location: rohini/ folder
-  '/balaji/indexoffer.html',       // ✅ actual location: balaji/ folder
+  '/indexshop.html',        // ✅ actual location: rohini/ folder
+  '/indexoffer.html',       // ✅ actual location: balaji/ folder
   '/balaji/policies.html',         // ✅ actual location: balaji/ folder
   '/webhub/indexwebhub.html',      // ✅ actual location: webhub/ folder
   '/littlelovely-store/little.html', // ✅ actual location: littlelovely-store/ folder
