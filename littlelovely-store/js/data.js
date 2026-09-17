@@ -3,7 +3,7 @@
    Central store data: products, builder catalogues, config
    ============================================================ */
 
-const WHATSAPP_NUMBER = "910000000000"; // TODO: replace with real WhatsApp business number
+const WHATSAPP_NUMBER = "9205002319"; // TODO: replace with real WhatsApp business number
 const INSTAGRAM_URL = "https://instagram.com/littlelovely.store"; // TODO: replace with real handle
 const INSTA_POSTS = [
 { type: "image", src: "https://magicneedles.in/cdn/shop/files/MNHKKC0166.jpg?v=1770686925" },

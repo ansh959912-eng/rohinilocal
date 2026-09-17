@@ -55,14 +55,14 @@ document.addEventListener("DOMContentLoaded", () => {
       <p style="font-size:16px;">We couldn't find that product.</p>
       <a class="btn btn-primary" href="shop.html" style="margin-top:14px;">Browse Shop</a>
     </div>`;
-    document.getElementById("pd-breadcrumb").innerHTML = `<a href="../index.html">Home</a> / <a href="shop.html">Shop</a>`;
+    document.getElementById("pd-breadcrumb").innerHTML = `<a href="../little.html">Home</a> / <a href="shop.html">Shop</a>`;
     return;
   }
 
   document.title = `${p.name} — little&lovely`;
   document.getElementById("page-title").textContent = `${p.name} — little&lovely`;
   document.getElementById("page-desc").setAttribute("content", p.description);
-  document.getElementById("pd-breadcrumb").innerHTML = `<a href="../index.html">Home</a> / <a href="shop.html">Shop</a> / <a href="shop.html${LWL.setQuery({cat:p.cat})}">${p.cat}</a> / ${LWL.esc(p.name)}`;
+  document.getElementById("pd-breadcrumb").innerHTML = `<a href="../little.html">Home</a> / <a href="shop.html">Shop</a> / <a href="shop.html${LWL.setQuery({cat:p.cat})}">${p.cat}</a> / ${LWL.esc(p.name)}`;
 
   LWLProducts.addRecentlyViewed(p.id);
   let qty = 1;
