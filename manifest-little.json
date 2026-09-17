@@ -25,28 +25,28 @@
       "name": "Track Order",
       "short_name": "Track",
       "description": "Track your order status",
-      "url": "/littlelovely-store/pages/track-order.html",
+      "url": "/littlelovely-store/pages/track-order",
       "icons": [{ "src": "/icon/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     },
     {
       "name": "Wishlist",
       "short_name": "Wishlist",
       "description": "View your wishlist",
-      "url": "/littlelovely-store/pages/wishlist.html",
+      "url": "/littlelovely-store/pages/wishlist",
       "icons": [{ "src": "/icon/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     },
       {
     "name": "Contact",
     "short_name": "Contact",
     "description": "Contact us",
-    "url": "/littlelovely-store/pages/contact.html",
+    "url": "/littlelovely-store/pages/contact",
     "icons": [{ "src": "/icon/icon-192.png", "sizes": "192x192", "type": "image/png" }]
   },
     {
       "name": "Shop",
       "short_name": "Shop",
       "description": "Browse all products",
-      "url": "/littlelovely-store/pages/shop.html",
+      "url": "/littlelovely-store/pages/shop",
       "icons": [{ "src": "/icon/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     }
     
