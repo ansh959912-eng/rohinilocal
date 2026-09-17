@@ -3,7 +3,7 @@
   "name": "Little Lovely Store",
   "short_name": "Little Lovely",
   "description": "Cute & Cozy Essentials for Little Ones",
-  "start_url": "/littlelovely-store/little.html",
+  "start_url": "/littlelovely-store/little",
   "scope": "/littlelovely-store/",
   "display": "standalone",
   "orientation": "portrait",
